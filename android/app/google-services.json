@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "728766484396",
+    "project_id": "kiwihabitapp-5f514",
+    "storage_bucket": "kiwihabitapp-5f514.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728766484396:android:13081d73af914b27983409",
+        "android_client_info": {
+          "package_name": "com.example.kiwihabitapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "728766484396-aiihbrhp59tco34s71nfse2uka6fqa1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvp4VmVEYrB0x3KhFP-q7uMsRm7G50TYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "728766484396-aiihbrhp59tco34s71nfse2uka6fqa1m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
