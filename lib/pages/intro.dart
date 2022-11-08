@@ -63,7 +63,7 @@ class _IntroPageState extends State<IntroPage> {
                   textStyle: TextStyle(color: Colors.white),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
-                    child: Text("Create Lobby",
+                    child: Text("Add Your First Habit",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
