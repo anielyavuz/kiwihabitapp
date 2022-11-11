@@ -87,47 +87,56 @@ class _IntroPageState extends State<IntroPage> {
                         (index) => Padding(
                           padding: const EdgeInsets.fromLTRB(40,0,40,0),
                           child: Container(
-                                width: 10,
-                                height: 10,
                                 color: Colors.amber.withOpacity(0.2),
-                                child: Column(
+                                child: Stack(
+                                  alignment: Alignment.bottomCenter,
                                   children: [
-                                    Expanded(
-                                      flex: 3,
-                                      child: Container(
-                                        color: Colors.blue,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Center(
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(_introPages[_index],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: _yaziTipiRengi,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: 'Times New Roman',
-                                                  // fontWeight: FontWeight.bold
-                                                )),
-                                            SizedBox(
-                                              height: 10,
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(0,0,0,20),
+                                      child: Column(
+                                        children: [
+                                          Expanded(
+                                            flex: 3,
+                                            child: Container(
+                                              color: Colors.blue,
                                             ),
-                                            Text("Above is an extract from the official flutter documentation",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: _yaziTipiRengi,
-                                                  fontSize: 15,
-                                                  fontFamily: 'Times New Roman',
-                                                  // fontWeight: FontWeight.bold
-                                                )),
-                                          ],
-                                        ),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Center(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Text(_introPages[_index],
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                        color: _yaziTipiRengi,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontFamily: 'Times New Roman',
+                                                        // fontWeight: FontWeight.bold
+                                                      )),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text("Above is an extract from the official flutter documentation",
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                        color: _yaziTipiRengi,
+                                                        fontSize: 15,
+                                                        fontFamily: 'Times New Roman',
+                                                        // fontWeight: FontWeight.bold
+                                                      )),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
+                                    Container(
+                                      height: 20,
+                                      child: Text("data"))
                                   ],
                                 ),
                               ),
