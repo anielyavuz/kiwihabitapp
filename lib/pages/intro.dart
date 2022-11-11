@@ -37,7 +37,6 @@ class _IntroPageState extends State<IntroPage> {
       } else {
         print("$item şuandan sonradır...");
       }
-      //test
     }
 
     _loginLogs.add(date);
@@ -50,87 +49,132 @@ class _IntroPageState extends State<IntroPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color(0xff150923),
-        body: Column(
-          children: [
-            Expanded(
-              flex: 5,
-              child: Container(
-                child: Center(
-                    child: Text(
-                  "KiWi - Habit App",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.philosopher(
-                      fontSize: 32, color: _yaziTipiRengi),
-                )),
-              ),
-            ),
-            Expanded(
-              flex: 5,
-              child: PageView(
-                  controller:
-                      PageController(viewportFraction: 0.6, initialPage: 0),
-                  onPageChanged: (int index) => setState(() => _index = index),
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(
-                      _introPages.length,
-                      (index) => Container(
-                            width: 10,
-                            height: 10,
-                            color: Colors.amber,
-                            child: Text(_introPages[_index],
-                                style: TextStyle(
-                                  color: _yaziTipiRengi,
-                                  fontSize: 15,
-                                  fontFamily: 'Times New Roman',
-                                  // fontWeight: FontWeight.bold
-                                )),
-                          ))),
-            ),
-            Expanded(
-              flex: 3,
-              child: RawMaterialButton(
-                  fillColor: Color(0xff542e71),
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                  splashColor: Color(0xff867ae9),
-                  textStyle: TextStyle(color: Colors.white),
-                  child: const Padding(
-                    padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                    child: Text("Add Your First Habit",
+        backgroundColor: Color.fromRGBO(21, 9, 35, 1),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(0,20,0,0),
+          child: Column(
+            children: [
+              Expanded(
+                flex: 4,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      "assets/images/kiwiLogo.png",
+                      height: 100,
+                      width: 100,
+                    ),
+                    Container(
+                      child: Center(
+                          child: Text(
+                        "KiWi - Habit App",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontFamily: 'Times New Roman',
-                          // fontWeight: FontWeight.bold
-                        )),
-                  ),
-                  onPressed: () async {
-                    var a = await _authService.anonymSignIn();
-                  }),
-            ),
-            Expanded(
-              flex: 5,
-              child: InkWell(
-                onTap: () async {
-                  // box.put("key1", "value2");
-                  final value = box.get("loginLogsHive") ?? "null";
-                  print(value);
-                },
-                child: Container(
-                  child: Center(
-                      child: Text("Login",
-                          style: TextStyle(
-                            color: _yaziTipiRengi,
-                            fontSize: 15,
-                            fontFamily: 'Times New Roman',
-                            // fontWeight: FontWeight.bold
-                          ))),
+                        style: GoogleFonts.philosopher(
+                            fontSize: 32, color: _yaziTipiRengi),
+                      )),
+                    ),
+                  ],
                 ),
               ),
-            )
-          ],
+              Expanded(
+                flex: 7,
+                child: PageView(
+                    controller:
+                        PageController(viewportFraction: 1, initialPage: 0),
+                    onPageChanged: (int index) => setState(() => _index = index),
+                    scrollDirection: Axis.horizontal,
+                    children: List.generate(
+                        _introPages.length,
+                        (index) => Padding(
+                          padding: const EdgeInsets.fromLTRB(40,10,40,10),
+                          child: Container(
+                                width: 10,
+                                height: 10,
+                                color: Colors.amber.withOpacity(0.2),
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: Container(
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Center(
+                                        child: Text(_introPages[_index],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: _yaziTipiRengi,
+                                              fontSize: 15,
+                                              fontFamily: 'Times New Roman',
+                                              // fontWeight: FontWeight.bold
+                                            )),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                        ))),
+              ),
+              Expanded(
+                flex: 5,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RawMaterialButton(
+                        fillColor: _yaziTipiRengi,
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                        splashColor: Color(0xff867ae9),
+                        textStyle: TextStyle(color: _yaziTipiRengi),
+                        child: const Padding(
+                          padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                          child: Text("Add Your First Habit",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xff150923),
+                                fontSize: 15,
+                                fontFamily: 'Times New Roman',
+                                // fontWeight: FontWeight.bold
+                              )),
+                        ),
+                        onPressed: () async {
+                          var a = await _authService.anonymSignIn();
+                        }),
+                SizedBox(
+                  height: 20,
+                ),
+                InkWell(
+                  onTap: () async {
+                    // box.put("key1", "value2");
+                    final value = box.get("loginLogsHive") ?? "null";
+                    print(value);
+                  },
+                  child: FittedBox(
+                    fit: BoxFit.fill,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: _yaziTipiRengi),
+                        borderRadius: BorderRadius.circular(15)
+                      ),
+                      child: Center(
+                          child: Text("Already have any habits in KiWi ?",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: _yaziTipiRengi,
+                                fontSize: 15,
+                                fontFamily: 'Times New Roman',
+                                // fontWeight: FontWeight.bold
+                              ))),
+                    ),
+                  ),
+                )
+              
+                ],
+              ))
+            ],
+          ),
         ),
       ),
     );
