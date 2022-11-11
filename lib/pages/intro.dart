@@ -37,6 +37,7 @@ class _IntroPageState extends State<IntroPage> {
       } else {
         print("$item şuandan sonradır...");
       }
+      //test
     }
 
     _loginLogs.add(date);
