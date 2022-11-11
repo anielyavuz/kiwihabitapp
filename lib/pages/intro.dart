@@ -55,7 +55,7 @@ class _IntroPageState extends State<IntroPage> {
           child: Column(
             children: [
               Expanded(
-                flex: 4,
+                flex: 1,
                 child: Column(
                   children: [
                     Image.asset(
@@ -76,7 +76,7 @@ class _IntroPageState extends State<IntroPage> {
                 ),
               ),
               Expanded(
-                flex: 7,
+                flex: 2,
                 child: PageView(
                     controller:
                         PageController(viewportFraction: 1, initialPage: 0),
@@ -85,7 +85,7 @@ class _IntroPageState extends State<IntroPage> {
                     children: List.generate(
                         _introPages.length,
                         (index) => Padding(
-                          padding: const EdgeInsets.fromLTRB(40,10,40,10),
+                          padding: const EdgeInsets.fromLTRB(40,0,40,0),
                           child: Container(
                                 width: 10,
                                 height: 10,
@@ -101,14 +101,31 @@ class _IntroPageState extends State<IntroPage> {
                                     Expanded(
                                       flex: 1,
                                       child: Center(
-                                        child: Text(_introPages[_index],
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: _yaziTipiRengi,
-                                              fontSize: 15,
-                                              fontFamily: 'Times New Roman',
-                                              // fontWeight: FontWeight.bold
-                                            )),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(_introPages[_index],
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: _yaziTipiRengi,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'Times New Roman',
+                                                  // fontWeight: FontWeight.bold
+                                                )),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text("Above is an extract from the official flutter documentation",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: _yaziTipiRengi,
+                                                  fontSize: 15,
+                                                  fontFamily: 'Times New Roman',
+                                                  // fontWeight: FontWeight.bold
+                                                )),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -117,7 +134,7 @@ class _IntroPageState extends State<IntroPage> {
                         ))),
               ),
               Expanded(
-                flex: 5,
+                flex: 1,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -132,7 +149,7 @@ class _IntroPageState extends State<IntroPage> {
                           child: Text("Add Your First Habit",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: Color(0xff150923),
+                                color: Color.fromRGBO(21, 9, 35, 1),
                                 fontSize: 15,
                                 fontFamily: 'Times New Roman',
                                 // fontWeight: FontWeight.bold
