@@ -12,7 +12,7 @@ late Box box;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Box box = await Hive.openBox("box");
+  Box box = await Hive.openBox("kiwiHive");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

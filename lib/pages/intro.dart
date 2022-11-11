@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
@@ -18,6 +19,32 @@ class _IntroPageState extends State<IntroPage> {
   AuthService _authService = AuthService();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
+  late Box box;
+  late List _loginLogs;
+  @override
+  void initState() {
+    super.initState();
+    DateTime now = new DateTime.now();
+    DateTime date = new DateTime(
+        now.year, now.month, now.day, now.hour, now.minute, now.second);
+    DateTime _bugun = new DateTime(now.year, now.month, now.day);
+
+    box = Hive.box("kiwiHive");
+    _loginLogs = box.get("loginLogsHive") ?? [];
+    for (var item in _loginLogs) {
+      if (item.isBefore(_bugun)) {
+        print("$item şuandan öncedir");
+      } else {
+        print("$item şuandan sonradır...");
+      }
+    }
+
+    _loginLogs.add(date);
+    print(_loginLogs);
+
+    box.put("loginLogsHive", _loginLogs);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -85,7 +112,11 @@ class _IntroPageState extends State<IntroPage> {
             Expanded(
               flex: 5,
               child: InkWell(
-                onTap: () async {},
+                onTap: () async {
+                  // box.put("key1", "value2");
+                  final value = box.get("loginLogsHive") ?? "null";
+                  print(value);
+                },
                 child: Container(
                   child: Center(
                       child: Text("Login",
