@@ -1,0 +1,14 @@
+{
+    "language":"English",
+    "@language":{
+        "description":"The current language"
+    },
+    "helloWorld":"Hello World!",
+    "@helloWorld":{
+        "description":"A programmer greetingg"
+    },
+     "appHeader":"KiWi - Habit App",
+    "@appHeader":{
+        "description":"Header of app in intro area"
+    }
+}

@@ -2,11 +2,14 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:kiwihabitapp/firebase_options.dart';
+import 'package:kiwihabitapp/l10n/l10n.dart';
 import 'package:kiwihabitapp/pages/intro.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 late Box box;
 void main() async {
@@ -25,7 +28,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return CheckAuth();
+    return MaterialApp(
+      home: CheckAuth(),
+      supportedLocales: L10n.all,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+    );
 
     //  MaterialApp(
     //   title: 'Flutter Demo',
