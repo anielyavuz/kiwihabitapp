@@ -38,27 +38,27 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                   ),
                 ),
                 Container(
-                    color: Colors.red.shade100,
+                    // color: Colors.red.shade100,
                     child: ExpandableNotifier(
                         child: ScrollOnExpand(
                             child: ExpandablePanel(
-                      header: Text("Health",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Color.fromRGBO(21, 9, 35, 1),
-                            fontSize: 25,
-                            fontFamily: 'Times New Roman',
-                            // fontWeight: FontWeight.bold
-                          )),
-                      theme: ExpandableThemeData(iconColor: Colors.blue),
-                      expanded: HabitGroup2(habitList: [
-                        "Meditation",
-                        "Yoga",
-                        "Drink Water",
-                        "Sleep Well"
-                      ], yaziTipiRengi: _yaziTipiRengi),
-                      collapsed: Container(),
-                    )))),
+                  header: Text("Health",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: _yaziTipiRengi,
+                        fontSize: 25,
+                        fontFamily: 'Times New Roman',
+                        // fontWeight: FontWeight.bold
+                      )),
+                  theme: ExpandableThemeData(iconColor: Colors.blue),
+                  expanded: HabitGroup2(habitList: [
+                    "Meditation",
+                    "Yoga",
+                    "Drink Water",
+                    "Sleep Well"
+                  ], yaziTipiRengi: _yaziTipiRengi),
+                  collapsed: Container(),
+                )))),
                 Container(
                   child: ExpandableNotifier(
                       child: ScrollOnExpand(
@@ -66,7 +66,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                     header: Text("Sport",
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                          color: Color.fromRGBO(21, 9, 35, 1),
+                          color: _yaziTipiRengi,
                           fontSize: 25,
                           fontFamily: 'Times New Roman',
                           // fontWeight: FontWeight.bold
@@ -77,7 +77,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                         yaziTipiRengi: _yaziTipiRengi),
                     collapsed: Container(),
                   ))),
-                  color: Colors.red.shade200,
+                  // color: Colors.red.shade200,
                 ),
                 Container(
                   child: ExpandableNotifier(
@@ -86,7 +86,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                     header: Text("Study",
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                          color: Color.fromRGBO(21, 9, 35, 1),
+                          color: _yaziTipiRengi,
                           fontSize: 25,
                           fontFamily: 'Times New Roman',
                           // fontWeight: FontWeight.bold
@@ -100,7 +100,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                     ], yaziTipiRengi: _yaziTipiRengi),
                     collapsed: Container(),
                   ))),
-                  color: Colors.red.shade300,
+                  // color: Colors.red.shade300,
                 ),
                 Container(
                   child: ExpandableNotifier(
@@ -109,7 +109,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                     header: Text("Art",
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                          color: Color.fromRGBO(21, 9, 35, 1),
+                          color: _yaziTipiRengi,
                           fontSize: 25,
                           fontFamily: 'Times New Roman',
                           // fontWeight: FontWeight.bold
@@ -123,7 +123,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                     ], yaziTipiRengi: _yaziTipiRengi),
                     collapsed: Container(),
                   ))),
-                  color: Colors.red.shade400,
+                  // color: Colors.red.shade400,
                 ),
                 Container(
                   child: ExpandableNotifier(
@@ -132,7 +132,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                     header: Text("Finance",
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                          color: Color.fromRGBO(21, 9, 35, 1),
+                          color: _yaziTipiRengi,
                           fontSize: 25,
                           fontFamily: 'Times New Roman',
                           // fontWeight: FontWeight.bold
@@ -146,7 +146,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                     ], yaziTipiRengi: _yaziTipiRengi),
                     collapsed: Container(),
                   ))),
-                  color: Colors.red.shade500,
+                  // color: Colors.red.shade500,
                 ),
                 Container(
                   child: ExpandableNotifier(
@@ -155,7 +155,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                     header: Text("Social",
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                          color: Color.fromRGBO(21, 9, 35, 1),
+                          color: _yaziTipiRengi,
                           fontSize: 25,
                           fontFamily: 'Times New Roman',
                           // fontWeight: FontWeight.bold
@@ -169,7 +169,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                     ], yaziTipiRengi: _yaziTipiRengi),
                     collapsed: Container(),
                   ))),
-                  color: Colors.red.shade600,
+                  // color: Colors.red.shade600,
                 ),
                 Container(
                   child: ExpandableNotifier(
@@ -178,7 +178,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                     header: Text("Quit a Bad Habit",
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                          color: Color.fromRGBO(21, 9, 35, 1),
+                          color: _yaziTipiRengi,
                           fontSize: 25,
                           fontFamily: 'Times New Roman',
                           // fontWeight: FontWeight.bold
@@ -192,13 +192,13 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                     ], yaziTipiRengi: _yaziTipiRengi),
                     collapsed: Container(),
                   ))),
-                  color: Colors.red.shade700,
+                  // color: Colors.red.shade700,
                 ),
                 Center(
                   child: InkWell(
                     onTap: () async {
                       await _auth.signOut();
-          
+
                       var a = await _authService.signOut();
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => CheckAuth()));
