@@ -2,5 +2,8 @@
     "language":"Deutch",
     
     "helloWorld":"Hello World! Almanca",
-      "appHeader":"KiWi - Gewohnheitsverfolgung"
+      "appHeader":"KiWi - Gewohnheitsverfolgung",
+      "addYourFirstHabitButton":"Fügen Sie Ihre erste Gewohnheit hinzu",
+"allreadyHaveKiwiButton":" Sie haben bereits ein KiWi-Konto?"
+     
 }

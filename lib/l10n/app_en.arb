@@ -11,4 +11,15 @@
     "@appHeader":{
         "description":"Header of app in intro area"
     }
+    ,
+     "addYourFirstHabitButton":"Add Your First Habit",
+    "@addYourFirstHabitButton":{
+        "description":"Add Your First Habit area"
+    }
+    ,
+     "allreadyHaveKiwiButton":"Already have any habits in KiWi?",
+    "@allreadyHaveKiwiButton":{
+        "description":"Already have any habits in KiWi? area"
+    }
+
 }

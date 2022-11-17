@@ -6,6 +6,7 @@ import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lottie/lottie.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class IntroPage extends StatefulWidget {
 
 class _IntroPageState extends State<IntroPage> {
   int _index = 0;
-  List _introPages = ["Hoş geldiniz", "Merhaba", "Selam", "Naber"];
+
   AuthService _authService = AuthService();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -24,7 +25,6 @@ class _IntroPageState extends State<IntroPage> {
   late var _currentlanguageText =
       AppLocalizations.of(context)!.language.toString();
 
-  late var _appHeaderText = AppLocalizations.of(context)!.appHeader.toString();
   late Box box;
   late List _loginLogs;
   @override
@@ -53,6 +53,32 @@ class _IntroPageState extends State<IntroPage> {
 
   @override
   Widget build(BuildContext context) {
+    late var _appHeaderText =
+        AppLocalizations.of(context)!.appHeader.toString();
+    late var _addYourFirstHabitText =
+        AppLocalizations.of(context)!.addYourFirstHabitButton.toString();
+    late var _alreadyHaveAnyHabitText =
+        AppLocalizations.of(context)!.allreadyHaveKiwiButton.toString();
+    List _introPages = [
+      "Hayatınıza Haraket Katın",
+      "Stresi Hayatınızdan Çıkarın",
+      "Kişisel Gelişiminize Odaklanın",
+      "Düzenli Alışkanlıklar Edinin"
+    ];
+    List _introSubPages = [
+      "🥝 ile hayat enerjinizi yükseltecek egzersiz hedeflerinizi oluşturun.",
+      "🥝 ile planlarınızı yapın ve hayatın stresine ara verin",
+      "🥝 ile hayatınızı düzene sokun ve hedeflerinize ulaşın.",
+      "🥝 ile hayatınıza pozitif alışkanlıklar kazandırın.",
+    ];
+    List _introImages = [
+      'assets/json/exercise.json',
+      'assets/json/yoga.json',
+      'assets/json/work.json',
+      'assets/json/read.json',
+      'assets/json/sleep.json'
+    ];
+
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Color.fromRGBO(21, 9, 35, 1),
@@ -94,7 +120,13 @@ class _IntroPageState extends State<IntroPage> {
                         (index) => Padding(
                               padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
                               child: Container(
-                                color: Colors.amber.withOpacity(0.2),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color:
+                                            Color.fromARGB(255, 212, 212, 212)),
+                                    // color: Color(0xff1d3557),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
                                 child: Stack(
                                   alignment: Alignment.bottomCenter,
                                   children: [
@@ -106,7 +138,9 @@ class _IntroPageState extends State<IntroPage> {
                                           Expanded(
                                             flex: 3,
                                             child: Container(
-                                              color: Colors.blue,
+                                              child: Lottie.asset(
+                                                  _introImages[index],
+                                                  fit: BoxFit.scaleDown),
                                             ),
                                           ),
                                           Expanded(
@@ -131,8 +165,7 @@ class _IntroPageState extends State<IntroPage> {
                                                   SizedBox(
                                                     height: 10,
                                                   ),
-                                                  Text(
-                                                      "Above is an extract from the official flutter documentation",
+                                                  Text(_introSubPages[_index],
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -149,7 +182,92 @@ class _IntroPageState extends State<IntroPage> {
                                         ],
                                       ),
                                     ),
-                                    Container(height: 20, child: Text("data"))
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: index == 0
+                                                  ? Colors.black
+                                                  : Color.fromARGB(
+                                                      255, 250, 250, 250),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(4)),
+                                              // borderRadius: BorderRadius.all(Radius.circular(15))
+                                            ),
+                                            height: index == 0 ? 12 : 7,
+                                            width: index == 0 ? 12 : 7,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: index == 1
+                                                  ? Colors.black
+                                                  : Color.fromARGB(
+                                                      255, 255, 255, 255),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(4)),
+                                              // borderRadius: BorderRadius.all(Radius.circular(15))
+                                            ),
+                                            height: index == 1 ? 12 : 7,
+                                            width: index == 1 ? 12 : 7,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: index == 2
+                                                  ? Colors.black
+                                                  : Color.fromARGB(
+                                                      255, 255, 255, 255),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(4)),
+                                              // borderRadius: BorderRadius.all(Radius.circular(15))
+                                            ),
+                                            height: index == 2 ? 12 : 7,
+                                            width: index == 2 ? 12 : 7,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: index == 3
+                                                  ? Colors.black
+                                                  : Color.fromARGB(
+                                                      255, 255, 255, 255),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(4)),
+                                              // borderRadius: BorderRadius.all(Radius.circular(15))
+                                            ),
+                                            height: index == 3 ? 12 : 7,
+                                            width: index == 3 ? 12 : 7,
+                                          ),
+                                        ),
+                                        // Padding(
+                                        //   padding: const EdgeInsets.all(8.0),
+                                        //   child: Container(
+                                        //     decoration: BoxDecoration(
+                                        //       color: index == 4
+                                        //           ? Color.fromARGB(255, 0, 0, 0)
+                                        //           : Color.fromARGB(
+                                        //               255, 255, 255, 255),
+                                        //       borderRadius: BorderRadius.all(
+                                        //           Radius.circular(4)),
+                                        //       // borderRadius: BorderRadius.all(Radius.circular(15))
+                                        //     ),
+                                        //     height: index == 4 ? 12 : 7,
+                                        //     width: index == 4 ? 12 : 7,
+                                        //   ),
+                                        // )
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
@@ -167,9 +285,9 @@ class _IntroPageState extends State<IntroPage> {
                                   BorderRadius.all(Radius.circular(15.0))),
                           splashColor: Color(0xff867ae9),
                           textStyle: TextStyle(color: _yaziTipiRengi),
-                          child: const Padding(
+                          child: Padding(
                             padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                            child: Text("Add Your First Habit",
+                            child: Text(_addYourFirstHabitText,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color.fromRGBO(21, 9, 35, 1),
@@ -198,7 +316,7 @@ class _IntroPageState extends State<IntroPage> {
                                 border: Border.all(color: _yaziTipiRengi),
                                 borderRadius: BorderRadius.circular(15)),
                             child: Center(
-                                child: Text("Already have any habits in KiWi ?",
+                                child: Text(_alreadyHaveAnyHabitText,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: _yaziTipiRengi,

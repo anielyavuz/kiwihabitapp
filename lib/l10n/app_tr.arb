@@ -1,5 +1,8 @@
 {
     "language":"Turkce",
     "helloWorld":"Merhaba Dünya!",
-    "appHeader":"KiWi - Alışkanlık Takip"
+    "appHeader":"KiWi - Alışkanlık Takip",
+
+    "addYourFirstHabitButton":"İlk alışkanlığını ekle",
+    "allreadyHaveKiwiButton":"Zaten bir KiWi hesabın mı var?"
 }
