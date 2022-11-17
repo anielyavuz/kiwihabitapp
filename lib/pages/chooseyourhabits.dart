@@ -204,7 +204,13 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                           MaterialPageRoute(builder: (context) => CheckAuth()));
                     },
                     child: Container(
-                      child: Text("Sign Out"),
+                      child: Text("Sign Out",
+                          style: TextStyle(
+                            color: Colors.amber,
+                            fontSize: 25,
+                            fontFamily: 'Times New Roman',
+                            // fontWeight: FontWeight.bold
+                          )),
                     ),
                   ),
                 ),
