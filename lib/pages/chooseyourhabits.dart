@@ -373,6 +373,69 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                       ),
                     ),
                   ),
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        InkWell(
+                              onTap: () async {
+                              },
+                              child: FittedBox(
+                                fit: BoxFit.fill,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: _yaziTipiRengi),
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                      child: Text("Continue",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: _yaziTipiRengi,
+                                            fontSize: 15,
+                                            fontFamily: 'Times New Roman',
+                                            // fontWeight: FontWeight.bold
+                                          ))),
+                                ),
+                              ),
+                            ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          child: Text("--- or ---",
+                              style: TextStyle(
+                                color: _yaziTipiRengi,
+                                fontSize: 15,
+                                fontFamily: 'Times New Roman',
+                                // fontWeight: FontWeight.bold
+                              )),
+                        ),
+                        InkWell(
+                              onTap: () async {
+                              },
+                              child: FittedBox(
+                                fit: BoxFit.fill,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: _yaziTipiRengi),
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                      child: Text("Define Your Habit",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: _yaziTipiRengi,
+                                            fontSize: 15,
+                                            fontFamily: 'Times New Roman',
+                                            // fontWeight: FontWeight.bold
+                                          ))),
+                                ),
+                              ),
+                            ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
               Positioned(
