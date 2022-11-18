@@ -90,8 +90,8 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                                 .center,
                                       ),
                                       expanded: HabitGroup2(habitList: [
-                                        "Meditation",
                                         "Yoga",
+                                        "Meditation",
                                         "Drink Water",
                                         "Sleep Well"
                                       ], yaziTipiRengi: _yaziTipiRengi),
@@ -135,9 +135,9 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                     ),
                                     expanded: HabitGroup2(habitList: [
                                       "Walk",
+                                      "Push Up",
                                       "Run",
-                                      "Swim",
-                                      "Push Up"
+                                      "Swim"
                                     ], yaziTipiRengi: _yaziTipiRengi),
                                     collapsed: Container(),
                                   ))),
