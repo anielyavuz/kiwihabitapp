@@ -20,13 +20,11 @@ class _HabitGroup2State extends State<HabitGroup2> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                child: HabitGroup(
-                  butonYazi: widget.habitList[0],
-                  yaziTipiRengi: widget.yaziTipiRengi,
-                ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+              child: HabitGroup(
+                butonYazi: widget.habitList[0],
+                yaziTipiRengi: widget.yaziTipiRengi,
               ),
             ),
             Expanded(
