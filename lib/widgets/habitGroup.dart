@@ -12,10 +12,11 @@ class HabitGroup extends StatefulWidget {
 }
 
 class _HabitGroupState extends State<HabitGroup> {
+  bool _selected = false;
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-        fillColor: widget.yaziTipiRengi,
+        fillColor: !_selected ? widget.yaziTipiRengi: Colors.green,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15.0))),
         splashColor: Color(0xff867ae9),
@@ -31,6 +32,10 @@ class _HabitGroupState extends State<HabitGroup> {
                 // fontWeight: FontWeight.bold
               )),
         ),
-        onPressed: () async {});
+        onPressed: () async {
+          setState(() {
+            _selected = !_selected;
+          });
+        });
   }
 }

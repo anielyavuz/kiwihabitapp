@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TextFieldDecoration extends StatefulWidget {
+  ValueChanged<String> textfieldData;
   final String hintYazi;
-  const TextFieldDecoration({Key? key, required this.hintYazi})
+  TextFieldDecoration({Key? key, required this.hintYazi, required this.textfieldData})
       : super(key: key);
 
   @override
@@ -19,7 +20,7 @@ class _TextFieldDecorationState extends State<TextFieldDecoration> {
       onChanged: (value2) {
         setState(() {
           // var someCapitalizedString = "someString".capitalize();
-          habitName = value2;
+          widget.textfieldData(value2);
         });
       },
       controller: _turkceTextFieldController,
