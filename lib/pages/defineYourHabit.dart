@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kiwihabitapp/widgets/textFieldDecoration.dart';
 
 class DefineYourHabit extends StatefulWidget {
   const DefineYourHabit({Key? key}) : super(key: key);
@@ -38,39 +39,10 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
             Expanded(
                 flex: 7,
                 child: Container(
-                  width: MediaQuery.of(context).size.width*6/7,
-                  child: TextField(
-                    onChanged: (value2) {
-                      setState(() {
-                        // var someCapitalizedString = "someString".capitalize();
-                        habitName = value2;
-                      });
-                    },
-                    controller: _turkceTextFieldController,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(10),
-                      isCollapsed: true,
-                      filled: true,
-                      fillColor: _yaziTipiRengi,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(
-                          color: Colors.green,
-                          width: 1.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(
-                          color: Colors.purple,
-                          width: 2.0,
-                        ),
-                      ),
-                      hintText: "Habit Name",
-                      hintStyle: TextStyle(color: Color.fromARGB(75, 21, 9, 35)),
-                    ),
-                  ),
-                )),
+                    width: MediaQuery.of(context).size.width * 6 / 7,
+                    child: TextFieldDecoration(
+                      hintYazi: "Habit Name",
+                    ))),
             Expanded(
               flex: 2,
               child: Column(
