@@ -51,7 +51,9 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                             child: TextFieldDecoration(
                               hintYazi: "Habit Name",
                               textfieldData: (newtextfieldData) {
-                                _habitName = newtextfieldData;
+                                setState(() {
+                                  _habitName = newtextfieldData;
+                                });
                               },
                             )),
                         Container(
@@ -170,7 +172,9 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                           ),
                         ),
                         RawMaterialButton(
-                            fillColor: _yaziTipiRengi,
+                            fillColor: _habitName == null || _habitName == ""
+                                ? _yaziTipiRengi.withOpacity(0.2)
+                                : _yaziTipiRengi,
                             shape: const RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15.0))),
@@ -178,7 +182,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                             textStyle: TextStyle(color: _yaziTipiRengi),
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                              child: Text("Start to Schedule",
+                              child: Text("Add to habits",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Color.fromRGBO(21, 9, 35, 1),
@@ -187,9 +191,11 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                     // fontWeight: FontWeight.bold
                                   )),
                             ),
-                            onPressed: () async {
-                              print(_habitName);
-                            }),
+                            onPressed: _habitName == null || _habitName == ""
+                                ? null
+                                : () async {
+                                    print(_habitName);
+                                  }),
                       ],
                     )),
                 Expanded(

@@ -59,7 +59,7 @@ class _HabitGroupState extends State<HabitGroup> {
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                      duration: Duration(milliseconds: 2000),
+                      duration: Duration(days: 4000),
                       content: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
