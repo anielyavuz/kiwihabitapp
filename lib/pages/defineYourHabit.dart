@@ -14,6 +14,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   TextEditingController _turkceTextFieldController = TextEditingController();
   var habitName;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +60,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                           padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                           decoration: BoxDecoration(
                             color: Color.fromRGBO(21, 9, 35, 1),
-                            border: Border.all(),
+                            border: Border.all(color: Colors.white),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: DropdownButtonHideUnderline(
@@ -78,10 +79,86 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                 ].map((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
-                                    child: new Text(value,
-                                        style: TextStyle(
-                                            color: _yaziTipiRengi,
-                                            fontWeight: FontWeight.bold)),
+                                    child: Row(
+                                      children: [
+                                        new Text(
+                                          value,
+                                          style: TextStyle(
+                                              color: _yaziTipiRengi,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        value == 'Health'
+                                            ? Icon(
+                                                Icons.volunteer_activism,
+                                                size: 25,
+                                                color: Color.fromARGB(
+                                                    223, 218, 21, 7),
+                                              )
+                                            : value == 'Sport'
+                                                ? Icon(
+                                                    Icons.directions_run,
+                                                    size: 25,
+                                                    color: Color.fromARGB(
+                                                        223, 18, 218, 7),
+                                                  )
+                                                : value == 'Study'
+                                                    ? Icon(
+                                                        Icons.school,
+                                                        size: 25,
+                                                        color: Color.fromARGB(
+                                                            223, 124, 38, 223),
+                                                      )
+                                                    : value == 'Art'
+                                                        ? Icon(
+                                                            Icons.palette,
+                                                            size: 25,
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    223,
+                                                                    225,
+                                                                    5,
+                                                                    240),
+                                                          )
+                                                        : value == 'Finance'
+                                                            ? Icon(
+                                                                Icons
+                                                                    .attach_money,
+                                                                size: 25,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        223,
+                                                                        12,
+                                                                        162,
+                                                                        7),
+                                                              )
+                                                            : value == 'Social'
+                                                                ? Icon(
+                                                                    Icons
+                                                                        .nightlife,
+                                                                    size: 25,
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            223,
+                                                                            232,
+                                                                            118,
+                                                                            18),
+                                                                  )
+                                                                : Icon(
+                                                                    Icons
+                                                                        .smoke_free,
+                                                                    size: 25,
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            223,
+                                                                            19,
+                                                                            153,
+                                                                            243),
+                                                                  )
+                                      ],
+                                    ),
                                   );
                                 }).toList(),
                                 onChanged: (value) {
@@ -151,7 +228,9 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
               child: Container(
                 height: 40,
                 child: IconButton(
-                    onPressed: () async {},
+                    onPressed: () async {
+                      Navigator.pop(context);
+                    },
                     icon: Icon(
                       Icons.arrow_back_ios,
                       size: 25,
