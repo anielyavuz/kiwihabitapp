@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kiwihabitapp/widgets/textFieldDecoration.dart';
 
 class DefineYourHabit extends StatefulWidget {
@@ -10,10 +11,59 @@ class DefineYourHabit extends StatefulWidget {
 
 class _DefineYourHabitState extends State<DefineYourHabit> {
   var _habitName;
+  late Box box;
   var _category = "Health";
+  List _YourHabits = [];
+  List _allDefaultHabits = [
+    "Yoga",
+    "Meditation",
+    "Drink Water",
+    "Sleep Well",
+    "Walk",
+    "Push Up",
+    "Run",
+    "Swim",
+    "Read a book",
+    "Learn English",
+    "Math Exercise",
+    "Law",
+    "Play Guitar",
+    "Painting",
+    "Play Piano",
+    "Dance",
+    "Saving Money",
+    "Investing",
+    "Donation",
+    "Market Search",
+    "Cinema",
+    "Meet with friends",
+    "Theater",
+    "Listen Podcast",
+    "Quit smoking",
+    "Quit eating snacks",
+    "Quit alcohol",
+    "Stop swearing"
+  ];
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   TextEditingController _turkceTextFieldController = TextEditingController();
   var habitName;
+  @override
+  void initState() {
+    super.initState();
+
+    box = Hive.box("kiwiHive");
+    getCurrentChooseYourHabits();
+  }
+
+  getCurrentChooseYourHabits() {
+    _YourHabits = box.get("chooseYourHabitsHive") ?? [];
+    // for (var item in _YourHabits) {
+    //   setState(() {
+    //     _chooseYourHabitsName.add(item['habitName']);
+    //   });
+    // }
+    // print(_YourHabits);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -194,17 +244,134 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                             onPressed: _habitName == null || _habitName == ""
                                 ? null
                                 : () async {
-                                    print(_habitName);
+                                    setState(() {
+                                      var _habit = {};
+                                      _habit['habitName'] = _habitName;
+                                      _habit['habitCategory'] = _category;
+                                      // print(_habitName);
+                                      _YourHabits.add(_habit);
+                                    });
                                   }),
                       ],
                     )),
+                Expanded(
+                  flex: 13,
+                  child: SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        children: _YourHabits.map((habit) {
+                          return Container(
+                            child: Card(
+                              color: _yaziTipiRengi,
+                              child: ListTile(
+                                title: Text(habit['habitName']),
+                                subtitle: Row(
+                                  children: [
+                                    Text(habit['habitCategory']),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    habit['habitCategory'] == 'Health'
+                                        ? Icon(
+                                            Icons.volunteer_activism,
+                                            size: 25,
+                                            color: Color.fromARGB(
+                                                223, 232, 77, 77),
+                                          )
+                                        : habit['habitCategory'] == 'Sport'
+                                            ? Icon(
+                                                Icons.directions_run,
+                                                size: 25,
+                                                color: Color.fromARGB(
+                                                    223, 18, 218, 7),
+                                              )
+                                            : habit['habitCategory'] == 'Study'
+                                                ? Icon(
+                                                    Icons.school,
+                                                    size: 25,
+                                                    color: Color.fromARGB(
+                                                        223, 124, 38, 223),
+                                                  )
+                                                : habit['habitCategory'] ==
+                                                        'Art'
+                                                    ? Icon(
+                                                        Icons.palette,
+                                                        size: 25,
+                                                        color: Color.fromARGB(
+                                                            223, 225, 5, 240),
+                                                      )
+                                                    : habit['habitCategory'] ==
+                                                            'Finance'
+                                                        ? Icon(
+                                                            Icons.attach_money,
+                                                            size: 25,
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    223,
+                                                                    12,
+                                                                    162,
+                                                                    7),
+                                                          )
+                                                        : habit['habitCategory'] ==
+                                                                'Social'
+                                                            ? Icon(
+                                                                Icons.nightlife,
+                                                                size: 25,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        223,
+                                                                        232,
+                                                                        118,
+                                                                        18),
+                                                              )
+                                                            : Icon(
+                                                                Icons
+                                                                    .smoke_free,
+                                                                size: 25,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        223,
+                                                                        19,
+                                                                        153,
+                                                                        243),
+                                                              )
+                                  ],
+                                ),
+                                trailing: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.redAccent),
+                                  child: Icon(Icons.delete),
+                                  onPressed: () {
+                                    setState(() {
+                                      _YourHabits.removeWhere((element) =>
+                                          element["habitName"] ==
+                                          habit['habitName']);
+                                    });
+
+                                    box.put(
+                                        "chooseYourHabitsHive", _YourHabits);
+
+                                    getCurrentChooseYourHabits();
+                                  },
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                ),
                 Expanded(
                   flex: 2,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       InkWell(
-                        onTap: () async {},
+                        onTap: () async {
+                          print(_YourHabits);
+                        },
                         child: FittedBox(
                           fit: BoxFit.fill,
                           child: Container(
@@ -227,7 +394,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
             Positioned(
@@ -236,6 +403,23 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                 height: 40,
                 child: IconButton(
                     onPressed: () async {
+                      List _tempList = [];
+                      for (var habit in _YourHabits) {
+                        print(habit["habitName"]);
+                        if (!_allDefaultHabits.contains(habit["habitName"]))
+                          setState(() {
+                            _tempList.add(habit['habitName']);
+                          });
+                      }
+
+                      for (var item in _tempList) {
+                        _YourHabits.removeWhere(
+                            (element) => element["habitName"] == item);
+                      }
+                      box.put("chooseYourHabitsHive", _YourHabits);
+
+                      getCurrentChooseYourHabits();
+
                       Navigator.pop(context);
                     },
                     icon: Icon(

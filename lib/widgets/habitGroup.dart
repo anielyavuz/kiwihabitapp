@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
@@ -6,8 +8,12 @@ class HabitGroup extends StatefulWidget {
   final Color
       yaziTipiRengi; //Note: statefull'a parametre göndermek için gerekli
   final String butonYazi;
+  final String butonCategory;
   const HabitGroup(
-      {Key? key, required this.yaziTipiRengi, required this.butonYazi})
+      {Key? key,
+      required this.yaziTipiRengi,
+      required this.butonYazi,
+      required this.butonCategory})
       : super(key: key);
   @override
   State<HabitGroup> createState() => _HabitGroupState();
@@ -15,13 +21,21 @@ class HabitGroup extends StatefulWidget {
 
 class _HabitGroupState extends State<HabitGroup> {
   late Box box;
+  late List _chooseYourHabits = [];
+  late List _chooseYourHabitsName = [];
   @override
-  late List _chooseYourHabits;
-
   getCurrentChooseYourHabits() {
+    _chooseYourHabitsName = [];
     _chooseYourHabits = box.get("chooseYourHabitsHive") ?? [];
+    for (var item in _chooseYourHabits) {
+      setState(() {
+        _chooseYourHabitsName.add(item['habitName']);
+      });
+    }
+    print(_chooseYourHabitsName);
   }
 
+  @override
   void initState() {
     super.initState();
 
@@ -33,7 +47,7 @@ class _HabitGroupState extends State<HabitGroup> {
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-        fillColor: !_chooseYourHabits.contains(widget.butonYazi)
+        fillColor: !_chooseYourHabitsName.contains(widget.butonYazi)
             ? widget.yaziTipiRengi
             : Colors.green,
         shape: const RoundedRectangleBorder(
@@ -53,9 +67,12 @@ class _HabitGroupState extends State<HabitGroup> {
         ),
         onPressed: () async {
           setState(() {
-            if (!_chooseYourHabits.contains(widget.butonYazi)) {
+            if (!_chooseYourHabitsName.contains(widget.butonYazi)) {
               if (_chooseYourHabits.length < 5) {
-                _chooseYourHabits.add(widget.butonYazi);
+                var _habit = {};
+                _habit['habitName'] = widget.butonYazi;
+                _habit['habitCategory'] = widget.butonCategory;
+                _chooseYourHabits.add(_habit);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -83,7 +100,14 @@ class _HabitGroupState extends State<HabitGroup> {
                 );
               }
             } else {
-              _chooseYourHabits.remove(widget.butonYazi);
+              setState(() {
+                var _habit = {};
+                _habit['habitName'] = widget.butonYazi;
+                _habit['habitCategory'] = widget.butonCategory;
+                // _chooseYourHabits.remove(_habit);
+                _chooseYourHabits.removeWhere(
+                    (element) => element["habitName"] == widget.butonYazi);
+              });
             }
           });
 

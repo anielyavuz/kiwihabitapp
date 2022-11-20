@@ -95,12 +95,15 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                               ExpandablePanelHeaderAlignment
                                                   .center,
                                         ),
-                                        expanded: HabitGroup2(habitList: [
-                                          "Yoga",
-                                          "Meditation",
-                                          "Drink Water",
-                                          "Sleep Well"
-                                        ], yaziTipiRengi: _yaziTipiRengi),
+                                        expanded: HabitGroup2(
+                                            habitList: [
+                                              "Yoga",
+                                              "Meditation",
+                                              "Drink Water",
+                                              "Sleep Well"
+                                            ],
+                                            yaziTipiRengi: _yaziTipiRengi,
+                                            butonCategory: "Health"),
                                         collapsed: Container(),
                                       )))),
                               Container(
@@ -141,12 +144,15 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                             ExpandablePanelHeaderAlignment
                                                 .center,
                                       ),
-                                      expanded: HabitGroup2(habitList: [
-                                        "Walk",
-                                        "Push Up",
-                                        "Run",
-                                        "Swim"
-                                      ], yaziTipiRengi: _yaziTipiRengi),
+                                      expanded: HabitGroup2(
+                                          habitList: [
+                                            "Walk",
+                                            "Push Up",
+                                            "Run",
+                                            "Swim"
+                                          ],
+                                          yaziTipiRengi: _yaziTipiRengi,
+                                          butonCategory: "Sport"),
                                       collapsed: Container(),
                                     ))),
                                 // color: Colors.red.shade200,
@@ -186,12 +192,15 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                     headerAlignment:
                                         ExpandablePanelHeaderAlignment.center,
                                   ),
-                                  expanded: HabitGroup2(habitList: [
-                                    "Read a book",
-                                    "Learn English",
-                                    "Math Exercise",
-                                    "Law"
-                                  ], yaziTipiRengi: _yaziTipiRengi),
+                                  expanded: HabitGroup2(
+                                      habitList: [
+                                        "Read a book",
+                                        "Learn English",
+                                        "Math Exercise",
+                                        "Law"
+                                      ],
+                                      yaziTipiRengi: _yaziTipiRengi,
+                                      butonCategory: "Study"),
                                   collapsed: Container(),
                                 ))),
                                 // color: Colors.red.shade300,
@@ -231,12 +240,15 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                     headerAlignment:
                                         ExpandablePanelHeaderAlignment.center,
                                   ),
-                                  expanded: HabitGroup2(habitList: [
-                                    "Play Guitar",
-                                    "Painting",
-                                    "Play Piano",
-                                    "Dance"
-                                  ], yaziTipiRengi: _yaziTipiRengi),
+                                  expanded: HabitGroup2(
+                                      habitList: [
+                                        "Play Guitar",
+                                        "Painting",
+                                        "Play Piano",
+                                        "Dance"
+                                      ],
+                                      yaziTipiRengi: _yaziTipiRengi,
+                                      butonCategory: "Art"),
                                   collapsed: Container(),
                                 ))),
                                 // color: Colors.red.shade400,
@@ -276,12 +288,15 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                     headerAlignment:
                                         ExpandablePanelHeaderAlignment.center,
                                   ),
-                                  expanded: HabitGroup2(habitList: [
-                                    "Saving Money",
-                                    "Investing",
-                                    "Donation",
-                                    "Market Search"
-                                  ], yaziTipiRengi: _yaziTipiRengi),
+                                  expanded: HabitGroup2(
+                                      habitList: [
+                                        "Saving Money",
+                                        "Investing",
+                                        "Donation",
+                                        "Market Search"
+                                      ],
+                                      yaziTipiRengi: _yaziTipiRengi,
+                                      butonCategory: "Finance"),
                                   collapsed: Container(),
                                 ))),
                                 // color: Colors.red.shade500,
@@ -321,12 +336,15 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                     headerAlignment:
                                         ExpandablePanelHeaderAlignment.center,
                                   ),
-                                  expanded: HabitGroup2(habitList: [
-                                    "Cinema",
-                                    "Meet with friends",
-                                    "Theater",
-                                    "Listen Podcast"
-                                  ], yaziTipiRengi: _yaziTipiRengi),
+                                  expanded: HabitGroup2(
+                                      habitList: [
+                                        "Cinema",
+                                        "Meet with friends",
+                                        "Theater",
+                                        "Listen Podcast"
+                                      ],
+                                      yaziTipiRengi: _yaziTipiRengi,
+                                      butonCategory: "Social"),
                                   collapsed: Container(),
                                 ))),
                                 // color: Colors.red.shade600,
@@ -366,12 +384,15 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                     headerAlignment:
                                         ExpandablePanelHeaderAlignment.center,
                                   ),
-                                  expanded: HabitGroup2(habitList: [
-                                    "Quit smoking",
-                                    "Quit eating snacks",
-                                    "Quit alcohol",
-                                    "Stop swearing"
-                                  ], yaziTipiRengi: _yaziTipiRengi),
+                                  expanded: HabitGroup2(
+                                      habitList: [
+                                        "Quit smoking",
+                                        "Quit eating snacks",
+                                        "Quit alcohol",
+                                        "Stop swearing"
+                                      ],
+                                      yaziTipiRengi: _yaziTipiRengi,
+                                      butonCategory: "Quit a Bad Habit"),
                                   collapsed: Container(),
                                 ))),
                                 // color: Colors.red.shade700,
@@ -386,7 +407,9 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                       child: Column(
                         children: [
                           InkWell(
-                            onTap: () async {},
+                            onTap: () async {
+                              // print(object);
+                            },
                             child: FittedBox(
                               fit: BoxFit.fill,
                               child: Container(

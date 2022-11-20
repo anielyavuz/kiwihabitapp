@@ -4,8 +4,12 @@ import 'package:kiwihabitapp/widgets/habitGroup.dart';
 class HabitGroup2 extends StatefulWidget {
   final List habitList;
   final Color yaziTipiRengi;
+  final String butonCategory;
   const HabitGroup2(
-      {Key? key, required this.habitList, required this.yaziTipiRengi})
+      {Key? key,
+      required this.habitList,
+      required this.yaziTipiRengi,
+      required this.butonCategory})
       : super(key: key);
 
   @override
@@ -25,6 +29,7 @@ class _HabitGroup2State extends State<HabitGroup2> {
               child: HabitGroup(
                 butonYazi: widget.habitList[0],
                 yaziTipiRengi: widget.yaziTipiRengi,
+                butonCategory: widget.butonCategory,
               ),
             ),
             Expanded(
@@ -33,6 +38,7 @@ class _HabitGroup2State extends State<HabitGroup2> {
                 child: HabitGroup(
                   butonYazi: widget.habitList[1],
                   yaziTipiRengi: widget.yaziTipiRengi,
+                  butonCategory: widget.butonCategory,
                 ),
               ),
             ),
@@ -47,6 +53,7 @@ class _HabitGroup2State extends State<HabitGroup2> {
                 child: HabitGroup(
                   butonYazi: widget.habitList[2],
                   yaziTipiRengi: widget.yaziTipiRengi,
+                  butonCategory: widget.butonCategory,
                 ),
               ),
             ),
@@ -56,6 +63,7 @@ class _HabitGroup2State extends State<HabitGroup2> {
                 child: HabitGroup(
                   butonYazi: widget.habitList[3],
                   yaziTipiRengi: widget.yaziTipiRengi,
+                  butonCategory: widget.butonCategory,
                 ),
               ),
             ),

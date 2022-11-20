@@ -24,6 +24,7 @@ class _CheckAuthState extends State<CheckAuth> {
     });
   }
 
+  @override
   void initState() {
     rootControl();
 
