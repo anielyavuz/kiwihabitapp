@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 
 class HabitGroup extends StatefulWidget {
   final Color
@@ -12,11 +14,28 @@ class HabitGroup extends StatefulWidget {
 }
 
 class _HabitGroupState extends State<HabitGroup> {
+  late Box box;
+  @override
+  late List _chooseYourHabits;
+
+  getCurrentChooseYourHabits() {
+    _chooseYourHabits = box.get("chooseYourHabitsHive") ?? [];
+  }
+
+  void initState() {
+    super.initState();
+
+    box = Hive.box("kiwiHive");
+    getCurrentChooseYourHabits();
+  }
+
   bool _selected = false;
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-        fillColor: !_selected ? widget.yaziTipiRengi: Colors.green,
+        fillColor: !_chooseYourHabits.contains(widget.butonYazi)
+            ? widget.yaziTipiRengi
+            : Colors.green,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15.0))),
         splashColor: Color(0xff867ae9),
@@ -34,8 +53,42 @@ class _HabitGroupState extends State<HabitGroup> {
         ),
         onPressed: () async {
           setState(() {
-            _selected = !_selected;
+            if (!_chooseYourHabits.contains(widget.butonYazi)) {
+              if (_chooseYourHabits.length < 5) {
+                _chooseYourHabits.add(widget.butonYazi);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      duration: Duration(milliseconds: 2000),
+                      content: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Habit limit reached'),
+                          Icon(
+                            Icons.error,
+                            color: Colors.yellow,
+                            size: 25,
+                          ),
+                        ],
+                      ),
+                      action: SnackBarAction(
+                        label: "Be a Premium User",
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BePremiumUser()));
+                        },
+                      )),
+                );
+              }
+            } else {
+              _chooseYourHabits.remove(widget.butonYazi);
+            }
           });
+
+          box.put("chooseYourHabitsHive", _chooseYourHabits);
+          getCurrentChooseYourHabits();
         });
   }
 }

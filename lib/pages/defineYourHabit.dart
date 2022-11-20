@@ -60,13 +60,14 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                           padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                           decoration: BoxDecoration(
                             color: Color.fromRGBO(21, 9, 35, 1),
-                            border: Border.all(color: Colors.white),
+                            border: Border.all(color: _yaziTipiRengi),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
+                                borderRadius: BorderRadius.circular(20),
                                 isExpanded: true,
-                                dropdownColor: Color.fromRGBO(21, 9, 35, 1),
+                                dropdownColor: Color.fromARGB(255, 46, 10, 87),
                                 value: _category,
                                 items: <String>[
                                   'Health',
