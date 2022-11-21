@@ -121,11 +121,12 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                     ),
                   ),
                   Expanded(
-                      flex: 2,
+                      flex: 3,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                              padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                              padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                               width: MediaQuery.of(context).size.width * 9 / 10,
                               child: TextFieldDecoration(
                                 hintYazi: "Habit Name",
@@ -253,68 +254,82 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                   }),
                             ),
                           ),
-                          RawMaterialButton(
-                              fillColor: _habitName == null || _habitName == ""
-                                  ? _yaziTipiRengi.withOpacity(0.2)
-                                  : _yaziTipiRengi,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15.0))),
-                              splashColor: Color(0xff867ae9),
-                              textStyle: TextStyle(color: _yaziTipiRengi),
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                                child: Text("Add to habits",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(21, 9, 35, 1),
-                                      fontSize: 15,
-                                      fontFamily: 'Times New Roman',
-                                      // fontWeight: FontWeight.bold
-                                    )),
-                              ),
-                              onPressed: _habitName == null || _habitName == ""
-                                  ? null
-                                  : () async {
-                                      setState(() {
-                                        var _habit = {};
-                                        _habit['habitName'] = _habitName;
-                                        _habit['habitCategory'] = _category;
-                                        // print(_habitName);
-                                        _YourHabits.add(_habit);
-                                      });
-                                    }),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            child: RawMaterialButton(
+                                fillColor: _habitName == null || _habitName == ""
+                                    ? _yaziTipiRengi.withOpacity(0.2)
+                                    : _yaziTipiRengi,
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15.0))),
+                                splashColor: Color(0xff867ae9),
+                                textStyle: TextStyle(color: _yaziTipiRengi),
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                                  child: Text("Add to habits",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(21, 9, 35, 1),
+                                        fontSize: 15,
+                                        fontFamily: 'Times New Roman',
+                                        // fontWeight: FontWeight.bold
+                                      )),
+                                ),
+                                onPressed: _habitName == null || _habitName == ""
+                                    ? null
+                                    : () async {
+                                        setState(() {
+                                          var _habit = {};
+                                          _habit['habitName'] = _habitName;
+                                          _habit['habitCategory'] = _category;
+                                          // print(_habitName);
+                                          _YourHabits.add(_habit);
+                                        });
+                                      }),
+                          ),
                         ],
                       )),
                   Expanded(
-                    flex: 5,
-                    child: SingleChildScrollView(
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          children: _YourHabits.map((habit) {
-                            return Container(
-                              child: Card(
+                    flex: 4,
+                    child: Column(
+                      children: [
+                        Container(
+                            padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Habit List",
+                              style: TextStyle(
                                 color: _yaziTipiRengi,
-                                child: ListTile(
-                                  title: Text(habit['habitName']),
-                                  subtitle: Row(
-                                    children: [
-                                      Text(habit['habitCategory']),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      habit['habitCategory'] == 'Health'
+                                fontSize: 20,
+                                fontFamily: 'Times New Roman',
+                                decoration: TextDecoration.underline,
+                                // fontWeight: FontWeight.bold
+                              ),
+                            )),
+                        SingleChildScrollView(
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              children: _YourHabits.map((habit) {
+                                return Container(
+                                  // height: MediaQuery.of(context).size.height / 13,
+                                  child: Card(
+                                    color: _yaziTipiRengi,
+                                    child: ListTile(
+                                      isThreeLine: false,
+                                      leading: habit['habitCategory'] ==
+                                              'Health'
                                           ? Icon(
                                               Icons.volunteer_activism,
-                                              size: 25,
+                                              size: 32,
                                               color: Color.fromARGB(
                                                   223, 232, 77, 77),
                                             )
                                           : habit['habitCategory'] == 'Sport'
                                               ? Icon(
                                                   Icons.directions_run,
-                                                  size: 25,
+                                                  size: 32,
                                                   color: Color.fromARGB(
                                                       223, 18, 218, 7),
                                                 )
@@ -322,7 +337,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                                       'Study'
                                                   ? Icon(
                                                       Icons.school,
-                                                      size: 25,
+                                                      size: 32,
                                                       color: Color.fromARGB(
                                                           223, 124, 38, 223),
                                                     )
@@ -330,7 +345,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                                           'Art'
                                                       ? Icon(
                                                           Icons.palette,
-                                                          size: 25,
+                                                          size: 32,
                                                           color: Color.fromARGB(
                                                               223, 225, 5, 240),
                                                         )
@@ -339,7 +354,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                                           ? Icon(
                                                               Icons
                                                                   .attach_money,
-                                                              size: 25,
+                                                              size: 32,
                                                               color: Color
                                                                   .fromARGB(
                                                                       223,
@@ -352,7 +367,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                                               ? Icon(
                                                                   Icons
                                                                       .nightlife,
-                                                                  size: 25,
+                                                                  size: 32,
                                                                   color: Color
                                                                       .fromARGB(
                                                                           223,
@@ -363,39 +378,47 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                                               : Icon(
                                                                   Icons
                                                                       .smoke_free,
-                                                                  size: 25,
+                                                                  size: 32,
                                                                   color: Color
                                                                       .fromARGB(
                                                                           223,
                                                                           19,
                                                                           153,
                                                                           243),
-                                                                )
-                                    ],
-                                  ),
-                                  trailing: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.redAccent),
-                                    child: Icon(Icons.delete),
-                                    onPressed: () {
-                                      setState(() {
-                                        _YourHabits.removeWhere((element) =>
-                                            element["habitName"] ==
-                                            habit['habitName']);
-                                      });
+                                                                ),
+                                      dense: true,
+                                      visualDensity:
+                                          VisualDensity(vertical: -4),
+                                      title: Container(
+                                          padding:
+                                              EdgeInsets.fromLTRB(0, 0, 0, 3),
+                                          child: Text(habit['habitName'])),
+                                      subtitle: Text(habit['habitCategory']),
+                                      trailing: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Colors.redAccent),
+                                        child: Icon(Icons.delete),
+                                        onPressed: () {
+                                          setState(() {
+                                            _YourHabits.removeWhere((element) =>
+                                                element["habitName"] ==
+                                                habit['habitName']);
+                                          });
 
-                                      box.put(
-                                          "chooseYourHabitsHive", _YourHabits);
+                                          box.put("chooseYourHabitsHive",
+                                              _YourHabits);
 
-                                      getCurrentChooseYourHabits();
-                                    },
+                                          getCurrentChooseYourHabits();
+                                        },
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            );
-                          }).toList(),
+                                );
+                              }).toList(),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                   Expanded(
