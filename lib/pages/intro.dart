@@ -115,8 +115,8 @@ class _IntroPageState extends State<IntroPage> {
                     Expanded(
                       flex: 2,
                       child: PageView(
-                          controller:
-                              PageController(viewportFraction: 1, initialPage: 0),
+                          controller: PageController(
+                              viewportFraction: 1, initialPage: 0),
                           onPageChanged: (int index) =>
                               setState(() => _index = index),
                           scrollDirection: Axis.horizontal,
@@ -157,15 +157,17 @@ class _IntroPageState extends State<IntroPage> {
                                                           MainAxisAlignment
                                                               .center,
                                                       children: [
-                                                        Text(_introPages[_index],
-                                                            textAlign:
-                                                                TextAlign.center,
+                                                        Text(
+                                                            _introPages[_index],
+                                                            textAlign: TextAlign
+                                                                .center,
                                                             style: TextStyle(
                                                               color:
                                                                   _yaziTipiRengi,
                                                               fontSize: 18,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                               fontFamily:
                                                                   'Times New Roman',
                                                               // fontWeight: FontWeight.bold
@@ -176,8 +178,8 @@ class _IntroPageState extends State<IntroPage> {
                                                         Text(
                                                             _introSubPages[
                                                                 _index],
-                                                            textAlign:
-                                                                TextAlign.center,
+                                                            textAlign: TextAlign
+                                                                .center,
                                                             style: TextStyle(
                                                               color:
                                                                   _yaziTipiRengi,
@@ -300,8 +302,8 @@ class _IntroPageState extends State<IntroPage> {
                             RawMaterialButton(
                                 fillColor: _yaziTipiRengi,
                                 shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15.0))),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(15.0))),
                                 splashColor: Color(0xff867ae9),
                                 textStyle: TextStyle(color: _yaziTipiRengi),
                                 child: Padding(
@@ -320,7 +322,7 @@ class _IntroPageState extends State<IntroPage> {
                                     _loadingIcon = true;
                                   });
                                   var a = await _authService.anonymSignIn();
-        
+
                                   setState(() {
                                     _loadingIcon = false;
                                   });
@@ -331,7 +333,8 @@ class _IntroPageState extends State<IntroPage> {
                             InkWell(
                               onTap: () async {
                                 // box.put("key1", "value2");
-                                final value = box.get("loginLogsHive") ?? "null";
+                                final value =
+                                    box.get("loginLogsHive") ?? "null";
                                 print(value);
                               },
                               child: FittedBox(
