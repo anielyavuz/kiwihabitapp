@@ -15,7 +15,19 @@ class _HabitDetailsState extends State<HabitDetails> {
         body: SafeArea(
             child: Stack(children: [
           Column(
-            children: [],
+            children: [
+              Container(
+                child: Center(
+                  child: Text("data",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontFamily: 'Times New Roman',
+                        // fontWeight: FontWeight.bold
+                      )),
+                ),
+              )
+            ],
           ),
           Positioned(
             left: 5,

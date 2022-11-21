@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
+import 'package:kiwihabitapp/pages/habitDetails.dart';
 import 'package:kiwihabitapp/widgets/textFieldDecoration.dart';
 
 class DefineYourHabit extends StatefulWidget {
@@ -50,21 +51,21 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
   var habitName;
 
   Future<bool> _onBackPressed() async {
-    List _tempList = [];
-    for (var habit in _YourHabits) {
-      print(habit["habitName"]);
-      if (!_allDefaultHabits.contains(habit["habitName"]))
-        setState(() {
-          _tempList.add(habit['habitName']);
-        });
-    }
+    // List _tempList = [];
+    // for (var habit in _YourHabits) {
+    //   print(habit["habitName"]);
+    //   if (!_allDefaultHabits.contains(habit["habitName"]))
+    //     setState(() {
+    //       _tempList.add(habit['habitName']);
+    //     });
+    // }
 
-    for (var item in _tempList) {
-      _YourHabits.removeWhere((element) => element["habitName"] == item);
-    }
-    box.put("chooseYourHabitsHive", _YourHabits);
+    // for (var item in _tempList) {
+    //   _YourHabits.removeWhere((element) => element["habitName"] == item);
+    // }
+    // box.put("chooseYourHabitsHive", _YourHabits);
 
-    getCurrentChooseYourHabits();
+    // getCurrentChooseYourHabits();
 
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => ChooseHabits()));
@@ -120,7 +121,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                     ),
                   ),
                   Expanded(
-                      flex: 7,
+                      flex: 2,
                       child: Column(
                         children: [
                           Container(
@@ -286,7 +287,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                         ],
                       )),
                   Expanded(
-                    flex: 13,
+                    flex: 5,
                     child: SingleChildScrollView(
                       child: Container(
                         padding: EdgeInsets.all(10),
@@ -404,7 +405,17 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                       children: [
                         InkWell(
                           onTap: () async {
-                            print(_YourHabits);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HabitDetails()));
+
+                            // Navigator.pushAndRemoveUntil(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (BuildContext context) =>
+                            //             HabitDetails()),
+                            //     (Route<dynamic> route) => false);
                           },
                           child: FittedBox(
                             fit: BoxFit.fill,
@@ -437,29 +448,30 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                   height: 40,
                   child: IconButton(
                       onPressed: () async {
-                        List _tempList = [];
-                        for (var habit in _YourHabits) {
-                          print(habit["habitName"]);
-                          if (!_allDefaultHabits.contains(habit["habitName"]))
-                            setState(() {
-                              _tempList.add(habit['habitName']);
-                            });
-                        }
+                        _onBackPressed();
+                        // List _tempList = [];
+                        // for (var habit in _YourHabits) {
+                        //   print(habit["habitName"]);
+                        //   if (!_allDefaultHabits.contains(habit["habitName"]))
+                        //     setState(() {
+                        //       _tempList.add(habit['habitName']);
+                        //     });
+                        // }
 
-                        for (var item in _tempList) {
-                          _YourHabits.removeWhere(
-                              (element) => element["habitName"] == item);
-                        }
-                        box.put("chooseYourHabitsHive", _YourHabits);
+                        // for (var item in _tempList) {
+                        //   _YourHabits.removeWhere(
+                        //       (element) => element["habitName"] == item);
+                        // }
+                        // box.put("chooseYourHabitsHive", _YourHabits);
 
-                        getCurrentChooseYourHabits();
+                        // getCurrentChooseYourHabits();
 
-                        // Navigator.pop(context);
+                        // // Navigator.pop(context);
 
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChooseHabits()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => ChooseHabits()));
                       },
                       icon: Icon(
                         Icons.arrow_back_ios,

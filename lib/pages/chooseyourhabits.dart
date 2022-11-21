@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:kiwihabitapp/pages/defineYourHabit.dart';
+import 'package:kiwihabitapp/pages/habitDetails.dart';
 import 'package:kiwihabitapp/widgets/habitGroup.dart';
 import 'package:kiwihabitapp/widgets/habitGroup2.dart';
 
@@ -409,6 +410,11 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                           InkWell(
                             onTap: () async {
                               // print(object);
+
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HabitDetails()));
                             },
                             child: FittedBox(
                               fit: BoxFit.fill,
