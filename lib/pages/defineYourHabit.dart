@@ -381,7 +381,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                 border: Border.all(color: _yaziTipiRengi),
                                 borderRadius: BorderRadius.circular(15)),
                             child: Center(
-                                child: Text("Define Your Habit",
+                                child: Text("Continue",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: _yaziTipiRengi,

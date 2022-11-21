@@ -43,6 +43,13 @@ class _HabitGroupState extends State<HabitGroup> {
     getCurrentChooseYourHabits();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // _kelimeleriCek();
+  }
+
   bool _selected = false;
   @override
   Widget build(BuildContext context) {
