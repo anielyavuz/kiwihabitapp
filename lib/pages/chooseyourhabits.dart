@@ -442,10 +442,17 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                           ),
                           InkWell(
                             onTap: () async {
-                              Navigator.push(
+                              Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => DefineYourHabit()));
+                                      builder: (BuildContext context) =>
+                                          DefineYourHabit()),
+                                  (Route<dynamic> route) => false);
+
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => DefineYourHabit()));
                             },
                             child: FittedBox(
                               fit: BoxFit.fill,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
 import 'package:kiwihabitapp/widgets/textFieldDecoration.dart';
 
 class DefineYourHabit extends StatefulWidget {
@@ -47,6 +48,31 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   TextEditingController _turkceTextFieldController = TextEditingController();
   var habitName;
+
+  Future<bool> _onBackPressed() async {
+    List _tempList = [];
+    for (var habit in _YourHabits) {
+      print(habit["habitName"]);
+      if (!_allDefaultHabits.contains(habit["habitName"]))
+        setState(() {
+          _tempList.add(habit['habitName']);
+        });
+    }
+
+    for (var item in _tempList) {
+      _YourHabits.removeWhere((element) => element["habitName"] == item);
+    }
+    box.put("chooseYourHabitsHive", _YourHabits);
+
+    getCurrentChooseYourHabits();
+
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ChooseHabits()));
+
+    // Navigator.pop(context);
+    return true;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -67,369 +93,383 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromRGBO(21, 9, 35, 1),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    child: Center(
-                      child: Text(
-                        "Define Your Habits",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Times New Roman',
-                          // fontWeight: FontWeight.bold
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        backgroundColor: Color.fromRGBO(21, 9, 35, 1),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      child: Center(
+                        child: Text(
+                          "Define Your Habits",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Times New Roman',
+                            // fontWeight: FontWeight.bold
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(
-                    flex: 7,
-                    child: Column(
-                      children: [
-                        Container(
-                            padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
-                            width: MediaQuery.of(context).size.width * 9 / 10,
-                            child: TextFieldDecoration(
-                              hintYazi: "Habit Name",
-                              textfieldData: (newtextfieldData) {
-                                setState(() {
-                                  _habitName = newtextfieldData;
-                                });
-                              },
-                            )),
-                        Container(
-                          width:
-                              MediaQuery.of(context).size.width * 9 / 10 - 20,
-                          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(21, 9, 35, 1),
-                            border: Border.all(color: _yaziTipiRengi),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                                borderRadius: BorderRadius.circular(20),
-                                isExpanded: true,
-                                dropdownColor: Color.fromARGB(255, 46, 10, 87),
-                                value: _category,
-                                items: <String>[
-                                  'Health',
-                                  'Sport',
-                                  'Study',
-                                  'Art',
-                                  'Finance',
-                                  'Social',
-                                  'Quit a Bad Habit',
-                                ].map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Row(
-                                      children: [
-                                        new Text(
-                                          value,
-                                          style: TextStyle(
-                                              color: _yaziTipiRengi,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        value == 'Health'
-                                            ? Icon(
-                                                Icons.volunteer_activism,
-                                                size: 25,
-                                                color: Color.fromARGB(
-                                                    223, 218, 21, 7),
-                                              )
-                                            : value == 'Sport'
-                                                ? Icon(
-                                                    Icons.directions_run,
-                                                    size: 25,
-                                                    color: Color.fromARGB(
-                                                        223, 18, 218, 7),
-                                                  )
-                                                : value == 'Study'
-                                                    ? Icon(
-                                                        Icons.school,
-                                                        size: 25,
-                                                        color: Color.fromARGB(
-                                                            223, 124, 38, 223),
-                                                      )
-                                                    : value == 'Art'
-                                                        ? Icon(
-                                                            Icons.palette,
-                                                            size: 25,
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    223,
-                                                                    225,
-                                                                    5,
-                                                                    240),
-                                                          )
-                                                        : value == 'Finance'
-                                                            ? Icon(
-                                                                Icons
-                                                                    .attach_money,
-                                                                size: 25,
-                                                                color: Color
-                                                                    .fromARGB(
-                                                                        223,
-                                                                        12,
-                                                                        162,
-                                                                        7),
-                                                              )
-                                                            : value == 'Social'
-                                                                ? Icon(
-                                                                    Icons
-                                                                        .nightlife,
-                                                                    size: 25,
-                                                                    color: Color
-                                                                        .fromARGB(
-                                                                            223,
-                                                                            232,
-                                                                            118,
-                                                                            18),
-                                                                  )
-                                                                : Icon(
-                                                                    Icons
-                                                                        .smoke_free,
-                                                                    size: 25,
-                                                                    color: Color
-                                                                        .fromARGB(
-                                                                            223,
-                                                                            19,
-                                                                            153,
-                                                                            243),
-                                                                  )
-                                      ],
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
+                  Expanded(
+                      flex: 7,
+                      child: Column(
+                        children: [
+                          Container(
+                              padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                              width: MediaQuery.of(context).size.width * 9 / 10,
+                              child: TextFieldDecoration(
+                                hintYazi: "Habit Name",
+                                textfieldData: (newtextfieldData) {
                                   setState(() {
-                                    _category = value!;
+                                    _habitName = newtextfieldData;
                                   });
-                                }),
-                          ),
-                        ),
-                        RawMaterialButton(
-                            fillColor: _habitName == null || _habitName == ""
-                                ? _yaziTipiRengi.withOpacity(0.2)
-                                : _yaziTipiRengi,
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0))),
-                            splashColor: Color(0xff867ae9),
-                            textStyle: TextStyle(color: _yaziTipiRengi),
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                              child: Text("Add to habits",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(21, 9, 35, 1),
-                                    fontSize: 15,
-                                    fontFamily: 'Times New Roman',
-                                    // fontWeight: FontWeight.bold
-                                  )),
+                                },
+                              )),
+                          Container(
+                            width:
+                                MediaQuery.of(context).size.width * 9 / 10 - 20,
+                            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(21, 9, 35, 1),
+                              border: Border.all(color: _yaziTipiRengi),
+                              borderRadius: BorderRadius.circular(30),
                             ),
-                            onPressed: _habitName == null || _habitName == ""
-                                ? null
-                                : () async {
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                  borderRadius: BorderRadius.circular(20),
+                                  isExpanded: true,
+                                  dropdownColor:
+                                      Color.fromARGB(255, 46, 10, 87),
+                                  value: _category,
+                                  items: <String>[
+                                    'Health',
+                                    'Sport',
+                                    'Study',
+                                    'Art',
+                                    'Finance',
+                                    'Social',
+                                    'Quit a Bad Habit',
+                                  ].map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Row(
+                                        children: [
+                                          new Text(
+                                            value,
+                                            style: TextStyle(
+                                                color: _yaziTipiRengi,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          value == 'Health'
+                                              ? Icon(
+                                                  Icons.volunteer_activism,
+                                                  size: 25,
+                                                  color: Color.fromARGB(
+                                                      223, 218, 21, 7),
+                                                )
+                                              : value == 'Sport'
+                                                  ? Icon(
+                                                      Icons.directions_run,
+                                                      size: 25,
+                                                      color: Color.fromARGB(
+                                                          223, 18, 218, 7),
+                                                    )
+                                                  : value == 'Study'
+                                                      ? Icon(
+                                                          Icons.school,
+                                                          size: 25,
+                                                          color: Color.fromARGB(
+                                                              223,
+                                                              124,
+                                                              38,
+                                                              223),
+                                                        )
+                                                      : value == 'Art'
+                                                          ? Icon(
+                                                              Icons.palette,
+                                                              size: 25,
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      223,
+                                                                      225,
+                                                                      5,
+                                                                      240),
+                                                            )
+                                                          : value == 'Finance'
+                                                              ? Icon(
+                                                                  Icons
+                                                                      .attach_money,
+                                                                  size: 25,
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          223,
+                                                                          12,
+                                                                          162,
+                                                                          7),
+                                                                )
+                                                              : value ==
+                                                                      'Social'
+                                                                  ? Icon(
+                                                                      Icons
+                                                                          .nightlife,
+                                                                      size: 25,
+                                                                      color: Color.fromARGB(
+                                                                          223,
+                                                                          232,
+                                                                          118,
+                                                                          18),
+                                                                    )
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .smoke_free,
+                                                                      size: 25,
+                                                                      color: Color.fromARGB(
+                                                                          223,
+                                                                          19,
+                                                                          153,
+                                                                          243),
+                                                                    )
+                                        ],
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
                                     setState(() {
-                                      var _habit = {};
-                                      _habit['habitName'] = _habitName;
-                                      _habit['habitCategory'] = _category;
-                                      // print(_habitName);
-                                      _YourHabits.add(_habit);
+                                      _category = value!;
                                     });
                                   }),
-                      ],
-                    )),
-                Expanded(
-                  flex: 13,
-                  child: SingleChildScrollView(
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        children: _YourHabits.map((habit) {
-                          return Container(
-                            child: Card(
-                              color: _yaziTipiRengi,
-                              child: ListTile(
-                                title: Text(habit['habitName']),
-                                subtitle: Row(
-                                  children: [
-                                    Text(habit['habitCategory']),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    habit['habitCategory'] == 'Health'
-                                        ? Icon(
-                                            Icons.volunteer_activism,
-                                            size: 25,
-                                            color: Color.fromARGB(
-                                                223, 232, 77, 77),
-                                          )
-                                        : habit['habitCategory'] == 'Sport'
-                                            ? Icon(
-                                                Icons.directions_run,
-                                                size: 25,
-                                                color: Color.fromARGB(
-                                                    223, 18, 218, 7),
-                                              )
-                                            : habit['habitCategory'] == 'Study'
-                                                ? Icon(
-                                                    Icons.school,
-                                                    size: 25,
-                                                    color: Color.fromARGB(
-                                                        223, 124, 38, 223),
-                                                  )
-                                                : habit['habitCategory'] ==
-                                                        'Art'
-                                                    ? Icon(
-                                                        Icons.palette,
-                                                        size: 25,
-                                                        color: Color.fromARGB(
-                                                            223, 225, 5, 240),
-                                                      )
-                                                    : habit['habitCategory'] ==
-                                                            'Finance'
-                                                        ? Icon(
-                                                            Icons.attach_money,
-                                                            size: 25,
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    223,
-                                                                    12,
-                                                                    162,
-                                                                    7),
-                                                          )
-                                                        : habit['habitCategory'] ==
-                                                                'Social'
-                                                            ? Icon(
-                                                                Icons.nightlife,
-                                                                size: 25,
-                                                                color: Color
-                                                                    .fromARGB(
-                                                                        223,
-                                                                        232,
-                                                                        118,
-                                                                        18),
-                                                              )
-                                                            : Icon(
-                                                                Icons
-                                                                    .smoke_free,
-                                                                size: 25,
-                                                                color: Color
-                                                                    .fromARGB(
-                                                                        223,
-                                                                        19,
-                                                                        153,
-                                                                        243),
-                                                              )
-                                  ],
-                                ),
-                                trailing: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.redAccent),
-                                  child: Icon(Icons.delete),
-                                  onPressed: () {
-                                    setState(() {
-                                      _YourHabits.removeWhere((element) =>
-                                          element["habitName"] ==
-                                          habit['habitName']);
-                                    });
-
-                                    box.put(
-                                        "chooseYourHabitsHive", _YourHabits);
-
-                                    getCurrentChooseYourHabits();
-                                  },
-                                ),
-                              ),
                             ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          print(_YourHabits);
-                        },
-                        child: FittedBox(
-                          fit: BoxFit.fill,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 2,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: _yaziTipiRengi),
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Center(
-                                child: Text("Continue",
+                          ),
+                          RawMaterialButton(
+                              fillColor: _habitName == null || _habitName == ""
+                                  ? _yaziTipiRengi.withOpacity(0.2)
+                                  : _yaziTipiRengi,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15.0))),
+                              splashColor: Color(0xff867ae9),
+                              textStyle: TextStyle(color: _yaziTipiRengi),
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                                child: Text("Add to habits",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      color: _yaziTipiRengi,
+                                      color: Color.fromRGBO(21, 9, 35, 1),
                                       fontSize: 15,
                                       fontFamily: 'Times New Roman',
                                       // fontWeight: FontWeight.bold
-                                    ))),
-                          ),
+                                    )),
+                              ),
+                              onPressed: _habitName == null || _habitName == ""
+                                  ? null
+                                  : () async {
+                                      setState(() {
+                                        var _habit = {};
+                                        _habit['habitName'] = _habitName;
+                                        _habit['habitCategory'] = _category;
+                                        // print(_habitName);
+                                        _YourHabits.add(_habit);
+                                      });
+                                    }),
+                        ],
+                      )),
+                  Expanded(
+                    flex: 13,
+                    child: SingleChildScrollView(
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          children: _YourHabits.map((habit) {
+                            return Container(
+                              child: Card(
+                                color: _yaziTipiRengi,
+                                child: ListTile(
+                                  title: Text(habit['habitName']),
+                                  subtitle: Row(
+                                    children: [
+                                      Text(habit['habitCategory']),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      habit['habitCategory'] == 'Health'
+                                          ? Icon(
+                                              Icons.volunteer_activism,
+                                              size: 25,
+                                              color: Color.fromARGB(
+                                                  223, 232, 77, 77),
+                                            )
+                                          : habit['habitCategory'] == 'Sport'
+                                              ? Icon(
+                                                  Icons.directions_run,
+                                                  size: 25,
+                                                  color: Color.fromARGB(
+                                                      223, 18, 218, 7),
+                                                )
+                                              : habit['habitCategory'] ==
+                                                      'Study'
+                                                  ? Icon(
+                                                      Icons.school,
+                                                      size: 25,
+                                                      color: Color.fromARGB(
+                                                          223, 124, 38, 223),
+                                                    )
+                                                  : habit['habitCategory'] ==
+                                                          'Art'
+                                                      ? Icon(
+                                                          Icons.palette,
+                                                          size: 25,
+                                                          color: Color.fromARGB(
+                                                              223, 225, 5, 240),
+                                                        )
+                                                      : habit['habitCategory'] ==
+                                                              'Finance'
+                                                          ? Icon(
+                                                              Icons
+                                                                  .attach_money,
+                                                              size: 25,
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      223,
+                                                                      12,
+                                                                      162,
+                                                                      7),
+                                                            )
+                                                          : habit['habitCategory'] ==
+                                                                  'Social'
+                                                              ? Icon(
+                                                                  Icons
+                                                                      .nightlife,
+                                                                  size: 25,
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          223,
+                                                                          232,
+                                                                          118,
+                                                                          18),
+                                                                )
+                                                              : Icon(
+                                                                  Icons
+                                                                      .smoke_free,
+                                                                  size: 25,
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          223,
+                                                                          19,
+                                                                          153,
+                                                                          243),
+                                                                )
+                                    ],
+                                  ),
+                                  trailing: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.redAccent),
+                                    child: Icon(Icons.delete),
+                                    onPressed: () {
+                                      setState(() {
+                                        _YourHabits.removeWhere((element) =>
+                                            element["habitName"] ==
+                                            habit['habitName']);
+                                      });
+
+                                      box.put(
+                                          "chooseYourHabitsHive", _YourHabits);
+
+                                      getCurrentChooseYourHabits();
+                                    },
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Positioned(
-              left: 5,
-              child: Container(
-                height: 40,
-                child: IconButton(
-                    onPressed: () async {
-                      List _tempList = [];
-                      for (var habit in _YourHabits) {
-                        print(habit["habitName"]);
-                        if (!_allDefaultHabits.contains(habit["habitName"]))
-                          setState(() {
-                            _tempList.add(habit['habitName']);
-                          });
-                      }
-
-                      for (var item in _tempList) {
-                        _YourHabits.removeWhere(
-                            (element) => element["habitName"] == item);
-                      }
-                      box.put("chooseYourHabitsHive", _YourHabits);
-
-                      getCurrentChooseYourHabits();
-
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      size: 25,
-                      color: Colors.white,
-                    )),
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () async {
+                            print(_YourHabits);
+                          },
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 2,
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: _yaziTipiRengi),
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Center(
+                                  child: Text("Continue",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: _yaziTipiRengi,
+                                        fontSize: 15,
+                                        fontFamily: 'Times New Roman',
+                                        // fontWeight: FontWeight.bold
+                                      ))),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            )
-          ],
+              Positioned(
+                left: 5,
+                child: Container(
+                  height: 40,
+                  child: IconButton(
+                      onPressed: () async {
+                        List _tempList = [];
+                        for (var habit in _YourHabits) {
+                          print(habit["habitName"]);
+                          if (!_allDefaultHabits.contains(habit["habitName"]))
+                            setState(() {
+                              _tempList.add(habit['habitName']);
+                            });
+                        }
+
+                        for (var item in _tempList) {
+                          _YourHabits.removeWhere(
+                              (element) => element["habitName"] == item);
+                        }
+                        box.put("chooseYourHabitsHive", _YourHabits);
+
+                        getCurrentChooseYourHabits();
+
+                        // Navigator.pop(context);
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChooseHabits()));
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        size: 25,
+                        color: Colors.white,
+                      )),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
