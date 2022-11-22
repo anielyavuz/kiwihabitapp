@@ -10,6 +10,7 @@ class HabitDetails extends StatefulWidget {
 class _HabitDetailsState extends State<HabitDetails> {
   @override
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
+  bool _checkedBoxEveryday = true;
   Map habitsMap = {};
   int _index = 0;
   int _inADay = 1;
@@ -60,7 +61,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                 ),
               ),
               Expanded(
-                flex: 6,
+                flex: 7,
                 child: PageView(
                     controller:
                         PageController(viewportFraction: 1, initialPage: 0),
@@ -73,20 +74,31 @@ class _HabitDetailsState extends State<HabitDetails> {
                               padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color:
-                                            Color.fromARGB(255, 212, 212, 212)),
+                                    // border: Border.all(
+                                    //     color:
+                                    //         Color.fromARGB(255, 212, 212, 212)),
                                     // color: Color(0xff1d3557),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 child: Column(
                                   children: [
-                                    Expanded(
-                                      flex: 1,
+                                    Text(
+                                      _yourHabits[index]['habitName'],
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Times New Roman',
+                                        // fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
                                       child: Text(
-                                        _yourHabits[index]['habitName'],
+                                        "Goal",
                                         style: TextStyle(
-                                          color: Colors.white,
+                                          decoration: TextDecoration.underline,
+                                          color: _yaziTipiRengi,
                                           fontSize: 25,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: 'Times New Roman',
@@ -94,142 +106,267 @@ class _HabitDetailsState extends State<HabitDetails> {
                                         ),
                                       ),
                                     ),
-                                    Expanded(
-                                        flex: 2,
-                                        child: Row(
+                                    Row(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                SizedBox(
-                                                  height: 25,
-                                                  width: 25,
-                                                  child: RawMaterialButton(
-                                                      fillColor: _inADay > 1
-                                                          ? Color(0xff542e71)
-                                                          : Color.fromARGB(
-                                                              255, 89, 89, 89),
-                                                      shape: RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      15.0))),
-                                                      splashColor:
-                                                          Color(0xff867ae9),
-                                                      textStyle: TextStyle(
-                                                          color: Colors.white),
-                                                      child: Text("-",
-                                                          style: TextStyle(
-                                                            color:
-                                                                _yaziTipiRengi,
-                                                            fontSize: 15,
-                                                            fontFamily:
-                                                                'Times New Roman',
-                                                            // fontWeight: FontWeight.bold
-                                                          )),
-                                                      onPressed: _inADay <= 1
-                                                          ? null
-                                                          : () {
-                                                              if (_inADay > 1) {
-                                                                setState(() {
-                                                                  _inADay =
-                                                                      _inADay -
-                                                                          1;
-                                                                });
-                                                              }
-                                                            }),
-                                                ),
-                                                Text(_inADay.toString(),
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 25,
-                                                      fontFamily:
-                                                          'Times New Roman',
-                                                      // fontWeight: FontWeight.bold
-                                                    )),
-                                                SizedBox(
-                                                  height: 25,
-                                                  width: 25,
-                                                  child: RawMaterialButton(
-                                                      fillColor:
-                                                          Color(0xff542e71),
-                                                      shape: RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      15.0))),
-                                                      splashColor:
-                                                          Color(0xff867ae9),
-                                                      textStyle: TextStyle(
-                                                          color: Colors.white),
-                                                      child: Text("+",
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 15,
-                                                            fontFamily:
-                                                                'Times New Roman',
-                                                            // fontWeight: FontWeight.bold
-                                                          )),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          _inADay = _inADay + 1;
-                                                        });
-                                                      }),
-                                                )
-                                              ],
-                                            ),
                                             SizedBox(
-                                              width: 30,
+                                              height: 25,
+                                              width: 25,
+                                              child: RawMaterialButton(
+                                                  fillColor: _inADay > 1
+                                                      ? Color(0xff996B3E)
+                                                      : Color.fromARGB(
+                                                          86, 153, 107, 62),
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  15.0))),
+                                                  splashColor:
+                                                      Color(0xff77A830),
+                                                  textStyle: TextStyle(
+                                                      color: Colors.white),
+                                                  child: Text("-",
+                                                      style: TextStyle(
+                                                        color: _yaziTipiRengi,
+                                                        fontSize: 15,
+                                                        fontFamily:
+                                                            'Times New Roman',
+                                                        // fontWeight: FontWeight.bold
+                                                      )),
+                                                  onPressed: _inADay <= 1
+                                                      ? null
+                                                      : () {
+                                                          if (_inADay > 1) {
+                                                            setState(() {
+                                                              _inADay =
+                                                                  _inADay - 1;
+                                                            });
+                                                          }
+                                                        }),
                                             ),
-                                            Text("in a day",
+                                            Text(_inADay.toString(),
                                                 style: TextStyle(
-                                                  color: _yaziTipiRengi,
+                                                  color: Colors.white,
                                                   fontSize: 25,
                                                   fontFamily: 'Times New Roman',
                                                   // fontWeight: FontWeight.bold
-                                                ))
+                                                )),
+                                            SizedBox(
+                                              height: 25,
+                                              width: 25,
+                                              child: RawMaterialButton(
+                                                  fillColor: Color(0xff996B3E),
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  15.0))),
+                                                  splashColor:
+                                                      Color(0xff77A830),
+                                                  textStyle: TextStyle(
+                                                      color: Colors.white),
+                                                  child: Text("+",
+                                                      style: TextStyle(
+                                                        color: _yaziTipiRengi,
+                                                        fontSize: 15,
+                                                        fontFamily:
+                                                            'Times New Roman',
+                                                        // fontWeight: FontWeight.bold
+                                                      )),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      _inADay = _inADay + 1;
+                                                    });
+                                                  }),
+                                            )
                                           ],
-                                        )),
-                                    Expanded(
-                                      child: Row(
-                                        children: _weekDays.map((day) {
-                                          return Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                9,
-                                            child: RawMaterialButton(
-                                                fillColor: Colors.green,
-                                                shape:
-                                                    const RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    15.0))),
-                                                splashColor: Color(0xff867ae9),
-                                                textStyle: TextStyle(
-                                                    color: _yaziTipiRengi),
-                                                child: Text(day,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          21, 9, 35, 1),
-                                                      fontSize: 15,
-                                                      fontFamily:
-                                                          'Times New Roman',
-                                                      // fontWeight: FontWeight.bold
-                                                    )),
-                                                onPressed: () async {}),
-                                          );
-                                        }).toList(),
+                                        ),
+                                        SizedBox(
+                                          width: 30,
+                                        ),
+                                        Text("in a day",
+                                            style: TextStyle(
+                                              color: _yaziTipiRengi,
+                                              fontSize: 25,
+                                              fontFamily: 'Times New Roman',
+                                              // fontWeight: FontWeight.bold
+                                            ))
+                                      ],
+                                    ),
+                                    Row(
+                                      children: _weekDays.map((day) {
+                                        return Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              9,
+                                          child: RawMaterialButton(
+                                              fillColor: Colors.green,
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  15.0))),
+                                              splashColor: Color(0xff867ae9),
+                                              textStyle: TextStyle(
+                                                  color: _yaziTipiRengi),
+                                              child: Text(day,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        21, 9, 35, 1),
+                                                    fontSize: 15,
+                                                    fontFamily:
+                                                        'Times New Roman',
+                                                    // fontWeight: FontWeight.bold
+                                                  )),
+                                              onPressed: () async {}),
+                                        );
+                                      }).toList(),
+                                    ),
+                                    CheckboxListTile(
+                                      side: BorderSide(color:Color(0xff996B3E),width: 1),
+                                      activeColor: Color(0xff77A830),
+                                      // tileColor: Color(0xff996B3E),
+                                      checkColor: _yaziTipiRengi,
+                                      contentPadding: EdgeInsets.zero,
+                                      visualDensity: VisualDensity(horizontal: -4),
+                                      dense: true,
+                                      title: Text(
+                                        "Everyday",
+                                        style: TextStyle(
+                                          color: _yaziTipiRengi,
+                                          fontSize: 15,
+                                          fontFamily: 'Times New Roman',
+                                        ),
                                       ),
-                                      flex: 2,
-                                    )
+                                      value: _checkedBoxEveryday,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          _checkedBoxEveryday = val!;
+                                        });
+                                      },
+                                      controlAffinity:
+                                          ListTileControlAffinity.leading,
+                                    ),
+                                    CheckboxListTile(
+                                      side: BorderSide(color:Color(0xff996B3E),width: 1),
+                                      activeColor: Color(0xff77A830),
+                                      // tileColor: Color(0xff996B3E),
+                                      checkColor: _yaziTipiRengi,
+                                      contentPadding: EdgeInsets.zero,
+                                      visualDensity: VisualDensity(horizontal: -4),
+                                      dense: true,
+                                      title: Text(
+                                        "Alarm",
+                                        style: TextStyle(
+                                          color: _yaziTipiRengi,
+                                          fontSize: 15,
+                                          fontFamily: 'Times New Roman',
+                                        ),
+                                      ),
+                                      value: _checkedBoxEveryday,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          _checkedBoxEveryday = val!;
+                                        });
+                                      },
+                                      controlAffinity:
+                                          ListTileControlAffinity.leading,
+                                    ),
                                   ],
                                 ),
                               ),
                             ))),
+              ),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "...",
+                      style: TextStyle(color: _yaziTipiRengi, fontSize: 35),
+                    ),
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: () async {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HabitDetails()));
+
+                            // Navigator.pushAndRemoveUntil(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (BuildContext context) =>
+                            //             HabitDetails()),
+                            //     (Route<dynamic> route) => false);
+                          },
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 2,
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: _yaziTipiRengi),
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Center(
+                                  child: Text("Continue",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: _yaziTipiRengi,
+                                        fontSize: 15,
+                                        fontFamily: 'Times New Roman',
+                                        // fontWeight: FontWeight.bold
+                                      ))),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () async {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HabitDetails()));
+
+                            // Navigator.pushAndRemoveUntil(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (BuildContext context) =>
+                            //             HabitDetails()),
+                            //     (Route<dynamic> route) => false);
+                          },
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 2,
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: _yaziTipiRengi),
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Center(
+                                  child: Text("Continue",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: _yaziTipiRengi,
+                                        fontSize: 15,
+                                        fontFamily: 'Times New Roman',
+                                        // fontWeight: FontWeight.bold
+                                      ))),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               )
             ],
           ),
