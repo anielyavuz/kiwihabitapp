@@ -98,6 +98,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Color.fromRGBO(21, 9, 35, 1),
         body: SafeArea(
           child: Stack(
