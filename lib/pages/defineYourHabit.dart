@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
 import 'package:kiwihabitapp/pages/habitDetails.dart';
 import 'package:kiwihabitapp/widgets/textFieldDecoration.dart';
@@ -257,12 +258,13 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                           Container(
                             padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                             child: RawMaterialButton(
-                                fillColor: _habitName == null || _habitName == ""
-                                    ? _yaziTipiRengi.withOpacity(0.2)
-                                    : _yaziTipiRengi,
+                                fillColor:
+                                    _habitName == null || _habitName == ""
+                                        ? _yaziTipiRengi.withOpacity(0.2)
+                                        : _yaziTipiRengi,
                                 shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15.0))),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(15.0))),
                                 splashColor: Color(0xff867ae9),
                                 textStyle: TextStyle(color: _yaziTipiRengi),
                                 child: Padding(
@@ -276,16 +278,53 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                         // fontWeight: FontWeight.bold
                                       )),
                                 ),
-                                onPressed: _habitName == null || _habitName == ""
+                                onPressed: _habitName == null ||
+                                        _habitName == ""
                                     ? null
                                     : () async {
-                                        setState(() {
-                                          var _habit = {};
-                                          _habit['habitName'] = _habitName;
-                                          _habit['habitCategory'] = _category;
-                                          // print(_habitName);
-                                          _YourHabits.add(_habit);
-                                        });
+                                        if (_YourHabits.length < 5) {
+                                          setState(() {
+                                            var _habit = {};
+                                            _habit['habitName'] = _habitName;
+                                            _habit['habitCategory'] = _category;
+                                            // print(_habitName);
+                                            _YourHabits.add(_habit);
+                                          });
+
+                                          box.put("chooseYourHabitsHive",
+                                              _YourHabits);
+
+                                          getCurrentChooseYourHabits();
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                                duration: Duration(
+                                                    milliseconds: 4000),
+                                                content: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text('Habit limit reached'),
+                                                    Icon(
+                                                      Icons.error,
+                                                      color: Colors.yellow,
+                                                      size: 25,
+                                                    ),
+                                                  ],
+                                                ),
+                                                action: SnackBarAction(
+                                                  label: "Be a Premium User",
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                BePremiumUser()));
+                                                  },
+                                                )),
+                                          );
+                                        }
                                       }),
                           ),
                         ],
