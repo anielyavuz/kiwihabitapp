@@ -11,12 +11,14 @@ class _HabitDetailsState extends State<HabitDetails> {
   @override
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   bool _checkedBoxEveryday = true;
+  bool _checkedBoxAlarm = true;
   Map habitsMap = {};
   int _index = 0;
   int _inADay = 1;
   late Box box;
   List _yourHabits = [];
   List _weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  TimeOfDay time = TimeOfDay(hour: 20, minute: 10);
   TextEditingController _activityCount = TextEditingController();
   getCurrentChooseYourHabits() {
     _yourHabits = box.get("chooseYourHabitsHive") ?? [];
@@ -230,12 +232,14 @@ class _HabitDetailsState extends State<HabitDetails> {
                                       }).toList(),
                                     ),
                                     CheckboxListTile(
-                                      side: BorderSide(color:Color(0xff996B3E),width: 1),
+                                      side: BorderSide(
+                                          color: Color(0xff996B3E), width: 1),
                                       activeColor: Color(0xff77A830),
                                       // tileColor: Color(0xff996B3E),
                                       checkColor: _yaziTipiRengi,
                                       contentPadding: EdgeInsets.zero,
-                                      visualDensity: VisualDensity(horizontal: -4),
+                                      visualDensity:
+                                          VisualDensity(horizontal: -4),
                                       dense: true,
                                       title: Text(
                                         "Everyday",
@@ -255,12 +259,14 @@ class _HabitDetailsState extends State<HabitDetails> {
                                           ListTileControlAffinity.leading,
                                     ),
                                     CheckboxListTile(
-                                      side: BorderSide(color:Color(0xff996B3E),width: 1),
+                                      side: BorderSide(
+                                          color: Color(0xff996B3E), width: 1),
                                       activeColor: Color(0xff77A830),
                                       // tileColor: Color(0xff996B3E),
                                       checkColor: _yaziTipiRengi,
                                       contentPadding: EdgeInsets.zero,
-                                      visualDensity: VisualDensity(horizontal: -4),
+                                      visualDensity:
+                                          VisualDensity(horizontal: -4),
                                       dense: true,
                                       title: Text(
                                         "Alarm",
@@ -270,15 +276,38 @@ class _HabitDetailsState extends State<HabitDetails> {
                                           fontFamily: 'Times New Roman',
                                         ),
                                       ),
-                                      value: _checkedBoxEveryday,
+                                      value: _checkedBoxAlarm,
                                       onChanged: (val) {
                                         setState(() {
-                                          _checkedBoxEveryday = val!;
+                                          _checkedBoxAlarm = val!;
                                         });
                                       },
                                       controlAffinity:
                                           ListTileControlAffinity.leading,
                                     ),
+                                    Text('${time.hour}:${time.minute}',
+                                        style: TextStyle(
+                                            color: _yaziTipiRengi,
+                                            fontSize: 35)),
+                                    InkWell(
+                                      onTap: () async {
+                                        TimeOfDay? newTime =
+                                            await showTimePicker(
+                                                context: context,
+                                                initialTime: time);
+                                        if (newTime == null)
+                                          return;
+                                        else {
+                                          setState(() {
+                                            time = newTime;
+                                          });
+                                        }
+                                      },
+                                      child: Container(
+                                        child: Text("Saat"),
+                                        color: Colors.amber,
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
