@@ -106,8 +106,10 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                   height: 25,
                                                   width: 25,
                                                   child: RawMaterialButton(
-                                                      fillColor:
-                                                          Color(0xff542e71),
+                                                      fillColor: _inADay > 1
+                                                          ? Color(0xff542e71)
+                                                          : Color.fromARGB(
+                                                              255, 89, 89, 89),
                                                       shape: RoundedRectangleBorder(
                                                           borderRadius:
                                                               BorderRadius.all(
@@ -126,7 +128,17 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                 'Times New Roman',
                                                             // fontWeight: FontWeight.bold
                                                           )),
-                                                      onPressed: () {}),
+                                                      onPressed: _inADay <= 1
+                                                          ? null
+                                                          : () {
+                                                              if (_inADay > 1) {
+                                                                setState(() {
+                                                                  _inADay =
+                                                                      _inADay -
+                                                                          1;
+                                                                });
+                                                              }
+                                                            }),
                                                 ),
                                                 Text(_inADay.toString(),
                                                     style: TextStyle(
@@ -159,7 +171,11 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                 'Times New Roman',
                                                             // fontWeight: FontWeight.bold
                                                           )),
-                                                      onPressed: () {}),
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          _inADay = _inADay + 1;
+                                                        });
+                                                      }),
                                                 )
                                               ],
                                             ),
@@ -178,28 +194,34 @@ class _HabitDetailsState extends State<HabitDetails> {
                                     Expanded(
                                       child: Row(
                                         children: _weekDays.map((day) {
-                                          return RawMaterialButton(
-                                              fillColor: Colors.green,
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  15.0))),
-                                              splashColor: Color(0xff867ae9),
-                                              textStyle: TextStyle(
-                                                  color: _yaziTipiRengi),
-                                              child: Text(day,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        21, 9, 35, 1),
-                                                    fontSize: 15,
-                                                    fontFamily:
-                                                        'Times New Roman',
-                                                    // fontWeight: FontWeight.bold
-                                                  )),
-                                              onPressed: () async {});
+                                          return Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                9,
+                                            child: RawMaterialButton(
+                                                fillColor: Colors.green,
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    15.0))),
+                                                splashColor: Color(0xff867ae9),
+                                                textStyle: TextStyle(
+                                                    color: _yaziTipiRengi),
+                                                child: Text(day,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          21, 9, 35, 1),
+                                                      fontSize: 15,
+                                                      fontFamily:
+                                                          'Times New Roman',
+                                                      // fontWeight: FontWeight.bold
+                                                    )),
+                                                onPressed: () async {}),
+                                          );
                                         }).toList(),
                                       ),
                                       flex: 2,
