@@ -669,6 +669,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                       style: TextStyle(color: _yaziTipiRengi, fontSize: 35),
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         InkWell(
                           onTap: () async {
@@ -687,13 +688,13 @@ class _HabitDetailsState extends State<HabitDetails> {
                           child: FittedBox(
                             fit: BoxFit.fill,
                             child: Container(
-                              width: MediaQuery.of(context).size.width / 2,
+                              width: MediaQuery.of(context).size.width /3,
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   border: Border.all(color: _yaziTipiRengi),
                                   borderRadius: BorderRadius.circular(15)),
                               child: Center(
-                                  child: Text("Continue",
+                                  child: Text("Previous",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: _yaziTipiRengi,
@@ -721,13 +722,13 @@ class _HabitDetailsState extends State<HabitDetails> {
                           child: FittedBox(
                             fit: BoxFit.fill,
                             child: Container(
-                              width: MediaQuery.of(context).size.width / 2,
+                              width: MediaQuery.of(context).size.width / 3,
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   border: Border.all(color: _yaziTipiRengi),
                                   borderRadius: BorderRadius.circular(15)),
                               child: Center(
-                                  child: Text("Continue",
+                                  child: Text("Next",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: _yaziTipiRengi,
