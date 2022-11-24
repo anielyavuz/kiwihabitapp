@@ -18,7 +18,11 @@ class _HabitDetailsState extends State<HabitDetails> {
   late Box box;
   List _yourHabits = [];
   List _weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  TimeOfDay time = TimeOfDay(hour: 20, minute: 10);
+
+  List<TimeOfDay> _allTimes = [
+    TimeOfDay(hour: 12, minute: 30),
+  ];
+
   TextEditingController _activityCount = TextEditingController();
   getCurrentChooseYourHabits() {
     _yourHabits = box.get("chooseYourHabitsHive") ?? [];
@@ -146,6 +150,9 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                             setState(() {
                                                               _inADay =
                                                                   _inADay - 1;
+
+                                                              _allTimes
+                                                                  .removeLast();
                                                             });
                                                           }
                                                         }),
@@ -182,6 +189,11 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                   onPressed: () {
                                                     setState(() {
                                                       _inADay = _inADay + 1;
+
+                                                      _allTimes.add(TimeOfDay(
+                                                          hour:
+                                                              12 + _inADay - 1,
+                                                          minute: 30));
                                                     });
                                                   }),
                                             )
@@ -285,29 +297,64 @@ class _HabitDetailsState extends State<HabitDetails> {
                                       controlAffinity:
                                           ListTileControlAffinity.leading,
                                     ),
-                                    Text('${time.hour}:${time.minute}',
-                                        style: TextStyle(
-                                            color: _yaziTipiRengi,
-                                            fontSize: 35)),
-                                    InkWell(
-                                      onTap: () async {
-                                        TimeOfDay? newTime =
-                                            await showTimePicker(
-                                                context: context,
-                                                initialTime: time);
-                                        if (newTime == null)
-                                          return;
-                                        else {
-                                          setState(() {
-                                            time = newTime;
-                                          });
-                                        }
-                                      },
-                                      child: Container(
-                                        child: Text("Saat"),
-                                        color: Colors.amber,
-                                      ),
-                                    )
+                                    Container(
+                                      height: 200,
+                                      // width: 50,
+                                      child: ListView.builder(
+                                          itemCount: _allTimes.length,
+                                          itemBuilder: (context, index) {
+                                            // print(_kaydirmaNoktalari);
+                                            return Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  3,
+                                              child: RawMaterialButton(
+                                                  fillColor: Colors.green,
+                                                  shape:
+                                                      const RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      15.0))),
+                                                  splashColor:
+                                                      Color(0xff867ae9),
+                                                  textStyle: TextStyle(
+                                                      color: _yaziTipiRengi),
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      TimeOfDay? newTime =
+                                                          await showTimePicker(
+                                                              context: context,
+                                                              initialTime:
+                                                                  _allTimes[
+                                                                      index]);
+                                                      if (newTime == null)
+                                                        return;
+                                                      else {
+                                                        setState(() {
+                                                          _allTimes[index] =
+                                                              newTime;
+                                                        });
+                                                      }
+                                                    },
+                                                    child: Text(
+                                                        _allTimes[index]
+                                                                .hour
+                                                                .toString() +
+                                                            ":" +
+                                                            _allTimes[index]
+                                                                .minute
+                                                                .toString(),
+                                                        style: TextStyle(
+                                                            color:
+                                                                _yaziTipiRengi,
+                                                            fontSize: 35)),
+                                                  ),
+                                                  onPressed: () async {}),
+                                            );
+                                          }),
+                                    ),
                                   ],
                                 ),
                               ),
