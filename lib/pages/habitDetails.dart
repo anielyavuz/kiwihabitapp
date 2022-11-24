@@ -19,8 +19,12 @@ class _HabitDetailsState extends State<HabitDetails> {
   List _yourHabits = [];
   List _weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-  List<TimeOfDay> _allTimes = [
-    TimeOfDay(hour: 12, minute: 30),
+  List _allTimes = [
+    {
+      "time": TimeOfDay(hour: 12, minute: 30),
+      "notification": true,
+      "alarm": false
+    }
   ];
 
   TextEditingController _activityCount = TextEditingController();
@@ -236,12 +240,16 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                         setState(() {
                                                           _inADay = _inADay + 1;
 
-                                                          _allTimes.add(
-                                                              TimeOfDay(
-                                                                  hour: 12 +
-                                                                      _inADay -
-                                                                      1,
-                                                                  minute: 30));
+                                                          _allTimes.add({
+                                                            "time": TimeOfDay(
+                                                                hour: 12 +
+                                                                    _inADay -
+                                                                    1,
+                                                                minute: 30),
+                                                            "notification":
+                                                                true,
+                                                            "alarm": false
+                                                          });
                                                         });
                                                       }),
                                                 ),
@@ -384,74 +392,250 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                             BorderRadius.all(
                                                                 Radius.circular(
                                                                     15.0))),
-                                                    splashColor: Colors.green,
+                                                    // splashColor: Colors.green,
                                                     textStyle: TextStyle(
                                                         color: _yaziTipiRengi),
-                                                    child: InkWell(
-                                                      onTap: () async {
-                                                        TimeOfDay? newTime =
-                                                            await showTimePicker(
-                                                                context:
-                                                                    context,
-                                                                initialTime:
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          15, 5, 15, 5),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                              "Goal " +
+                                                                  (index + 1)
+                                                                      .toString(),
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      _yaziTipiRengi,
+                                                                  fontSize:
+                                                                      15)),
+                                                          Row(
+                                                            children: [
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setState(() {
                                                                     _allTimes[
-                                                                        index]);
-                                                        if (newTime == null)
-                                                          return;
-                                                        else {
-                                                          setState(() {
-                                                            _allTimes[index] =
-                                                                newTime;
-                                                          });
-                                                        }
-                                                      },
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .fromLTRB(
-                                                                15, 5, 15, 5),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Text(
-                                                                "Goal " +
-                                                                    (index + 1)
-                                                                        .toString(),
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        _yaziTipiRengi,
-                                                                    fontSize:
-                                                                        15)),
-                                                            Row(
-                                                              children: [
-                                                                Icon(
-                                                                  Icons
-                                                                      .alarm_on,
+                                                                            index]
+                                                                        [
+                                                                        'alarm'] = !_allTimes[
+                                                                            index]
+                                                                        [
+                                                                        'alarm'];
+                                                                  });
+
+                                                                  if (_allTimes[
+                                                                          index]
+                                                                      [
+                                                                      'alarm']) {
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                        duration:
+                                                                            Duration(milliseconds: 2000),
+                                                                        content:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text('Alarm enabled for ' +
+                                                                                "Goal " +
+                                                                                (index + 1).toString()),
+                                                                          ],
+                                                                        ),
+                                                                        // action: SnackBarAction(
+                                                                        //   label: "Be a Premium User",
+                                                                        //   onPressed: () {
+                                                                        //     Navigator.push(
+                                                                        //         context,
+                                                                        //         MaterialPageRoute(
+                                                                        //             builder: (context) =>
+                                                                        //                 BePremiumUser()));
+                                                                        //   },
+                                                                        // )
+                                                                      ),
+                                                                    );
+                                                                  } else {
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                        duration:
+                                                                            Duration(milliseconds: 2000),
+                                                                        content:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text('Alarm disabled for ' +
+                                                                                "Goal " +
+                                                                                (index + 1).toString()),
+                                                                          ],
+                                                                        ),
+                                                                        // action: SnackBarAction(
+                                                                        //   label: "Be a Premium User",
+                                                                        //   onPressed: () {
+                                                                        //     Navigator.push(
+                                                                        //         context,
+                                                                        //         MaterialPageRoute(
+                                                                        //             builder: (context) =>
+                                                                        //                 BePremiumUser()));
+                                                                        //   },
+                                                                        // )
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                },
+                                                                child: Icon(
+                                                                  _allTimes[index]
+                                                                          [
+                                                                          'alarm']
+                                                                      ? Icons
+                                                                          .alarm_on
+                                                                      : Icons
+                                                                          .alarm_off,
                                                                   size: 25,
-                                                                  color: Colors
-                                                                      .white,
+                                                                  color: _allTimes[
+                                                                              index]
+                                                                          [
+                                                                          'alarm']
+                                                                      ? Color(
+                                                                          0xff77A830)
+                                                                      : _yaziTipiRengi,
                                                                 ),
-                                                                SizedBox(
-                                                                  width: 15,
-                                                                ),
-                                                                Icon(
-                                                                  Icons
-                                                                      .notifications_active,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 15,
+                                                              ),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setState(() {
+                                                                    _allTimes[
+                                                                            index]
+                                                                        [
+                                                                        'notification'] = !_allTimes[
+                                                                            index]
+                                                                        [
+                                                                        'notification'];
+                                                                  });
+
+                                                                  if (_allTimes[
+                                                                          index]
+                                                                      [
+                                                                      'notification']) {
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                        duration:
+                                                                            Duration(milliseconds: 2000),
+                                                                        content:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text('Notification enabled for ' +
+                                                                                "Goal " +
+                                                                                (index + 1).toString()),
+                                                                          ],
+                                                                        ),
+                                                                        // action: SnackBarAction(
+                                                                        //   label: "Be a Premium User",
+                                                                        //   onPressed: () {
+                                                                        //     Navigator.push(
+                                                                        //         context,
+                                                                        //         MaterialPageRoute(
+                                                                        //             builder: (context) =>
+                                                                        //                 BePremiumUser()));
+                                                                        //   },
+                                                                        // )
+                                                                      ),
+                                                                    );
+                                                                  } else {
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                        duration:
+                                                                            Duration(milliseconds: 2000),
+                                                                        content:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text('Notification disabled for ' +
+                                                                                "Goal " +
+                                                                                (index + 1).toString()),
+                                                                          ],
+                                                                        ),
+                                                                        // action: SnackBarAction(
+                                                                        //   label: "Be a Premium User",
+                                                                        //   onPressed: () {
+                                                                        //     Navigator.push(
+                                                                        //         context,
+                                                                        //         MaterialPageRoute(
+                                                                        //             builder: (context) =>
+                                                                        //                 BePremiumUser()));
+                                                                        //   },
+                                                                        // )
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                },
+                                                                child: Icon(
+                                                                  _allTimes[index]
+                                                                          [
+                                                                          'notification']
+                                                                      ? Icons
+                                                                          .notifications_active
+                                                                      : Icons
+                                                                          .notifications_off,
                                                                   size: 25,
-                                                                  color: Colors
-                                                                      .white,
+                                                                  color: _allTimes[
+                                                                              index]
+                                                                          [
+                                                                          'notification']
+                                                                      ? Color(
+                                                                          0xff77A830)
+                                                                      : _yaziTipiRengi,
                                                                 ),
-                                                                SizedBox(
-                                                                  width: 15,
-                                                                ),
-                                                                Text(
-                                                                    _allTimes[index]
+                                                              ),
+                                                              SizedBox(
+                                                                width: 15,
+                                                              ),
+                                                              InkWell(
+                                                                onTap:
+                                                                    () async {
+                                                                  TimeOfDay?
+                                                                      newTime =
+                                                                      await showTimePicker(
+                                                                          context:
+                                                                              context,
+                                                                          initialTime:
+                                                                              _allTimes[index]['time']);
+                                                                  if (newTime ==
+                                                                      null)
+                                                                    return;
+                                                                  else {
+                                                                    setState(
+                                                                        () {
+                                                                      _allTimes[index]
+                                                                              [
+                                                                              'time'] =
+                                                                          newTime;
+                                                                    });
+                                                                  }
+                                                                },
+                                                                child: Text(
+                                                                    _allTimes[index]['time']
                                                                             .hour
                                                                             .toString() +
                                                                         ":" +
-                                                                        _allTimes[index]
+                                                                        _allTimes[index]['time']
                                                                             .minute
                                                                             .toString(),
                                                                     style: TextStyle(
@@ -459,13 +643,13 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                             _yaziTipiRengi,
                                                                         fontSize:
                                                                             25)),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
-                                                    onPressed: () async {}),
+                                                    onPressed: null),
                                               );
                                             }),
                                       ),
