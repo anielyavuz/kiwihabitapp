@@ -17,7 +17,16 @@ class _HabitDetailsState extends State<HabitDetails> {
   int _inADay = 1;
   late Box box;
   List _yourHabits = [];
-  List _weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  List _weekDays = [
+    {'day': 'Mon', 'value': true},
+    {'day': 'Tue', 'value': true},
+    {'day': 'Wed', 'value': true},
+    {'day': 'Thu', 'value': true},
+    {'day': 'Fri', 'value': true},
+    {'day': 'Sat', 'value': true},
+    {'day': 'Sun', 'value': true},
+  ];
 
   List _allTimes = [
     {
@@ -242,9 +251,15 @@ class _HabitDetailsState extends State<HabitDetails> {
 
                                                           _allTimes.add({
                                                             "time": TimeOfDay(
-                                                                hour: 12 +
-                                                                    _inADay -
-                                                                    1,
+                                                                hour: _inADay <
+                                                                        12
+                                                                    ? 12 +
+                                                                        _inADay -
+                                                                        1
+                                                                    : (12 +
+                                                                            _inADay -
+                                                                            1) %
+                                                                        24,
                                                                 minute: 30),
                                                             "notification":
                                                                 true,
@@ -283,7 +298,9 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                   .width /
                                               11,
                                           child: RawMaterialButton(
-                                              fillColor: _yaziTipiRengi,
+                                              fillColor: day['value']
+                                                  ? Colors.green
+                                                  : _yaziTipiRengi,
                                               shape:
                                                   const RoundedRectangleBorder(
                                                       side: BorderSide(
@@ -297,7 +314,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                               splashColor: Colors.green,
                                               textStyle: TextStyle(
                                                   color: _yaziTipiRengi),
-                                              child: Text(day,
+                                              child: Text(day['day'],
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Color.fromRGBO(
@@ -307,36 +324,96 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                         'Times New Roman',
                                                     // fontWeight: FontWeight.bold
                                                   )),
-                                              onPressed: () async {}),
+                                              onPressed: () async {
+                                                int _daySelected = 0;
+                                                for (var _weekDay
+                                                    in _weekDays) {
+                                                  if (_weekDay['value']) {
+                                                    _daySelected += 1;
+                                                  }
+                                                }
+                                                if (_daySelected > 1) {
+                                                  bool _allDaysSelected = true;
+                                                  setState(() {
+                                                    day['value'] =
+                                                        !day['value'];
+                                                  });
+                                                  for (var _weekDay
+                                                      in _weekDays) {
+                                                    if (!_weekDay['value']) {
+                                                      _allDaysSelected = false;
+                                                    }
+                                                  }
+                                                  if (_allDaysSelected) {
+                                                    _checkedBoxEveryday = true;
+                                                  } else {
+                                                    _checkedBoxEveryday = false;
+                                                  }
+                                                } else {
+                                                  if (!day['value'] == true) {
+                                                    bool _allDaysSelected =
+                                                        true;
+                                                    setState(() {
+                                                      day['value'] =
+                                                          !day['value'];
+                                                    });
+                                                    for (var _weekDay
+                                                        in _weekDays) {
+                                                      if (!_weekDay['value']) {
+                                                        _allDaysSelected =
+                                                            false;
+                                                      }
+                                                    }
+                                                    if (_allDaysSelected) {
+                                                      _checkedBoxEveryday =
+                                                          true;
+                                                    } else {
+                                                      _checkedBoxEveryday =
+                                                          false;
+                                                    }
+                                                  }
+                                                }
+                                              }),
                                         );
                                       }).toList(),
                                     ),
-                                    CheckboxListTile(
-                                      side: BorderSide(
-                                          color: Color(0xff996B3E), width: 1),
-                                      activeColor: Color(0xff77A830),
-                                      // tileColor: Color(0xff996B3E),
-                                      checkColor: _yaziTipiRengi,
-                                      contentPadding: EdgeInsets.zero,
-                                      visualDensity:
-                                          VisualDensity(horizontal: -4),
-                                      dense: true,
-                                      title: Text(
-                                        "Everyday",
-                                        style: TextStyle(
-                                          color: _yaziTipiRengi,
-                                          fontSize: 15,
-                                          fontFamily: 'Times New Roman',
-                                        ),
+                                    Theme(
+                                      data: ThemeData(
+                                        splashColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
                                       ),
-                                      value: _checkedBoxEveryday,
-                                      onChanged: (val) {
-                                        setState(() {
-                                          _checkedBoxEveryday = val!;
-                                        });
-                                      },
-                                      controlAffinity:
-                                          ListTileControlAffinity.leading,
+                                      child: CheckboxListTile(
+                                        side: BorderSide(
+                                            color: Color(0xff996B3E), width: 1),
+                                        activeColor: Color(0xff77A830),
+                                        // tileColor: Color(0xff996B3E),
+                                        checkColor: _yaziTipiRengi,
+                                        contentPadding: EdgeInsets.zero,
+                                        visualDensity:
+                                            VisualDensity(horizontal: -4),
+                                        dense: true,
+                                        title: Text(
+                                          "Everyday",
+                                          style: TextStyle(
+                                            color: _yaziTipiRengi,
+                                            fontSize: 15,
+                                            fontFamily: 'Times New Roman',
+                                          ),
+                                        ),
+                                        value: _checkedBoxEveryday,
+                                        onChanged: (val) {
+                                          if (!_checkedBoxEveryday) {
+                                            setState(() {
+                                              _checkedBoxEveryday = true;
+                                              for (var day in _weekDays) {
+                                                day['value'] = true;
+                                              }
+                                            });
+                                          }
+                                        },
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
+                                      ),
                                     ),
                                     // CheckboxListTile(
                                     //   side: BorderSide(
@@ -673,10 +750,10 @@ class _HabitDetailsState extends State<HabitDetails> {
                       children: [
                         InkWell(
                           onTap: () async {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HabitDetails()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => HabitDetails()));
 
                             // Navigator.pushAndRemoveUntil(
                             //     context,
@@ -688,7 +765,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                           child: FittedBox(
                             fit: BoxFit.fill,
                             child: Container(
-                              width: MediaQuery.of(context).size.width /3,
+                              width: MediaQuery.of(context).size.width / 3,
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   border: Border.all(color: _yaziTipiRengi),
@@ -707,10 +784,10 @@ class _HabitDetailsState extends State<HabitDetails> {
                         ),
                         InkWell(
                           onTap: () async {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HabitDetails()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => HabitDetails()));
 
                             // Navigator.pushAndRemoveUntil(
                             //     context,
