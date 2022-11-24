@@ -17,6 +17,7 @@ class _HabitDetailsState extends State<HabitDetails> {
   int _inADay = 1;
   late Box box;
   List _yourHabits = [];
+  int _pageNumber = 0;
 
   List _weekDays = [
     {'day': 'Mon', 'value': true},
@@ -84,8 +85,10 @@ class _HabitDetailsState extends State<HabitDetails> {
                 child: PageView(
                     controller:
                         PageController(viewportFraction: 1, initialPage: 0),
-                    onPageChanged: (int index) =>
-                        setState(() => _index = index),
+                    onPageChanged: (int index) => setState(() {
+                          _index = index;
+                          _pageNumber = index;
+                        }),
                     scrollDirection: Axis.horizontal,
                     children: List.generate(
                         _yourHabits.length,
@@ -195,7 +198,8 @@ class _HabitDetailsState extends State<HabitDetails> {
                                               ),
                                               Container(
                                                 // width: 20,
-                                                padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                                padding: EdgeInsets.fromLTRB(
+                                                    5, 0, 5, 0),
                                                 decoration: BoxDecoration(
                                                     // color: Color(0xff77A830),
                                                     // border: Border.all(
@@ -747,73 +751,128 @@ class _HabitDetailsState extends State<HabitDetails> {
                       style: TextStyle(color: _yaziTipiRengi, fontSize: 35),
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: _pageNumber == 0
+                          ? MainAxisAlignment.center
+                          : _pageNumber == _yourHabits.length - 1
+                              ? MainAxisAlignment.center
+                              : MainAxisAlignment.spaceEvenly,
                       children: [
-                        InkWell(
-                          onTap: () async {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => HabitDetails()));
+                        Visibility(
+                          visible: _pageNumber == 0
+                              ? false
+                              : _pageNumber == _yourHabits.length - 1
+                                  ? false
+                                  : true,
+                          child: InkWell(
+                            onTap: () async {
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => HabitDetails()));
 
-                            // Navigator.pushAndRemoveUntil(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (BuildContext context) =>
-                            //             HabitDetails()),
-                            //     (Route<dynamic> route) => false);
-                          },
-                          child: FittedBox(
-                            fit: BoxFit.fill,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 3,
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: _yaziTipiRengi),
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Center(
-                                  child: Text("Previous",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: _yaziTipiRengi,
-                                        fontSize: 15,
-                                        fontFamily: 'Times New Roman',
-                                        // fontWeight: FontWeight.bold
-                                      ))),
+                              // Navigator.pushAndRemoveUntil(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (BuildContext context) =>
+                              //             HabitDetails()),
+                              //     (Route<dynamic> route) => false);
+                            },
+                            child: FittedBox(
+                              fit: BoxFit.fill,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: _yaziTipiRengi),
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Center(
+                                    child: Text("Previous",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: _yaziTipiRengi,
+                                          fontSize: 15,
+                                          fontFamily: 'Times New Roman',
+                                          // fontWeight: FontWeight.bold
+                                        ))),
+                              ),
                             ),
                           ),
                         ),
-                        InkWell(
-                          onTap: () async {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => HabitDetails()));
+                        Visibility(
+                          visible: _pageNumber == _yourHabits.length - 1
+                              ? false
+                              : true,
+                          child: InkWell(
+                            onTap: () async {
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => HabitDetails()));
 
-                            // Navigator.pushAndRemoveUntil(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (BuildContext context) =>
-                            //             HabitDetails()),
-                            //     (Route<dynamic> route) => false);
-                          },
-                          child: FittedBox(
-                            fit: BoxFit.fill,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 3,
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: _yaziTipiRengi),
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Center(
-                                  child: Text("Next",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: _yaziTipiRengi,
-                                        fontSize: 15,
-                                        fontFamily: 'Times New Roman',
-                                        // fontWeight: FontWeight.bold
-                                      ))),
+                              // Navigator.pushAndRemoveUntil(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (BuildContext context) =>
+                              //             HabitDetails()),
+                              //     (Route<dynamic> route) => false);
+                            },
+                            child: FittedBox(
+                              fit: BoxFit.fill,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: _yaziTipiRengi),
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Center(
+                                    child: Text("Next",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: _yaziTipiRengi,
+                                          fontSize: 15,
+                                          fontFamily: 'Times New Roman',
+                                          // fontWeight: FontWeight.bold
+                                        ))),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: _pageNumber == _yourHabits.length - 1
+                              ? true
+                              : false,
+                          child: InkWell(
+                            onTap: () async {
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => HabitDetails()));
+
+                              // Navigator.pushAndRemoveUntil(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (BuildContext context) =>
+                              //             HabitDetails()),
+                              //     (Route<dynamic> route) => false);
+                            },
+                            child: FittedBox(
+                              fit: BoxFit.fill,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: _yaziTipiRengi),
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Center(
+                                    child: Text("Finish",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: _yaziTipiRengi,
+                                          fontSize: 15,
+                                          fontFamily: 'Times New Roman',
+                                          // fontWeight: FontWeight.bold
+                                        ))),
+                              ),
                             ),
                           ),
                         ),
