@@ -152,8 +152,8 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                   0,
                                                 ),
                                                 child: SizedBox(
-                                                  height: 25,
-                                                  width: 25,
+                                                  height: 20,
+                                                  width: 20,
                                                   child: RawMaterialButton(
                                                       fillColor: _inADay > 1
                                                           ? Color(0xff996B3E)
@@ -194,12 +194,13 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                 ),
                                               ),
                                               Container(
-                                                width: 20,
+                                                // width: 20,
+                                                padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                                                 decoration: BoxDecoration(
                                                     // color: Color(0xff77A830),
-                                                    border: Border.all(
-                                                        color:
-                                                            Color(0xff77A830)),
+                                                    // border: Border.all(
+                                                    //     color:
+                                                    //         Color(0xff77A830)),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5)),
@@ -222,8 +223,8 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                   0,
                                                 ),
                                                 child: SizedBox(
-                                                  height: 25,
-                                                  width: 25,
+                                                  height: 20,
+                                                  width: 20,
                                                   child: RawMaterialButton(
                                                       fillColor:
                                                           Color(0xff996B3E),
