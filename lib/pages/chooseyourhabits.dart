@@ -5,6 +5,7 @@ import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:kiwihabitapp/pages/defineYourHabit.dart';
 import 'package:kiwihabitapp/pages/habitDetails.dart';
+import 'package:kiwihabitapp/pages/intro.dart';
 import 'package:kiwihabitapp/widgets/habitGroup.dart';
 import 'package:kiwihabitapp/widgets/habitGroup2.dart';
 
@@ -491,13 +492,20 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                     height: 40,
                     child: IconButton(
                         onPressed: () async {
-                          await _auth.signOut();
-
-                          var a = await _authService.signOut();
-                          Navigator.push(
+                          Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CheckAuth()));
+                                  builder: (BuildContext context) =>
+                                      IntroPage()),
+                              (Route<dynamic> route) => false);
+
+                          // await _auth.signOut();
+
+                          // var a = await _authService.signOut();
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => CheckAuth()));
                         },
                         icon: Icon(
                           Icons.arrow_back_ios,

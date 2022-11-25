@@ -39,13 +39,13 @@ class _IntroPageState extends State<IntroPage> {
 
     box = Hive.box("kiwiHive");
     _loginLogs = box.get("loginLogsHive") ?? [];
-    for (var item in _loginLogs) {
-      if (item.isBefore(_bugun)) {
-        print("$item şuandan öncedir");
-      } else {
-        print("$item şuandan sonradır...");
-      }
-    }
+    // for (var item in _loginLogs) {
+    //   if (item.isBefore(_bugun)) {
+    //     print("$item şuandan öncedir");
+    //   } else {
+    //     print("$item şuandan sonradır...");
+    //   }
+    // }
 
     _loginLogs.add(date);
     print("----------------------");
