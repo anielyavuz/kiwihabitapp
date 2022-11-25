@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:kiwihabitapp/pages/defineYourHabit.dart';
@@ -20,6 +21,15 @@ class _ChooseHabitsState extends State<ChooseHabits> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   AuthService _authService = AuthService();
+  late Box box;
+  List _yourHabits = [];
+  @override
+  void initState() {
+    super.initState();
+
+    box = Hive.box("kiwiHive");
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -410,12 +420,45 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                         children: [
                           InkWell(
                             onTap: () async {
-                              // print(object);
+                              _yourHabits =
+                                  box.get("chooseYourHabitsHive") ?? [];
 
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HabitDetails()));
+                              if (_yourHabits.length > 0) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => HabitDetails()));
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: Duration(milliseconds: 2000),
+                                    content: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                            'You should have at least one habit '),
+                                        Icon(
+                                          Icons.error,
+                                          color: Colors.yellow,
+                                          size: 25,
+                                        ),
+                                      ],
+                                    ),
+                                    // action: SnackBarAction(
+                                    //   label: "Be a Premium User",
+                                    //   onPressed: () {
+                                    //     Navigator.push(
+                                    //         context,
+                                    //         MaterialPageRoute(
+                                    //             builder: (context) =>
+                                    //                 BePremiumUser()));
+                                    //   },
+                                    // )
+                                  ),
+                                );
+                              }
+                              // print(object);
                             },
                             child: FittedBox(
                               fit: BoxFit.fill,

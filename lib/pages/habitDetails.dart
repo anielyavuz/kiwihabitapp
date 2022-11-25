@@ -843,10 +843,18 @@ class _HabitDetailsState extends State<HabitDetails> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "...",
-                      style: TextStyle(color: _yaziTipiRengi, fontSize: 35),
-                    ),
+                    Wrap(
+                        direction: Axis.horizontal,
+                        children: List.generate(_yourHabits.length, (index3) {
+                          return Text(
+                            ".",
+                            style: TextStyle(
+                                color: index3 == _pageNumber
+                                    ? Colors.green
+                                    : _yaziTipiRengi,
+                                fontSize: index3 == _pageNumber ? 65 : 55),
+                          );
+                        })),
                     Row(
                       mainAxisAlignment: _pageNumber == 0
                           ? MainAxisAlignment.center

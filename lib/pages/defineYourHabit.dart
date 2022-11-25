@@ -15,6 +15,7 @@ class DefineYourHabit extends StatefulWidget {
 class _DefineYourHabitState extends State<DefineYourHabit> {
   var _habitName;
   late Box box;
+  List _yourFinalHabits = [];
   var _category = "Health";
   List _YourHabits = [];
   List _allDefaultHabits = [
@@ -468,10 +469,43 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                       children: [
                         InkWell(
                           onTap: () async {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HabitDetails()));
+                            _yourFinalHabits =
+                                box.get("chooseYourHabitsHive") ?? [];
+
+                            if (_yourFinalHabits.length > 0) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HabitDetails()));
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  duration: Duration(milliseconds: 2000),
+                                  content: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                          'You should have at least one habit '),
+                                      Icon(
+                                        Icons.error,
+                                        color: Colors.yellow,
+                                        size: 25,
+                                      ),
+                                    ],
+                                  ),
+                                  // action: SnackBarAction(
+                                  //   label: "Be a Premium User",
+                                  //   onPressed: () {
+                                  //     Navigator.push(
+                                  //         context,
+                                  //         MaterialPageRoute(
+                                  //             builder: (context) =>
+                                  //                 BePremiumUser()));
+                                  //   },
+                                  // )
+                                ),
+                              );
+                            }
 
                             // Navigator.pushAndRemoveUntil(
                             //     context,
