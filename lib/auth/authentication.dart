@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
 import 'package:kiwihabitapp/pages/intro.dart';
+import 'package:kiwihabitapp/pages/mainPage.dart';
 
 class CheckAuth extends StatefulWidget {
   @override
@@ -37,6 +38,6 @@ class _CheckAuthState extends State<CheckAuth> {
 
   @override
   Widget build(BuildContext context) {
-    return (_login) ? ChooseHabits() : IntroPage();
+    return (_login) ? MainPage() : IntroPage();
   }
 }

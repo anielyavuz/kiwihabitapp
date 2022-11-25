@@ -318,14 +318,20 @@ class _IntroPageState extends State<IntroPage> {
                                       )),
                                 ),
                                 onPressed: () async {
-                                  setState(() {
-                                    _loadingIcon = true;
-                                  });
-                                  var a = await _authService.anonymSignIn();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ChooseHabits()));
 
-                                  setState(() {
-                                    _loadingIcon = false;
-                                  });
+                                  // setState(() {
+                                  //   _loadingIcon = true;
+                                  // });
+                                  // var a = await _authService.anonymSignIn();
+
+                                  // setState(() {
+                                  //   _loadingIcon = false;
+                                  // });
                                 }),
                             const SizedBox(
                               height: 20,

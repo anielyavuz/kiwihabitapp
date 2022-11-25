@@ -1,5 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kiwihabitapp/auth/authFunctions.dart';
+import 'package:kiwihabitapp/auth/authentication.dart';
+import 'package:lottie/lottie.dart';
 
 class HabitDetails extends StatefulWidget {
   const HabitDetails({Key? key}) : super(key: key);
@@ -10,6 +15,8 @@ class HabitDetails extends StatefulWidget {
 class _HabitDetailsState extends State<HabitDetails> {
   @override
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
+  bool _loadingIcon = false;
+  AuthService _authService = AuthService();
   bool _checkedBoxEveryday = true;
   bool _checkedBoxAlarm = true;
   Map habitsMap = {};
@@ -18,6 +25,8 @@ class _HabitDetailsState extends State<HabitDetails> {
   late Box box;
   List _yourHabits = [];
   int _pageNumber = 0;
+  PageController _pageController =
+      PageController(viewportFraction: 1, initialPage: 0);
 
   List _weekDays = [
     {'day': 'Mon', 'value': true},
@@ -40,11 +49,34 @@ class _HabitDetailsState extends State<HabitDetails> {
   TextEditingController _activityCount = TextEditingController();
   getCurrentChooseYourHabits() {
     _yourHabits = box.get("chooseYourHabitsHive") ?? [];
+
     // for (var item in _YourHabits) {
     //   setState(() {
     //     _chooseYourHabitsName.add(item['habitName']);
     //   });
     // }
+    for (var _yourHabit in _yourHabits) {
+      setState(() {
+        _yourHabit['_weekDays'] = [
+          {'day': 'Mon', 'value': true},
+          {'day': 'Tue', 'value': true},
+          {'day': 'Wed', 'value': true},
+          {'day': 'Thu', 'value': true},
+          {'day': 'Fri', 'value': true},
+          {'day': 'Sat', 'value': true},
+          {'day': 'Sun', 'value': true},
+        ];
+        _yourHabit['_allTimes'] = [
+          {
+            "time": TimeOfDay(hour: 12, minute: 30),
+            "notification": true,
+            "alarm": false
+          },
+        ];
+        _yourHabit['_checkedBoxEveryday'] = true;
+      });
+    }
+
     print(_yourHabits);
   }
 
@@ -83,8 +115,7 @@ class _HabitDetailsState extends State<HabitDetails> {
               Expanded(
                 flex: 7,
                 child: PageView(
-                    controller:
-                        PageController(viewportFraction: 1, initialPage: 0),
+                    controller: _pageController,
                     onPageChanged: (int index) => setState(() {
                           _index = index;
                           _pageNumber = index;
@@ -158,7 +189,9 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                   height: 20,
                                                   width: 20,
                                                   child: RawMaterialButton(
-                                                      fillColor: _inADay > 1
+                                                      fillColor: _yourHabits[index]['_allTimes']
+                                                                  .length >
+                                                              1
                                                           ? Color(0xff996B3E)
                                                           : Color.fromARGB(
                                                               86, 153, 107, 62),
@@ -180,16 +213,25 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                 'Times New Roman',
                                                             // fontWeight: FontWeight.bold
                                                           )),
-                                                      onPressed: _inADay <= 1
+                                                      onPressed: _yourHabits[index]
+                                                                      ['_allTimes']
+                                                                  .length <=
+                                                              1
                                                           ? null
                                                           : () {
-                                                              if (_inADay > 1) {
+                                                              if (_yourHabits[index]
+                                                                          [
+                                                                          '_allTimes']
+                                                                      .length >
+                                                                  1) {
                                                                 setState(() {
                                                                   _inADay =
                                                                       _inADay -
                                                                           1;
 
-                                                                  _allTimes
+                                                                  _yourHabits[index]
+                                                                          [
+                                                                          '_allTimes']
                                                                       .removeLast();
                                                                 });
                                                               }
@@ -208,7 +250,11 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5)),
-                                                child: Text(_inADay.toString(),
+                                                child: Text(
+                                                    _yourHabits[index]
+                                                            ['_allTimes']
+                                                        .length
+                                                        .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       color: _yaziTipiRengi,
@@ -254,7 +300,9 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                         setState(() {
                                                           _inADay = _inADay + 1;
 
-                                                          _allTimes.add({
+                                                          _yourHabits[index]
+                                                                  ['_allTimes']
+                                                              .add({
                                                             "time": TimeOfDay(
                                                                 hour: _inADay <
                                                                         12
@@ -290,7 +338,8 @@ class _HabitDetailsState extends State<HabitDetails> {
                                       ),
                                     ),
                                     Row(
-                                      children: _weekDays.map((day) {
+                                      children: _yourHabits[index]['_weekDays']
+                                          .map<Widget>((day) {
                                         return Container(
                                           padding:
                                               EdgeInsets.fromLTRB(3, 0, 3, 0),
@@ -332,7 +381,8 @@ class _HabitDetailsState extends State<HabitDetails> {
                                               onPressed: () async {
                                                 int _daySelected = 0;
                                                 for (var _weekDay
-                                                    in _weekDays) {
+                                                    in _yourHabits[index]
+                                                        ['_weekDays']) {
                                                   if (_weekDay['value']) {
                                                     _daySelected += 1;
                                                   }
@@ -344,15 +394,22 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                         !day['value'];
                                                   });
                                                   for (var _weekDay
-                                                      in _weekDays) {
+                                                      in _yourHabits[index]
+                                                          ['_weekDays']) {
                                                     if (!_weekDay['value']) {
                                                       _allDaysSelected = false;
                                                     }
                                                   }
                                                   if (_allDaysSelected) {
-                                                    _checkedBoxEveryday = true;
+                                                    // _checkedBoxEveryday = true;
+                                                    _yourHabits[index][
+                                                            '_checkedBoxEveryday'] =
+                                                        true;
                                                   } else {
-                                                    _checkedBoxEveryday = false;
+                                                    _yourHabits[index][
+                                                            '_checkedBoxEveryday'] =
+                                                        false;
+                                                    // _checkedBoxEveryday = false;
                                                   }
                                                 } else {
                                                   if (!day['value'] == true) {
@@ -363,21 +420,31 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                           !day['value'];
                                                     });
                                                     for (var _weekDay
-                                                        in _weekDays) {
+                                                        in _yourHabits[index]
+                                                            ['_weekDays']) {
                                                       if (!_weekDay['value']) {
                                                         _allDaysSelected =
                                                             false;
                                                       }
                                                     }
                                                     if (_allDaysSelected) {
-                                                      _checkedBoxEveryday =
+                                                      _yourHabits[index][
+                                                              '_checkedBoxEveryday'] =
                                                           true;
+                                                      // _checkedBoxEveryday =
+                                                      //     true;
                                                     } else {
-                                                      _checkedBoxEveryday =
+                                                      _yourHabits[index][
+                                                              '_checkedBoxEveryday'] =
                                                           false;
+                                                      // _checkedBoxEveryday =
+                                                      //     false;
                                                     }
                                                   }
                                                 }
+
+                                                // print("-------------");
+                                                // print(_yourHabits);
                                               }),
                                         );
                                       }).toList(),
@@ -405,12 +472,17 @@ class _HabitDetailsState extends State<HabitDetails> {
                                             fontFamily: 'Times New Roman',
                                           ),
                                         ),
-                                        value: _checkedBoxEveryday,
+                                        value: _yourHabits[index]
+                                            ['_checkedBoxEveryday'],
                                         onChanged: (val) {
-                                          if (!_checkedBoxEveryday) {
+                                          if (!_yourHabits[index]
+                                              ['_checkedBoxEveryday']) {
                                             setState(() {
-                                              _checkedBoxEveryday = true;
-                                              for (var day in _weekDays) {
+                                              _yourHabits[index]
+                                                      ['_checkedBoxEveryday'] =
+                                                  true;
+                                              for (var day in _yourHabits[index]
+                                                  ['_weekDays']) {
                                                 day['value'] = true;
                                               }
                                             });
@@ -455,9 +527,12 @@ class _HabitDetailsState extends State<HabitDetails> {
                                         //         5,
                                         height: 200,
                                         // width: 50,
+
                                         child: ListView.builder(
-                                            itemCount: _allTimes.length,
-                                            itemBuilder: (context, index) {
+                                            itemCount: _yourHabits[index]
+                                                    ['_allTimes']
+                                                .length,
+                                            itemBuilder: (context, index2) {
                                               // print(_kaydirmaNoktalari);
                                               return Container(
                                                 width: MediaQuery.of(context)
@@ -488,7 +563,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                         children: [
                                                           Text(
                                                               "Goal " +
-                                                                  (index + 1)
+                                                                  (index2 + 1)
                                                                       .toString(),
                                                               style: TextStyle(
                                                                   color:
@@ -500,17 +575,22 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                               InkWell(
                                                                 onTap: () {
                                                                   setState(() {
-                                                                    _allTimes[
-                                                                            index]
+                                                                    _yourHabits[index]['_allTimes']
+                                                                            [
+                                                                            index2]
                                                                         [
-                                                                        'alarm'] = !_allTimes[
-                                                                            index]
+                                                                        'alarm'] = !_yourHabits[index]['_allTimes']
+                                                                            [
+                                                                            index2]
                                                                         [
                                                                         'alarm'];
                                                                   });
 
-                                                                  if (_allTimes[
-                                                                          index]
+                                                                  if (_yourHabits[index]
+                                                                              [
+                                                                              '_allTimes']
+                                                                          [
+                                                                          index2]
                                                                       [
                                                                       'alarm']) {
                                                                     ScaffoldMessenger.of(
@@ -526,7 +606,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                           children: [
                                                                             Text('Alarm enabled for ' +
                                                                                 "Goal " +
-                                                                                (index + 1).toString()),
+                                                                                (index2 + 1).toString()),
                                                                           ],
                                                                         ),
                                                                         // action: SnackBarAction(
@@ -555,7 +635,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                           children: [
                                                                             Text('Alarm disabled for ' +
                                                                                 "Goal " +
-                                                                                (index + 1).toString()),
+                                                                                (index2 + 1).toString()),
                                                                           ],
                                                                         ),
                                                                         // action: SnackBarAction(
@@ -573,7 +653,9 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                   }
                                                                 },
                                                                 child: Icon(
-                                                                  _allTimes[index]
+                                                                  _yourHabits[index]['_allTimes']
+                                                                              [
+                                                                              index2]
                                                                           [
                                                                           'alarm']
                                                                       ? Icons
@@ -581,8 +663,9 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                       : Icons
                                                                           .alarm_off,
                                                                   size: 25,
-                                                                  color: _allTimes[
-                                                                              index]
+                                                                  color: _yourHabits[index]['_allTimes']
+                                                                              [
+                                                                              index2]
                                                                           [
                                                                           'alarm']
                                                                       ? Color(
@@ -596,17 +679,22 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                               InkWell(
                                                                 onTap: () {
                                                                   setState(() {
-                                                                    _allTimes[
-                                                                            index]
+                                                                    _yourHabits[index]['_allTimes']
+                                                                            [
+                                                                            index2]
                                                                         [
-                                                                        'notification'] = !_allTimes[
-                                                                            index]
+                                                                        'notification'] = !_yourHabits[index]['_allTimes']
+                                                                            [
+                                                                            index2]
                                                                         [
                                                                         'notification'];
                                                                   });
 
-                                                                  if (_allTimes[
-                                                                          index]
+                                                                  if (_yourHabits[index]
+                                                                              [
+                                                                              '_allTimes']
+                                                                          [
+                                                                          index2]
                                                                       [
                                                                       'notification']) {
                                                                     ScaffoldMessenger.of(
@@ -622,7 +710,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                           children: [
                                                                             Text('Notification enabled for ' +
                                                                                 "Goal " +
-                                                                                (index + 1).toString()),
+                                                                                (index2 + 1).toString()),
                                                                           ],
                                                                         ),
                                                                         // action: SnackBarAction(
@@ -651,7 +739,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                           children: [
                                                                             Text('Notification disabled for ' +
                                                                                 "Goal " +
-                                                                                (index + 1).toString()),
+                                                                                (index2 + 1).toString()),
                                                                           ],
                                                                         ),
                                                                         // action: SnackBarAction(
@@ -669,7 +757,9 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                   }
                                                                 },
                                                                 child: Icon(
-                                                                  _allTimes[index]
+                                                                  _yourHabits[index]['_allTimes']
+                                                                              [
+                                                                              index2]
                                                                           [
                                                                           'notification']
                                                                       ? Icons
@@ -677,8 +767,9 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                       : Icons
                                                                           .notifications_off,
                                                                   size: 25,
-                                                                  color: _allTimes[
-                                                                              index]
+                                                                  color: _yourHabits[index]['_allTimes']
+                                                                              [
+                                                                              index2]
                                                                           [
                                                                           'notification']
                                                                       ? Color(
@@ -698,33 +789,39 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                           context:
                                                                               context,
                                                                           initialTime:
-                                                                              _allTimes[index]['time']);
+                                                                              _yourHabits[index]['_allTimes'][index2]['time']);
                                                                   if (newTime ==
                                                                       null)
                                                                     return;
                                                                   else {
                                                                     setState(
                                                                         () {
-                                                                      _allTimes[index]
+                                                                      _yourHabits[index]['_allTimes'][index2]
                                                                               [
                                                                               'time'] =
                                                                           newTime;
                                                                     });
                                                                   }
                                                                 },
-                                                                child: Text(
-                                                                    _allTimes[index]['time']
-                                                                            .hour
-                                                                            .toString() +
-                                                                        ":" +
-                                                                        _allTimes[index]['time']
+                                                                child: _yourHabits[index]['_allTimes'][index2]['time']
                                                                             .minute
-                                                                            .toString(),
-                                                                    style: TextStyle(
-                                                                        color:
-                                                                            _yaziTipiRengi,
-                                                                        fontSize:
-                                                                            25)),
+                                                                            .toString() !=
+                                                                        "0"
+                                                                    ? Text(
+                                                                        _yourHabits[index]['_allTimes'][index2]['time'].hour.toString() +
+                                                                            ":" +
+                                                                            _yourHabits[index]['_allTimes'][index2]['time']
+                                                                                .minute
+                                                                                .toString(),
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                _yaziTipiRengi,
+                                                                            fontSize:
+                                                                                25))
+                                                                    : Text(_yourHabits[index]['_allTimes'][index2]['time'].hour.toString() + ":00",
+                                                                        style: TextStyle(
+                                                                            color: _yaziTipiRengi,
+                                                                            fontSize: 25)),
                                                               ),
                                                             ],
                                                           ),
@@ -758,13 +855,19 @@ class _HabitDetailsState extends State<HabitDetails> {
                               : MainAxisAlignment.spaceEvenly,
                       children: [
                         Visibility(
-                          visible: _pageNumber == 0
+                          visible: _yourHabits.length == 1
                               ? false
-                              : _pageNumber == _yourHabits.length - 1
+                              : _pageNumber == 0
                                   ? false
-                                  : true,
+                                  : _pageNumber == _yourHabits.length - 1
+                                      ? false
+                                      : true,
                           child: InkWell(
                             onTap: () async {
+                              _pageController.previousPage(
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.easeInCirc);
+
                               // Navigator.push(
                               //     context,
                               //     MaterialPageRoute(
@@ -804,6 +907,10 @@ class _HabitDetailsState extends State<HabitDetails> {
                               : true,
                           child: InkWell(
                             onTap: () async {
+                              _pageController.nextPage(
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.easeInCirc);
+
                               // Navigator.push(
                               //     context,
                               //     MaterialPageRoute(
@@ -837,12 +944,77 @@ class _HabitDetailsState extends State<HabitDetails> {
                             ),
                           ),
                         ),
-                        Visibility(
-                          visible: _pageNumber == _yourHabits.length - 1
-                              ? true
-                              : false,
-                          child: InkWell(
+                      ],
+                    ),
+                    Visibility(
+                      visible:
+                          _pageNumber == _yourHabits.length - 1 ? true : false,
+                      child: Row(
+                        mainAxisAlignment: _yourHabits.length == 1
+                            ? MainAxisAlignment.center
+                            : MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Visibility(
+                            visible: _yourHabits.length == 1 ? false : true,
+                            child: InkWell(
+                              onTap: () async {
+                                _pageController.previousPage(
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.easeInCirc);
+
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => HabitDetails()));
+
+                                // Navigator.pushAndRemoveUntil(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (BuildContext context) =>
+                                //             HabitDetails()),
+                                //     (Route<dynamic> route) => false);
+                              },
+                              child: FittedBox(
+                                fit: BoxFit.fill,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width / 3,
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: _yaziTipiRengi),
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                      child: Text("Previous",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: _yaziTipiRengi,
+                                            fontSize: 15,
+                                            fontFamily: 'Times New Roman',
+                                            // fontWeight: FontWeight.bold
+                                          ))),
+                                ),
+                              ),
+                            ),
+                          ),
+                          InkWell(
                             onTap: () async {
+                              setState(() {
+                                _loadingIcon = true;
+                              });
+                              var a = await _authService.anonymSignIn();
+
+                              setState(() {
+                                _loadingIcon = false;
+                              });
+
+                              box.put("chooseYourHabitsHive", _yourHabits);
+
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          CheckAuth()),
+                                  (Route<dynamic> route) => false);
+
                               // Navigator.push(
                               //     context,
                               //     MaterialPageRoute(
@@ -875,8 +1047,8 @@ class _HabitDetailsState extends State<HabitDetails> {
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -897,7 +1069,27 @@ class _HabitDetailsState extends State<HabitDetails> {
                     color: Colors.white,
                   )),
             ),
-          )
+          ),
+          Visibility(
+            visible: _loadingIcon,
+            child: Stack(
+              children: [
+                BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+                  child: Container(
+                    color: Colors.white.withOpacity(0.8),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    child: Lottie.asset(
+                        // "https://assets5.lottiefiles.com/private_files/lf30_ijwulw45.json"
+                        "assets/json/loading.json"),
+                  ),
+                )
+              ],
+            ),
+          ),
         ])));
   }
 }
