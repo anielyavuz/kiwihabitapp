@@ -243,8 +243,10 @@ class _MainPageState extends State<MainPage> {
                                           // border: Border.all(
                                           //     color: Color.fromARGB(
                                           //         255, 212, 212, 212),width: 0.5),
-                                          color:
-                                              Color.fromARGB(255, 56, 24, 93),
+                                          color: _currentIndexCalendar != index
+                                              ? Color.fromARGB(255, 56, 24, 93)
+                                              : Color.fromARGB(
+                                                  255, 48, 135, 51),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10))),
                                       child: Column(
@@ -257,11 +259,7 @@ class _MainPageState extends State<MainPage> {
                                             child: Text(
                                                 days[index].day.toString(),
                                                 style: TextStyle(
-                                                  color:
-                                                      _currentIndexCalendar !=
-                                                              index
-                                                          ? _yaziTipiRengi
-                                                          : Colors.green,
+                                                  color: _yaziTipiRengi,
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.bold,
                                                   fontFamily: 'Times New Roman',
@@ -278,8 +276,13 @@ class _MainPageState extends State<MainPage> {
                                                   borderRadius:
                                                       BorderRadius.all(
                                                           Radius.circular(10)),
-                                                  color: Color.fromARGB(
-                                                      255, 35, 3, 69),
+                                                  color:
+                                                      _currentIndexCalendar !=
+                                                              index
+                                                          ? Color.fromARGB(
+                                                              255, 35, 3, 69)
+                                                          : Color.fromARGB(
+                                                              255, 32, 87, 34),
                                                 ),
                                                 child: Center(
                                                   child: Text(
@@ -287,11 +290,20 @@ class _MainPageState extends State<MainPage> {
                                                           .format(days[index])
                                                           .toString(),
                                                       style: TextStyle(
+                                                        shadows: [
+                                                          Shadow(
+                                                              color:
+                                                                  _yaziTipiRengi,
+                                                              offset:
+                                                                  Offset(0, -2))
+                                                        ],
                                                         color:
-                                                            _currentIndexCalendar !=
-                                                                    index
-                                                                ? _yaziTipiRengi
-                                                                : Colors.green,
+                                                            Colors.transparent,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .underline,
+                                                        decorationThickness: 3,
+                                                        decorationColor: _yaziTipiRengi,
                                                         fontSize: 12,
                                                         fontWeight:
                                                             FontWeight.bold,
