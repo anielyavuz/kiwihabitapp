@@ -76,6 +76,7 @@ flutter:
   assets:
     - assets/json/loading.json
     - assets/images/kiwiLogo.png
+    - assets/images/kapak.jpg
     - assets/json/exercise.json
     - assets/json/yoga.json
     - assets/json/sleep.json

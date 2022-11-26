@@ -29,6 +29,7 @@ class _IntroPageState extends State<IntroPage> {
   bool _loadingIcon = false;
   late Box box;
   late List _loginLogs;
+
   @override
   void initState() {
     super.initState();
@@ -92,7 +93,7 @@ class _IntroPageState extends State<IntroPage> {
                 child: Column(
                   children: [
                     Expanded(
-                      flex: 1,
+                      flex: 4,
                       child: Column(
                         children: [
                           Image.asset(
@@ -113,12 +114,13 @@ class _IntroPageState extends State<IntroPage> {
                       ),
                     ),
                     Expanded(
-                      flex: 2,
+                      flex: 8,
                       child: PageView(
                           controller: PageController(
                               viewportFraction: 1, initialPage: 0),
-                          onPageChanged: (int index) =>
-                              setState(() => _index = index),
+                          onPageChanged: (int index) => setState(() {
+                                _index = index;
+                              }),
                           scrollDirection: Axis.horizontal,
                           children: List.generate(
                               _introPages.length,
@@ -195,107 +197,124 @@ class _IntroPageState extends State<IntroPage> {
                                               ],
                                             ),
                                           ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: index == 0
-                                                        ? Colors.black
-                                                        : Color.fromARGB(
-                                                            255, 250, 250, 250),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(4)),
-                                                    // borderRadius: BorderRadius.all(Radius.circular(15))
-                                                  ),
-                                                  height: index == 0 ? 12 : 7,
-                                                  width: index == 0 ? 12 : 7,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: index == 1
-                                                        ? Colors.black
-                                                        : Color.fromARGB(
-                                                            255, 255, 255, 255),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(4)),
-                                                    // borderRadius: BorderRadius.all(Radius.circular(15))
-                                                  ),
-                                                  height: index == 1 ? 12 : 7,
-                                                  width: index == 1 ? 12 : 7,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: index == 2
-                                                        ? Colors.black
-                                                        : Color.fromARGB(
-                                                            255, 255, 255, 255),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(4)),
-                                                    // borderRadius: BorderRadius.all(Radius.circular(15))
-                                                  ),
-                                                  height: index == 2 ? 12 : 7,
-                                                  width: index == 2 ? 12 : 7,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: index == 3
-                                                        ? Colors.black
-                                                        : Color.fromARGB(
-                                                            255, 255, 255, 255),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(4)),
-                                                    // borderRadius: BorderRadius.all(Radius.circular(15))
-                                                  ),
-                                                  height: index == 3 ? 12 : 7,
-                                                  width: index == 3 ? 12 : 7,
-                                                ),
-                                              ),
-                                              // Padding(
-                                              //   padding: const EdgeInsets.all(8.0),
-                                              //   child: Container(
-                                              //     decoration: BoxDecoration(
-                                              //       color: index == 4
-                                              //           ? Color.fromARGB(255, 0, 0, 0)
-                                              //           : Color.fromARGB(
-                                              //               255, 255, 255, 255),
-                                              //       borderRadius: BorderRadius.all(
-                                              //           Radius.circular(4)),
-                                              //       // borderRadius: BorderRadius.all(Radius.circular(15))
-                                              //     ),
-                                              //     height: index == 4 ? 12 : 7,
-                                              //     width: index == 4 ? 12 : 7,
-                                              //   ),
-                                              // )
-                                            ],
-                                          ),
+
+                                          // Row(
+                                          //   mainAxisAlignment:
+                                          //       MainAxisAlignment.center,
+                                          //   children: [
+
+                                          //     Padding(
+                                          //       padding:
+                                          //           const EdgeInsets.all(8.0),
+                                          //       child: Container(
+                                          //         decoration: BoxDecoration(
+                                          //           color: index == 0
+                                          //               ? Colors.black
+                                          //               : Color.fromARGB(
+                                          //                   255, 250, 250, 250),
+                                          //           borderRadius:
+                                          //               BorderRadius.all(
+                                          //                   Radius.circular(4)),
+                                          //           // borderRadius: BorderRadius.all(Radius.circular(15))
+                                          //         ),
+                                          //         height: index == 0 ? 12 : 7,
+                                          //         width: index == 0 ? 12 : 7,
+                                          //       ),
+                                          //     ),
+                                          //     Padding(
+                                          //       padding:
+                                          //           const EdgeInsets.all(8.0),
+                                          //       child: Container(
+                                          //         decoration: BoxDecoration(
+                                          //           color: index == 1
+                                          //               ? Colors.black
+                                          //               : Color.fromARGB(
+                                          //                   255, 255, 255, 255),
+                                          //           borderRadius:
+                                          //               BorderRadius.all(
+                                          //                   Radius.circular(4)),
+                                          //           // borderRadius: BorderRadius.all(Radius.circular(15))
+                                          //         ),
+                                          //         height: index == 1 ? 12 : 7,
+                                          //         width: index == 1 ? 12 : 7,
+                                          //       ),
+                                          //     ),
+                                          //     Padding(
+                                          //       padding:
+                                          //           const EdgeInsets.all(8.0),
+                                          //       child: Container(
+                                          //         decoration: BoxDecoration(
+                                          //           color: index == 2
+                                          //               ? Colors.black
+                                          //               : Color.fromARGB(
+                                          //                   255, 255, 255, 255),
+                                          //           borderRadius:
+                                          //               BorderRadius.all(
+                                          //                   Radius.circular(4)),
+                                          //           // borderRadius: BorderRadius.all(Radius.circular(15))
+                                          //         ),
+                                          //         height: index == 2 ? 12 : 7,
+                                          //         width: index == 2 ? 12 : 7,
+                                          //       ),
+                                          //     ),
+                                          //     Padding(
+                                          //       padding:
+                                          //           const EdgeInsets.all(8.0),
+                                          //       child: Container(
+                                          //         decoration: BoxDecoration(
+                                          //           color: index == 3
+                                          //               ? Colors.black
+                                          //               : Color.fromARGB(
+                                          //                   255, 255, 255, 255),
+                                          //           borderRadius:
+                                          //               BorderRadius.all(
+                                          //                   Radius.circular(4)),
+                                          //           // borderRadius: BorderRadius.all(Radius.circular(15))
+                                          //         ),
+                                          //         height: index == 3 ? 12 : 7,
+                                          //         width: index == 3 ? 12 : 7,
+                                          //       ),
+                                          //     ),
+                                          //     // Padding(
+                                          //     //   padding: const EdgeInsets.all(8.0),
+                                          //     //   child: Container(
+                                          //     //     decoration: BoxDecoration(
+                                          //     //       color: index == 4
+                                          //     //           ? Color.fromARGB(255, 0, 0, 0)
+                                          //     //           : Color.fromARGB(
+                                          //     //               255, 255, 255, 255),
+                                          //     //       borderRadius: BorderRadius.all(
+                                          //     //           Radius.circular(4)),
+                                          //     //       // borderRadius: BorderRadius.all(Radius.circular(15))
+                                          //     //     ),
+                                          //     //     height: index == 4 ? 12 : 7,
+                                          //     //     width: index == 4 ? 12 : 7,
+                                          //     //   ),
+                                          //     // )
+                                          //   ],
+                                          // ),
                                         ],
                                       ),
                                     ),
                                   ))),
                     ),
                     Expanded(
-                        flex: 1,
+                      flex: 1,
+                      child: Wrap(
+                          direction: Axis.horizontal,
+                          children: List.generate(4, (index3) {
+                            return Text(
+                              ".",
+                              style: TextStyle(
+                                  color: index3 == _index
+                                      ? Colors.green
+                                      : _yaziTipiRengi,
+                                  fontSize: index3 == _index ? 65 : 55),
+                            );
+                          })),
+                    ),
+                    Expanded(
+                        flex: 4,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
