@@ -17,37 +17,7 @@ class _MainPageState extends State<MainPage> {
   late Box box;
   List<DateTime> days = [];
   List _yourHabits = [];
-  List _days = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "17",
-    "18",
-    "19",
-    "20",
-    "21",
-    "22",
-    "23",
-    "24",
-    "25",
-    "26",
-    "27",
-    "28",
-    "29",
-    "30"
-  ];
+  int _currentIndexCalendar = 0;
 
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   final Color _backgroudRengi = Color.fromRGBO(21, 9, 35, 1);
@@ -70,7 +40,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    calculateDaysInterval(DateTime(2013, 3, 0), DateTime(2013, 5, 0));
+    calculateDaysInterval(DateTime(2022, 11, 0), DateTime(2022, 12, 31));
     // WidgetsBinding.instance?.addPostFrameCallback((_) {
     //   Future.delayed(const Duration(milliseconds: 50), () {
 
@@ -95,13 +65,42 @@ class _MainPageState extends State<MainPage> {
 
                 children: [
                   UserAccountsDrawerHeader(
-                    accountName: Text("Today - 26.11.2022",
-                        style: TextStyle(
-                          color: _backgroudRengi,
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          // fontFamily: 'Times New Roman'
-                        )),
+                    accountName: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text("Today",
+                            style: TextStyle(
+                              color: _backgroudRengi,
+                              // fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              // fontFamily: 'Times New Roman'
+                            )),
+                        Column(
+                          children: [
+                            Text(
+                                DateFormat('EEEE')
+                                    .format(DateTime.now())
+                                    .toString(),
+                                style: TextStyle(
+                                  color: _backgroudRengi,
+                                  // fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  // fontFamily: 'Times New Roman'
+                                )),
+                            Text(
+                                DateFormat('dd MMMM yyyy')
+                                    .format(DateTime.now())
+                                    .toString(),
+                                style: TextStyle(
+                                  color: _backgroudRengi,
+                                  // fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  // fontFamily: 'Times New Roman'
+                                )),
+                          ],
+                        ),
+                      ],
+                    ),
                     currentAccountPicture: GestureDetector(
                         onTap: () {
                           // uploadImage();
@@ -172,7 +171,14 @@ class _MainPageState extends State<MainPage> {
               ),
             )),
         appBar: AppBar(
-          title: Text("Today"),
+          title: Text(days[_currentIndexCalendar].toString() ==
+                  DateFormat('yyyy-MM-dd 00:00:00.000')
+                      .format(DateTime.now())
+                      .toString()
+              ? "Today"
+              : DateFormat('dd MMMM yyyy')
+                  .format(days[_currentIndexCalendar])
+                  .toString()),
           centerTitle: false,
           titleSpacing: 0.0,
           brightness: Brightness
@@ -223,7 +229,9 @@ class _MainPageState extends State<MainPage> {
                       height: 54,
                       child: PageView(
                           controller: _pageController,
-                          onPageChanged: (int index) => setState(() {}),
+                          onPageChanged: (int index) => setState(() {
+                                _currentIndexCalendar = index;
+                              }),
                           scrollDirection: Axis.horizontal,
                           children: List.generate(
                               days.length,
@@ -246,9 +254,14 @@ class _MainPageState extends State<MainPage> {
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(
                                                 0, 2, 0, 1),
-                                            child: Text(days[index].day.toString(),
+                                            child: Text(
+                                                days[index].day.toString(),
                                                 style: TextStyle(
-                                                  color: _yaziTipiRengi,
+                                                  color:
+                                                      _currentIndexCalendar !=
+                                                              index
+                                                          ? _yaziTipiRengi
+                                                          : Colors.green,
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.bold,
                                                   fontFamily: 'Times New Roman',
@@ -269,11 +282,16 @@ class _MainPageState extends State<MainPage> {
                                                       255, 35, 3, 69),
                                                 ),
                                                 child: Center(
-                                                  child: Text(DateFormat('E')
-                                                  .format(days[index])
-                                                  .toString(),
+                                                  child: Text(
+                                                      DateFormat('E')
+                                                          .format(days[index])
+                                                          .toString(),
                                                       style: TextStyle(
-                                                        color: _yaziTipiRengi,
+                                                        color:
+                                                            _currentIndexCalendar !=
+                                                                    index
+                                                                ? _yaziTipiRengi
+                                                                : Colors.green,
                                                         fontSize: 12,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -302,7 +320,11 @@ class _MainPageState extends State<MainPage> {
                               // }
                             },
                             child: Container(
-                              child: Text("Bilgileri çek",
+                              child: Text(
+                                  days[_currentIndexCalendar].toString() +
+                                      " --- " +
+                                      DateFormat('yyyy-MM-dd 00:00:00.000')
+                                          .format(DateTime.now()),
                                   style: TextStyle(
                                     color: _yaziTipiRengi,
                                     fontSize: 18,
