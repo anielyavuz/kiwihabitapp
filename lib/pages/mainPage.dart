@@ -121,28 +121,24 @@ class _MainPageState extends State<MainPage> {
               ),
             )),
         appBar: AppBar(
+          title: Text("Today"),
           brightness: Brightness
               .dark, //uygulamanın üstündeki alanın(saat şarj gibi) beyaz yazı olmasını sağlıyor
           leading: (
                   //sol drawerın iconu
                   Builder(
-            builder: (context) => Row(
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.list,
-                    color: Colors.green,
-                    size: 25,
-                  ),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                    // friendsRequestSayisiniOgren();
-                  },
-                  tooltip:
-                      MaterialLocalizations.of(context).openAppDrawerTooltip,
-                ),
-                Text("Today")
-              ],
+            builder: (context) => IconButton(
+              icon: Icon(
+                Icons.list,
+                color: Colors.green,
+                size: 25,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+                // friendsRequestSayisiniOgren();
+              },
+              tooltip:
+                  MaterialLocalizations.of(context).openAppDrawerTooltip,
             ),
           )
 
