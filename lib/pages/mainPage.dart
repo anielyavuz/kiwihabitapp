@@ -289,28 +289,53 @@ class _MainPageState extends State<MainPage> {
                                                       DateFormat('E')
                                                           .format(days[index])
                                                           .toString(),
-                                                      style: TextStyle(
-                                                        shadows: [
-                                                          Shadow(
+                                                      style: days[index]
+                                                                  .toString() ==
+                                                              DateFormat(
+                                                                      'yyyy-MM-dd 00:00:00.000')
+                                                                  .format(
+                                                                      DateTime
+                                                                          .now())
+                                                                  .toString()
+                                                          ? TextStyle(
+                                                              shadows: [
+                                                                Shadow(
+                                                                    color:
+                                                                        _yaziTipiRengi,
+                                                                    offset:
+                                                                        Offset(
+                                                                            0,
+                                                                            -2))
+                                                              ],
+                                                              color: Colors
+                                                                  .transparent,
+                                                              decoration:
+                                                                  TextDecoration
+                                                                      .underline,
+                                                              decorationThickness:
+                                                                  3,
+                                                              decorationColor:
+                                                                  _yaziTipiRengi,
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontFamily:
+                                                                  'Times New Roman',
+                                                              // fontWeight: FontWeight.bold
+                                                            )
+                                                          : TextStyle(
                                                               color:
                                                                   _yaziTipiRengi,
-                                                              offset:
-                                                                  Offset(0, -2))
-                                                        ],
-                                                        color:
-                                                            Colors.transparent,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
-                                                        decorationThickness: 3,
-                                                        decorationColor: _yaziTipiRengi,
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontFamily:
-                                                            'Times New Roman',
-                                                        // fontWeight: FontWeight.bold
-                                                      )),
+
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontFamily:
+                                                                  'Times New Roman',
+                                                              // fontWeight: FontWeight.bold
+                                                            )),
                                                 ),
                                               ),
                                             ),
