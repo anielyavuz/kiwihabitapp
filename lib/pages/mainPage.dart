@@ -21,13 +21,16 @@ class _MainPageState extends State<MainPage> {
 
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   final Color _backgroudRengi = Color.fromRGBO(21, 9, 35, 1);
+  var _datetime;
+  final int _defaultinitialPage = 100;
+  int _initialPage = 100;
   PageController _pageController =
-      PageController(viewportFraction: 1 / 7, initialPage: 20);
+      PageController(viewportFraction: 1 / 7, initialPage: 100);
   List<DateTime> calculateDaysInterval(DateTime startDate, DateTime endDate) {
     for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
       days.add(startDate.add(Duration(days: i)));
     }
-    print(days);
+
     return days;
   }
 
@@ -40,7 +43,9 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    calculateDaysInterval(DateTime(2022, 11, 0), DateTime(2022, 12, 31));
+
+    calculateDaysInterval(DateTime.now().subtract(Duration(days: _initialPage)),
+        DateTime.now().add(Duration(days: _initialPage)));
     // WidgetsBinding.instance?.addPostFrameCallback((_) {
     //   Future.delayed(const Duration(milliseconds: 50), () {
 
@@ -192,8 +197,45 @@ class _MainPageState extends State<MainPage> {
                 size: 30.00,
                 color: _yaziTipiRengi,
               ),
-              onPressed: () {
-                // do something
+              onPressed: () async {
+                DateTime? _selectedDate = await showDatePicker(
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
+                            primary: _backgroudRengi, // header background color
+                            onPrimary: _yaziTipiRengi, // header text color
+                            onSurface: Color.fromARGB(
+                                255, 20, 39, 20), // body text color
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              primary: _backgroudRengi, // button text color
+                            ),
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
+                    context: context,
+                    initialDate: DateTime.now().add(
+                        Duration(days: _initialPage - _defaultinitialPage)),
+                    firstDate: DateTime.now()
+                        .subtract(Duration(days: _defaultinitialPage)),
+                    lastDate: DateTime.now()
+                        .add(Duration(days: _defaultinitialPage)));
+                // print(_selectedDate);
+                if (_selectedDate != null) {
+                  var _difference = _selectedDate
+                      .difference(DateTime(DateTime.now().year,
+                          DateTime.now().month, DateTime.now().day))
+                      .inDays;
+
+                  _pageController.animateToPage(
+                      _defaultinitialPage + _difference,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeInCirc);
+                }
               },
             )
           ],
@@ -249,6 +291,7 @@ class _MainPageState extends State<MainPage> {
                           controller: _pageController,
                           onPageChanged: (int index) => setState(() {
                                 _currentIndexCalendar = index;
+                                _initialPage = index;
                               }),
                           scrollDirection: Axis.horizontal,
                           children: List.generate(
@@ -256,112 +299,155 @@ class _MainPageState extends State<MainPage> {
                               (index) => Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          // border: Border.all(
-                                          //     color: Color.fromARGB(
-                                          //         255, 212, 212, 212),width: 0.5),
-                                          color: _currentIndexCalendar != index
-                                              ? Color.fromARGB(255, 56, 24, 93)
-                                              : Color.fromARGB(
-                                                  255, 48, 135, 51),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0, 2, 0, 1),
-                                            child: Text(
-                                                days[index].day.toString(),
-                                                style: TextStyle(
-                                                  color: _yaziTipiRengi,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: 'Times New Roman',
-                                                  // fontWeight: FontWeight.bold
-                                                )),
-                                          ),
-                                          Expanded(
-                                            child: Padding(
+                                    child: InkWell(
+                                      onTap: () {
+                                        // _pageController.jumpToPage(index);
+                                        _pageController.animateToPage(index,
+                                            duration:
+                                                Duration(milliseconds: 500),
+                                            curve: Curves.easeInCirc);
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            // border: Border.all(
+                                            //     color: Color.fromARGB(
+                                            //         255, 212, 212, 212),width: 0.5),
+                                            color: _initialPage != index
+                                                ? Color.fromARGB(
+                                                    255, 56, 24, 93)
+                                                : Color.fromARGB(
+                                                    255, 48, 135, 51),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Padding(
                                               padding:
                                                   const EdgeInsets.fromLTRB(
-                                                      0, 2, 0, 0),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(10)),
-                                                  color:
-                                                      _currentIndexCalendar !=
-                                                              index
-                                                          ? Color.fromARGB(
-                                                              255, 35, 3, 69)
-                                                          : Color.fromARGB(
-                                                              255, 32, 87, 34),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                      DateFormat('E')
-                                                          .format(days[index])
-                                                          .toString(),
-                                                      style: days[index]
-                                                                  .toString() ==
-                                                              DateFormat(
-                                                                      'yyyy-MM-dd 00:00:00.000')
-                                                                  .format(
-                                                                      DateTime
-                                                                          .now())
-                                                                  .toString()
-                                                          ? TextStyle(
-                                                              shadows: [
-                                                                Shadow(
-                                                                    color:
-                                                                        _yaziTipiRengi,
-                                                                    offset:
-                                                                        Offset(
-                                                                            0,
-                                                                            -2))
-                                                              ],
-                                                              color: Colors
-                                                                  .transparent,
-                                                              decoration:
-                                                                  TextDecoration
-                                                                      .underline,
-                                                              decorationThickness:
-                                                                  3,
-                                                              decorationColor:
-                                                                  _yaziTipiRengi,
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontFamily:
-                                                                  'Times New Roman',
-                                                              // fontWeight: FontWeight.bold
-                                                            )
-                                                          : TextStyle(
-                                                              color:
-                                                                  _yaziTipiRengi,
+                                                      0, 2, 0, 1),
+                                              child: Text(
+                                                  days[index].day.toString(),
+                                                  style: TextStyle(
+                                                    color: _yaziTipiRengi,
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily:
+                                                        'Times New Roman',
+                                                    // fontWeight: FontWeight.bold
+                                                  )),
+                                            ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 2, 0, 0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10)),
+                                                    color: _initialPage != index
+                                                        ? Color.fromARGB(
+                                                            255, 35, 3, 69)
+                                                        : Color.fromARGB(
+                                                            255, 32, 87, 34),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                        DateFormat('E')
+                                                            .format(days[index])
+                                                            .toString(),
+                                                        style: days[index]
+                                                                    .toString() ==
+                                                                DateFormat(
+                                                                        'yyyy-MM-dd 00:00:00.000')
+                                                                    .format(
+                                                                        DateTime
+                                                                            .now())
+                                                                    .toString()
+                                                            ? TextStyle(
+                                                                shadows: [
+                                                                  Shadow(
+                                                                      color:
+                                                                          _yaziTipiRengi,
+                                                                      offset:
+                                                                          Offset(
+                                                                              0,
+                                                                              -2))
+                                                                ],
+                                                                color: Colors
+                                                                    .transparent,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .underline,
+                                                                decorationThickness:
+                                                                    3,
+                                                                decorationColor:
+                                                                    _yaziTipiRengi,
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontFamily:
+                                                                    'Times New Roman',
+                                                                // fontWeight: FontWeight.bold
+                                                              )
+                                                            : TextStyle(
+                                                                color:
+                                                                    _yaziTipiRengi,
 
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontFamily:
-                                                                  'Times New Roman',
-                                                              // fontWeight: FontWeight.bold
-                                                            )),
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontFamily:
+                                                                    'Times New Roman',
+                                                                // fontWeight: FontWeight.bold
+                                                              )),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ))),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: Visibility(
+                        visible: _defaultinitialPage != _initialPage,
+                        child: InkWell(
+                          onTap: () async {
+                            _pageController.animateToPage(_defaultinitialPage,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.easeInCirc);
+                          },
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 3,
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: _yaziTipiRengi),
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Center(
+                                  child: Text("Back to Today",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: _yaziTipiRengi,
+                                        fontSize: 15,
+                                        fontFamily: 'Times New Roman',
+                                        // fontWeight: FontWeight.bold
+                                      ))),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                     Expanded(
                       flex: 4,
@@ -375,11 +461,7 @@ class _MainPageState extends State<MainPage> {
                               // }
                             },
                             child: Container(
-                              child: Text(
-                                  days[_currentIndexCalendar].toString() +
-                                      " --- " +
-                                      DateFormat('yyyy-MM-dd 00:00:00.000')
-                                          .format(DateTime.now()),
+                              child: Text("Test",
                                   style: TextStyle(
                                     color: _yaziTipiRengi,
                                     fontSize: 18,
