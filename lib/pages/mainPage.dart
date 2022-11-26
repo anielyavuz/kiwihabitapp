@@ -1,3 +1,4 @@
+import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -122,6 +123,8 @@ class _MainPageState extends State<MainPage> {
             )),
         appBar: AppBar(
           title: Text("Today"),
+          centerTitle: false,
+          titleSpacing: 0.0,
           brightness: Brightness
               .dark, //uygulamanın üstündeki alanın(saat şarj gibi) beyaz yazı olmasını sağlıyor
           leading: (
@@ -137,13 +140,10 @@ class _MainPageState extends State<MainPage> {
                 Scaffold.of(context).openDrawer();
                 // friendsRequestSayisiniOgren();
               },
-              tooltip:
-                  MaterialLocalizations.of(context).openAppDrawerTooltip,
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             ),
           )
-
               //sağ drawerın iconu
-
               ),
           // title: Center(child: Text("Farm Word")),
           flexibleSpace: Container(
@@ -168,6 +168,23 @@ class _MainPageState extends State<MainPage> {
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: Column(
                   children: [
+                    Expanded(
+                      flex: 4,
+                      child: CalendarTimeline(
+                        initialDate: DateTime(2022, 11, 26),
+                        firstDate: DateTime(2020, 1, 1),
+                        lastDate: DateTime(2099, 12, 31),
+                        onDateSelected: (date) => print(date),
+                        leftMargin: 20,
+                        monthColor: Colors.blueGrey,
+                        dayColor: Colors.teal[200],
+                        activeDayColor: Colors.white,
+                        activeBackgroundDayColor: Colors.redAccent[100],
+                        dotsColor: Color(0xFF333A47),
+                        selectableDayPredicate: (date) => date.day != 23,
+                        locale: 'en_ISO',
+                      ),
+                    ),
                     Expanded(
                       flex: 4,
                       child: Center(
