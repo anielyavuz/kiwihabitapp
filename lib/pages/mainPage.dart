@@ -2,6 +2,7 @@ import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
 
@@ -14,6 +15,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late Box box;
+  List<DateTime> days = [];
   List _yourHabits = [];
   List _days = [
     "1",
@@ -50,7 +52,15 @@ class _MainPageState extends State<MainPage> {
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   final Color _backgroudRengi = Color.fromRGBO(21, 9, 35, 1);
   PageController _pageController =
-      PageController(viewportFraction: 1 / 3, initialPage: 0);
+      PageController(viewportFraction: 1 / 7, initialPage: 20);
+  List<DateTime> calculateDaysInterval(DateTime startDate, DateTime endDate) {
+    for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
+      days.add(startDate.add(Duration(days: i)));
+    }
+    print(days);
+    return days;
+  }
+
   getCurrentChooseYourHabits() {
     setState(() {
       _yourHabits = box.get("chooseYourHabitsHive") ?? [];
@@ -60,6 +70,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+    calculateDaysInterval(DateTime(2013, 3, 0), DateTime(2013, 5, 0));
     // WidgetsBinding.instance?.addPostFrameCallback((_) {
     //   Future.delayed(const Duration(milliseconds: 50), () {
 
@@ -208,34 +219,72 @@ class _MainPageState extends State<MainPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Expanded(
+                    Container(
+                      height: 54,
                       child: PageView(
                           controller: _pageController,
                           onPageChanged: (int index) => setState(() {}),
                           scrollDirection: Axis.horizontal,
                           children: List.generate(
-                              _days.length,
+                              days.length,
                               (index) => Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(40, 0, 40, 0),
+                                        const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Color.fromARGB(
-                                                  255, 212, 212, 212)),
-                                          color: Color(0xff1d3557),
+                                          // border: Border.all(
+                                          //     color: Color.fromARGB(
+                                          //         255, 212, 212, 212),width: 0.5),
+                                          color:
+                                              Color.fromARGB(255, 56, 24, 93),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10))),
                                       child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text(index.toString(),
-                                              style: TextStyle(
-                                                color: _yaziTipiRengi,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'Times New Roman',
-                                                // fontWeight: FontWeight.bold
-                                              ))
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 2, 0, 1),
+                                            child: Text(days[index].day.toString(),
+                                                style: TextStyle(
+                                                  color: _yaziTipiRengi,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'Times New Roman',
+                                                  // fontWeight: FontWeight.bold
+                                                )),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 2, 0, 0),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10)),
+                                                  color: Color.fromARGB(
+                                                      255, 35, 3, 69),
+                                                ),
+                                                child: Center(
+                                                  child: Text(DateFormat('E')
+                                                  .format(days[index])
+                                                  .toString(),
+                                                      style: TextStyle(
+                                                        color: _yaziTipiRengi,
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily:
+                                                            'Times New Roman',
+                                                        // fontWeight: FontWeight.bold
+                                                      )),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
