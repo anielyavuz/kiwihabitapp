@@ -15,9 +15,42 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   late Box box;
   List _yourHabits = [];
+  List _days = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30"
+  ];
 
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   final Color _backgroudRengi = Color.fromRGBO(21, 9, 35, 1);
+  PageController _pageController =
+      PageController(viewportFraction: 1 / 3, initialPage: 0);
   getCurrentChooseYourHabits() {
     setState(() {
       _yourHabits = box.get("chooseYourHabitsHive") ?? [];
@@ -175,20 +208,38 @@ class _MainPageState extends State<MainPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    CalendarTimeline(
-                      initialDate: DateTime(2022, 11, 26),
-                      firstDate: DateTime(2020, 1, 1),
-                      lastDate: DateTime(2099, 12, 31),
-                      onDateSelected: (date) =>
-                          print(MediaQuery.of(context).size.width),
-                      leftMargin: MediaQuery.of(context).size.width / 2.3,
-                      monthColor: Colors.blueGrey,
-                      dayColor: _yaziTipiRengi,
-                      activeDayColor: Colors.white,
-                      activeBackgroundDayColor: Colors.green,
-                      dotsColor: _backgroudRengi,
-                      // selectableDayPredicate: (date) => date.day != 23,
-                      locale: 'en_ISO',
+                    Expanded(
+                      child: PageView(
+                          controller: _pageController,
+                          onPageChanged: (int index) => setState(() {}),
+                          scrollDirection: Axis.horizontal,
+                          children: List.generate(
+                              _days.length,
+                              (index) => Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(40, 0, 40, 0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Color.fromARGB(
+                                                  255, 212, 212, 212)),
+                                          color: Color(0xff1d3557),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Column(
+                                        children: [
+                                          Text(index.toString(),
+                                              style: TextStyle(
+                                                color: _yaziTipiRengi,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: 'Times New Roman',
+                                                // fontWeight: FontWeight.bold
+                                              ))
+                                        ],
+                                      ),
+                                    ),
+                                  ))),
                     ),
                     Expanded(
                       flex: 4,
