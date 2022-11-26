@@ -152,16 +152,16 @@ class _MainPageState extends State<MainPage> {
           // title: Center(child: Text("Farm Word")),
           flexibleSpace: Container(
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/kiwiLogo.png"),
-                    // fit: BoxFit.cover,
-                  ),
+                  // image: DecorationImage(
+                  //   image: AssetImage("assets/images/kiwiLogo.png"),
+                  //   // fit: BoxFit.cover,
+                  // ),
                   gradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(21, 9, 35, 1),
-                      Color.fromRGBO(21, 9, 35, 1),
-                    ],
-                  ))),
+            colors: [
+              Color.fromRGBO(21, 9, 35, 1),
+              Color.fromRGBO(21, 9, 35, 1),
+            ],
+          ))),
           automaticallyImplyLeading: false,
         ),
         backgroundColor: Color.fromRGBO(21, 9, 35, 1),
