@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:lottie/lottie.dart';
@@ -58,13 +59,34 @@ class _HabitDetailsState extends State<HabitDetails> {
     for (var _yourHabit in _yourHabits) {
       setState(() {
         _yourHabit['_weekDays'] = [
-          {'day': 'Mon', 'value': true},
-          {'day': 'Tue', 'value': true},
-          {'day': 'Wed', 'value': true},
-          {'day': 'Thu', 'value': true},
-          {'day': 'Fri', 'value': true},
-          {'day': 'Sat', 'value': true},
-          {'day': 'Sun', 'value': true},
+          {
+            'day': DateFormat('E').format(DateTime(2000, 1, 3)).toString(),
+            'value': true
+          },
+          {
+            'day': DateFormat('E').format(DateTime(2000, 1, 4)).toString(),
+            'value': true
+          },
+          {
+            'day': DateFormat('E').format(DateTime(2000, 1, 5)).toString(),
+            'value': true
+          },
+          {
+            'day': DateFormat('E').format(DateTime(2000, 1, 6)).toString(),
+            'value': true
+          },
+          {
+            'day': DateFormat('E').format(DateTime(2000, 1, 7)).toString(),
+            'value': true
+          },
+          {
+            'day': DateFormat('E').format(DateTime(2000, 1, 8)).toString(),
+            'value': true
+          },
+          {
+            'day': DateFormat('E').format(DateTime(2000, 1, 9)).toString(),
+            'value': true
+          },
         ];
         _yourHabit['_allTimes'] = [
           {

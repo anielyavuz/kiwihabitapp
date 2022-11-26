@@ -454,11 +454,18 @@ class _MainPageState extends State<MainPage> {
                       child: Center(
                         child: InkWell(
                             onTap: () {
-                              // print("AAAAAAAAAAAAAAAAAAAAAAAA");
-                              // for (var item in _yourHabits) {
-                              //   print(item['habitName'] + "   ---  ");
-                              //   print(item['_allTimes']);
-                              // }
+                              // print(
+                              //     DateFormat('E').format(DateTime(2000, 1, 3)).toString());
+                              print("AAAAAAAAAAAAAAAAAAAAAAAA");
+                              for (var item in _yourHabits) {
+                                print(item['habitName'] + "   ---  ");
+                                for (var _weekDay in item['_weekDays']) {
+                                  if (_weekDay['day'] == "Tue") {
+                                    print(_weekDay['value']);
+                                  }
+                                }
+                                // print(item['_weekDays']);
+                              }
                             },
                             child: Container(
                               child: Text("Test",
