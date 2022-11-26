@@ -15,6 +15,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   late Box box;
   List _yourHabits = [];
+
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   final Color _backgroudRengi = Color.fromRGBO(21, 9, 35, 1);
   getCurrentChooseYourHabits() {
@@ -26,6 +27,11 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+    // WidgetsBinding.instance?.addPostFrameCallback((_) {
+    //   Future.delayed(const Duration(milliseconds: 50), () {
+
+    //   });
+    // });
 
     box = Hive.box("kiwiHive");
     getCurrentChooseYourHabits();
@@ -167,23 +173,22 @@ class _MainPageState extends State<MainPage> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Expanded(
-                      flex: 4,
-                      child: CalendarTimeline(
-                        initialDate: DateTime(2022, 11, 26),
-                        firstDate: DateTime(2020, 1, 1),
-                        lastDate: DateTime(2099, 12, 31),
-                        onDateSelected: (date) => print(date),
-                        leftMargin: 20,
-                        monthColor: Colors.blueGrey,
-                        dayColor: Colors.teal[200],
-                        activeDayColor: Colors.white,
-                        activeBackgroundDayColor: Colors.redAccent[100],
-                        dotsColor: Color(0xFF333A47),
-                        selectableDayPredicate: (date) => date.day != 23,
-                        locale: 'en_ISO',
-                      ),
+                    CalendarTimeline(
+                      initialDate: DateTime(2022, 11, 26),
+                      firstDate: DateTime(2020, 1, 1),
+                      lastDate: DateTime(2099, 12, 31),
+                      onDateSelected: (date) =>
+                          print(MediaQuery.of(context).size.width),
+                      leftMargin: MediaQuery.of(context).size.width / 2.3,
+                      monthColor: Colors.blueGrey,
+                      dayColor: _yaziTipiRengi,
+                      activeDayColor: Colors.white,
+                      activeBackgroundDayColor: Colors.green,
+                      dotsColor: _backgroudRengi,
+                      // selectableDayPredicate: (date) => date.day != 23,
+                      locale: 'en_ISO',
                     ),
                     Expanded(
                       flex: 4,
