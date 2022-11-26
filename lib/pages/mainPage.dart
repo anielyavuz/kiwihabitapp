@@ -171,14 +171,32 @@ class _MainPageState extends State<MainPage> {
               ),
             )),
         appBar: AppBar(
-          title: Text(days[_currentIndexCalendar].toString() ==
-                  DateFormat('yyyy-MM-dd 00:00:00.000')
-                      .format(DateTime.now())
-                      .toString()
-              ? "Today"
-              : DateFormat('dd MMMM yyyy')
-                  .format(days[_currentIndexCalendar])
-                  .toString()),
+          title: Text(
+              days[_currentIndexCalendar].toString() ==
+                      DateFormat('yyyy-MM-dd 00:00:00.000')
+                          .format(DateTime.now())
+                          .toString()
+                  ? "Today"
+                  : DateFormat('dd MMMM yyyy')
+                      .format(days[_currentIndexCalendar])
+                      .toString(),
+              style: TextStyle(
+                color: _yaziTipiRengi,
+                // fontWeight: FontWeight.bold
+              )),
+
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.calendar_month,
+                size: 30.00,
+                color: _yaziTipiRengi,
+              ),
+              onPressed: () {
+                // do something
+              },
+            )
+          ],
           centerTitle: false,
           titleSpacing: 0.0,
           brightness: Brightness
