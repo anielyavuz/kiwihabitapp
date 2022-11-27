@@ -24,6 +24,46 @@ class _MainPageState extends State<MainPage> {
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   final Color _backgroudRengi = Color.fromRGBO(21, 9, 35, 1);
   List _currentDayHabit = [];
+  Map _icons = {
+    "Health": Icon(
+      Icons.volunteer_activism,
+      size: 25,
+      color: Color.fromARGB(223, 218, 21, 7),
+    ),
+    "Sport": Icon(
+      Icons.directions_run,
+      size: 25,
+      color: Color.fromARGB(223, 18, 218, 7),
+    ),
+    "Study": Icon(
+      Icons.school,
+      size: 25,
+      color: Color.fromARGB(223, 124, 38, 223),
+    ),
+    "Art": Icon(
+      Icons.palette,
+      size: 25,
+      color: Color.fromARGB(223, 225, 5, 240),
+    ),
+    "Finance": Icon(
+      Icons.attach_money,
+      size: 25,
+      color: Color.fromARGB(223, 12, 162, 7),
+    ),
+    "Social": Icon(
+      Icons.nightlife,
+      size: 25,
+      color: Color.fromARGB(223, 232, 118, 18),
+    ),
+    "Quit a Bad Habit": Icon(
+      Icons.smoke_free,
+      size: 25,
+      color: Color.fromARGB(223, 19, 153, 243),
+    )
+  };
+
+  double _opacityAnimation = 0;
+  int _opacityAnimationDuration = 500;
   var _datetime;
   final int _defaultinitialPage = 100;
   int _initialPage = 100;
@@ -48,6 +88,8 @@ class _MainPageState extends State<MainPage> {
   currentDayHabits() {
     setState(() {
       _currentDayHabit = [];
+
+      _opacityAnimation = 1;
       for (var _yourHabit in _yourHabits)
       //alışkanlıklar list olarak tutuluyor. Onun içinde for döngüsü örn  [{habitName: GYM, habitCategory: Sport, _weekDays: [{day: 0, value: true}, {day: 1, value: true}, {day: 2, value: true}, {day: 3, value: true}, {day: 4, value: true}, {day: 5, value: false}, {day: 6, value: false}], _allTimes: [{time: TimeOfDay(12:30), notification: true, alarm: false}], _checkedBoxEveryday: false}]
 
@@ -64,6 +106,7 @@ class _MainPageState extends State<MainPage> {
                   .toString()) {
             if (_yourHabitDays['value']) {
               _currentDayHabit.add(_yourHabit);
+              _opacityAnimation = 1;
               break;
             }
           }
@@ -274,10 +317,11 @@ class _MainPageState extends State<MainPage> {
                           DateTime.now().month, DateTime.now().day))
                       .inDays;
 
-                  _pageController.animateToPage(
-                      _defaultinitialPage + _difference,
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.easeInCirc);
+                  _pageController.jumpToPage(_defaultinitialPage + _difference);
+                  // _pageController.animateToPage(
+                  //     _defaultinitialPage + _difference,
+                  //     duration: Duration(milliseconds: 500),
+                  //     curve: Curves.easeInCirc);
                 }
               },
             )
@@ -335,7 +379,14 @@ class _MainPageState extends State<MainPage> {
                           onPageChanged: (int index) => setState(() {
                                 _currentIndexCalendar = index;
                                 _initialPage = index;
-                                currentDayHabits();
+                                _opacityAnimationDuration = 1;
+                                _opacityAnimation = 0;
+                                Future.delayed(
+                                    const Duration(milliseconds: 250), () {
+                                  _opacityAnimationDuration = 250;
+                                  _opacityAnimation = 1;
+                                  currentDayHabits();
+                                });
                               }),
                           scrollDirection: Axis.horizontal,
                           children: List.generate(
@@ -348,7 +399,7 @@ class _MainPageState extends State<MainPage> {
                                         // _pageController.jumpToPage(index);
                                         _pageController.animateToPage(index,
                                             duration:
-                                                Duration(milliseconds: 500),
+                                                Duration(milliseconds: 250),
                                             curve: Curves.easeInCirc);
                                       },
                                       child: Container(
@@ -467,9 +518,10 @@ class _MainPageState extends State<MainPage> {
                         visible: _defaultinitialPage != _initialPage,
                         child: InkWell(
                           onTap: () async {
-                            _pageController.animateToPage(_defaultinitialPage,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.easeInCirc);
+                            _pageController.jumpToPage(_defaultinitialPage);
+                            // _pageController.animateToPage(_defaultinitialPage,
+                            //     duration: Duration(milliseconds: 500),
+                            //     curve: Curves.easeInCirc);
                           },
                           child: FittedBox(
                             fit: BoxFit.fill,
@@ -507,79 +559,84 @@ class _MainPageState extends State<MainPage> {
                             itemCount: _currentDayHabit.length,
                             itemBuilder: (context, indexOfCurrentDayHabit) {
                               // print(_kaydirmaNoktalari);
-                              return Container(
-                                width: MediaQuery.of(context).size.width / 3,
-                                child: RawMaterialButton(
-                                    // fillColor: _yaziTipiRengi,
-                                    shape: RoundedRectangleBorder(
-                                        side: BorderSide(color: _yaziTipiRengi),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15.0))),
-                                    // splashColor: Colors.green,
-                                    textStyle: TextStyle(color: _yaziTipiRengi),
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          15, 5, 15, 5),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.volunteer_activism,
-                                                size: 25,
-                                                color: Color.fromARGB(
-                                                    223, 218, 21, 7),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        5, 0, 0, 0),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(_currentDayHabit[
-                                                            indexOfCurrentDayHabit]
-                                                        ['habitName']),
-                                                    Text("15:00")
-                                                  ],
+                              return AnimatedOpacity(
+                                duration: Duration(
+                                    milliseconds: _opacityAnimationDuration),
+                                opacity: _opacityAnimation,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width / 3,
+                                  child: RawMaterialButton(
+                                      // fillColor: _yaziTipiRengi,
+                                      shape: RoundedRectangleBorder(
+                                          side:
+                                              BorderSide(color: _yaziTipiRengi),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15.0))),
+                                      // splashColor: Colors.green,
+                                      textStyle:
+                                          TextStyle(color: _yaziTipiRengi),
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            15, 5, 15, 5),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                _icons[_currentDayHabit[
+                                                        indexOfCurrentDayHabit]
+                                                    ['habitCategory']],
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          5, 0, 0, 0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(_currentDayHabit[
+                                                              indexOfCurrentDayHabit]
+                                                          ['habitName']),
+                                                      Text("15:00")
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              InkWell(
-                                                onTap: () {},
-                                                child: Icon(
-                                                  Icons.settings,
-                                                  size: 25,
-                                                  color: _yaziTipiRengi,
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {},
+                                                  child: Icon(
+                                                    Icons.settings,
+                                                    size: 25,
+                                                    color: _yaziTipiRengi,
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                width: 15,
-                                              ),
-                                              InkWell(
-                                                onTap: () {},
-                                                child: Container(
-                                                  width: 20,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.amber,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10)),
+                                                SizedBox(
+                                                  width: 15,
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                                InkWell(
+                                                  onTap: () {},
+                                                  child: Container(
+                                                    width: 20,
+                                                    height: 20,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.amber,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    onPressed: null),
+                                      onPressed: null),
+                                ),
                               );
                             }),
                       ),
@@ -589,7 +646,16 @@ class _MainPageState extends State<MainPage> {
                       child: Center(
                         child: InkWell(
                             onTap: () async {
-                              currentDayHabits();
+                              // currentDayHabits();
+                              setState(() {
+                                if (_opacityAnimation == 0) {
+                                  _opacityAnimation = 1;
+                                } else {
+                                  _opacityAnimation = 0;
+                                }
+                              });
+
+                              print(_opacityAnimation);
                               // print(
                               //     DateFormat('E').format(DateTime(2000, 1, 3)).toString());
                               // for (var item in _yourHabits) {
