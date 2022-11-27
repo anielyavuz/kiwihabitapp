@@ -292,6 +292,8 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                             // print(_habitName);
                                             _YourHabits.add(_habit);
                                           });
+                                          print(
+                                              "DDDDDDDDDDDDDAAAAAAAAAAAAATTTTTTTTTTTTAAAAAAAAAAAAAAAAA1");
 
                                           box.put("chooseYourHabitsHive",
                                               _YourHabits);
@@ -445,6 +447,8 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                                 element["habitName"] ==
                                                 habit['habitName']);
                                           });
+                                          print(
+                                              "DDDDDDDDDDDDDAAAAAAAAAAAAATTTTTTTTTTTTAAAAAAAAAAAAAAAAA2");
 
                                           box.put("chooseYourHabitsHive",
                                               _YourHabits);

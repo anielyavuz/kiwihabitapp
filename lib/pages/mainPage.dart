@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,7 @@ class _MainPageState extends State<MainPage> {
 
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   final Color _backgroudRengi = Color.fromRGBO(21, 9, 35, 1);
+  List _currentDayHabit = [];
   var _datetime;
   final int _defaultinitialPage = 100;
   int _initialPage = 100;
@@ -34,12 +37,49 @@ class _MainPageState extends State<MainPage> {
     return days;
   }
 
-  getCurrentChooseYourHabits() {
-    setState(() {
-      _yourHabits = box.get("chooseYourHabitsHive") ?? [];
-    });
+  getCurrentChooseYourHabits() async {
+    _yourHabits = await box.get("chooseYourHabitsHive") ?? [];
+    print("Aaa");
+    print(_yourHabits);
+
+    currentDayHabits();
   }
 
+  currentDayHabits() {
+    setState(() {
+      _currentDayHabit = [];
+      for (var _yourHabit in _yourHabits)
+      //alışkanlıklar list olarak tutuluyor. Onun içinde for döngüsü örn  [{habitName: GYM, habitCategory: Sport, _weekDays: [{day: 0, value: true}, {day: 1, value: true}, {day: 2, value: true}, {day: 3, value: true}, {day: 4, value: true}, {day: 5, value: false}, {day: 6, value: false}], _allTimes: [{time: TimeOfDay(12:30), notification: true, alarm: false}], _checkedBoxEveryday: false}]
+
+      {
+        for (var _yourHabitDays in _yourHabit['_weekDays'])
+        //tek alışkanlığın günleri 7 gün olarak true false şeklinde liste tutuluyor örn [{day: 0, value: true}, {day: 1, value: true}, {day: 2, value: true}, {day: 3, value: true}, {day: 4, value: true}, {day: 5, value: false}, {day: 6, value: false}]
+        {
+          if (_yourHabitDays['day'] ==
+              ((DateTime.now().add(Duration(
+                              days: _initialPage - _defaultinitialPage)))
+                          .difference(DateTime(2000, 1, 3))
+                          .inDays %
+                      7)
+                  .toString()) {
+            if (_yourHabitDays['value']) {
+              _currentDayHabit.add(_yourHabit);
+              break;
+            }
+          }
+        }
+      }
+    });
+    print("AAa");
+    print(_currentDayHabit.length);
+    // print(
+    //     (DateTime.now().add(Duration(days: _initialPage - _defaultinitialPage)))
+    //             .difference(DateTime(2000, 1, 3))
+    //             .inDays %
+    //         7);
+  }
+
+  Timer? timer;
   @override
   void initState() {
     super.initState();
@@ -54,6 +94,9 @@ class _MainPageState extends State<MainPage> {
 
     box = Hive.box("kiwiHive");
     getCurrentChooseYourHabits();
+
+    // timer = Timer.periodic(
+    //     Duration(seconds: 10), (Timer t) => getCurrentChooseYourHabits());
   }
 
   @override
@@ -292,6 +335,7 @@ class _MainPageState extends State<MainPage> {
                           onPageChanged: (int index) => setState(() {
                                 _currentIndexCalendar = index;
                                 _initialPage = index;
+                                currentDayHabits();
                               }),
                           scrollDirection: Axis.horizontal,
                           children: List.generate(
@@ -451,21 +495,99 @@ class _MainPageState extends State<MainPage> {
                     ),
                     Expanded(
                       flex: 4,
+                      child: Container(
+                        // width:
+                        //     MediaQuery.of(context).size.width *
+                        //         3 /
+                        //         5,
+                        height: 200,
+                        // width: 50,
+
+                        child: ListView.builder(
+                            itemCount: _currentDayHabit.length,
+                            itemBuilder: (context, indexOfCurrentDayHabit) {
+                              // print(_kaydirmaNoktalari);
+                              return Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: RawMaterialButton(
+                                    // fillColor: _yaziTipiRengi,
+                                    shape: RoundedRectangleBorder(
+                                        side: BorderSide(color: _yaziTipiRengi),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(15.0))),
+                                    // splashColor: Colors.green,
+                                    textStyle: TextStyle(color: _yaziTipiRengi),
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 5, 15, 5),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(_currentDayHabit[
+                                                  indexOfCurrentDayHabit]
+                                              ['habitName']),
+                                          Row(
+                                            children: [
+                                              InkWell(
+                                                onTap: () {},
+                                                child: Icon(
+                                                  Icons.alarm_off,
+                                                  size: 25,
+                                                  color: _yaziTipiRengi,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 15,
+                                              ),
+                                              InkWell(
+                                                onTap: () {},
+                                                child: Icon(
+                                                  Icons.notifications_off,
+                                                  size: 25,
+                                                  color: _yaziTipiRengi,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 15,
+                                              ),
+                                              InkWell(
+                                                onTap: () async {},
+                                                child: Text(
+                                                    _currentDayHabit[
+                                                            indexOfCurrentDayHabit]
+                                                        ['habitCategory'],
+                                                    style: TextStyle(
+                                                        color: _yaziTipiRengi,
+                                                        fontSize: 25)),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    onPressed: null),
+                              );
+                            }),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 4,
                       child: Center(
                         child: InkWell(
-                            onTap: () {
+                            onTap: () async {
+                              currentDayHabits();
                               // print(
                               //     DateFormat('E').format(DateTime(2000, 1, 3)).toString());
-                              print("AAAAAAAAAAAAAAAAAAAAAAAA");
-                              for (var item in _yourHabits) {
-                                print(item['habitName'] + "   ---  ");
-                                for (var _weekDay in item['_weekDays']) {
-                                  if (_weekDay['day'] == "Tue") {
-                                    print(_weekDay['value']);
-                                  }
-                                }
-                                // print(item['_weekDays']);
-                              }
+                              // for (var item in _yourHabits) {
+                              //   print(item['habitName'] + "   ---  ");
+                              //   for (var _weekDay in item['_weekDays']) {
+                              //     if (_weekDay['day'] == "Tue") {
+                              //       print(_weekDay['value']);
+                              //     }
+                              //   }
+                              //   // print(item['_weekDays']);
+                              // }
                             },
                             child: Container(
                               child: Text("Test",

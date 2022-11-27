@@ -48,6 +48,7 @@ class _HabitDetailsState extends State<HabitDetails> {
   ];
 
   TextEditingController _activityCount = TextEditingController();
+
   getCurrentChooseYourHabits() {
     _yourHabits = box.get("chooseYourHabitsHive") ?? [];
 
@@ -60,31 +61,52 @@ class _HabitDetailsState extends State<HabitDetails> {
       setState(() {
         _yourHabit['_weekDays'] = [
           {
-            'day': DateFormat('E').format(DateTime(2000, 1, 3)).toString(),
+            'day': DateTime(2000, 1, 3)
+                .difference(DateTime(2000, 1, 3))
+                .inDays
+                .toString(),
             'value': true
           },
           {
-            'day': DateFormat('E').format(DateTime(2000, 1, 4)).toString(),
+            'day': DateTime(2000, 1, 4)
+                .difference(DateTime(2000, 1, 3))
+                .inDays
+                .toString(),
             'value': true
           },
           {
-            'day': DateFormat('E').format(DateTime(2000, 1, 5)).toString(),
+            'day': DateTime(2000, 1, 5)
+                .difference(DateTime(2000, 1, 3))
+                .inDays
+                .toString(),
             'value': true
           },
           {
-            'day': DateFormat('E').format(DateTime(2000, 1, 6)).toString(),
+            'day': DateTime(2000, 1, 6)
+                .difference(DateTime(2000, 1, 3))
+                .inDays
+                .toString(),
             'value': true
           },
           {
-            'day': DateFormat('E').format(DateTime(2000, 1, 7)).toString(),
+            'day': DateTime(2000, 1, 7)
+                .difference(DateTime(2000, 1, 3))
+                .inDays
+                .toString(),
             'value': true
           },
           {
-            'day': DateFormat('E').format(DateTime(2000, 1, 8)).toString(),
+            'day': DateTime(2000, 1, 8)
+                .difference(DateTime(2000, 1, 3))
+                .inDays
+                .toString(),
             'value': true
           },
           {
-            'day': DateFormat('E').format(DateTime(2000, 1, 9)).toString(),
+            'day': DateTime(2000, 1, 9)
+                .difference(DateTime(2000, 1, 3))
+                .inDays
+                .toString(),
             'value': true
           },
         ];
@@ -377,20 +399,21 @@ class _HabitDetailsState extends State<HabitDetails> {
                                               fillColor: day['value']
                                                   ? Colors.green
                                                   : _yaziTipiRengi,
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                      side: BorderSide(
-                                                          color: Color.fromARGB(
-                                                              255, 134, 85, 36),
-                                                          width: 3),
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  8.0))),
+                                              shape: const RoundedRectangleBorder(
+                                                  side: BorderSide(
+                                                      color: Color.fromARGB(
+                                                          255, 134, 85, 36),
+                                                      width: 3),
+                                                  borderRadius: BorderRadius.all(
+                                                      Radius.circular(8.0))),
                                               splashColor: Colors.green,
                                               textStyle: TextStyle(
                                                   color: _yaziTipiRengi),
-                                              child: Text(day['day'],
+                                              child: Text(
+                                                  DateFormat('E').format(
+                                                      DateTime(2000, 1, 3).add(
+                                                          Duration(
+                                                              days: int.parse(day['day'])))),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Color.fromRGBO(
@@ -1027,6 +1050,19 @@ class _HabitDetailsState extends State<HabitDetails> {
                           ),
                           InkWell(
                             onTap: () async {
+                              // print(_yourHabits);
+
+                              // List _tempHabits = List.from(_yourHabits);
+                              List _tempHabits = _yourHabits.toList();
+                              for (var _yourHabits in _tempHabits) {
+                                for (var _yourHabitsTime
+                                    in _yourHabits['_allTimes']) {
+                                  _yourHabitsTime['time'] =
+                                      _yourHabitsTime['time'].toString();
+                                }
+                              }
+                              // print(_tempHabits);
+                              // print("Sayfa değiştir....");
                               setState(() {
                                 _loadingIcon = true;
                               });
@@ -1035,8 +1071,9 @@ class _HabitDetailsState extends State<HabitDetails> {
                               setState(() {
                                 _loadingIcon = false;
                               });
-
-                              box.put("chooseYourHabitsHive", _yourHabits);
+                              print(
+                                  "DDDDDDDDDDDDDAAAAAAAAAAAAATTTTTTTTTTTTAAAAAAAAAAAAAAAAA3");
+                              box.put("chooseYourHabitsHive", _tempHabits);
 
                               Navigator.pushAndRemoveUntil(
                                   context,
@@ -1044,18 +1081,6 @@ class _HabitDetailsState extends State<HabitDetails> {
                                       builder: (BuildContext context) =>
                                           CheckAuth()),
                                   (Route<dynamic> route) => false);
-
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => HabitDetails()));
-
-                              // Navigator.pushAndRemoveUntil(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (BuildContext context) =>
-                              //             HabitDetails()),
-                              //     (Route<dynamic> route) => false);
                             },
                             child: FittedBox(
                               fit: BoxFit.fill,
