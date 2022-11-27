@@ -524,15 +524,37 @@ class _MainPageState extends State<MainPage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(_currentDayHabit[
-                                                  indexOfCurrentDayHabit]
-                                              ['habitName']),
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.volunteer_activism,
+                                                size: 25,
+                                                color: Color.fromARGB(
+                                                    223, 218, 21, 7),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        5, 0, 0, 0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(_currentDayHabit[
+                                                            indexOfCurrentDayHabit]
+                                                        ['habitName']),
+                                                    Text("15:00")
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                           Row(
                                             children: [
                                               InkWell(
                                                 onTap: () {},
                                                 child: Icon(
-                                                  Icons.alarm_off,
+                                                  Icons.settings,
                                                   size: 25,
                                                   color: _yaziTipiRengi,
                                                 ),
@@ -542,24 +564,15 @@ class _MainPageState extends State<MainPage> {
                                               ),
                                               InkWell(
                                                 onTap: () {},
-                                                child: Icon(
-                                                  Icons.notifications_off,
-                                                  size: 25,
-                                                  color: _yaziTipiRengi,
+                                                child: Container(
+                                                  width: 20,
+                                                  height: 20,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.amber,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                width: 15,
-                                              ),
-                                              InkWell(
-                                                onTap: () async {},
-                                                child: Text(
-                                                    _currentDayHabit[
-                                                            indexOfCurrentDayHabit]
-                                                        ['habitCategory'],
-                                                    style: TextStyle(
-                                                        color: _yaziTipiRengi,
-                                                        fontSize: 25)),
                                               ),
                                             ],
                                           ),
