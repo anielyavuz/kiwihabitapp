@@ -605,32 +605,17 @@ class _MainPageState extends State<MainPage> {
                                                 ),
                                               ],
                                             ),
-                                            Row(
-                                              children: [
-                                                InkWell(
-                                                  onTap: () {},
-                                                  child: Icon(
-                                                    Icons.settings,
-                                                    size: 25,
-                                                    color: _yaziTipiRengi,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 15,
-                                                ),
-                                                InkWell(
-                                                  onTap: () {},
-                                                  child: Container(
-                                                    width: 20,
-                                                    height: 20,
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.amber,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                  ),
-                                                ),
-                                              ],
+                                            InkWell(
+                                              onTap: () {},
+                                              child: Container(
+                                                width: 20,
+                                                height: 20,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.amber,
+                                                    borderRadius:
+                                                        BorderRadius
+                                                            .circular(10)),
+                                              ),
                                             ),
                                           ],
                                         ),
