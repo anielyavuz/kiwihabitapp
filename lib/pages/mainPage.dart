@@ -19,11 +19,14 @@ class _MainPageState extends State<MainPage> {
   late Box box;
   List<DateTime> days = [];
   List _yourHabits = [];
-  int _currentIndexCalendar = 0;
+  int _currentIndexCalendar =
+      100; //initial page değeri değişirse bu değerde değişmeli
 
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   final Color _backgroudRengi = Color.fromRGBO(21, 9, 35, 1);
   List _currentDayHabit = [];
+  Map _currentDayCompletedHabits = {};
+  Map _finalCurrentDayCompletedHabits = {};
   Map _icons = {
     "Health": Icon(
       Icons.volunteer_activism,
@@ -66,7 +69,7 @@ class _MainPageState extends State<MainPage> {
   int _opacityAnimationDuration = 500;
   var _datetime;
   final int _defaultinitialPage = 100;
-  int _initialPage = 100;
+  int _initialPage = 100; //initial page değeri değişirse bu değerde değişmeli
   PageController _pageController =
       PageController(viewportFraction: 1 / 7, initialPage: 100);
   List<DateTime> calculateDaysInterval(DateTime startDate, DateTime endDate) {
@@ -79,13 +82,27 @@ class _MainPageState extends State<MainPage> {
 
   getCurrentChooseYourHabits() async {
     _yourHabits = await box.get("chooseYourHabitsHive") ?? [];
-    print("Aaa");
-    print(_yourHabits);
 
     currentDayHabits();
   }
 
   currentDayHabits() {
+    // bu alan tamamalanan habit'in mevcut güne ait habitler ile kıyaslanmasını sağlar
+    List _tamamlananHabitler = [];
+    if (_finalCurrentDayCompletedHabits[DateFormat('dd MMMM yyyy')
+            .format(days[_currentIndexCalendar])
+            .toString()] !=
+        null) {
+      _tamamlananHabitler = _finalCurrentDayCompletedHabits[
+              DateFormat('dd MMMM yyyy')
+                  .format(days[_currentIndexCalendar])
+                  .toString()]
+          .keys
+          .toList();
+    }
+
+    // bu alan tamamalanan habit'in mevcut güne ait habitler ile kıyaslanmasını sağlar
+
     setState(() {
       _currentDayHabit = [];
 
@@ -94,27 +111,31 @@ class _MainPageState extends State<MainPage> {
       //alışkanlıklar list olarak tutuluyor. Onun içinde for döngüsü örn  [{habitName: GYM, habitCategory: Sport, _weekDays: [{day: 0, value: true}, {day: 1, value: true}, {day: 2, value: true}, {day: 3, value: true}, {day: 4, value: true}, {day: 5, value: false}, {day: 6, value: false}], _allTimes: [{time: TimeOfDay(12:30), notification: true, alarm: false}], _checkedBoxEveryday: false}]
 
       {
-        for (var _yourHabitDays in _yourHabit['_weekDays'])
-        //tek alışkanlığın günleri 7 gün olarak true false şeklinde liste tutuluyor örn [{day: 0, value: true}, {day: 1, value: true}, {day: 2, value: true}, {day: 3, value: true}, {day: 4, value: true}, {day: 5, value: false}, {day: 6, value: false}]
+        if (!_tamamlananHabitler.contains(_yourHabit['habitName']))
+        // bu alan tamamalanan habit'in mevcut güne ait habitler ile kıyaslanmasını sağlar
         {
-          if (_yourHabitDays['day'] ==
-              ((DateTime.now().add(Duration(
-                              days: _initialPage - _defaultinitialPage)))
-                          .difference(DateTime(2000, 1, 3))
-                          .inDays %
-                      7)
-                  .toString()) {
-            if (_yourHabitDays['value']) {
-              _currentDayHabit.add(_yourHabit);
-              _opacityAnimation = 1;
-              break;
+          for (var _yourHabitDays in _yourHabit['_weekDays'])
+          //tek alışkanlığın günleri 7 gün olarak true false şeklinde liste tutuluyor örn [{day: 0, value: true}, {day: 1, value: true}, {day: 2, value: true}, {day: 3, value: true}, {day: 4, value: true}, {day: 5, value: false}, {day: 6, value: false}]
+          {
+            if (_yourHabitDays['day'] ==
+                ((DateTime.now().add(Duration(
+                                days: _initialPage - _defaultinitialPage)))
+                            .difference(DateTime(2000, 1, 3))
+                            .inDays %
+                        7)
+                    .toString()) {
+              if (_yourHabitDays['value']) {
+                _currentDayHabit.add(_yourHabit);
+                _opacityAnimation = 1;
+                break;
+              }
             }
           }
         }
       }
     });
-    print("AAa");
-    print(_currentDayHabit.length);
+    // print("AAa");
+    // print(_currentDayHabit.length);
     // print(
     //     (DateTime.now().add(Duration(days: _initialPage - _defaultinitialPage)))
     //             .difference(DateTime(2000, 1, 3))
@@ -263,10 +284,12 @@ class _MainPageState extends State<MainPage> {
             )),
         appBar: AppBar(
           title: Text(
-              days[_currentIndexCalendar].toString() ==
-                      DateFormat('yyyy-MM-dd 00:00:00.000')
+              (DateFormat('yyyy-MM-dd')
+                          .format(days[_currentIndexCalendar])
+                          .toString()) ==
+                      (DateFormat('yyyy-MM-dd')
                           .format(DateTime.now())
-                          .toString()
+                          .toString())
                   ? "Today"
                   : DateFormat('dd MMMM yyyy')
                       .format(days[_currentIndexCalendar])
@@ -377,6 +400,7 @@ class _MainPageState extends State<MainPage> {
                       child: PageView(
                           controller: _pageController,
                           onPageChanged: (int index) => setState(() {
+                                print(index);
                                 _currentIndexCalendar = index;
                                 _initialPage = index;
                                 _opacityAnimationDuration = 1;
@@ -613,14 +637,120 @@ class _MainPageState extends State<MainPage> {
                                                 decoration: BoxDecoration(
                                                     color: Colors.amber,
                                                     borderRadius:
-                                                        BorderRadius
-                                                            .circular(10)),
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                child: Text(
+                                                    _currentDayHabit[
+                                                                indexOfCurrentDayHabit]
+                                                            ['_allTimes']
+                                                        .length
+                                                        .toString(),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: _backgroudRengi,
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontFamily:
+                                                          'Times New Roman',
+                                                      // fontWeight: FontWeight.bold
+                                                    )),
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                      onPressed: null),
+                                      onPressed: () {
+                                        setState(() {
+                                          //_currentDayCompletedHabits değişkeni tamamlanan habitler için geçici bir dizi oluşturur
+                                          if (_currentDayCompletedHabits[
+                                                  DateFormat('dd MMMM yyyy')
+                                                      .format(days[
+                                                          _currentIndexCalendar])
+                                                      .toString()] ==
+                                              null)
+
+                                          //if fonksiyonu map'in boş olması durumunda hata almaması için null kontrolü yapar
+
+                                          {
+                                            _currentDayCompletedHabits[
+                                                DateFormat('dd MMMM yyyy')
+                                                    .format(days[
+                                                        _currentIndexCalendar])
+                                                    .toString()] = {};
+                                          }
+
+                                          if (_currentDayCompletedHabits[DateFormat(
+                                                      'dd MMMM yyyy')
+                                                  .format(days[
+                                                      _currentIndexCalendar])
+                                                  .toString()][_currentDayHabit[
+                                                      indexOfCurrentDayHabit]
+                                                  ['habitName']] ==
+                                              null)
+                                          //if fonksiyonu map'in boş olması durumunda hata almaması için null kontrolü yapar
+
+                                          {
+                                            _currentDayCompletedHabits[DateFormat(
+                                                    'dd MMMM yyyy')
+                                                .format(
+                                                    days[_currentIndexCalendar])
+                                                .toString()][_currentDayHabit[
+                                                    indexOfCurrentDayHabit]
+                                                ['habitName']] = [];
+                                          }
+
+                                          //_currentDayCompletedHabits dizini içerisine orjinal habit listten ilk zaman dilimi bütün olarak alınır örn: {29 November 2022: {Yoga: [{time: TimeOfDay(12:30), notification: true, alarm: false}]}}
+
+                                          _currentDayCompletedHabits[
+                                                      DateFormat('dd MMMM yyyy').format(days[_currentIndexCalendar]).toString()][
+                                                  _currentDayHabit[indexOfCurrentDayHabit]
+                                                      ['habitName']]
+                                              .add(_currentDayHabit[indexOfCurrentDayHabit]
+                                                  ['_allTimes'][_currentDayCompletedHabits[
+                                                      DateFormat('dd MMMM yyyy')
+                                                          .format(days[_currentIndexCalendar])
+                                                          .toString()][_currentDayHabit[indexOfCurrentDayHabit]['habitName']]
+                                                  .length]);
+
+                                          if (_currentDayCompletedHabits[DateFormat(
+                                                          'dd MMMM yyyy')
+                                                      .format(days[
+                                                          _currentIndexCalendar])
+                                                      .toString()][_currentDayHabit[
+                                                          indexOfCurrentDayHabit]
+                                                      ['habitName']]
+                                                  .length ==
+                                              _currentDayHabit[
+                                                          indexOfCurrentDayHabit]
+                                                      ['_allTimes']
+                                                  .length)
+
+                                          //alttaki tamamlanan habitler ekranına yazmak için ilgili habitte tüm zaman dilimlerini ekleyip eklemediğini kontrol eden koşul. Eklediyse _finalCurrentDayCompletedHabits içine yazıp üsteki habit listi yenilerek yeniden dizilimi sağlar.
+                                          {
+                                            _finalCurrentDayCompletedHabits =
+                                                _currentDayCompletedHabits;
+                                            print("Ekleme bitti");
+
+                                            _opacityAnimationDuration = 1;
+                                            _opacityAnimation = 0;
+                                            Future.delayed(
+                                                const Duration(
+                                                    milliseconds: 250), () {
+                                              _opacityAnimationDuration = 250;
+                                              _opacityAnimation = 1;
+                                              currentDayHabits();
+                                            });
+                                          } else {
+                                            print("Daha ekleyeceğim");
+                                          }
+                                          print(
+                                              _finalCurrentDayCompletedHabits);
+                                          // print(_currentDayCompletedHabits);
+
+                                          // print(_currentDayCompletedHabits);
+                                        });
+                                      }),
                                 ),
                               );
                             }),
@@ -628,41 +758,95 @@ class _MainPageState extends State<MainPage> {
                     ),
                     Expanded(
                       flex: 4,
-                      child: Center(
-                        child: InkWell(
-                            onTap: () async {
-                              // currentDayHabits();
-                              setState(() {
-                                if (_opacityAnimation == 0) {
-                                  _opacityAnimation = 1;
-                                } else {
-                                  _opacityAnimation = 0;
-                                }
-                              });
+                      child: Container(
+                        // width:
+                        //     MediaQuery.of(context).size.width *
+                        //         3 /
+                        //         5,
+                        height: 200,
+                        // width: 50,
 
-                              print(_opacityAnimation);
-                              // print(
-                              //     DateFormat('E').format(DateTime(2000, 1, 3)).toString());
-                              // for (var item in _yourHabits) {
-                              //   print(item['habitName'] + "   ---  ");
-                              //   for (var _weekDay in item['_weekDays']) {
-                              //     if (_weekDay['day'] == "Tue") {
-                              //       print(_weekDay['value']);
-                              //     }
-                              //   }
-                              //   // print(item['_weekDays']);
-                              // }
-                            },
-                            child: Container(
-                              child: Text("Test",
-                                  style: TextStyle(
-                                    color: _yaziTipiRengi,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Times New Roman',
-                                    // fontWeight: FontWeight.bold
-                                  )),
-                            )),
+                        child: ListView.builder(
+                            itemCount: _finalCurrentDayCompletedHabits[
+                                        DateFormat('dd MMMM yyyy')
+                                            .format(days[_currentIndexCalendar])
+                                            .toString()] !=
+                                    null
+                                ? _finalCurrentDayCompletedHabits[
+                                        DateFormat('dd MMMM yyyy')
+                                            .format(days[_currentIndexCalendar])
+                                            .toString()]
+                                    .keys
+                                    .length
+                                : 0,
+                            itemBuilder: (context, indexOffinalCompletedHabit) {
+                              // print(_kaydirmaNoktalari);
+                              return AnimatedOpacity(
+                                duration: Duration(
+                                    milliseconds: _opacityAnimationDuration),
+                                opacity: _opacityAnimation,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width / 3,
+                                  child: RawMaterialButton(
+                                      // fillColor: _yaziTipiRengi,
+                                      shape: RoundedRectangleBorder(
+                                          side:
+                                              BorderSide(color: _yaziTipiRengi),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15.0))),
+                                      // splashColor: Colors.green,
+                                      textStyle:
+                                          TextStyle(color: _yaziTipiRengi),
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            15, 5, 15, 5),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          5, 0, 0, 0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(_finalCurrentDayCompletedHabits[
+                                                              DateFormat(
+                                                                      'dd MMMM yyyy')
+                                                                  .format(days[
+                                                                      _currentIndexCalendar])
+                                                                  .toString()]
+                                                          .keys
+                                                          .toList()[indexOffinalCompletedHabit]),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            InkWell(
+                                              onTap: () {},
+                                              child: Container(
+                                                width: 20,
+                                                height: 20,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.amber,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      onPressed: () {}),
+                                ),
+                              );
+                            }),
                       ),
                     ),
                   ],
