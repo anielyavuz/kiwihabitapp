@@ -80,10 +80,47 @@ class _MainPageState extends State<MainPage> {
     return days;
   }
 
+  recalculateListWithAnimation() {
+    _opacityAnimationDuration = 1;
+    _opacityAnimation = 0;
+    Future.delayed(const Duration(milliseconds: 250), () {
+      _opacityAnimationDuration = 250;
+      _opacityAnimation = 1;
+      currentDayHabits();
+    });
+  }
+
   getCurrentChooseYourHabits() async {
     _yourHabits = await box.get("chooseYourHabitsHive") ?? [];
 
     currentDayHabits();
+  }
+
+  returnFromCompletedHabitList(String _habitName) {
+    setState(() {
+      _finalCurrentDayCompletedHabits[DateFormat('dd MMMM yyyy')
+              .format(days[_currentIndexCalendar])
+              .toString()][_habitName]
+          .removeLast();
+
+      if (_finalCurrentDayCompletedHabits[DateFormat('dd MMMM yyyy')
+                  .format(days[_currentIndexCalendar])
+                  .toString()][_habitName]
+              .length ==
+          0) {
+        print("İlgili listenin içi boş");
+        _finalCurrentDayCompletedHabits[DateFormat('dd MMMM yyyy')
+                .format(days[_currentIndexCalendar])
+                .toString()]
+            .removeWhere((key, value) =>
+                key ==
+                _habitName); //ilgili dizinin time alanı boş kaldığı için habit'i de silmek için kullanılır
+      }
+      print(_finalCurrentDayCompletedHabits[DateFormat('dd MMMM yyyy')
+          .format(days[_currentIndexCalendar])
+          .toString()][_habitName]);
+    });
+    recalculateListWithAnimation(); //
   }
 
   currentDayHabits() {
@@ -141,6 +178,9 @@ class _MainPageState extends State<MainPage> {
     //             .difference(DateTime(2000, 1, 3))
     //             .inDays %
     //         7);
+
+    print("Final liste");
+    print(_finalCurrentDayCompletedHabits);
   }
 
   Timer? timer;
@@ -403,14 +443,7 @@ class _MainPageState extends State<MainPage> {
                                 print(index);
                                 _currentIndexCalendar = index;
                                 _initialPage = index;
-                                _opacityAnimationDuration = 1;
-                                _opacityAnimation = 0;
-                                Future.delayed(
-                                    const Duration(milliseconds: 250), () {
-                                  _opacityAnimationDuration = 250;
-                                  _opacityAnimation = 1;
-                                  currentDayHabits();
-                                });
+                                recalculateListWithAnimation();
                               }),
                           scrollDirection: Axis.horizontal,
                           children: List.generate(
@@ -744,8 +777,8 @@ class _MainPageState extends State<MainPage> {
                                           } else {
                                             print("Daha ekleyeceğim");
                                           }
-                                          print(
-                                              _finalCurrentDayCompletedHabits);
+                                          // print(
+                                          //     _finalCurrentDayCompletedHabits);
                                           // print(_currentDayCompletedHabits);
 
                                           // print(_currentDayCompletedHabits);
@@ -843,7 +876,19 @@ class _MainPageState extends State<MainPage> {
                                           ],
                                         ),
                                       ),
-                                      onPressed: () {}),
+                                      onPressed: () {
+                                        returnFromCompletedHabitList(
+                                            _finalCurrentDayCompletedHabits[
+                                                        DateFormat(
+                                                                'dd MMMM yyyy')
+                                                            .format(days[
+                                                                _currentIndexCalendar])
+                                                            .toString()]
+                                                    .keys
+                                                    .toList()[
+                                                indexOffinalCompletedHabit]); //tıklanan habit'in ismini return fonksiyonuna yollar
+                                        print("Test");
+                                      }),
                                 ),
                               );
                             }),
