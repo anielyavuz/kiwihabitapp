@@ -124,6 +124,30 @@ class _HabitDetailsState extends State<HabitDetails> {
     print(_yourHabits);
   }
 
+  writeHabitsFinaltoDB() {
+    Map _habitDetails = {};
+    Map _habitDays = {};
+
+    for (var _habit in _yourHabits.toList()) {
+      _habitDetails[_habit['habitName']] = {};
+      _habitDetails[_habit['habitName']]['habitCategory'] =
+          _habit['habitCategory'];
+
+      _habitDetails[_habit['habitName']]['_allTimes'] = _habit['_allTimes'];
+
+      _habitDays[_habit['habitName']] = [];
+      for (var _weekDay in _habit['_weekDays']) {
+        if (_weekDay['value'] == true) {
+          _habitDays[_habit['habitName']].add(_weekDay['day']);
+        }
+      }
+    }
+
+    box.put("habitDetailsHive", _habitDetails);
+    box.put("habitDays", _habitDays);
+    print(_habitDays);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -1061,8 +1085,10 @@ class _HabitDetailsState extends State<HabitDetails> {
                                       _yourHabitsTime['time'].toString();
                                 }
                               }
-                              // print(_tempHabits);
-                              // print("Sayfa değiştir....");
+
+                              writeHabitsFinaltoDB();
+                              print(_tempHabits);
+                              print("Sayfa değiştir....");
                               setState(() {
                                 _loadingIcon = true;
                               });
@@ -1071,8 +1097,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                               setState(() {
                                 _loadingIcon = false;
                               });
-                              print(
-                                  "DDDDDDDDDDDDDAAAAAAAAAAAAATTTTTTTTTTTTAAAAAAAAAAAAAAAAA3");
+
                               box.put("chooseYourHabitsHive", _tempHabits);
 
                               Navigator.pushAndRemoveUntil(

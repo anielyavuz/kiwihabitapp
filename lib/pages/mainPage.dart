@@ -19,6 +19,8 @@ class _MainPageState extends State<MainPage> {
   late Box box;
   List<DateTime> days = [];
   List _yourHabits = [];
+  var _habitDays;
+  var _habitDetails;
   int _currentIndexCalendar =
       100; //initial page değeri değişirse bu değerde değişmeli
 
@@ -26,7 +28,8 @@ class _MainPageState extends State<MainPage> {
   final Color _backgroudRengi = Color.fromRGBO(21, 9, 35, 1);
   List _currentDayHabit = [];
   Map _currentDayCompletedHabits = {};
-  Map _finalCurrentDayCompletedHabits = {};
+
+  Map _completedHabits = {};
   Map _icons = {
     "Health": Icon(
       Icons.volunteer_activism,
@@ -64,7 +67,8 @@ class _MainPageState extends State<MainPage> {
       color: Color.fromARGB(223, 19, 153, 243),
     )
   };
-
+  Map _completedHelp = {};
+  Map _finalCompleted = {};
   double _opacityAnimation = 0;
   int _opacityAnimationDuration = 500;
   var _datetime;
@@ -90,97 +94,174 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  getCurrentChooseYourHabits() async {
-    _yourHabits = await box.get("chooseYourHabitsHive") ?? [];
+  test() {
+    print(_habitDays);
+    // print(_habitDays);
+  }
 
-    currentDayHabits();
+  getCurrentChooseYourHabits() async {
+    _yourHabits = await box.get("chooseYourHabitsHive") ?? []; //eski
+
+    _habitDetails = await box.get("habitDetailsHive") ?? [];
+    _habitDays = await box.get("habitDays") ?? [];
+    _completedHabits = await box.get("completedHabits") ?? {};
+
+    recalculateListWithAnimation();
   }
 
   returnFromCompletedHabitList(String _habitName) {
     setState(() {
-      _finalCurrentDayCompletedHabits[DateFormat('dd MMMM yyyy')
+      _completedHabits[DateFormat('dd MMMM yyyy')
               .format(days[_currentIndexCalendar])
-              .toString()][_habitName]
-          .removeLast();
+              .toString()]
+          .removeWhere((key, value) => key == _habitName);
 
-      if (_finalCurrentDayCompletedHabits[DateFormat('dd MMMM yyyy')
-                  .format(days[_currentIndexCalendar])
-                  .toString()][_habitName]
-              .length ==
-          0) {
-        print("İlgili listenin içi boş");
-        _finalCurrentDayCompletedHabits[DateFormat('dd MMMM yyyy')
-                .format(days[_currentIndexCalendar])
-                .toString()]
-            .removeWhere((key, value) =>
-                key ==
-                _habitName); //ilgili dizinin time alanı boş kaldığı için habit'i de silmek için kullanılır
-      }
-      print(_finalCurrentDayCompletedHabits[DateFormat('dd MMMM yyyy')
-          .format(days[_currentIndexCalendar])
-          .toString()][_habitName]);
+      _finalCompleted[DateFormat('dd MMMM yyyy')
+              .format(days[_currentIndexCalendar])
+              .toString()]
+          .removeWhere((key, value) => key == _habitName);
     });
-    recalculateListWithAnimation(); //
-  }
-
-  currentDayHabits() {
-    // bu alan tamamalanan habit'in mevcut güne ait habitler ile kıyaslanmasını sağlar
-    List _tamamlananHabitler = [];
-    if (_finalCurrentDayCompletedHabits[DateFormat('dd MMMM yyyy')
-            .format(days[_currentIndexCalendar])
-            .toString()] !=
-        null) {
-      _tamamlananHabitler = _finalCurrentDayCompletedHabits[
-              DateFormat('dd MMMM yyyy')
-                  .format(days[_currentIndexCalendar])
-                  .toString()]
-          .keys
-          .toList();
-    }
-
-    // bu alan tamamalanan habit'in mevcut güne ait habitler ile kıyaslanmasını sağlar
 
     setState(() {
-      _currentDayHabit = [];
+      _currentDayHabit.add(_habitName);
+    });
 
-      _opacityAnimation = 1;
-      for (var _yourHabit in _yourHabits)
-      //alışkanlıklar list olarak tutuluyor. Onun içinde for döngüsü örn  [{habitName: GYM, habitCategory: Sport, _weekDays: [{day: 0, value: true}, {day: 1, value: true}, {day: 2, value: true}, {day: 3, value: true}, {day: 4, value: true}, {day: 5, value: false}, {day: 6, value: false}], _allTimes: [{time: TimeOfDay(12:30), notification: true, alarm: false}], _checkedBoxEveryday: false}]
+    box.put("completedHabits", _completedHabits);
 
-      {
-        if (!_tamamlananHabitler.contains(_yourHabit['habitName']))
-        // bu alan tamamalanan habit'in mevcut güne ait habitler ile kıyaslanmasını sağlar
-        {
-          for (var _yourHabitDays in _yourHabit['_weekDays'])
-          //tek alışkanlığın günleri 7 gün olarak true false şeklinde liste tutuluyor örn [{day: 0, value: true}, {day: 1, value: true}, {day: 2, value: true}, {day: 3, value: true}, {day: 4, value: true}, {day: 5, value: false}, {day: 6, value: false}]
-          {
-            if (_yourHabitDays['day'] ==
-                ((DateTime.now().add(Duration(
-                                days: _initialPage - _defaultinitialPage)))
-                            .difference(DateTime(2000, 1, 3))
-                            .inDays %
-                        7)
-                    .toString()) {
-              if (_yourHabitDays['value']) {
-                _currentDayHabit.add(_yourHabit);
-                _opacityAnimation = 1;
-                break;
-              }
-            }
+    // _finalCompleted = copyDeepMap(_completedHabits);
+
+    print("Final Map'e klonlanıyorr");
+  }
+
+  completedHabits(String _habitName, Map _time) {
+    print('_completedHabits');
+    print(_completedHabits);
+    if (_completedHabits[DateFormat('dd MMMM yyyy')
+            .format(days[_currentIndexCalendar])
+            .toString()] ==
+        null) {
+      _completedHabits[DateFormat('dd MMMM yyyy')
+          .format(days[_currentIndexCalendar])
+          .toString()] = {};
+    }
+    if (_completedHabits[DateFormat('dd MMMM yyyy')
+            .format(days[_currentIndexCalendar])
+            .toString()][_habitName] ==
+        null) {
+      _completedHabits[DateFormat('dd MMMM yyyy')
+          .format(days[_currentIndexCalendar])
+          .toString()][_habitName] = [];
+    }
+    setState(() {
+      _completedHabits[DateFormat('dd MMMM yyyy')
+              .format(days[_currentIndexCalendar])
+              .toString()][_habitName]
+          .add(_time);
+    });
+
+    if (_completedHabits[DateFormat('dd MMMM yyyy')
+                .format(days[_currentIndexCalendar])
+                .toString()][_habitName]
+            .length ==
+        _habitDetails[_habitName]['_allTimes'].length) {
+      print("Map finale Klonlanıyorrr");
+
+      if (_finalCompleted[DateFormat('dd MMMM yyyy')
+              .format(days[_currentIndexCalendar])
+              .toString()] ==
+          null) {
+        _finalCompleted[DateFormat('dd MMMM yyyy')
+            .format(days[_currentIndexCalendar])
+            .toString()] = {};
+      }
+      if (_finalCompleted[DateFormat('dd MMMM yyyy')
+              .format(days[_currentIndexCalendar])
+              .toString()] ==
+          null) {
+        _finalCompleted[DateFormat('dd MMMM yyyy')
+                .format(days[_currentIndexCalendar])
+                .toString()] ==
+            [];
+      }
+
+      _finalCompleted[DateFormat('dd MMMM yyyy')
+              .format(days[_currentIndexCalendar])
+              .toString()][_habitName] =
+          copyDeepList(_completedHabits[DateFormat('dd MMMM yyyy')
+              .format(days[_currentIndexCalendar])
+              .toString()][_habitName]);
+    }
+
+    box.put("completedHabits", _completedHabits);
+
+    // print('_completedHabits2');
+    // print(_completedHabits);
+
+    compareCurrentAndCompleted();
+  }
+
+  compareCurrentAndCompleted() {
+    // print('_habitDetails');
+    // print(_habitDetails);
+
+    List _willRemoveHabitNames = [];
+    for (var habitName in _currentDayHabit) {
+      if (_completedHabits[DateFormat('dd MMMM yyyy')
+              .format(days[_currentIndexCalendar])
+              .toString()] !=
+          null) {
+        if (_completedHabits[DateFormat('dd MMMM yyyy')
+                .format(days[_currentIndexCalendar])
+                .toString()][habitName] !=
+            null) {
+          if (_completedHabits[DateFormat('dd MMMM yyyy')
+                      .format(days[_currentIndexCalendar])
+                      .toString()][habitName]
+                  .length ==
+              _habitDetails[habitName]['_allTimes'].length) {
+            print("Habitin tüm tekrarları bitti, kaldırılabilir");
+
+            _willRemoveHabitNames.add(habitName);
+            // print(_willRemoveHabitNames);
+            //
+          } else {
+            print("Henüz bu habitte yapılacak tekrar var...");
           }
         }
       }
-    });
-    // print("AAa");
-    // print(_currentDayHabit.length);
-    // print(
-    //     (DateTime.now().add(Duration(days: _initialPage - _defaultinitialPage)))
-    //             .difference(DateTime(2000, 1, 3))
-    //             .inDays %
-    //         7);
+    }
+    if (_willRemoveHabitNames.length != 0) {
+      for (var _willRemoveHabitName in _willRemoveHabitNames) {
+        setState(() {
+          _currentDayHabit.removeWhere((item) => item == _willRemoveHabitName);
+        });
+        // print("$_willRemoveHabitName habitini kaldırıyorum.");
+      }
 
-    print("Final liste");
-    print(_finalCurrentDayCompletedHabits);
+      // recalculateListForCurrentListWithAnimation();
+    }
+  }
+
+  currentDayHabits() {
+    //habşt details {Swim: {habitCategory: Sport, _allTimes: [{time: TimeOfDay(12:30), notification: true, alarm: false}]}, Learn English: {habitCategory: Study, _allTimes: [{time: TimeOfDay(12:30), notification: true, alarm: false}]}, Painting: {habitCategory: Art, _allTimes: [{time: TimeOfDay(12:30), notification: true, alarm: false}]}}
+    setState(() {
+      _currentDayHabit = [];
+      _habitDays.forEach((k, v) {
+        if (v.contains(((DateTime.now().add(
+                        Duration(days: _initialPage - _defaultinitialPage)))
+                    .difference(DateTime(2000, 1, 3))
+                    .inDays %
+                7)
+            .toString())) {
+          setState(() {
+            _currentDayHabit.add(k);
+          });
+        }
+      });
+    });
+    compareCurrentAndCompleted();
+    // print("_currentDayHabit");
+    // print(_currentDayHabit);
   }
 
   Timer? timer;
@@ -190,17 +271,26 @@ class _MainPageState extends State<MainPage> {
 
     calculateDaysInterval(DateTime.now().subtract(Duration(days: _initialPage)),
         DateTime.now().add(Duration(days: _initialPage)));
-    // WidgetsBinding.instance?.addPostFrameCallback((_) {
-    //   Future.delayed(const Duration(milliseconds: 50), () {
-
-    //   });
-    // });
 
     box = Hive.box("kiwiHive");
     getCurrentChooseYourHabits();
+  }
 
-    // timer = Timer.periodic(
-    //     Duration(seconds: 10), (Timer t) => getCurrentChooseYourHabits());
+  copyDeepMap(map) {
+    Map newMap = {};
+    map.forEach((key, value) {
+      newMap[key] = (value is Map) ? copyDeepMap(value) : value;
+    });
+    return newMap;
+  }
+
+  copyDeepList(list) {
+    List newList = [];
+    for (var item in list) {
+      newList.add(item);
+    }
+
+    return newList;
   }
 
   @override
@@ -291,6 +381,11 @@ class _MainPageState extends State<MainPage> {
                                     await _auth.signOut();
 
                                     var a = await _authService.signOut();
+
+                                    box.put("chooseYourHabitsHive", []);
+                                    box.put("habitDetailsHive", []);
+                                    box.put("habitDays", []);
+                                    box.put("completedHabits", {});
                                     Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
@@ -440,7 +535,7 @@ class _MainPageState extends State<MainPage> {
                       child: PageView(
                           controller: _pageController,
                           onPageChanged: (int index) => setState(() {
-                                print(index);
+                                // print(index);
                                 _currentIndexCalendar = index;
                                 _initialPage = index;
                                 recalculateListWithAnimation();
@@ -576,9 +671,6 @@ class _MainPageState extends State<MainPage> {
                         child: InkWell(
                           onTap: () async {
                             _pageController.jumpToPage(_defaultinitialPage);
-                            // _pageController.animateToPage(_defaultinitialPage,
-                            //     duration: Duration(milliseconds: 500),
-                            //     curve: Curves.easeInCirc);
                           },
                           child: FittedBox(
                             fit: BoxFit.fill,
@@ -641,8 +733,9 @@ class _MainPageState extends State<MainPage> {
                                           children: [
                                             Row(
                                               children: [
-                                                _icons[_currentDayHabit[
-                                                        indexOfCurrentDayHabit]
+                                                _icons[_habitDetails[
+                                                        _currentDayHabit[
+                                                            indexOfCurrentDayHabit]]
                                                     ['habitCategory']],
                                                 Padding(
                                                   padding:
@@ -654,16 +747,23 @@ class _MainPageState extends State<MainPage> {
                                                             .start,
                                                     children: [
                                                       Text(_currentDayHabit[
-                                                              indexOfCurrentDayHabit]
-                                                          ['habitName']),
-                                                      Text("15:00")
+                                                          indexOfCurrentDayHabit]),
+                                                      Text(_habitDetails[
+                                                                  _currentDayHabit[
+                                                                      indexOfCurrentDayHabit]]
+                                                              [
+                                                              '_allTimes'][0]['time']
+                                                          .split('(')[1]
+                                                          .split(')')[0])
                                                     ],
                                                   ),
                                                 ),
                                               ],
                                             ),
                                             InkWell(
-                                              onTap: () {},
+                                              onTap: () {
+                                                // compareCurrentAndCompleted();
+                                              },
                                               child: Container(
                                                 width: 20,
                                                 height: 20,
@@ -673,8 +773,8 @@ class _MainPageState extends State<MainPage> {
                                                         BorderRadius.circular(
                                                             10)),
                                                 child: Text(
-                                                    _currentDayHabit[
-                                                                indexOfCurrentDayHabit]
+                                                    _habitDetails[_currentDayHabit[
+                                                                indexOfCurrentDayHabit]]
                                                             ['_allTimes']
                                                         .length
                                                         .toString(),
@@ -694,95 +794,161 @@ class _MainPageState extends State<MainPage> {
                                         ),
                                       ),
                                       onPressed: () {
-                                        setState(() {
-                                          //_currentDayCompletedHabits değişkeni tamamlanan habitler için geçici bir dizi oluşturur
-                                          if (_currentDayCompletedHabits[
-                                                  DateFormat('dd MMMM yyyy')
-                                                      .format(days[
-                                                          _currentIndexCalendar])
-                                                      .toString()] ==
-                                              null)
-
-                                          //if fonksiyonu map'in boş olması durumunda hata almaması için null kontrolü yapar
-
-                                          {
-                                            _currentDayCompletedHabits[
-                                                DateFormat('dd MMMM yyyy')
-                                                    .format(days[
-                                                        _currentIndexCalendar])
-                                                    .toString()] = {};
-                                          }
-
-                                          if (_currentDayCompletedHabits[DateFormat(
-                                                      'dd MMMM yyyy')
-                                                  .format(days[
-                                                      _currentIndexCalendar])
-                                                  .toString()][_currentDayHabit[
-                                                      indexOfCurrentDayHabit]
-                                                  ['habitName']] ==
-                                              null)
-                                          //if fonksiyonu map'in boş olması durumunda hata almaması için null kontrolü yapar
-
-                                          {
-                                            _currentDayCompletedHabits[DateFormat(
+                                        if (_completedHabits[DateFormat(
                                                     'dd MMMM yyyy')
                                                 .format(
                                                     days[_currentIndexCalendar])
-                                                .toString()][_currentDayHabit[
-                                                    indexOfCurrentDayHabit]
-                                                ['habitName']] = [];
-                                          }
+                                                .toString()] !=
+                                            null) {
+                                          // print(_habitDetails[_currentDayHabit[
+                                          //         indexOfCurrentDayHabit]]
+                                          //     ['_allTimes'][_completedHabits[
+                                          //         DateFormat('dd MMMM yyyy')
+                                          //             .format(days[
+                                          //                 _currentIndexCalendar])
+                                          //             .toString()][_currentDayHabit[
+                                          //         indexOfCurrentDayHabit]]
+                                          //     .length]);
 
-                                          //_currentDayCompletedHabits dizini içerisine orjinal habit listten ilk zaman dilimi bütün olarak alınır örn: {29 November 2022: {Yoga: [{time: TimeOfDay(12:30), notification: true, alarm: false}]}}
-
-                                          _currentDayCompletedHabits[
-                                                      DateFormat('dd MMMM yyyy').format(days[_currentIndexCalendar]).toString()][
-                                                  _currentDayHabit[indexOfCurrentDayHabit]
-                                                      ['habitName']]
-                                              .add(_currentDayHabit[indexOfCurrentDayHabit]
-                                                  ['_allTimes'][_currentDayCompletedHabits[
-                                                      DateFormat('dd MMMM yyyy')
-                                                          .format(days[_currentIndexCalendar])
-                                                          .toString()][_currentDayHabit[indexOfCurrentDayHabit]['habitName']]
-                                                  .length]);
-
-                                          if (_currentDayCompletedHabits[DateFormat(
+                                          //ilginç sorun
+                                          if (_completedHabits[DateFormat(
                                                           'dd MMMM yyyy')
                                                       .format(days[
                                                           _currentIndexCalendar])
-                                                      .toString()][_currentDayHabit[
-                                                          indexOfCurrentDayHabit]
-                                                      ['habitName']]
-                                                  .length ==
-                                              _currentDayHabit[
-                                                          indexOfCurrentDayHabit]
-                                                      ['_allTimes']
-                                                  .length)
-
-                                          //alttaki tamamlanan habitler ekranına yazmak için ilgili habitte tüm zaman dilimlerini ekleyip eklemediğini kontrol eden koşul. Eklediyse _finalCurrentDayCompletedHabits içine yazıp üsteki habit listi yenilerek yeniden dizilimi sağlar.
-                                          {
-                                            _finalCurrentDayCompletedHabits =
-                                                _currentDayCompletedHabits;
-                                            print("Ekleme bitti");
-
-                                            _opacityAnimationDuration = 1;
-                                            _opacityAnimation = 0;
-                                            Future.delayed(
-                                                const Duration(
-                                                    milliseconds: 250), () {
-                                              _opacityAnimationDuration = 250;
-                                              _opacityAnimation = 1;
-                                              currentDayHabits();
-                                            });
+                                                      .toString()][
+                                                  _currentDayHabit[
+                                                      indexOfCurrentDayHabit]] !=
+                                              null) {
+                                            completedHabits(
+                                                _currentDayHabit[
+                                                    indexOfCurrentDayHabit],
+                                                _habitDetails[_currentDayHabit[
+                                                        indexOfCurrentDayHabit]]
+                                                    [
+                                                    '_allTimes'][_completedHabits[
+                                                        DateFormat(
+                                                                'dd MMMM yyyy')
+                                                            .format(days[
+                                                                _currentIndexCalendar])
+                                                            .toString()][_currentDayHabit[
+                                                        indexOfCurrentDayHabit]]
+                                                    .length]);
                                           } else {
-                                            print("Daha ekleyeceğim");
+                                            completedHabits(
+                                                _currentDayHabit[
+                                                    indexOfCurrentDayHabit],
+                                                _habitDetails[_currentDayHabit[
+                                                        indexOfCurrentDayHabit]]
+                                                    ['_allTimes'][0]);
                                           }
-                                          // print(
-                                          //     _finalCurrentDayCompletedHabits);
-                                          // print(_currentDayCompletedHabits);
+                                        } else {
+                                          print("null bir değerdi");
+                                          completedHabits(
+                                              _currentDayHabit[
+                                                  indexOfCurrentDayHabit],
+                                              _habitDetails[_currentDayHabit[
+                                                      indexOfCurrentDayHabit]]
+                                                  ['_allTimes'][0]);
+                                        }
+                                        // print(_habitDetails[_currentDayHabit[
+                                        //             indexOfCurrentDayHabit]]
+                                        //         ['_allTimes']
+                                        //     .length
+                                        //     .toString());
 
-                                          // print(_currentDayCompletedHabits);
-                                        });
+                                        // setState(() {
+                                        //   //_currentDayCompletedHabits değişkeni tamamlanan habitler için geçici bir dizi oluşturur
+                                        //   if (_currentDayCompletedHabits[
+                                        //           DateFormat('dd MMMM yyyy')
+                                        //               .format(days[
+                                        //                   _currentIndexCalendar])
+                                        //               .toString()] ==
+                                        //       null)
+
+                                        //   //if fonksiyonu map'in boş olması durumunda hata almaması için null kontrolü yapar
+
+                                        //   {
+                                        //     _currentDayCompletedHabits[
+                                        //         DateFormat('dd MMMM yyyy')
+                                        //             .format(days[
+                                        //                 _currentIndexCalendar])
+                                        //             .toString()] = {};
+                                        //   }
+
+                                        //   if (_currentDayCompletedHabits[DateFormat(
+                                        //               'dd MMMM yyyy')
+                                        //           .format(days[
+                                        //               _currentIndexCalendar])
+                                        //           .toString()][_currentDayHabit[
+                                        //               indexOfCurrentDayHabit]
+                                        //           ['habitName']] ==
+                                        //       null)
+                                        //   //if fonksiyonu map'in boş olması durumunda hata almaması için null kontrolü yapar
+
+                                        //   {
+                                        //     _currentDayCompletedHabits[DateFormat(
+                                        //             'dd MMMM yyyy')
+                                        //         .format(
+                                        //             days[_currentIndexCalendar])
+                                        //         .toString()][_currentDayHabit[
+                                        //             indexOfCurrentDayHabit]
+                                        //         ['habitName']] = [];
+                                        //   }
+
+                                        //   //_currentDayCompletedHabits dizini içerisine orjinal habit listten ilk zaman dilimi bütün olarak alınır örn: {29 November 2022: {Yoga: [{time: TimeOfDay(12:30), notification: true, alarm: false}]}}
+
+                                        //   _currentDayCompletedHabits[
+                                        //               DateFormat('dd MMMM yyyy').format(days[_currentIndexCalendar]).toString()][
+                                        //           _currentDayHabit[indexOfCurrentDayHabit]
+                                        //               ['habitName']]
+                                        //       .add(_currentDayHabit[indexOfCurrentDayHabit]
+                                        //           ['_allTimes'][_currentDayCompletedHabits[
+                                        //               DateFormat('dd MMMM yyyy')
+                                        //                   .format(days[_currentIndexCalendar])
+                                        //                   .toString()][_currentDayHabit[indexOfCurrentDayHabit]['habitName']]
+                                        //           .length]);
+
+                                        //   if (_currentDayCompletedHabits[DateFormat(
+                                        //                   'dd MMMM yyyy')
+                                        //               .format(days[
+                                        //                   _currentIndexCalendar])
+                                        //               .toString()][_currentDayHabit[
+                                        //                   indexOfCurrentDayHabit]
+                                        //               ['habitName']]
+                                        //           .length ==
+                                        //       _currentDayHabit[
+                                        //                   indexOfCurrentDayHabit]
+                                        //               ['_allTimes']
+                                        //           .length)
+
+                                        //   //alttaki tamamlanan habitler ekranına yazmak için ilgili habitte tüm zaman dilimlerini ekleyip eklemediğini kontrol eden koşul. Eklediyse _finalCurrentDayCompletedHabits içine yazıp üsteki habit listi yenilerek yeniden dizilimi sağlar.
+                                        //   {
+                                        //     // _finalCurrentDayCompletedHabits =
+                                        //     //     _currentDayCompletedHabits;
+
+                                        //     _finalCurrentDayCompletedHabits =
+                                        //         Map.from(
+                                        //             _currentDayCompletedHabits);
+                                        //     print("Ekleme bitti");
+
+                                        //     _opacityAnimationDuration = 1;
+                                        //     _opacityAnimation = 0;
+                                        //     Future.delayed(
+                                        //         const Duration(
+                                        //             milliseconds: 250), () {
+                                        //       _opacityAnimationDuration = 250;
+                                        //       _opacityAnimation = 1;
+                                        //       currentDayHabits();
+                                        //     });
+                                        //   } else {
+                                        //     print("Daha ekleyeceğim");
+                                        //   }
+                                        //   // print(
+                                        //   //     _finalCurrentDayCompletedHabits);
+                                        //   // print(_currentDayCompletedHabits);
+
+                                        //   // print(_currentDayCompletedHabits);
+                                        // });
                                       }),
                                 ),
                               );
@@ -800,16 +966,16 @@ class _MainPageState extends State<MainPage> {
                         // width: 50,
 
                         child: ListView.builder(
-                            itemCount: _finalCurrentDayCompletedHabits[
+                            itemCount: _finalCompleted[
                                         DateFormat('dd MMMM yyyy')
                                             .format(days[_currentIndexCalendar])
                                             .toString()] !=
                                     null
-                                ? _finalCurrentDayCompletedHabits[
-                                        DateFormat('dd MMMM yyyy')
-                                            .format(days[_currentIndexCalendar])
-                                            .toString()]
+                                ? _finalCompleted[DateFormat('dd MMMM yyyy')
+                                        .format(days[_currentIndexCalendar])
+                                        .toString()]
                                     .keys
+                                    .toList()
                                     .length
                                 : 0,
                             itemBuilder: (context, indexOffinalCompletedHabit) {
@@ -843,31 +1009,57 @@ class _MainPageState extends State<MainPage> {
                                                   padding:
                                                       const EdgeInsets.fromLTRB(
                                                           5, 0, 0, 0),
-                                                  child: Column(
+                                                  child: Row(
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Text(_finalCurrentDayCompletedHabits[
-                                                              DateFormat(
-                                                                      'dd MMMM yyyy')
-                                                                  .format(days[
-                                                                      _currentIndexCalendar])
-                                                                  .toString()]
+                                                      Text(_finalCompleted[DateFormat(
+                                                                  'dd MMMM yyyy')
+                                                              .format(days[
+                                                                  _currentIndexCalendar])
+                                                              .toString()]
                                                           .keys
-                                                          .toList()[indexOffinalCompletedHabit]),
+                                                          .toList()[
+                                                              indexOffinalCompletedHabit]
+                                                          .toString()),
+
+                                                      // Text(" x" +
+                                                      //     _completedHabits[DateFormat(
+                                                      //                 'dd MMMM yyyy')
+                                                      //             .format(days[
+                                                      //                 _currentIndexCalendar])
+                                                      //             .toString()][_completedHabits[DateFormat(
+                                                      //                     'dd MMMM yyyy')
+                                                      //                 .format(days[
+                                                      //                     _currentIndexCalendar])
+                                                      //                 .toString()]
+                                                      //             .keys
+                                                      //             .toList()[indexOffinalCompletedHabit]]
+                                                      //         .length
+                                                      //         .toString())
                                                     ],
                                                   ),
                                                 ),
                                               ],
                                             ),
                                             InkWell(
-                                              onTap: () {},
+                                              onTap: () {
+                                                print(
+                                                    _currentDayCompletedHabits);
+                                                print("****");
+                                              },
                                               child: Container(
+                                                child: Icon(
+                                                  Icons.check,
+                                                  size: 20,
+                                                  color: Colors.white,
+                                                ),
                                                 width: 20,
                                                 height: 20,
                                                 decoration: BoxDecoration(
-                                                    color: Colors.amber,
+                                                    color: Color.fromARGB(
+                                                        223, 18, 218, 7),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             10)),
@@ -878,16 +1070,15 @@ class _MainPageState extends State<MainPage> {
                                       ),
                                       onPressed: () {
                                         returnFromCompletedHabitList(
-                                            _finalCurrentDayCompletedHabits[
-                                                        DateFormat(
-                                                                'dd MMMM yyyy')
-                                                            .format(days[
-                                                                _currentIndexCalendar])
-                                                            .toString()]
-                                                    .keys
-                                                    .toList()[
-                                                indexOffinalCompletedHabit]); //tıklanan habit'in ismini return fonksiyonuna yollar
-                                        print("Test");
+                                            _finalCompleted[DateFormat(
+                                                        'dd MMMM yyyy')
+                                                    .format(days[
+                                                        _currentIndexCalendar])
+                                                    .toString()]
+                                                .keys
+                                                .toList()[
+                                                    indexOffinalCompletedHabit]
+                                                .toString());
                                       }),
                                 ),
                               );
