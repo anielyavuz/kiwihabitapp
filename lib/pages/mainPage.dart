@@ -106,6 +106,8 @@ class _MainPageState extends State<MainPage> {
     _habitDays = await box.get("habitDays") ?? [];
     _completedHabits = await box.get("completedHabits") ?? {};
 
+    _finalCompleted = await box.get("finalCompleted") ?? {};
+
     recalculateListWithAnimation();
   }
 
@@ -127,6 +129,7 @@ class _MainPageState extends State<MainPage> {
     });
 
     box.put("completedHabits", _completedHabits);
+    box.put("finalCompleted", _finalCompleted);
 
     // _finalCompleted = copyDeepMap(_completedHabits);
 
@@ -193,11 +196,38 @@ class _MainPageState extends State<MainPage> {
     }
 
     box.put("completedHabits", _completedHabits);
+    box.put("finalCompleted", _finalCompleted);
 
     // print('_completedHabits2');
     // print(_completedHabits);
 
     compareCurrentAndCompleted();
+  }
+
+  remainHabitRepeat(String habitName) {
+    int _totalLength = _habitDetails[habitName]['_allTimes'].length;
+    int _completedLength = 0;
+
+    if (_completedHabits[DateFormat('dd MMMM yyyy')
+            .format(days[_currentIndexCalendar])
+            .toString()] !=
+        null) {
+      if (_completedHabits[DateFormat('dd MMMM yyyy')
+              .format(days[_currentIndexCalendar])
+              .toString()][habitName] !=
+          null) {
+        _completedLength = _completedHabits[DateFormat('dd MMMM yyyy')
+                .format(days[_currentIndexCalendar])
+                .toString()][habitName]
+            .length;
+      }
+    }
+    print('_totalLength');
+    print(_totalLength);
+    print('_completedLength');
+    print(_completedLength);
+
+    return (_totalLength - _completedLength);
   }
 
   compareCurrentAndCompleted() {
@@ -773,11 +803,19 @@ class _MainPageState extends State<MainPage> {
                                                         BorderRadius.circular(
                                                             10)),
                                                 child: Text(
-                                                    _habitDetails[_currentDayHabit[
-                                                                indexOfCurrentDayHabit]]
-                                                            ['_allTimes']
-                                                        .length
-                                                        .toString(),
+
+                                                    ////TEST
+                                                    remainHabitRepeat(
+                                                            _currentDayHabit[
+                                                                indexOfCurrentDayHabit])
+                                                        .toString()
+                                                    // _habitDetails[_currentDayHabit[
+                                                    //             indexOfCurrentDayHabit]]
+                                                    //         ['_allTimes']
+                                                    //     .length
+                                                    //     .toString()
+
+                                                    ,
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       color: _backgroudRengi,
