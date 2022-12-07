@@ -45,6 +45,7 @@ dependencies:
   lottie: ^1.4.2
   expandable: ^5.0.1
   calendar_timeline: ^1.0.4
+  flutter_launcher_icons: ^0.11.0
   # firebase_auth: ^0.6.2+1
 dependency_overrides:
   firebase_core_platform_interface: 4.5.1
@@ -61,6 +62,10 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/kiwiLogo.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
