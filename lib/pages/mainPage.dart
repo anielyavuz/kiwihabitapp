@@ -426,10 +426,11 @@ class _MainPageState extends State<MainPage> {
                                 leading: Icon(Icons.exit_to_app),
                                 title: InkWell(
                                   onTap: () async {
-                                    notificationsServices
-                                        .specificTimeNotification(
-                                            "KiWi🥝", "Yoga zamanı 💁", 0, 5);
-
+                                    // notificationsServices
+                                    //     .specificTimeNotification(
+                                    //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
+                                    notificationsServices.sendNotifications(
+                                        "q", "b");
                                     // notificationsServices.ScheduleNotifications(
                                     //     'Schedule Title', 'Schedule Body');
                                   },
