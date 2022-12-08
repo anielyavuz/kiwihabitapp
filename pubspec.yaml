@@ -47,6 +47,8 @@ dependencies:
   calendar_timeline: ^1.0.4
   flutter_launcher_icons: ^0.11.0
   flutter_local_notifications: ^12.0.4
+  timezone: ^0.9.0
+  flutter_timezone: ^1.0.4
   # firebase_auth: ^0.6.2+1
 dependency_overrides:
   firebase_core_platform_interface: 4.5.1

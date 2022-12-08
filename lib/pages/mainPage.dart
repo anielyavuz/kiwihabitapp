@@ -1,4 +1,8 @@
 import 'dart:async';
+import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+
+import 'package:timezone/timezone.dart' as tz;
 
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,6 +21,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  NotificationsServices notificationsServices = NotificationsServices();
   late Box box;
   List<DateTime> days = [];
   List _yourHabits = [];
@@ -223,10 +228,6 @@ class _MainPageState extends State<MainPage> {
             .length;
       }
     }
-    print('_totalLength');
-    print(_totalLength);
-    print('_completedLength');
-    print(_completedLength);
 
     return (_totalLength - _completedLength);
   }
@@ -295,11 +296,27 @@ class _MainPageState extends State<MainPage> {
     // print(_currentDayHabit);
   }
 
+  Future<void> _configureLocalTimeZone() async {
+    tz.initializeTimeZones();
+
+    final String? timeZoneName = await FlutterTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timeZoneName!));
+  }
+
+  _timeZoneTriggerFunction() async {
+    await _configureLocalTimeZone();
+  }
+
   Timer? timer;
   @override
   void initState() {
     super.initState();
+    _timeZoneTriggerFunction();
+    // Future.delayed(const Duration(milliseconds: 250), () {
 
+    // });
+
+    notificationsServices.initialiseNotifications();
     calculateDaysInterval(DateTime.now().subtract(Duration(days: _initialPage)),
         DateTime.now().add(Duration(days: _initialPage)));
 
@@ -409,7 +426,12 @@ class _MainPageState extends State<MainPage> {
                                 leading: Icon(Icons.exit_to_app),
                                 title: InkWell(
                                   onTap: () async {
-                                    LocalNotificationService.showNotification();
+                                    notificationsServices
+                                        .specificTimeNotification(
+                                            "KiWi🥝", "Yoga zamanı 💁", 0, 5);
+
+                                    // notificationsServices.ScheduleNotifications(
+                                    //     'Schedule Title', 'Schedule Body');
                                   },
                                   child: Container(
                                     child: Text("Notifications Test",
