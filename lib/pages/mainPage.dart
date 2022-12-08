@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
+import 'package:kiwihabitapp/services/local_notification_service.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -404,6 +405,24 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           Column(
                             children: [
+                              ListTile(
+                                leading: Icon(Icons.exit_to_app),
+                                title: InkWell(
+                                  onTap: () async {
+                                    LocalNotificationService.showNotification();
+                                  },
+                                  child: Container(
+                                    child: Text("Notifications Test",
+                                        style: TextStyle(
+                                          color: _backgroudRengi,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Times New Roman',
+                                          // fontWeight: FontWeight.bold
+                                        )),
+                                  ),
+                                ),
+                              ),
                               ListTile(
                                 leading: Icon(Icons.exit_to_app),
                                 title: InkWell(
