@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 
 import 'package:timezone/timezone.dart' as tz;
@@ -296,22 +297,36 @@ class _MainPageState extends State<MainPage> {
     // print(_currentDayHabit);
   }
 
-  Future<void> _configureLocalTimeZone() async {
-    tz.initializeTimeZones();
+  // Future<void> _configureLocalTimeZone() async {
+  //   tz.initializeTimeZones();
 
-    final String? timeZoneName = await FlutterTimezone.getLocalTimezone();
-    tz.setLocalLocation(tz.getLocation(timeZoneName!));
-  }
+  //   final String? timeZoneName = await FlutterTimezone.getLocalTimezone();
+  //   tz.setLocalLocation(tz.getLocation(timeZoneName!));
+  // }
 
-  _timeZoneTriggerFunction() async {
-    await _configureLocalTimeZone();
+  // _timeZoneTriggerFunction() async {
+  //   await _configureLocalTimeZone();
+  // }
+
+  void listenToNotification() =>
+      notificationsServices.onNotificationClick.stream
+          .listen(onNotificationListener);
+
+  void onNotificationListener(String? payload) {
+    if (payload != null && payload.isNotEmpty) {
+      print('payload $payload');
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => BePremiumUser()));
+    }
   }
 
   Timer? timer;
   @override
   void initState() {
     super.initState();
-    _timeZoneTriggerFunction();
+    listenToNotification(); //payload için
+    // _timeZoneTriggerFunction();
     // Future.delayed(const Duration(milliseconds: 250), () {
 
     // });
@@ -429,10 +444,23 @@ class _MainPageState extends State<MainPage> {
                                     // notificationsServices
                                     //     .specificTimeNotification(
                                     //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
+
+                                    //////////BURASI ÖNEMLİ////////////
                                     notificationsServices.sendNotifications(
-                                        "q", "b");
-                                    // notificationsServices.ScheduleNotifications(
-                                    //     'Schedule Title', 'Schedule Body');
+                                        "KiWi🥝", "Yoga zamanı 💁");
+
+                                    // notificationsServices
+                                    //     .sendPayloadNotifications(
+                                    //         0,
+                                    //         "KiWi🥝",
+                                    //         "Premium ol 💁",
+                                    //         "payload navigationnnnn");
+
+                                    notificationsServices
+                                        .sendScheduledNotifications(
+                                            1, "title", "body", 15);
+
+                                    //////////BURASI ÖNEMLİ////////////
                                   },
                                   child: Container(
                                     child: Text("Notifications Test",

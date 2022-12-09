@@ -49,10 +49,10 @@ class _IntroPageState extends State<IntroPage> {
     // }
 
     _loginLogs.add(date);
-    print("----------------------");
+    // print("----------------------");
     // print(AppLocalizations.of(context)!.language.toString());
 
-    print("DDDDDDDDDDDDDAAAAAAAAAAAAATTTTTTTTTTTTAAAAAAAAAAAAAAAAA4");
+    // print("DDDDDDDDDDDDDAAAAAAAAAAAAATTTTTTTTTTTTAAAAAAAAAAAAAAAAA4");
 
     // box.put("loginLogsHive", _loginLogs);
   }

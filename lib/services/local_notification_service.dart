@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:rxdart/subjects.dart';
 
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -27,6 +28,7 @@ class NotificationsServices {
 
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+  final BehaviorSubject<String?> onNotificationClick = BehaviorSubject();
 
   final AndroidInitializationSettings _androidInitializationSettings =
       AndroidInitializationSettings('logo');
@@ -64,7 +66,9 @@ class NotificationsServices {
     print("id $id");
   }
 
-  void initialiseNotifications() async {
+  Future<void> initialiseNotifications() async {
+    tz.initializeTimeZones();
+
     InitializationSettings initializationSettings = InitializationSettings(
       android: _androidInitializationSettings,
       iOS: iosInitializationSettings,
@@ -75,6 +79,9 @@ class NotificationsServices {
 
   void onSelectNotification(String? payload) {
     print('payload $payload');
+    if (payload != null && payload.isNotEmpty) {
+      onNotificationClick.add(payload);
+    }
   }
 
   void sendNotifications(String title, String body) async {
@@ -95,34 +102,81 @@ class NotificationsServices {
         0, title, body, notificationDetails);
   }
 
-  void ScheduleNotifications(String title, String body) async {
-    var scheduledTime = DateTime.now().add(Duration(seconds: 10));
+  void sendScheduledNotifications(
+      int id, String title, String body, int seconds) async {
+    // const DarwinNotificationDetails darwinNotificationDetails =
+    //     DarwinNotificationDetails(
+    //   categoryIdentifier: darwinNotificationCategoryText,
+    // );
+
     AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails('channelId', 'channelName',
             importance: Importance.max, priority: Priority.high);
-    NotificationDetails notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
 
-    await _flutterLocalNotificationsPlugin.periodicallyShow(
-        0, title, body, RepeatInterval.everyMinute, notificationDetails);
-  }
+    IOSNotificationDetails iosNotificationDetails = IOSNotificationDetails();
+    NotificationDetails notificationDetails = NotificationDetails(
+        android: androidNotificationDetails, iOS: iosNotificationDetails);
 
-  void specificTimeNotification(
-      String title, String body, int id, int duration) async {
     await _flutterLocalNotificationsPlugin.zonedSchedule(
         id,
         title,
         body,
-        tz.TZDateTime.now(tz.local).add(Duration(seconds: duration)),
-        const NotificationDetails(
-            android: AndroidNotificationDetails('channel id', 'channel name',
-                importance: Importance.max,
-                priority: Priority.high,
-                channelDescription: 'channel description')),
+        tz.TZDateTime.now(tz.local).add(
+          Duration(seconds: seconds),
+        ),
+        notificationDetails,
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
   }
+
+  void sendPayloadNotifications(
+      int id, String title, String body, String payload) async {
+    // const DarwinNotificationDetails darwinNotificationDetails =
+    //     DarwinNotificationDetails(
+    //   categoryIdentifier: darwinNotificationCategoryText,
+    // );
+
+    AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails('channelId', 'channelName',
+            importance: Importance.max, priority: Priority.high);
+
+    IOSNotificationDetails iosNotificationDetails = IOSNotificationDetails();
+    NotificationDetails notificationDetails = NotificationDetails(
+        android: androidNotificationDetails, iOS: iosNotificationDetails);
+
+    await _flutterLocalNotificationsPlugin
+        .show(id, title, body, notificationDetails, payload: payload);
+  }
+
+  // void ScheduleNotifications(String title, String body) async {
+  //   var scheduledTime = DateTime.now().add(Duration(seconds: 10));
+  //   AndroidNotificationDetails androidNotificationDetails =
+  //       AndroidNotificationDetails('channelId', 'channelName',
+  //           importance: Importance.max, priority: Priority.high);
+  //   NotificationDetails notificationDetails =
+  //       NotificationDetails(android: androidNotificationDetails);
+
+  //   await _flutterLocalNotificationsPlugin.periodicallyShow(
+  //       0, title, body, RepeatInterval.everyMinute, notificationDetails);
+  // }
+
+  // void specificTimeNotification(
+  //     String title, String body, int id, int duration) async {
+  //   await _flutterLocalNotificationsPlugin.zonedSchedule(
+  //       id,
+  //       title,
+  //       body,
+  //       tz.TZDateTime.now(tz.local).add(Duration(seconds: duration)),
+  //       const NotificationDetails(
+  //           android: AndroidNotificationDetails('channel id', 'channel name',
+  //               importance: Importance.max,
+  //               priority: Priority.high,
+  //               channelDescription: 'channel description')),
+  //       androidAllowWhileIdle: true,
+  //       uiLocalNotificationDateInterpretation:
+  //           UILocalNotificationDateInterpretation.absoluteTime);
+  // }
 
   void stopNotifications() async {
     _flutterLocalNotificationsPlugin.cancel(0);
