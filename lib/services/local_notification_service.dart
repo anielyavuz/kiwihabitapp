@@ -23,56 +23,73 @@ class ReceivedNotification {
 }
 
 class NotificationsServices {
-  static const String darwinNotificationCategoryText = 'textCategory';
+  // static const String darwinNotificationCategoryText = 'textCategory';
 
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
   final AndroidInitializationSettings _androidInitializationSettings =
       AndroidInitializationSettings('logo');
+  final IOSInitializationSettings iosInitializationSettings =
+      IOSInitializationSettings(
+          requestAlertPermission: true,
+          requestBadgePermission: true,
+          requestSoundPermission: true,
+          onDidReceiveLocalNotification: _onDidReceiveLocalNotification);
 
   final StreamController didReceiveLocalNotificationStream =
       StreamController.broadcast();
 
-  final DarwinInitializationSettings initializationSettingsDarwin =
-      DarwinInitializationSettings(
-    requestAlertPermission: false,
-    requestBadgePermission: false,
-    requestSoundPermission: false,
-    onDidReceiveLocalNotification:
-        (int id, String? title, String? body, String? payload) async {
-      // didReceiveLocalNotificationStream.add(
-      //   ReceivedNotification(
-      //     id: id,
-      //     title: title,
-      //     body: body,
-      //     payload: payload,
-      //   ),
-      // );
-    },
-    // notificationCategories: darwinNotificationCategories,
-  );
+  // final DarwinInitializationSettings initializationSettingsDarwin =
+  //     DarwinInitializationSettings(
+  //   requestAlertPermission: false,
+  //   requestBadgePermission: false,
+  //   requestSoundPermission: false,
+  //   onDidReceiveLocalNotification:
+  //       (int id, String? title, String? body, String? payload) async {
+  //     // didReceiveLocalNotificationStream.add(
+  //     //   ReceivedNotification(
+  //     //     id: id,
+  //     //     title: title,
+  //     //     body: body,
+  //     //     payload: payload,
+  //     //   ),
+  //     // );
+  //   },
+  //   // notificationCategories: darwinNotificationCategories,
+  // );
+
+  static void _onDidReceiveLocalNotification(
+      int id, String? title, String? body, String? payload) {
+    print("id $id");
+  }
 
   void initialiseNotifications() async {
     InitializationSettings initializationSettings = InitializationSettings(
       android: _androidInitializationSettings,
-      iOS: initializationSettingsDarwin,
-      macOS: initializationSettingsDarwin,
+      iOS: iosInitializationSettings,
     );
-    await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelectNotification);
+  }
+
+  void onSelectNotification(String? payload) {
+    print('payload $payload');
   }
 
   void sendNotifications(String title, String body) async {
-    const DarwinNotificationDetails darwinNotificationDetails =
-        DarwinNotificationDetails(
-      categoryIdentifier: darwinNotificationCategoryText,
-    );
+    // const DarwinNotificationDetails darwinNotificationDetails =
+    //     DarwinNotificationDetails(
+    //   categoryIdentifier: darwinNotificationCategoryText,
+    // );
 
     AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails('channelId', 'channelName',
             importance: Importance.max, priority: Priority.high);
+
+    IOSNotificationDetails iosNotificationDetails = IOSNotificationDetails();
     NotificationDetails notificationDetails = NotificationDetails(
-        android: androidNotificationDetails, iOS: darwinNotificationDetails);
+        android: androidNotificationDetails, iOS: iosNotificationDetails);
 
     await _flutterLocalNotificationsPlugin.show(
         0, title, body, notificationDetails);
