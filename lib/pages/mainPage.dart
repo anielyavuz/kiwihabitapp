@@ -91,6 +91,79 @@ class _MainPageState extends State<MainPage> {
     return days;
   }
 
+  notificaitonMap() {
+    notificationsServices.stopNotifications();
+    int _notificationID = 0;
+    List list = List.generate(
+        10,
+        (i) =>
+            i); //0'dan 10'a kadar elemanları olan liste oluşturur. Sonraki 10 güne notification'ı yazar.
+    int _nameDayInt = 0;
+    // print(_habitDays);
+    for (var _addedDay in list) {
+      _nameDayInt = ((DateTime.now().add(Duration(days: _addedDay)))
+              .difference(DateTime(2000, 1, 3))
+              .inDays %
+          7);
+      // print(_nameDayInt);
+      if (_habitDays != null) {
+        _habitDays.forEach((k, v) {
+          if (v.contains(_nameDayInt.toString())) {
+            for (var _habitInfo in _habitDetails[k]['_allTimes']) {
+              ///örn:  [{time: TimeOfDay(12:30), notification: true, alarm: false}]}z
+              ///
+              if (_habitInfo['notification']) {
+                TimeOfDay _startTime = TimeOfDay(
+                    hour: int.parse(_habitInfo['time']
+                        .split("(")[1]
+                        .split(")")[0]
+                        .split(":")[0]),
+                    minute: int.parse(_habitInfo['time']
+                        .split("(")[1]
+                        .split(")")[0]
+                        .split(":")[1]));
+                DateTime _dt = DateTime(
+                    DateTime.now().add(Duration(days: _addedDay)).year,
+                    DateTime.now().add(Duration(days: _addedDay)).month,
+                    DateTime.now().add(Duration(days: _addedDay)).day,
+                    _startTime.hour,
+                    _startTime.minute);
+                var tzdatetime = tz.TZDateTime.from(
+                    _dt, tz.local); //could be var instead of final
+
+                if (_dt.isAfter(DateTime.now())) {
+                  notificationsServices.sendScheduledNotifications2(
+                      _notificationID,
+                      k,
+                      _startTime.hour.toString() +
+                          ":" +
+                          _startTime.minute.toString(),
+                      tzdatetime);
+                  _notificationID += 1;
+                }
+              }
+            }
+          }
+        });
+      }
+    }
+
+//alttaki alan db'de depolama ihtiyacı olursa diye tutuluyor
+
+    // Map _notificationMap = {};
+    // _notificationMap['NotificationID'] = _notificationID;
+    // _notificationMap[_yourHabits[0]['habitName']] = [];
+
+    // print(_yourHabits[0]['habitName']);
+    // DateTime dt = DateTime.now()
+    //     .add(Duration(seconds: 30)); //Or whatever DateTime you want
+    // var tzdatetime =
+    //     tz.TZDateTime.from(dt, tz.local); //could be var instead of final
+
+    // print(tzdatetime);
+    //alttaki alan db'de depolama ihtiyacı olursa diye tutuluyor
+  }
+
   recalculateListWithAnimation() {
     _opacityAnimationDuration = 1;
     _opacityAnimation = 0;
@@ -99,11 +172,6 @@ class _MainPageState extends State<MainPage> {
       _opacityAnimation = 1;
       currentDayHabits();
     });
-  }
-
-  test() {
-    print(_habitDays);
-    // print(_habitDays);
   }
 
   getCurrentChooseYourHabits() async {
@@ -233,6 +301,28 @@ class _MainPageState extends State<MainPage> {
     return (_totalLength - _completedLength);
   }
 
+  remainHabitTimeRepeat(String habitName) {
+    int _totalLength = _habitDetails[habitName]['_allTimes'].length;
+    int _completedLength = 0;
+
+    if (_completedHabits[DateFormat('dd MMMM yyyy')
+            .format(days[_currentIndexCalendar])
+            .toString()] !=
+        null) {
+      if (_completedHabits[DateFormat('dd MMMM yyyy')
+              .format(days[_currentIndexCalendar])
+              .toString()][habitName] !=
+          null) {
+        _completedLength = _completedHabits[DateFormat('dd MMMM yyyy')
+                .format(days[_currentIndexCalendar])
+                .toString()][habitName]
+            .length;
+      }
+    }
+
+    return (_completedLength);
+  }
+
   compareCurrentAndCompleted() {
     // print('_habitDetails');
     // print(_habitDetails);
@@ -325,11 +415,12 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+    // notificaitonMap();
     listenToNotification(); //payload için
     // _timeZoneTriggerFunction();
-    // Future.delayed(const Duration(milliseconds: 250), () {
-
-    // });
+    Future.delayed(const Duration(milliseconds: 2500), () {
+      notificaitonMap();
+    });
 
     notificationsServices.initialiseNotifications();
     calculateDaysInterval(DateTime.now().subtract(Duration(days: _initialPage)),
@@ -438,7 +529,28 @@ class _MainPageState extends State<MainPage> {
                           Column(
                             children: [
                               ListTile(
-                                leading: Icon(Icons.exit_to_app),
+                                leading: Icon(Icons.ice_skating),
+                                title: InkWell(
+                                  onTap: () async {
+                                    // print(_yourHabits);
+
+                                    notificaitonMap();
+                                  },
+                                  child: Container(
+                                    child: Text("Notifications Test",
+                                        style: TextStyle(
+                                          color: _backgroudRengi,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Times New Roman',
+                                          // fontWeight: FontWeight.bold
+                                        )),
+                                  ),
+                                ),
+                              ),
+                              ListTile(
+                                leading:
+                                    Icon(Icons.notification_important_rounded),
                                 title: InkWell(
                                   onTap: () async {
                                     // notificationsServices
@@ -446,8 +558,8 @@ class _MainPageState extends State<MainPage> {
                                     //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
 
                                     //////////BURASI ÖNEMLİ////////////
-                                    notificationsServices.sendNotifications(
-                                        "KiWi🥝", "Yoga zamanı 💁");
+                                    // notificationsServices.sendNotifications(
+                                    //     "KiWi🥝", "Yoga zamanı 💁");
 
                                     // notificationsServices
                                     //     .sendPayloadNotifications(
@@ -455,10 +567,15 @@ class _MainPageState extends State<MainPage> {
                                     //         "KiWi🥝",
                                     //         "Premium ol 💁",
                                     //         "payload navigationnnnn");
-
-                                    notificationsServices
-                                        .sendScheduledNotifications(
-                                            1, "title", "body", 15);
+                                    DateTime dt = DateTime.now().add(Duration(
+                                        seconds:
+                                            5)); //Or whatever DateTime you want
+                                    var tzdatetime = tz.TZDateTime.from(dt,
+                                        tz.local); //could be var instead of final
+                                    // notificationsServices
+                                    //     .sendScheduledNotifications2(
+                                    //         0, "Swim", "20:05", tzdatetime);
+                                    notificationsServices.stopNotifications();
 
                                     //////////BURASI ÖNEMLİ////////////
                                   },
@@ -848,11 +965,16 @@ class _MainPageState extends State<MainPage> {
                                                     children: [
                                                       Text(_currentDayHabit[
                                                           indexOfCurrentDayHabit]),
-                                                      Text(_habitDetails[
-                                                                  _currentDayHabit[
+                                                      // Text(remainHabitTimeRepeat(
+                                                      //         _currentDayHabit[
+                                                      //             indexOfCurrentDayHabit])
+                                                      //     .toString()),
+                                                      Text(_habitDetails[_currentDayHabit[
                                                                       indexOfCurrentDayHabit]]
-                                                              [
-                                                              '_allTimes'][0]['time']
+                                                                  ['_allTimes'][
+                                                              remainHabitTimeRepeat(
+                                                                  _currentDayHabit[
+                                                                      indexOfCurrentDayHabit])]['time']
                                                           .split('(')[1]
                                                           .split(')')[0])
                                                     ],

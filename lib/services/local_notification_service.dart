@@ -130,6 +130,28 @@ class NotificationsServices {
             UILocalNotificationDateInterpretation.absoluteTime);
   }
 
+  void sendScheduledNotifications2(
+      int id, String title, String body, var tzz) async {
+    // const DarwinNotificationDetails darwinNotificationDetails =
+    //     DarwinNotificationDetails(
+    //   categoryIdentifier: darwinNotificationCategoryText,
+    // );
+
+    AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails('channelId', 'channelName',
+            importance: Importance.max, priority: Priority.high);
+
+    IOSNotificationDetails iosNotificationDetails = IOSNotificationDetails();
+    NotificationDetails notificationDetails = NotificationDetails(
+        android: androidNotificationDetails, iOS: iosNotificationDetails);
+
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
+        id, title, body, tzz, notificationDetails,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
+  }
+
   void sendPayloadNotifications(
       int id, String title, String body, String payload) async {
     // const DarwinNotificationDetails darwinNotificationDetails =
@@ -179,7 +201,7 @@ class NotificationsServices {
   // }
 
   void stopNotifications() async {
-    _flutterLocalNotificationsPlugin.cancel(0);
+    _flutterLocalNotificationsPlugin.cancelAll();
   }
 }
 
