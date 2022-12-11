@@ -132,13 +132,24 @@ class _MainPageState extends State<MainPage> {
                     _dt, tz.local); //could be var instead of final
 
                 if (_dt.isAfter(DateTime.now())) {
-                  notificationsServices.sendScheduledNotifications2(
-                      _notificationID,
-                      k,
-                      _startTime.hour.toString() +
-                          ":" +
-                          _startTime.minute.toString(),
-                      tzdatetime);
+                  if (_startTime.minute > 9) {
+                    notificationsServices.sendScheduledNotifications2(
+                        _notificationID,
+                        k,
+                        _startTime.hour.toString() +
+                            ":" +
+                            _startTime.minute.toString(),
+                        tzdatetime);
+                  } else {
+                    notificationsServices.sendScheduledNotifications2(
+                        _notificationID,
+                        k,
+                        _startTime.hour.toString() +
+                            ":0" +
+                            _startTime.minute.toString(),
+                        tzdatetime);
+                  }
+
                   _notificationID += 1;
                 }
               }

@@ -863,6 +863,18 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                       null)
                                                                     return;
                                                                   else {
+                                                                    if (newTime
+                                                                            .minute <
+                                                                        10) {
+                                                                      newTime = TimeOfDay(
+                                                                          hour: newTime
+                                                                              .hour,
+                                                                          minute:
+                                                                              int.parse("0" + newTime.minute.toString()));
+                                                                      print(
+                                                                          newTime);
+                                                                    }
+
                                                                     setState(
                                                                         () {
                                                                       _yourHabits[index]['_allTimes'][index2]
@@ -872,10 +884,8 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                     });
                                                                   }
                                                                 },
-                                                                child: _yourHabits[index]['_allTimes'][index2]['time']
-                                                                            .minute
-                                                                            .toString() !=
-                                                                        "0"
+                                                                child: _yourHabits[index]['_allTimes'][index2]['time'].minute >
+                                                                        9
                                                                     ? Text(
                                                                         _yourHabits[index]['_allTimes'][index2]['time'].hour.toString() +
                                                                             ":" +
@@ -887,10 +897,11 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                                 _yaziTipiRengi,
                                                                             fontSize:
                                                                                 25))
-                                                                    : Text(_yourHabits[index]['_allTimes'][index2]['time'].hour.toString() + ":00",
-                                                                        style: TextStyle(
-                                                                            color: _yaziTipiRengi,
-                                                                            fontSize: 25)),
+                                                                    : Text(
+                                                                        _yourHabits[index]['_allTimes'][index2]['time'].hour.toString() +
+                                                                            ":0" +
+                                                                            _yourHabits[index]['_allTimes'][index2]['time'].minute.toString(),
+                                                                        style: TextStyle(color: _yaziTipiRengi, fontSize: 25)),
                                                               ),
                                                             ],
                                                           ),
