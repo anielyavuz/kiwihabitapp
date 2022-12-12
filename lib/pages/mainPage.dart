@@ -1051,163 +1051,94 @@ class _MainPageState extends State<MainPage> {
                                           ],
                                         ),
                                       ),
-                                      onPressed: () {
-                                        if (_completedHabits[DateFormat(
-                                                    'dd MMMM yyyy')
-                                                .format(
-                                                    days[_currentIndexCalendar])
-                                                .toString()] !=
-                                            null) {
-                                          // print(_habitDetails[_currentDayHabit[
-                                          //         indexOfCurrentDayHabit]]
-                                          //     ['_allTimes'][_completedHabits[
-                                          //         DateFormat('dd MMMM yyyy')
-                                          //             .format(days[
-                                          //                 _currentIndexCalendar])
-                                          //             .toString()][_currentDayHabit[
-                                          //         indexOfCurrentDayHabit]]
-                                          //     .length]);
-
-                                          //ilginç sorun
-                                          if (_completedHabits[DateFormat(
-                                                          'dd MMMM yyyy')
+                                      onPressed: !DateTime.parse(DateFormat(
+                                                      'yyyy-MM-dd')
+                                                  .format(days[
+                                                      _currentIndexCalendar])
+                                                  .toString())
+                                              .isAfter(DateTime.parse(
+                                                  DateFormat('yyyy-MM-dd')
+                                                      .format(DateTime.now())
+                                                      .toString()))
+                                          ? () {
+                                              ////// Today veya önceki günlerde butona basılırsa çalışsın. Gelecek günlerde butona basılırsa çalışmasın çünkü henüz o günün habit'i yapılmadı.
+                                              if (!DateTime.parse(DateFormat(
+                                                          'yyyy-MM-dd')
                                                       .format(days[
                                                           _currentIndexCalendar])
-                                                      .toString()][
-                                                  _currentDayHabit[
-                                                      indexOfCurrentDayHabit]] !=
-                                              null) {
-                                            completedHabits(
-                                                _currentDayHabit[
-                                                    indexOfCurrentDayHabit],
-                                                _habitDetails[_currentDayHabit[
-                                                        indexOfCurrentDayHabit]]
-                                                    [
-                                                    '_allTimes'][_completedHabits[
-                                                        DateFormat(
-                                                                'dd MMMM yyyy')
-                                                            .format(days[
-                                                                _currentIndexCalendar])
-                                                            .toString()][_currentDayHabit[
-                                                        indexOfCurrentDayHabit]]
-                                                    .length]);
-                                          } else {
-                                            completedHabits(
-                                                _currentDayHabit[
-                                                    indexOfCurrentDayHabit],
-                                                _habitDetails[_currentDayHabit[
-                                                        indexOfCurrentDayHabit]]
-                                                    ['_allTimes'][0]);
-                                          }
-                                        } else {
-                                          print("null bir değerdi");
-                                          completedHabits(
-                                              _currentDayHabit[
-                                                  indexOfCurrentDayHabit],
-                                              _habitDetails[_currentDayHabit[
-                                                      indexOfCurrentDayHabit]]
-                                                  ['_allTimes'][0]);
-                                        }
-                                        // print(_habitDetails[_currentDayHabit[
-                                        //             indexOfCurrentDayHabit]]
-                                        //         ['_allTimes']
-                                        //     .length
-                                        //     .toString());
+                                                      .toString())
+                                                  .isAfter(DateTime.parse(
+                                                      DateFormat('yyyy-MM-dd')
+                                                          .format(
+                                                              DateTime.now())
+                                                          .toString()))) {
+                                                if (_completedHabits[DateFormat(
+                                                            'dd MMMM yyyy')
+                                                        .format(days[
+                                                            _currentIndexCalendar])
+                                                        .toString()] !=
+                                                    null) {
+                                                  // print(_habitDetails[_currentDayHabit[
+                                                  //         indexOfCurrentDayHabit]]
+                                                  //     ['_allTimes'][_completedHabits[
+                                                  //         DateFormat('dd MMMM yyyy')
+                                                  //             .format(days[
+                                                  //                 _currentIndexCalendar])
+                                                  //             .toString()][_currentDayHabit[
+                                                  //         indexOfCurrentDayHabit]]
+                                                  //     .length]);
 
-                                        // setState(() {
-                                        //   //_currentDayCompletedHabits değişkeni tamamlanan habitler için geçici bir dizi oluşturur
-                                        //   if (_currentDayCompletedHabits[
-                                        //           DateFormat('dd MMMM yyyy')
-                                        //               .format(days[
-                                        //                   _currentIndexCalendar])
-                                        //               .toString()] ==
-                                        //       null)
+                                                  //ilginç sorun
+                                                  if (_completedHabits[DateFormat(
+                                                                  'dd MMMM yyyy')
+                                                              .format(days[
+                                                                  _currentIndexCalendar])
+                                                              .toString()][
+                                                          _currentDayHabit[
+                                                              indexOfCurrentDayHabit]] !=
+                                                      null) {
+                                                    completedHabits(
+                                                        _currentDayHabit[
+                                                            indexOfCurrentDayHabit],
+                                                        _habitDetails[
+                                                                _currentDayHabit[
+                                                                    indexOfCurrentDayHabit]]
+                                                            [
+                                                            '_allTimes'][_completedHabits[DateFormat(
+                                                                        'dd MMMM yyyy')
+                                                                    .format(days[
+                                                                        _currentIndexCalendar])
+                                                                    .toString()]
+                                                                [
+                                                                _currentDayHabit[
+                                                                    indexOfCurrentDayHabit]]
+                                                            .length]);
+                                                  } else {
+                                                    completedHabits(
+                                                        _currentDayHabit[
+                                                            indexOfCurrentDayHabit],
+                                                        _habitDetails[
+                                                                _currentDayHabit[
+                                                                    indexOfCurrentDayHabit]]
+                                                            ['_allTimes'][0]);
+                                                  }
+                                                } else {
+                                                  print("null bir değerdi");
+                                                  completedHabits(
+                                                      _currentDayHabit[
+                                                          indexOfCurrentDayHabit],
+                                                      _habitDetails[
+                                                              _currentDayHabit[
+                                                                  indexOfCurrentDayHabit]]
+                                                          ['_allTimes'][0]);
+                                                }
+                                              } else {
+                                                print("yapma");
+                                              }
 
-                                        //   //if fonksiyonu map'in boş olması durumunda hata almaması için null kontrolü yapar
-
-                                        //   {
-                                        //     _currentDayCompletedHabits[
-                                        //         DateFormat('dd MMMM yyyy')
-                                        //             .format(days[
-                                        //                 _currentIndexCalendar])
-                                        //             .toString()] = {};
-                                        //   }
-
-                                        //   if (_currentDayCompletedHabits[DateFormat(
-                                        //               'dd MMMM yyyy')
-                                        //           .format(days[
-                                        //               _currentIndexCalendar])
-                                        //           .toString()][_currentDayHabit[
-                                        //               indexOfCurrentDayHabit]
-                                        //           ['habitName']] ==
-                                        //       null)
-                                        //   //if fonksiyonu map'in boş olması durumunda hata almaması için null kontrolü yapar
-
-                                        //   {
-                                        //     _currentDayCompletedHabits[DateFormat(
-                                        //             'dd MMMM yyyy')
-                                        //         .format(
-                                        //             days[_currentIndexCalendar])
-                                        //         .toString()][_currentDayHabit[
-                                        //             indexOfCurrentDayHabit]
-                                        //         ['habitName']] = [];
-                                        //   }
-
-                                        //   //_currentDayCompletedHabits dizini içerisine orjinal habit listten ilk zaman dilimi bütün olarak alınır örn: {29 November 2022: {Yoga: [{time: TimeOfDay(12:30), notification: true, alarm: false}]}}
-
-                                        //   _currentDayCompletedHabits[
-                                        //               DateFormat('dd MMMM yyyy').format(days[_currentIndexCalendar]).toString()][
-                                        //           _currentDayHabit[indexOfCurrentDayHabit]
-                                        //               ['habitName']]
-                                        //       .add(_currentDayHabit[indexOfCurrentDayHabit]
-                                        //           ['_allTimes'][_currentDayCompletedHabits[
-                                        //               DateFormat('dd MMMM yyyy')
-                                        //                   .format(days[_currentIndexCalendar])
-                                        //                   .toString()][_currentDayHabit[indexOfCurrentDayHabit]['habitName']]
-                                        //           .length]);
-
-                                        //   if (_currentDayCompletedHabits[DateFormat(
-                                        //                   'dd MMMM yyyy')
-                                        //               .format(days[
-                                        //                   _currentIndexCalendar])
-                                        //               .toString()][_currentDayHabit[
-                                        //                   indexOfCurrentDayHabit]
-                                        //               ['habitName']]
-                                        //           .length ==
-                                        //       _currentDayHabit[
-                                        //                   indexOfCurrentDayHabit]
-                                        //               ['_allTimes']
-                                        //           .length)
-
-                                        //   //alttaki tamamlanan habitler ekranına yazmak için ilgili habitte tüm zaman dilimlerini ekleyip eklemediğini kontrol eden koşul. Eklediyse _finalCurrentDayCompletedHabits içine yazıp üsteki habit listi yenilerek yeniden dizilimi sağlar.
-                                        //   {
-                                        //     // _finalCurrentDayCompletedHabits =
-                                        //     //     _currentDayCompletedHabits;
-
-                                        //     _finalCurrentDayCompletedHabits =
-                                        //         Map.from(
-                                        //             _currentDayCompletedHabits);
-                                        //     print("Ekleme bitti");
-
-                                        //     _opacityAnimationDuration = 1;
-                                        //     _opacityAnimation = 0;
-                                        //     Future.delayed(
-                                        //         const Duration(
-                                        //             milliseconds: 250), () {
-                                        //       _opacityAnimationDuration = 250;
-                                        //       _opacityAnimation = 1;
-                                        //       currentDayHabits();
-                                        //     });
-                                        //   } else {
-                                        //     print("Daha ekleyeceğim");
-                                        //   }
-                                        //   // print(
-                                        //   //     _finalCurrentDayCompletedHabits);
-                                        //   // print(_currentDayCompletedHabits);
-
-                                        //   // print(_currentDayCompletedHabits);
-                                        // });
-                                      }),
+///////////////////////**************/////////////////////// */
+                                            }
+                                          : null),
                                 ),
                               );
                             }),
