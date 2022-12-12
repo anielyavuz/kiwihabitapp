@@ -22,6 +22,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  int _expand1 = 4;
+  int _expand2 = 4;
   NotificationsServices notificationsServices = NotificationsServices();
   late Box box;
   List<DateTime> days = [];
@@ -426,10 +428,23 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+    
     // notificaitonMap();
     listenToNotification(); //payload için
     // _timeZoneTriggerFunction();
     Future.delayed(const Duration(milliseconds: 2500), () {
+      _expand1 = _currentDayHabit.length;
+    if (_finalCompleted[DateFormat('dd MMMM yyyy')
+            .format(days[_currentIndexCalendar])
+            .toString()] !=
+        null) {
+      _expand2 = _finalCompleted[DateFormat('dd MMMM yyyy')
+              .format(days[_currentIndexCalendar])
+              .toString()]
+          .keys
+          .toList()
+          .length;
+    }
       notificaitonMap();
     });
 
@@ -923,7 +938,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     Expanded(
-                      flex: _currentDayHabit.length,
+                      flex: _expand1,
                       child: Container(
                         // width:
                         //     MediaQuery.of(context).size.width *
@@ -1197,18 +1212,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     Expanded(
-                      flex: _finalCompleted[
-                                        DateFormat('dd MMMM yyyy')
-                                            .format(days[_currentIndexCalendar])
-                                            .toString()] !=
-                                    null
-                                ? _finalCompleted[DateFormat('dd MMMM yyyy')
-                                        .format(days[_currentIndexCalendar])
-                                        .toString()]
-                                    .keys
-                                    .toList()
-                                    .length
-                                : 0,
+                      flex: _expand2,
                       child: Container(
                         // width:
                         //     MediaQuery.of(context).size.width *
