@@ -1219,6 +1219,8 @@ class _MainPageState extends State<MainPage> {
                                     .toList()
                                     .length
                                 : 0,
+                            shrinkWrap: true,
+                            reverse: true,
                             itemBuilder: (context, indexOffinalCompletedHabit) {
                               // print(_kaydirmaNoktalari);
                               return AnimatedOpacity(
