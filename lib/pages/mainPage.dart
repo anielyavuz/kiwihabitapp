@@ -923,13 +923,13 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     Expanded(
-                      flex: 4,
+                      flex: _currentDayHabit.length,
                       child: Container(
                         // width:
                         //     MediaQuery.of(context).size.width *
                         //         3 /
                         //         5,
-                        height: 200,
+                        // height: 200,
                         // width: 50,
 
                         child: ListView.builder(
@@ -1197,13 +1197,24 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     Expanded(
-                      flex: 4,
+                      flex: _finalCompleted[
+                                        DateFormat('dd MMMM yyyy')
+                                            .format(days[_currentIndexCalendar])
+                                            .toString()] !=
+                                    null
+                                ? _finalCompleted[DateFormat('dd MMMM yyyy')
+                                        .format(days[_currentIndexCalendar])
+                                        .toString()]
+                                    .keys
+                                    .toList()
+                                    .length
+                                : 0,
                       child: Container(
                         // width:
                         //     MediaQuery.of(context).size.width *
                         //         3 /
                         //         5,
-                        height: 200,
+                        // height: 200,
                         // width: 50,
 
                         child: ListView.builder(
