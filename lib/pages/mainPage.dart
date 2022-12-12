@@ -336,6 +336,21 @@ class _MainPageState extends State<MainPage> {
     return (_completedLength);
   }
 
+  expandConfiguration() {
+    _expand1 = _currentDayHabit.length;
+    if (_finalCompleted[DateFormat('dd MMMM yyyy')
+            .format(days[_currentIndexCalendar])
+            .toString()] !=
+        null) {
+      _expand2 = _finalCompleted[DateFormat('dd MMMM yyyy')
+              .format(days[_currentIndexCalendar])
+              .toString()]
+          .keys
+          .toList()
+          .length;
+    }
+  }
+
   compareCurrentAndCompleted() {
     // print('_habitDetails');
     // print(_habitDetails);
@@ -428,23 +443,11 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    
+
     // notificaitonMap();
     listenToNotification(); //payload için
     // _timeZoneTriggerFunction();
     Future.delayed(const Duration(milliseconds: 2500), () {
-      _expand1 = _currentDayHabit.length;
-    if (_finalCompleted[DateFormat('dd MMMM yyyy')
-            .format(days[_currentIndexCalendar])
-            .toString()] !=
-        null) {
-      _expand2 = _finalCompleted[DateFormat('dd MMMM yyyy')
-              .format(days[_currentIndexCalendar])
-              .toString()]
-          .keys
-          .toList()
-          .length;
-    }
       notificaitonMap();
     });
 
@@ -584,8 +587,8 @@ class _MainPageState extends State<MainPage> {
                                     //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
 
                                     //////////BURASI ÖNEMLİ////////////
-                                    // notificationsServices.sendNotifications(
-                                    //     "KiWi🥝", "Yoga zamanı 💁");
+                                    notificationsServices.sendNotifications(
+                                        "KiWi🥝", "Yoga zamanı 💁");
 
                                     // notificationsServices
                                     //     .sendPayloadNotifications(
@@ -593,15 +596,15 @@ class _MainPageState extends State<MainPage> {
                                     //         "KiWi🥝",
                                     //         "Premium ol 💁",
                                     //         "payload navigationnnnn");
-                                    DateTime dt = DateTime.now().add(Duration(
-                                        seconds:
-                                            5)); //Or whatever DateTime you want
-                                    var tzdatetime = tz.TZDateTime.from(dt,
-                                        tz.local); //could be var instead of final
-                                    // notificationsServices
-                                    //     .sendScheduledNotifications2(
-                                    //         0, "Swim", "20:05", tzdatetime);
-                                    notificationsServices.stopNotifications();
+                                    // DateTime dt = DateTime.now().add(Duration(
+                                    //     seconds:
+                                    //         5)); //Or whatever DateTime you want
+                                    // var tzdatetime = tz.TZDateTime.from(dt,
+                                    //     tz.local); //could be var instead of final
+                                    // // notificationsServices
+                                    // //     .sendScheduledNotifications2(
+                                    // //         0, "Swim", "20:05", tzdatetime);
+                                    // notificationsServices.stopNotifications();
 
                                     //////////BURASI ÖNEMLİ////////////
                                   },
@@ -938,7 +941,6 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     Expanded(
-                      flex: _expand1,
                       child: Container(
                         // width:
                         //     MediaQuery.of(context).size.width *
@@ -1211,137 +1213,127 @@ class _MainPageState extends State<MainPage> {
                             }),
                       ),
                     ),
-                    Expanded(
-                      flex: _expand2,
-                      child: Container(
-                        // width:
-                        //     MediaQuery.of(context).size.width *
-                        //         3 /
-                        //         5,
-                        // height: 200,
-                        // width: 50,
+                    Container(
+                      // width:
+                      //     MediaQuery.of(context).size.width *
+                      //         3 /
+                      //         5,
+                      // height: 200,
+                      // width: 50,
 
-                        child: ListView.builder(
-                            itemCount: _finalCompleted[
-                                        DateFormat('dd MMMM yyyy')
-                                            .format(days[_currentIndexCalendar])
-                                            .toString()] !=
-                                    null
-                                ? _finalCompleted[DateFormat('dd MMMM yyyy')
-                                        .format(days[_currentIndexCalendar])
-                                        .toString()]
-                                    .keys
-                                    .toList()
-                                    .length
-                                : 0,
-                            shrinkWrap: true,
-                            reverse: true,
-                            itemBuilder: (context, indexOffinalCompletedHabit) {
-                              // print(_kaydirmaNoktalari);
-                              return AnimatedOpacity(
-                                duration: Duration(
-                                    milliseconds: _opacityAnimationDuration),
-                                opacity: _opacityAnimation,
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  child: RawMaterialButton(
-                                      // fillColor: _yaziTipiRengi,
-                                      shape: RoundedRectangleBorder(
-                                          side:
-                                              BorderSide(color: _yaziTipiRengi),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15.0))),
-                                      // splashColor: Colors.green,
-                                      textStyle:
-                                          TextStyle(color: _yaziTipiRengi),
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            15, 5, 15, 5),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          5, 0, 0, 0),
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(_finalCompleted[DateFormat(
-                                                                  'dd MMMM yyyy')
-                                                              .format(days[
-                                                                  _currentIndexCalendar])
-                                                              .toString()]
-                                                          .keys
-                                                          .toList()[
-                                                              indexOffinalCompletedHabit]
-                                                          .toString()),
+                      child: ListView.builder(
+                          itemCount: _finalCompleted[DateFormat('dd MMMM yyyy')
+                                      .format(days[_currentIndexCalendar])
+                                      .toString()] !=
+                                  null
+                              ? _finalCompleted[DateFormat('dd MMMM yyyy')
+                                      .format(days[_currentIndexCalendar])
+                                      .toString()]
+                                  .keys
+                                  .toList()
+                                  .length
+                              : 0,
+                          shrinkWrap: true,
+                          reverse: true,
+                          itemBuilder: (context, indexOffinalCompletedHabit) {
+                            // print(_kaydirmaNoktalari);
+                            return AnimatedOpacity(
+                              duration: Duration(
+                                  milliseconds: _opacityAnimationDuration),
+                              opacity: _opacityAnimation,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: RawMaterialButton(
+                                    // fillColor: _yaziTipiRengi,
+                                    shape: RoundedRectangleBorder(
+                                        side: BorderSide(color: _yaziTipiRengi),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(15.0))),
+                                    // splashColor: Colors.green,
+                                    textStyle: TextStyle(color: _yaziTipiRengi),
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 5, 15, 5),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        5, 0, 0, 0),
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(_finalCompleted[DateFormat(
+                                                                'dd MMMM yyyy')
+                                                            .format(days[
+                                                                _currentIndexCalendar])
+                                                            .toString()]
+                                                        .keys
+                                                        .toList()[
+                                                            indexOffinalCompletedHabit]
+                                                        .toString()),
 
-                                                      // Text(" x" +
-                                                      //     _completedHabits[DateFormat(
-                                                      //                 'dd MMMM yyyy')
-                                                      //             .format(days[
-                                                      //                 _currentIndexCalendar])
-                                                      //             .toString()][_completedHabits[DateFormat(
-                                                      //                     'dd MMMM yyyy')
-                                                      //                 .format(days[
-                                                      //                     _currentIndexCalendar])
-                                                      //                 .toString()]
-                                                      //             .keys
-                                                      //             .toList()[indexOffinalCompletedHabit]]
-                                                      //         .length
-                                                      //         .toString())
-                                                    ],
-                                                  ),
+                                                    // Text(" x" +
+                                                    //     _completedHabits[DateFormat(
+                                                    //                 'dd MMMM yyyy')
+                                                    //             .format(days[
+                                                    //                 _currentIndexCalendar])
+                                                    //             .toString()][_completedHabits[DateFormat(
+                                                    //                     'dd MMMM yyyy')
+                                                    //                 .format(days[
+                                                    //                     _currentIndexCalendar])
+                                                    //                 .toString()]
+                                                    //             .keys
+                                                    //             .toList()[indexOffinalCompletedHabit]]
+                                                    //         .length
+                                                    //         .toString())
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                print(
-                                                    _currentDayCompletedHabits);
-                                                print("****");
-                                              },
-                                              child: Container(
-                                                child: Icon(
-                                                  Icons.check,
-                                                  size: 20,
-                                                  color: Colors.white,
-                                                ),
-                                                width: 20,
-                                                height: 20,
-                                                decoration: BoxDecoration(
-                                                    color: Color.fromARGB(
-                                                        223, 18, 218, 7),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
                                               ),
+                                            ],
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              print(_currentDayCompletedHabits);
+                                              print("****");
+                                            },
+                                            child: Container(
+                                              child: Icon(
+                                                Icons.check,
+                                                size: 20,
+                                                color: Colors.white,
+                                              ),
+                                              width: 20,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                  color: Color.fromARGB(
+                                                      223, 18, 218, 7),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                      onPressed: () {
-                                        returnFromCompletedHabitList(
-                                            _finalCompleted[DateFormat(
-                                                        'dd MMMM yyyy')
-                                                    .format(days[
-                                                        _currentIndexCalendar])
-                                                    .toString()]
-                                                .keys
-                                                .toList()[
-                                                    indexOffinalCompletedHabit]
-                                                .toString());
-                                      }),
-                                ),
-                              );
-                            }),
-                      ),
+                                    ),
+                                    onPressed: () {
+                                      returnFromCompletedHabitList(_finalCompleted[
+                                              DateFormat('dd MMMM yyyy')
+                                                  .format(days[
+                                                      _currentIndexCalendar])
+                                                  .toString()]
+                                          .keys
+                                          .toList()[indexOffinalCompletedHabit]
+                                          .toString());
+                                    }),
+                              ),
+                            );
+                          }),
                     ),
                   ],
                 ),
