@@ -557,26 +557,27 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           Column(
                             children: [
-                              ListTile(
-                                leading: Icon(Icons.ice_skating),
-                                title: InkWell(
-                                  onTap: () async {
-                                    // print(_yourHabits);
+                              // ListTile(
+                              //   leading: Icon(Icons.ice_skating),
+                              //   title: InkWell(
+                              //     onTap: () async {
+                              //       // print(_yourHabits);
 
-                                    notificaitonMap();
-                                  },
-                                  child: Container(
-                                    child: Text("Notifications Test",
-                                        style: TextStyle(
-                                          color: _backgroudRengi,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Times New Roman',
-                                          // fontWeight: FontWeight.bold
-                                        )),
-                                  ),
-                                ),
-                              ),
+                              //       // notificaitonMap();
+                              //     },
+                              //     child: Container(
+                              //       child: Text("Notifications Test",
+                              //           style: TextStyle(
+                              //             color: _backgroudRengi,
+                              //             fontSize: 18,
+                              //             fontWeight: FontWeight.bold,
+                              //             fontFamily: 'Times New Roman',
+                              //             // fontWeight: FontWeight.bold
+                              //           )),
+                              //     ),
+                              //   ),
+                              // ),
+
                               ListTile(
                                 leading:
                                     Icon(Icons.notification_important_rounded),
