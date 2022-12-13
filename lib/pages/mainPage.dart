@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 
 import 'package:timezone/timezone.dart' as tz;
@@ -22,6 +23,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  PanelController _pc = new PanelController();
   int _expand1 = 4;
   int _expand2 = 4;
   NotificationsServices notificationsServices = NotificationsServices();
@@ -290,6 +292,11 @@ class _MainPageState extends State<MainPage> {
     // print(_completedHabits);
 
     compareCurrentAndCompleted();
+  }
+
+  editSingleHabit() {
+    _pc.open();
+    // print("EDİTLE");
   }
 
   remainHabitRepeat(String habitName) {
@@ -1052,6 +1059,9 @@ class _MainPageState extends State<MainPage> {
                                           ],
                                         ),
                                       ),
+                                      onLongPress: () {
+                                        editSingleHabit();
+                                      },
                                       onPressed: !DateTime.parse(DateFormat(
                                                       'yyyy-MM-dd')
                                                   .format(days[
@@ -1253,6 +1263,9 @@ class _MainPageState extends State<MainPage> {
                                         ],
                                       ),
                                     ),
+                                    onLongPress: () {
+                                      editSingleHabit();
+                                    },
                                     onPressed: () {
                                       returnFromCompletedHabitList(_finalCompleted[
                                               DateFormat('dd MMMM yyyy')
@@ -1270,6 +1283,42 @@ class _MainPageState extends State<MainPage> {
                   ],
                 ),
               ),
+              SlidingUpPanel(
+                margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(24.0),
+                    topRight: Radius.circular(24.0)),
+                controller: _pc,
+                backdropEnabled: true,
+                maxHeight: MediaQuery.of(context).size.height / 3 * 2,
+                minHeight: 0,
+                header: Text("Baslik"),
+                panel: Container(
+                  padding: const EdgeInsets.fromLTRB(0, 48, 0, 0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24.0),
+                        topRight: Radius.circular(24.0)),
+                  ),
+                  child: Stack(
+                    children: [
+                      SingleChildScrollView(
+                        physics: ScrollPhysics(),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 2),
+                          child: Column(
+                            children: [
+                              Text("data1"),
+                              Text("data2"),
+                              Text("data3"),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
         ),
