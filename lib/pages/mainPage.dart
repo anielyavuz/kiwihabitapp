@@ -1296,7 +1296,7 @@ class _MainPageState extends State<MainPage> {
                 header: Container(
                   color: Color(0xff150923),
                   padding: const EdgeInsets.all(8),
-                  width: MediaQuery.of(context).size.width-20,
+                  width: MediaQuery.of(context).size.width - 20,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -1321,10 +1321,10 @@ class _MainPageState extends State<MainPage> {
                         ],
                       ),
                       Icon(
-                            Icons.edit,
-                            size: 25,
-                            color: Color.fromARGB(223, 130, 122, 121),
-                          ),
+                        Icons.edit,
+                        size: 25,
+                        color: Color.fromARGB(223, 130, 122, 121),
+                      ),
                     ],
                   ),
                 ),
@@ -1338,37 +1338,560 @@ class _MainPageState extends State<MainPage> {
                   ),
                   child: Stack(
                     children: [
-                      SingleChildScrollView(
-                        physics: ScrollPhysics(),
-                        child: Padding(
+                      Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 2),
                           child: Column(
                             children: [
-                              Text("data1",
-                                  style: TextStyle(
-                                    color: _yaziTipiRengi,
-                                    fontSize: 15,
-                                    fontFamily: 'Times New Roman',
-                                    // fontWeight: FontWeight.bold
-                                  )),
-                              Text("data2",
-                                  style: TextStyle(
-                                    color: _yaziTipiRengi,
-                                    fontSize: 15,
-                                    fontFamily: 'Times New Roman',
-                                    // fontWeight: FontWeight.bold
-                                  )),
-                              Text("data3",
-                                  style: TextStyle(
-                                    color: _yaziTipiRengi,
-                                    fontSize: 15,
-                                    fontFamily: 'Times New Roman',
-                                    // fontWeight: FontWeight.bold
-                                  )),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Goal",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: _yaziTipiRengi,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Times New Roman',
+                                      // fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                child: Row(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                            0,
+                                            0,
+                                            4,
+                                            0,
+                                          ),
+                                          child: SizedBox(
+                                            height: 20,
+                                            width: 20,
+                                            child: RawMaterialButton(
+                                                fillColor: Color(0xff996B3E),
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                15.0))),
+                                                splashColor: Color(0xff77A830),
+                                                textStyle: TextStyle(
+                                                    color: Colors.white),
+                                                child: Text("-",
+                                                    style: TextStyle(
+                                                      color: _yaziTipiRengi,
+                                                      fontSize: 15,
+                                                      fontFamily:
+                                                          'Times New Roman',
+                                                      // fontWeight: FontWeight.bold
+                                                    )),
+                                                onPressed: () {}),
+                                          ),
+                                        ),
+                                        Container(
+                                          // width: 20,
+                                          padding:
+                                              EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                          decoration: BoxDecoration(
+                                              // color: Color(0xff77A830),
+                                              // border: Border.all(
+                                              //     color:
+                                              //         Color(0xff77A830)),
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                          child: Text("1",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: _yaziTipiRengi,
+                                                fontSize: 25,
+                                                fontFamily: 'Times New Roman',
+                                                // fontWeight: FontWeight.bold
+                                              )),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                            4,
+                                            0,
+                                            0,
+                                            0,
+                                          ),
+                                          child: SizedBox(
+                                            height: 20,
+                                            width: 20,
+                                            child: RawMaterialButton(
+                                                fillColor: Color(0xff996B3E),
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                15.0))),
+                                                splashColor: Color(0xff77A830),
+                                                textStyle: TextStyle(
+                                                    color: Colors.white),
+                                                child: Text("+",
+                                                    style: TextStyle(
+                                                      color: _yaziTipiRengi,
+                                                      fontSize: 15,
+                                                      fontFamily:
+                                                          'Times New Roman',
+                                                      // fontWeight: FontWeight.bold
+                                                    )),
+                                                onPressed: () {}),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    Text("in a day",
+                                        style: TextStyle(
+                                          color: _yaziTipiRengi,
+                                          fontSize: 15,
+                                          fontFamily: 'Times New Roman',
+                                          // fontWeight: FontWeight.bold
+                                        ))
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                children: _yourHabits[0]['_weekDays']
+                                    .map<Widget>((day) {
+                                  return Container(
+                                    padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                                    width:
+                                        MediaQuery.of(context).size.width / 9,
+                                    height:
+                                        MediaQuery.of(context).size.width / 11,
+                                    child: RawMaterialButton(
+                                        fillColor: day['value']
+                                            ? Colors.green
+                                            : _yaziTipiRengi,
+                                        shape: const RoundedRectangleBorder(
+                                            side: BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 134, 85, 36),
+                                                width: 3),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8.0))),
+                                        splashColor: Colors.green,
+                                        textStyle:
+                                            TextStyle(color: _yaziTipiRengi),
+                                        child: Text(
+                                            DateFormat('E').format(
+                                                DateTime(2000, 1, 3).add(
+                                                    Duration(
+                                                        days: int.parse(
+                                                            day['day'])))),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color:
+                                                  Color.fromRGBO(21, 9, 35, 1),
+                                              fontSize: 12,
+                                              fontFamily: 'Times New Roman',
+                                              // fontWeight: FontWeight.bold
+                                            )),
+                                        onPressed: () async {}),
+                                  );
+                                }).toList(),
+                              ),
+                              Theme(
+                                data: ThemeData(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                ),
+                                child: CheckboxListTile(
+                                  side: BorderSide(
+                                      color: Color(0xff996B3E), width: 1),
+                                  activeColor: Color(0xff77A830),
+                                  // tileColor: Color(0xff996B3E),
+                                  checkColor: _yaziTipiRengi,
+                                  contentPadding: EdgeInsets.zero,
+                                  visualDensity: VisualDensity(horizontal: -4),
+                                  dense: true,
+                                  title: Text(
+                                    "Everyday",
+                                    style: TextStyle(
+                                      color: _yaziTipiRengi,
+                                      fontSize: 15,
+                                      fontFamily: 'Times New Roman',
+                                    ),
+                                  ),
+                                  value: true,
+                                  onChanged: (val) {},
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                ),
+                              ),
+                              // CheckboxListTile(
+                              //   side: BorderSide(
+                              //       color: Color(0xff996B3E), width: 1),
+                              //   activeColor: Color(0xff77A830),
+                              //   // tileColor: Color(0xff996B3E),
+                              //   checkColor: _yaziTipiRengi,
+                              //   contentPadding: EdgeInsets.zero,
+                              //   visualDensity:
+                              //       VisualDensity(horizontal: -4),
+                              //   dense: true,
+                              //   title: Text(
+                              //     "Alarm",
+                              //     style: TextStyle(
+                              //       color: _yaziTipiRengi,
+                              //       fontSize: 15,
+                              //       fontFamily: 'Times New Roman',
+                              //     ),
+                              //   ),
+                              //   value: _checkedBoxAlarm,
+                              //   onChanged: (val) {
+                              //     setState(() {
+                              //       _checkedBoxAlarm = val!;
+                              //     });
+                              //   },
+                              //   controlAffinity:
+                              //       ListTileControlAffinity.leading,
+                              // ),
+                              Expanded(
+                                child: Container(
+                                  // width:
+                                  //     MediaQuery.of(context).size.width *
+                                  //         3 /
+                                  //         5,
+                                  height: 200,
+                                  // width: 50,
+
+                                  child: ListView.builder(
+                                      itemCount:
+                                          _yourHabits[0]['_allTimes'].length,
+                                      itemBuilder: (context, index2) {
+                                        // print(_kaydirmaNoktalari);
+                                        return Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              3,
+                                          child: RawMaterialButton(
+                                              // fillColor: _yaziTipiRengi,
+                                              shape: RoundedRectangleBorder(
+                                                  side: BorderSide(
+                                                      color: _yaziTipiRengi),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              15.0))),
+                                              // splashColor: Colors.green,
+                                              textStyle: TextStyle(
+                                                  color: _yaziTipiRengi),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        15, 5, 15, 5),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                        "Goal " +
+                                                            (index2 + 1)
+                                                                .toString(),
+                                                        style: TextStyle(
+                                                            color:
+                                                                _yaziTipiRengi,
+                                                            fontSize: 15)),
+                                                    Row(
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              _yourHabits[0][
+                                                                          '_allTimes']
+                                                                      [index2]
+                                                                  [
+                                                                  'alarm'] = !_yourHabits[
+                                                                          0]
+                                                                      [
+                                                                      '_allTimes']
+                                                                  [
+                                                                  index2]['alarm'];
+                                                            });
+
+                                                            if (_yourHabits[0][
+                                                                    '_allTimes']
+                                                                [
+                                                                index2]['alarm']) {
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .showSnackBar(
+                                                                SnackBar(
+                                                                  duration: Duration(
+                                                                      milliseconds:
+                                                                          2000),
+                                                                  content: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Text('Alarm enabled for ' +
+                                                                          "Goal " +
+                                                                          (index2 + 1)
+                                                                              .toString()),
+                                                                    ],
+                                                                  ),
+                                                                  // action: SnackBarAction(
+                                                                  //   label: "Be a Premium User",
+                                                                  //   onPressed: () {
+                                                                  //     Navigator.push(
+                                                                  //         context,
+                                                                  //         MaterialPageRoute(
+                                                                  //             builder: (context) =>
+                                                                  //                 BePremiumUser()));
+                                                                  //   },
+                                                                  // )
+                                                                ),
+                                                              );
+                                                            } else {
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .showSnackBar(
+                                                                SnackBar(
+                                                                  duration: Duration(
+                                                                      milliseconds:
+                                                                          2000),
+                                                                  content: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Text('Alarm disabled for ' +
+                                                                          "Goal " +
+                                                                          (index2 + 1)
+                                                                              .toString()),
+                                                                    ],
+                                                                  ),
+                                                                  // action: SnackBarAction(
+                                                                  //   label: "Be a Premium User",
+                                                                  //   onPressed: () {
+                                                                  //     Navigator.push(
+                                                                  //         context,
+                                                                  //         MaterialPageRoute(
+                                                                  //             builder: (context) =>
+                                                                  //                 BePremiumUser()));
+                                                                  //   },
+                                                                  // )
+                                                                ),
+                                                              );
+                                                            }
+                                                          },
+                                                          child: Icon(
+                                                            _yourHabits[0]['_allTimes']
+                                                                        [index2]
+                                                                    ['alarm']
+                                                                ? Icons.alarm_on
+                                                                : Icons
+                                                                    .alarm_off,
+                                                            size: 25,
+                                                            color: _yourHabits[0]
+                                                                            [
+                                                                            '_allTimes']
+                                                                        [index2]
+                                                                    ['alarm']
+                                                                ? Color(
+                                                                    0xff77A830)
+                                                                : _yaziTipiRengi,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              _yourHabits[0][
+                                                                          '_allTimes']
+                                                                      [index2]
+                                                                  [
+                                                                  'notification'] = !_yourHabits[
+                                                                              0]
+                                                                          [
+                                                                          '_allTimes']
+                                                                      [index2][
+                                                                  'notification'];
+                                                            });
+
+                                                            if (_yourHabits[0][
+                                                                        '_allTimes']
+                                                                    [index2][
+                                                                'notification']) {
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .showSnackBar(
+                                                                SnackBar(
+                                                                  duration: Duration(
+                                                                      milliseconds:
+                                                                          2000),
+                                                                  content: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Text('Notification enabled for ' +
+                                                                          "Goal " +
+                                                                          (index2 + 1)
+                                                                              .toString()),
+                                                                    ],
+                                                                  ),
+                                                                  // action: SnackBarAction(
+                                                                  //   label: "Be a Premium User",
+                                                                  //   onPressed: () {
+                                                                  //     Navigator.push(
+                                                                  //         context,
+                                                                  //         MaterialPageRoute(
+                                                                  //             builder: (context) =>
+                                                                  //                 BePremiumUser()));
+                                                                  //   },
+                                                                  // )
+                                                                ),
+                                                              );
+                                                            } else {
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .showSnackBar(
+                                                                SnackBar(
+                                                                  duration: Duration(
+                                                                      milliseconds:
+                                                                          2000),
+                                                                  content: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Text('Notification disabled for ' +
+                                                                          "Goal " +
+                                                                          (index2 + 1)
+                                                                              .toString()),
+                                                                    ],
+                                                                  ),
+                                                                  // action: SnackBarAction(
+                                                                  //   label: "Be a Premium User",
+                                                                  //   onPressed: () {
+                                                                  //     Navigator.push(
+                                                                  //         context,
+                                                                  //         MaterialPageRoute(
+                                                                  //             builder: (context) =>
+                                                                  //                 BePremiumUser()));
+                                                                  //   },
+                                                                  // )
+                                                                ),
+                                                              );
+                                                            }
+                                                          },
+                                                          child: Icon(
+                                                            _yourHabits[0]['_allTimes']
+                                                                        [index2]
+                                                                    [
+                                                                    'notification']
+                                                                ? Icons
+                                                                    .notifications_active
+                                                                : Icons
+                                                                    .notifications_off,
+                                                            size: 25,
+                                                            color: _yourHabits[0]
+                                                                            [
+                                                                            '_allTimes']
+                                                                        [index2]
+                                                                    [
+                                                                    'notification']
+                                                                ? Color(
+                                                                    0xff77A830)
+                                                                : _yaziTipiRengi,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 15,
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () async {
+                                                            TimeOfDay? newTime =
+                                                                await showTimePicker(
+                                                                    context:
+                                                                        context,
+                                                                    initialTime:
+                                                                        _yourHabits[0]['_allTimes'][index2]
+                                                                            [
+                                                                            'time']);
+                                                            if (newTime == null)
+                                                              return;
+                                                            else {
+                                                              if (newTime
+                                                                      .minute <
+                                                                  10) {
+                                                                newTime = TimeOfDay(
+                                                                    hour: newTime
+                                                                        .hour,
+                                                                    minute: int.parse("0" +
+                                                                        newTime
+                                                                            .minute
+                                                                            .toString()));
+                                                                print(newTime);
+                                                              }
+
+                                                              setState(() {
+                                                                _yourHabits[0][
+                                                                            '_allTimes']
+                                                                        [index2]
+                                                                    [
+                                                                    'time'] = newTime;
+                                                              });
+                                                            }
+                                                          },
+                                                          child: Text(
+                                                              _yourHabits[0]['_allTimes']
+                                                                              [index2]
+                                                                          [
+                                                                          'time']
+                                                                      .toString()
+                                                                      .split("(")[
+                                                                          1]
+                                                                      .split(")")[
+                                                                          0]
+                                                                      .split(":")[
+                                                                          0]
+                                                                      .toString() +
+                                                                  ":" +
+                                                                  _yourHabits[0]
+                                                                              ['_allTimes'][index2]
+                                                                          [
+                                                                          'time']
+                                                                      .toString()
+                                                                      .split(
+                                                                          "(")[1]
+                                                                      .split(")")[0]
+                                                                      .split(":")[1]
+                                                                      .toString(),
+                                                              style: TextStyle(color: _yaziTipiRengi, fontSize: 25)),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              onPressed: null),
+                                        );
+                                      }),
+                                ),
+                              ),
                             ],
-                          ),
-                        ),
-                      ),
+                          )),
                     ],
                   ),
                 ),
