@@ -1284,18 +1284,54 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               SlidingUpPanel(
+                // color: Color(0xff150923),
                 margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(24.0),
                     topRight: Radius.circular(24.0)),
                 controller: _pc,
                 backdropEnabled: true,
-                maxHeight: MediaQuery.of(context).size.height / 3 * 2,
+                maxHeight: MediaQuery.of(context).size.height / 2,
                 minHeight: 0,
-                header: Text("Baslik"),
+                header: Container(
+                  color: Color(0xff150923),
+                  padding: const EdgeInsets.all(8),
+                  width: MediaQuery.of(context).size.width-20,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.volunteer_activism,
+                            size: 25,
+                            color: Color.fromARGB(223, 218, 21, 7),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text("Drink Water",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: _yaziTipiRengi,
+                                fontSize: 18,
+                                fontFamily: 'Times New Roman',
+                                // fontWeight: FontWeight.bold
+                              )),
+                        ],
+                      ),
+                      Icon(
+                            Icons.edit,
+                            size: 25,
+                            color: Color.fromARGB(223, 130, 122, 121),
+                          ),
+                    ],
+                  ),
+                ),
                 panel: Container(
                   padding: const EdgeInsets.fromLTRB(0, 48, 0, 0),
                   decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 27, 7, 50),
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(24.0),
                         topRight: Radius.circular(24.0)),
@@ -1308,9 +1344,27 @@ class _MainPageState extends State<MainPage> {
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 2),
                           child: Column(
                             children: [
-                              Text("data1"),
-                              Text("data2"),
-                              Text("data3"),
+                              Text("data1",
+                                  style: TextStyle(
+                                    color: _yaziTipiRengi,
+                                    fontSize: 15,
+                                    fontFamily: 'Times New Roman',
+                                    // fontWeight: FontWeight.bold
+                                  )),
+                              Text("data2",
+                                  style: TextStyle(
+                                    color: _yaziTipiRengi,
+                                    fontSize: 15,
+                                    fontFamily: 'Times New Roman',
+                                    // fontWeight: FontWeight.bold
+                                  )),
+                              Text("data3",
+                                  style: TextStyle(
+                                    color: _yaziTipiRengi,
+                                    fontSize: 15,
+                                    fontFamily: 'Times New Roman',
+                                    // fontWeight: FontWeight.bold
+                                  )),
                             ],
                           ),
                         ),
