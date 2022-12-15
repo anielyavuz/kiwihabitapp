@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
+import 'package:kiwihabitapp/services/iconClass.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 
@@ -23,6 +24,17 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  bool _slidingCheckBoxEveryDay = true;
+  List _sligingYourHabitAlltimes = [];
+  List _slidingItemWeekDaysList = [];
+  int _slidingCountADay = 1;
+  Icon _slidingIcon = Icon(
+    Icons.volunteer_activism,
+    size: 25,
+    color: Color.fromARGB(223, 218, 21, 7),
+  );
+
+  String _slidingHeaderText = "Drink Water";
   PanelController _pc = new PanelController();
   int _expand1 = 4;
   int _expand2 = 4;
@@ -294,7 +306,27 @@ class _MainPageState extends State<MainPage> {
     compareCurrentAndCompleted();
   }
 
-  editSingleHabit() {
+  editSingleHabit(String slidingHeaderText) {
+    int _habitCount = 0;
+    for (var item in _yourHabits) {
+      if (item['habitName'] == slidingHeaderText) {
+        break;
+      }
+      _habitCount++;
+    }
+
+    setState(() {
+      _slidingCheckBoxEveryDay =
+          _yourHabits[_habitCount]['_checkedBoxEveryday'];
+      _sligingYourHabitAlltimes = _yourHabits[_habitCount]['_allTimes'];
+      _slidingItemWeekDaysList = _yourHabits[_habitCount]['_weekDays'];
+      _slidingCountADay = _yourHabits[_habitCount]['_allTimes'].length;
+      _slidingIcon = IconClass()
+          .getIconFromName(_yourHabits[_habitCount]['habitCategory']);
+
+      _slidingHeaderText = slidingHeaderText;
+    });
+
     _pc.open();
     // print("EDİTLE");
   }
@@ -640,6 +672,8 @@ class _MainPageState extends State<MainPage> {
                                     box.put("habitDetailsHive", []);
                                     box.put("habitDays", []);
                                     box.put("completedHabits", {});
+                                    box.put("finalCompleted", {});
+
                                     Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
@@ -1060,7 +1094,10 @@ class _MainPageState extends State<MainPage> {
                                         ),
                                       ),
                                       onLongPress: () {
-                                        editSingleHabit();
+                                        editSingleHabit(
+                                          _currentDayHabit[
+                                              indexOfCurrentDayHabit],
+                                        );
                                       },
                                       onPressed: !DateTime.parse(DateFormat(
                                                       'yyyy-MM-dd')
@@ -1264,7 +1301,14 @@ class _MainPageState extends State<MainPage> {
                                       ),
                                     ),
                                     onLongPress: () {
-                                      editSingleHabit();
+                                      editSingleHabit(_finalCompleted[
+                                              DateFormat('dd MMMM yyyy')
+                                                  .format(days[
+                                                      _currentIndexCalendar])
+                                                  .toString()]
+                                          .keys
+                                          .toList()[indexOffinalCompletedHabit]
+                                          .toString());
                                     },
                                     onPressed: () {
                                       returnFromCompletedHabitList(_finalCompleted[
@@ -1302,15 +1346,11 @@ class _MainPageState extends State<MainPage> {
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.volunteer_activism,
-                            size: 25,
-                            color: Color.fromARGB(223, 218, 21, 7),
-                          ),
+                          _slidingIcon,
                           SizedBox(
                             width: 5,
                           ),
-                          Text("Drink Water",
+                          Text(_slidingHeaderText,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: _yaziTipiRengi,
@@ -1320,10 +1360,15 @@ class _MainPageState extends State<MainPage> {
                               )),
                         ],
                       ),
-                      Icon(
-                        Icons.edit,
-                        size: 25,
-                        color: Color.fromARGB(223, 130, 122, 121),
+                      InkWell(
+                        onTap: () {
+                          print(_yourHabits);
+                        },
+                        child: Icon(
+                          Icons.edit,
+                          size: 25,
+                          color: Color.fromARGB(223, 130, 122, 121),
+                        ),
                       ),
                     ],
                   ),
@@ -1342,23 +1387,23 @@ class _MainPageState extends State<MainPage> {
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 2),
                           child: Column(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    "Goal",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: _yaziTipiRengi,
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Times New Roman',
-                                      // fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                              //   child: Align(
+                              //     alignment: Alignment.centerLeft,
+                              //     child: Text(
+                              //       "Goal",
+                              //       style: TextStyle(
+                              //         decoration: TextDecoration.underline,
+                              //         color: _yaziTipiRengi,
+                              //         fontSize: 25,
+                              //         fontWeight: FontWeight.bold,
+                              //         fontFamily: 'Times New Roman',
+                              //         // fontWeight: FontWeight.bold
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                                 child: Row(
@@ -1378,7 +1423,10 @@ class _MainPageState extends State<MainPage> {
                                             height: 20,
                                             width: 20,
                                             child: RawMaterialButton(
-                                                fillColor: Color(0xff996B3E),
+                                                fillColor: _slidingCountADay > 1
+                                                    ? Color(0xff996B3E)
+                                                    : Color.fromARGB(
+                                                        86, 153, 107, 62),
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.all(
@@ -1395,7 +1443,17 @@ class _MainPageState extends State<MainPage> {
                                                           'Times New Roman',
                                                       // fontWeight: FontWeight.bold
                                                     )),
-                                                onPressed: () {}),
+                                                onPressed:
+                                                    _slidingCountADay <= 1
+                                                        ? null
+                                                        : () {
+                                                            if (_slidingCountADay >
+                                                                1) {
+                                                              setState(() {
+                                                                _slidingCountADay--;
+                                                              });
+                                                            }
+                                                          }),
                                           ),
                                         ),
                                         Container(
@@ -1409,7 +1467,8 @@ class _MainPageState extends State<MainPage> {
                                               //         Color(0xff77A830)),
                                               borderRadius:
                                                   BorderRadius.circular(5)),
-                                          child: Text("1",
+                                          child: Text(
+                                              _slidingCountADay.toString(),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 color: _yaziTipiRengi,
@@ -1446,7 +1505,11 @@ class _MainPageState extends State<MainPage> {
                                                           'Times New Roman',
                                                       // fontWeight: FontWeight.bold
                                                     )),
-                                                onPressed: () {}),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    _slidingCountADay++;
+                                                  });
+                                                }),
                                           ),
                                         )
                                       ],
@@ -1465,8 +1528,8 @@ class _MainPageState extends State<MainPage> {
                                 ),
                               ),
                               Row(
-                                children: _yourHabits[0]['_weekDays']
-                                    .map<Widget>((day) {
+                                children:
+                                    _slidingItemWeekDaysList.map<Widget>((day) {
                                   return Container(
                                     padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
                                     width:
@@ -1501,7 +1564,57 @@ class _MainPageState extends State<MainPage> {
                                               fontFamily: 'Times New Roman',
                                               // fontWeight: FontWeight.bold
                                             )),
-                                        onPressed: () async {}),
+                                        onPressed: () async {
+                                          int _daySelected = 0;
+                                          for (var _weekDay
+                                              in _slidingItemWeekDaysList) {
+                                            if (_weekDay['value']) {
+                                              _daySelected += 1;
+                                            }
+                                          }
+                                          if (_daySelected > 1) {
+                                            bool _allDaysSelected = true;
+                                            setState(() {
+                                              day['value'] = !day['value'];
+                                            });
+                                            for (var _weekDay
+                                                in _slidingItemWeekDaysList) {
+                                              if (!_weekDay['value']) {
+                                                _allDaysSelected = false;
+                                              }
+                                            }
+                                            if (_allDaysSelected) {
+                                              // _checkedBoxEveryday = true;
+                                              _slidingCheckBoxEveryDay = true;
+                                            } else {
+                                              _slidingCheckBoxEveryDay = false;
+                                              // _checkedBoxEveryday = false;
+                                            }
+                                          } else {
+                                            if (!day['value'] == true) {
+                                              bool _allDaysSelected = true;
+                                              setState(() {
+                                                day['value'] = !day['value'];
+                                              });
+                                              for (var _weekDay
+                                                  in _slidingItemWeekDaysList) {
+                                                if (!_weekDay['value']) {
+                                                  _allDaysSelected = false;
+                                                }
+                                              }
+                                              if (_allDaysSelected) {
+                                                _slidingCheckBoxEveryDay = true;
+                                                // _checkedBoxEveryday =
+                                                //     true;
+                                              } else {
+                                                _slidingCheckBoxEveryDay =
+                                                    false;
+                                                // _checkedBoxEveryday =
+                                                //     false;
+                                              }
+                                            }
+                                          }
+                                        }),
                                   );
                                 }).toList(),
                               ),
@@ -1527,8 +1640,20 @@ class _MainPageState extends State<MainPage> {
                                       fontFamily: 'Times New Roman',
                                     ),
                                   ),
-                                  value: true,
-                                  onChanged: (val) {},
+                                  value: _slidingCheckBoxEveryDay,
+                                  onChanged: (val) {
+                                    if (!_slidingCheckBoxEveryDay) {
+                                      setState(() {
+                                        _slidingCheckBoxEveryDay = true;
+                                        for (var day
+                                            in _slidingItemWeekDaysList) {
+                                          setState(() {
+                                            day['value'] = true;
+                                          });
+                                        }
+                                      });
+                                    }
+                                  },
                                   controlAffinity:
                                       ListTileControlAffinity.leading,
                                 ),
@@ -1571,7 +1696,7 @@ class _MainPageState extends State<MainPage> {
 
                                   child: ListView.builder(
                                       itemCount:
-                                          _yourHabits[0]['_allTimes'].length,
+                                          _sligingYourHabitAlltimes.length,
                                       itemBuilder: (context, index2) {
                                         // print(_kaydirmaNoktalari);
                                         return Container(
@@ -1613,22 +1738,18 @@ class _MainPageState extends State<MainPage> {
                                                         InkWell(
                                                           onTap: () {
                                                             setState(() {
-                                                              _yourHabits[0][
-                                                                          '_allTimes']
-                                                                      [index2]
-                                                                  [
-                                                                  'alarm'] = !_yourHabits[
-                                                                          0]
+                                                              _sligingYourHabitAlltimes[
+                                                                          index2]
                                                                       [
-                                                                      '_allTimes']
-                                                                  [
-                                                                  index2]['alarm'];
+                                                                      'alarm'] =
+                                                                  !_sligingYourHabitAlltimes[
+                                                                          index2]
+                                                                      ['alarm'];
                                                             });
 
-                                                            if (_yourHabits[0][
-                                                                    '_allTimes']
-                                                                [
-                                                                index2]['alarm']) {
+                                                            if (_sligingYourHabitAlltimes[
+                                                                    index2]
+                                                                ['alarm']) {
                                                               ScaffoldMessenger
                                                                       .of(context)
                                                                   .showSnackBar(
@@ -1693,17 +1814,15 @@ class _MainPageState extends State<MainPage> {
                                                             }
                                                           },
                                                           child: Icon(
-                                                            _yourHabits[0]['_allTimes']
-                                                                        [index2]
+                                                            _sligingYourHabitAlltimes[
+                                                                        index2]
                                                                     ['alarm']
                                                                 ? Icons.alarm_on
                                                                 : Icons
                                                                     .alarm_off,
                                                             size: 25,
-                                                            color: _yourHabits[0]
-                                                                            [
-                                                                            '_allTimes']
-                                                                        [index2]
+                                                            color: _sligingYourHabitAlltimes[
+                                                                        index2]
                                                                     ['alarm']
                                                                 ? Color(
                                                                     0xff77A830)
@@ -1716,21 +1835,18 @@ class _MainPageState extends State<MainPage> {
                                                         InkWell(
                                                           onTap: () {
                                                             setState(() {
-                                                              _yourHabits[0][
-                                                                          '_allTimes']
-                                                                      [index2]
-                                                                  [
-                                                                  'notification'] = !_yourHabits[
-                                                                              0]
-                                                                          [
-                                                                          '_allTimes']
-                                                                      [index2][
-                                                                  'notification'];
+                                                              _sligingYourHabitAlltimes[
+                                                                          index2]
+                                                                      [
+                                                                      'notification'] =
+                                                                  !_sligingYourHabitAlltimes[
+                                                                          index2]
+                                                                      [
+                                                                      'notification'];
                                                             });
 
-                                                            if (_yourHabits[0][
-                                                                        '_allTimes']
-                                                                    [index2][
+                                                            if (_sligingYourHabitAlltimes[
+                                                                    index2][
                                                                 'notification']) {
                                                               ScaffoldMessenger
                                                                       .of(context)
@@ -1796,20 +1912,16 @@ class _MainPageState extends State<MainPage> {
                                                             }
                                                           },
                                                           child: Icon(
-                                                            _yourHabits[0]['_allTimes']
-                                                                        [index2]
-                                                                    [
+                                                            _sligingYourHabitAlltimes[
+                                                                        index2][
                                                                     'notification']
                                                                 ? Icons
                                                                     .notifications_active
                                                                 : Icons
                                                                     .notifications_off,
                                                             size: 25,
-                                                            color: _yourHabits[0]
-                                                                            [
-                                                                            '_allTimes']
-                                                                        [index2]
-                                                                    [
+                                                            color: _sligingYourHabitAlltimes[
+                                                                        index2][
                                                                     'notification']
                                                                 ? Color(
                                                                     0xff77A830)
@@ -1821,14 +1933,21 @@ class _MainPageState extends State<MainPage> {
                                                         ),
                                                         InkWell(
                                                           onTap: () async {
-                                                            TimeOfDay? newTime =
-                                                                await showTimePicker(
-                                                                    context:
-                                                                        context,
-                                                                    initialTime:
-                                                                        _yourHabits[0]['_allTimes'][index2]
+                                                            TimeOfDay? newTime = await showTimePicker(
+                                                                context:
+                                                                    context,
+                                                                initialTime: TimeOfDay(
+                                                                    hour: int.parse(
+                                                                        _sligingYourHabitAlltimes[index2]['time'].split("(")[1].split(")")[0].split(":")[
+                                                                            0]),
+                                                                    minute: int.parse(_sligingYourHabitAlltimes[index2]
                                                                             [
-                                                                            'time']);
+                                                                            'time']
+                                                                        .split("(")[
+                                                                            1]
+                                                                        .split(
+                                                                            ")")[0]
+                                                                        .split(":")[1])));
                                                             if (newTime == null)
                                                               return;
                                                             else {
@@ -1846,17 +1965,17 @@ class _MainPageState extends State<MainPage> {
                                                               }
 
                                                               setState(() {
-                                                                _yourHabits[0][
-                                                                            '_allTimes']
-                                                                        [index2]
-                                                                    [
-                                                                    'time'] = newTime;
+                                                                _sligingYourHabitAlltimes[
+                                                                            index2]
+                                                                        [
+                                                                        'time'] =
+                                                                    newTime
+                                                                        .toString();
                                                               });
                                                             }
                                                           },
                                                           child: Text(
-                                                              _yourHabits[0]['_allTimes']
-                                                                              [index2]
+                                                              _sligingYourHabitAlltimes[index2]
                                                                           [
                                                                           'time']
                                                                       .toString()
@@ -1868,17 +1987,22 @@ class _MainPageState extends State<MainPage> {
                                                                           0]
                                                                       .toString() +
                                                                   ":" +
-                                                                  _yourHabits[0]
-                                                                              ['_allTimes'][index2]
+                                                                  _sligingYourHabitAlltimes[index2]
                                                                           [
                                                                           'time']
                                                                       .toString()
-                                                                      .split(
-                                                                          "(")[1]
-                                                                      .split(")")[0]
-                                                                      .split(":")[1]
+                                                                      .split("(")[
+                                                                          1]
+                                                                      .split(")")[
+                                                                          0]
+                                                                      .split(":")[
+                                                                          1]
                                                                       .toString(),
-                                                              style: TextStyle(color: _yaziTipiRengi, fontSize: 25)),
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      _yaziTipiRengi,
+                                                                  fontSize:
+                                                                      25)),
                                                         ),
                                                       ],
                                                     ),
