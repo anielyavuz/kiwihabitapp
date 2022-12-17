@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
+import 'package:kiwihabitapp/services/batteryOptimization.dart';
 import 'package:kiwihabitapp/services/iconClass.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -43,6 +45,7 @@ class _MainPageState extends State<MainPage> {
   late Box box;
   List<DateTime> days = [];
   List _yourHabits = [];
+  bool _batterySaver = true;
   var _habitDays;
   var _habitDetails;
   int _currentIndexCalendar =
@@ -526,11 +529,15 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
+  checkBatterySaverMode() async {
+    _batterySaver = await BatteryOptimization().isBatteryOptimizationDisabled();
+  }
+
   Timer? timer;
   @override
   void initState() {
     super.initState();
-
+    checkBatterySaverMode();
     // notificaitonMap();
     listenToNotification(); //payload için
     // _timeZoneTriggerFunction();
@@ -644,27 +651,28 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           Column(
                             children: [
-                              // ListTile(
-                              //   leading: Icon(Icons.ice_skating),
-                              //   title: InkWell(
-                              //     onTap: () async {
-                              //       // print(_yourHabits);
+                              ListTile(
+                                leading: Icon(Icons.info_rounded),
+                                title: InkWell(
+                                  onTap: () async {
+                                    BatteryOptimization()
+                                        .showDisableBatteryOptimizationSettings();
+                                    // print(_yourHabits);
 
-                              //       // notificaitonMap();
-                              //     },
-                              //     child: Container(
-                              //       child: Text("Notifications Test",
-                              //           style: TextStyle(
-                              //             color: _backgroudRengi,
-                              //             fontSize: 18,
-                              //             fontWeight: FontWeight.bold,
-                              //             fontFamily: 'Times New Roman',
-                              //             // fontWeight: FontWeight.bold
-                              //           )),
-                              //     ),
-                              //   ),
-                              // ),
-
+                                    // notificaitonMap();
+                                  },
+                                  child: Container(
+                                    child: Text("Disable Battery Optimization",
+                                        style: TextStyle(
+                                          color: _backgroudRengi,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Times New Roman',
+                                          // fontWeight: FontWeight.bold
+                                        )),
+                                  ),
+                                ),
+                              ),
                               ListTile(
                                 leading:
                                     Icon(Icons.notification_important_rounded),
@@ -866,6 +874,86 @@ class _MainPageState extends State<MainPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    !Platform.isIOS
+                        ? (Visibility(
+                            visible: !_batterySaver,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                              child: Container(
+                                height: 90,
+                                decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                width: MediaQuery.of(context).size.width,
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                        top: 0.0,
+                                        right: 0.0,
+                                        child: InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              _batterySaver = true;
+                                            });
+                                          },
+                                          child: Icon(
+                                            Icons.close,
+                                            size: 35,
+                                            color: Colors.white,
+                                          ),
+                                        )),
+                                    Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              40, 10, 40, 0),
+                                          child: Text(
+                                            "For better notification timing please disable battery optimization for KiWi",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: _yaziTipiRengi,
+                                              fontSize: 14,
+
+                                              fontFamily: 'Times New Roman',
+                                              // fontWeight: FontWeight.bold
+                                            ),
+                                          ),
+                                        ),
+                                        RawMaterialButton(
+                                          // fillColor: _yaziTipiRengi,
+                                          shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                  color: _backgroudRengi),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0))),
+                                          // splashColor: Colors.green,
+                                          textStyle:
+                                              TextStyle(color: _yaziTipiRengi),
+                                          child: Text("Disable",
+                                              style: TextStyle(
+                                                color: _yaziTipiRengi,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: 'Times New Roman',
+                                                // fontWeight: FontWeight.bold
+                                              )),
+                                          onPressed: () {
+                                            BatteryOptimization()
+                                                .showDisableBatteryOptimizationSettings();
+                                            setState(() {
+                                              _batterySaver = true;
+                                            });
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ))
+                        : SizedBox(),
                     Container(
                       height: 54,
                       child: PageView(
