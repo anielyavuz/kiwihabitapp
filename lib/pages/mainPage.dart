@@ -530,7 +530,10 @@ class _MainPageState extends State<MainPage> {
   }
 
   checkBatterySaverMode() async {
-    _batterySaver = await BatteryOptimization().isBatteryOptimizationDisabled();
+    if (!Platform.isIOS) {
+      _batterySaver =
+          await BatteryOptimization().isBatteryOptimizationDisabled();
+    }
   }
 
   Timer? timer;
@@ -651,28 +654,28 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           Column(
                             children: [
-                              ListTile(
-                                leading: Icon(Icons.info_rounded),
-                                title: InkWell(
-                                  onTap: () async {
-                                    BatteryOptimization()
-                                        .showDisableBatteryOptimizationSettings();
-                                    // print(_yourHabits);
+                              // ListTile(
+                              //   leading: Icon(Icons.info_rounded),
+                              //   title: InkWell(
+                              //     onTap: () async {
+                              //       BatteryOptimization()
+                              //           .showDisableBatteryOptimizationSettings();
+                              //       // print(_yourHabits);
 
-                                    // notificaitonMap();
-                                  },
-                                  child: Container(
-                                    child: Text("Disable Battery Optimization",
-                                        style: TextStyle(
-                                          color: _backgroudRengi,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Times New Roman',
-                                          // fontWeight: FontWeight.bold
-                                        )),
-                                  ),
-                                ),
-                              ),
+                              //       // notificaitonMap();
+                              //     },
+                              //     child: Container(
+                              //       child: Text("Disable Battery Optimization",
+                              //           style: TextStyle(
+                              //             color: _backgroudRengi,
+                              //             fontSize: 18,
+                              //             fontWeight: FontWeight.bold,
+                              //             fontFamily: 'Times New Roman',
+                              //             // fontWeight: FontWeight.bold
+                              //           )),
+                              //     ),
+                              //   ),
+                              // ),
                               ListTile(
                                 leading:
                                     Icon(Icons.notification_important_rounded),
