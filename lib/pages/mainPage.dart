@@ -28,6 +28,7 @@ class _MainPageState extends State<MainPage> {
   List _sligingYourHabitAlltimes = [];
   List _slidingItemWeekDaysList = [];
   int _slidingCountADay = 1;
+  String _slidingIconName = "Yoga";
   Icon _slidingIcon = Icon(
     Icons.volunteer_activism,
     size: 25,
@@ -201,6 +202,53 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  slidingCompletedProcess()
+  //sliging ekranda habit editlemesi tamamlandıktan sonra ilgili parametreler yerine yazılır.
+  {
+    _yourHabits.removeWhere((item) => item['habitName'] == _slidingHeaderText);
+
+    Map _editedHabitAdd = {};
+    _editedHabitAdd['habitName'] = _slidingHeaderText;
+    _editedHabitAdd['habitCategory'] = _slidingIconName;
+    _editedHabitAdd['_weekDays'] = _slidingItemWeekDaysList;
+    _editedHabitAdd['_allTimes'] = _sligingYourHabitAlltimes;
+    _editedHabitAdd['_checkedBoxEveryday'] = _slidingCheckBoxEveryDay;
+    // print(_editedHabitAdd);
+
+    _yourHabits.add(_editedHabitAdd);
+
+    //////////////////
+
+    _habitDetails.removeWhere((key, value) => key == _slidingHeaderText);
+
+    _habitDetails[_slidingHeaderText] = {};
+    _habitDetails[_slidingHeaderText]['habitCategory'] = _slidingIconName;
+    _habitDetails[_slidingHeaderText]['_allTimes'] = _sligingYourHabitAlltimes;
+
+    ////////////////
+    ///
+    _habitDays.removeWhere((key, value) => key == _slidingHeaderText);
+    List _tempListe = [];
+    for (var _slidingItemWeekDaysListItem in _slidingItemWeekDaysList) {
+      if (_slidingItemWeekDaysListItem['value']) {
+        _tempListe.add(_slidingItemWeekDaysListItem['day'].toString());
+      }
+    }
+    _habitDays[_slidingHeaderText] = _tempListe;
+    print("1");
+    box.put("chooseYourHabitsHive", _yourHabits);
+    print("2");
+    box.put("habitDetailsHive", _habitDetails);
+    print("3");
+    box.put("habitDays", _habitDays);
+
+    recalculateListWithAnimation();
+
+    Future.delayed(const Duration(milliseconds: 2500), () {
+      notificaitonMap();
+    });
+  }
+
   getCurrentChooseYourHabits() async {
     _yourHabits = await box.get("chooseYourHabitsHive") ?? []; //eski
 
@@ -323,7 +371,7 @@ class _MainPageState extends State<MainPage> {
       _slidingCountADay = _yourHabits[_habitCount]['_allTimes'].length;
       _slidingIcon = IconClass()
           .getIconFromName(_yourHabits[_habitCount]['habitCategory']);
-
+      _slidingIconName = _yourHabits[_habitCount]['habitCategory'];
       _slidingHeaderText = slidingHeaderText;
     });
 
@@ -1328,7 +1376,13 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               SlidingUpPanel(
-                // color: Color(0xff150923),
+                onPanelSlide: (double pos) {
+                  if (pos == 0.0) {
+                    slidingCompletedProcess();
+                  }
+                },
+
+                // onPanelClosed: slidingCompletedProcess(),
                 margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(24.0),
@@ -1362,10 +1416,50 @@ class _MainPageState extends State<MainPage> {
                       ),
                       InkWell(
                         onTap: () {
-                          print(_yourHabits);
+                          slidingCompletedProcess();
+
+                          // print("----------");
+                          // print('_habitDays');
+                          // print(_habitDays);
+
+                          // print("----------");
+                          // print('_habitDays');
+                          // print(_habitDays);
+
+                          // print("----------");
+                          // print('_habitDays');
+                          // print(_habitDays);
+
+                          // print("----------");
+                          // print('_habitDetails');
+                          // print(_habitDetails);
+
+                          // print("_sligingYourHabitAlltimes");
+                          // print(_sligingYourHabitAlltimes);
+                          // print("---------------");
+                          // print("_yourHabits");
+                          // print(_yourHabits);
+
+                          // print("---------------");
+                          // print("_habitDetails");
+                          // print(_habitDetails);
+
+                          // print("---------------");
+                          // print("_slidingItemWeekDaysList");
+                          // print(_slidingItemWeekDaysList);
+
+                          // print("---------------");
+
+                          // print("_habitDays");
+                          // print(_habitDays);
+                          // print("---------------");
+
+                          // print("_sligingYourHabitAlltimes");
+                          // print(_sligingYourHabitAlltimes);
+                          // print("---------------");
                         },
                         child: Icon(
-                          Icons.edit,
+                          Icons.check,
                           size: 25,
                           color: Color.fromARGB(223, 130, 122, 121),
                         ),
@@ -1451,6 +1545,9 @@ class _MainPageState extends State<MainPage> {
                                                                 1) {
                                                               setState(() {
                                                                 _slidingCountADay--;
+
+                                                                _sligingYourHabitAlltimes
+                                                                    .removeLast();
                                                               });
                                                             }
                                                           }),
@@ -1508,6 +1605,24 @@ class _MainPageState extends State<MainPage> {
                                                 onPressed: () {
                                                   setState(() {
                                                     _slidingCountADay++;
+
+                                                    _sligingYourHabitAlltimes
+                                                        .add({
+                                                      "time": TimeOfDay(
+                                                              hour: _slidingCountADay <
+                                                                      12
+                                                                  ? 12 +
+                                                                      _slidingCountADay -
+                                                                      1
+                                                                  : (12 +
+                                                                          _slidingCountADay -
+                                                                          1) %
+                                                                      24,
+                                                              minute: 30)
+                                                          .toString(),
+                                                      "notification": true,
+                                                      "alarm": false
+                                                    });
                                                   });
                                                 }),
                                           ),
@@ -1937,16 +2052,19 @@ class _MainPageState extends State<MainPage> {
                                                                 context:
                                                                     context,
                                                                 initialTime: TimeOfDay(
-                                                                    hour: int.parse(
-                                                                        _sligingYourHabitAlltimes[index2]['time'].split("(")[1].split(")")[0].split(":")[
-                                                                            0]),
+                                                                    hour: int.parse(_sligingYourHabitAlltimes[index2]['time']
+                                                                            .toString()
+                                                                            .split("(")[
+                                                                                1]
+                                                                            .split(")")[
+                                                                                0]
+                                                                            .split(":")[
+                                                                        0]),
                                                                     minute: int.parse(_sligingYourHabitAlltimes[index2]
-                                                                            [
-                                                                            'time']
-                                                                        .split("(")[
-                                                                            1]
-                                                                        .split(
-                                                                            ")")[0]
+                                                                            ['time']
+                                                                        .toString()
+                                                                        .split("(")[1]
+                                                                        .split(")")[0]
                                                                         .split(":")[1])));
                                                             if (newTime == null)
                                                               return;
