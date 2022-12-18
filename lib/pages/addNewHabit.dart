@@ -1038,10 +1038,11 @@ class _AddNewHabitState extends State<AddNewHabit> {
                           Container(
                             padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                             child: RawMaterialButton(
-                                fillColor:
-                                    _turkceTextFieldController.text == null || _turkceTextFieldController.text == ""
-                                        ? _yaziTipiRengi.withOpacity(0.2)
-                                        : _yaziTipiRengi,
+                                fillColor: _turkceTextFieldController.text ==
+                                            null ||
+                                        _turkceTextFieldController.text == ""
+                                    ? _yaziTipiRengi.withOpacity(0.2)
+                                    : _yaziTipiRengi,
                                 shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(15.0))),
@@ -1058,12 +1059,13 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                         // fontWeight: FontWeight.bold
                                       )),
                                 ),
-                                onPressed:
-                                    _turkceTextFieldController.text == null || _turkceTextFieldController.text == ""
-                                        ? null
-                                        : () async {
-                                            addNewHabit();
-                                          }),
+                                onPressed: _turkceTextFieldController.text ==
+                                            null ||
+                                        _turkceTextFieldController.text == ""
+                                    ? null
+                                    : () async {
+                                        addNewHabit();
+                                      }),
                           ),
                         ],
                       )),
