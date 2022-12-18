@@ -691,6 +691,8 @@ class _MainPageState extends State<MainPage> {
                                 leading:
                                     Icon(Icons.notification_important_rounded),
                                 title: InkWell(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
                                   onTap: () async {
                                     // notificationsServices
                                     //     .specificTimeNotification(
@@ -733,6 +735,8 @@ class _MainPageState extends State<MainPage> {
                               ListTile(
                                 leading: Icon(Icons.exit_to_app),
                                 title: InkWell(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
                                   onTap: () async {
                                     await _auth.signOut();
 
@@ -1023,6 +1027,8 @@ class _MainPageState extends State<MainPage> {
                                     padding:
                                         const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                     child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () {
                                         // _pageController.jumpToPage(index);
                                         _pageController.animateToPage(index,
@@ -1145,6 +1151,8 @@ class _MainPageState extends State<MainPage> {
                       child: Visibility(
                         visible: _defaultinitialPage != _initialPage,
                         child: InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
                           onTap: () async {
                             _pageController.jumpToPage(_defaultinitialPage);
                           },
@@ -1241,6 +1249,9 @@ class _MainPageState extends State<MainPage> {
                                               ],
                                             ),
                                             InkWell(
+                                              splashColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
                                               onTap: () {
                                                 // compareCurrentAndCompleted();
                                               },
@@ -1465,6 +1476,8 @@ class _MainPageState extends State<MainPage> {
                                             ],
                                           ),
                                           InkWell(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
                                             onTap: () {
                                               print(_currentDayCompletedHabits);
                                               print("****");
@@ -1516,9 +1529,11 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               Positioned(
-                right: 30,
+                right: 35,
                 bottom: 30,
                 child: InkWell(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
                   onTap: () {
                     addNewHabitFunction();
                   },
@@ -1620,6 +1635,8 @@ class _MainPageState extends State<MainPage> {
                         ],
                       ),
                       InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
                         onTap: () {
                           slidingCompletedProcess();
 
@@ -2056,6 +2073,10 @@ class _MainPageState extends State<MainPage> {
                                                     Row(
                                                       children: [
                                                         InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
                                                           onTap: () {
                                                             setState(() {
                                                               _sligingYourHabitAlltimes[
@@ -2153,6 +2174,10 @@ class _MainPageState extends State<MainPage> {
                                                           width: 15,
                                                         ),
                                                         InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
                                                           onTap: () {
                                                             setState(() {
                                                               _sligingYourHabitAlltimes[
@@ -2252,6 +2277,10 @@ class _MainPageState extends State<MainPage> {
                                                           width: 15,
                                                         ),
                                                         InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
                                                           onTap: () async {
                                                             TimeOfDay? newTime = await showTimePicker(
                                                                 context:
