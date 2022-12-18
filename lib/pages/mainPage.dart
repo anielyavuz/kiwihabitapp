@@ -1180,7 +1180,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                         // width:
                         //     MediaQuery.of(context).size.width *
                         //         3 /
@@ -1199,10 +1199,10 @@ class _MainPageState extends State<MainPage> {
                                 child: Container(
                                   width: MediaQuery.of(context).size.width / 3,
                                   child: RawMaterialButton(
-                                      fillColor: Color.fromARGB(255, 40, 25, 56),
+                                      fillColor:
+                                          Color.fromARGB(255, 40, 25, 56),
                                       shape: RoundedRectangleBorder(
-                                          side:
-                                              BorderSide(),
+                                          side: BorderSide(),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(15.0))),
                                       // splashColor: Colors.green,
@@ -1640,6 +1640,7 @@ class _MainPageState extends State<MainPage> {
                         highlightColor: Colors.transparent,
                         onTap: () {
                           slidingCompletedProcess();
+                          _pc.close();
 
                           // print("----------");
                           // print('_habitDays');
