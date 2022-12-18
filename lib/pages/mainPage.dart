@@ -1180,6 +1180,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                     Expanded(
                       child: Container(
+                        padding: const EdgeInsets.fromLTRB(5,0,5,0),
                         // width:
                         //     MediaQuery.of(context).size.width *
                         //         3 /
@@ -1198,10 +1199,10 @@ class _MainPageState extends State<MainPage> {
                                 child: Container(
                                   width: MediaQuery.of(context).size.width / 3,
                                   child: RawMaterialButton(
-                                      // fillColor: _yaziTipiRengi,
+                                      fillColor: Color.fromARGB(255, 40, 25, 56),
                                       shape: RoundedRectangleBorder(
                                           side:
-                                              BorderSide(color: _yaziTipiRengi),
+                                              BorderSide(),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(15.0))),
                                       // splashColor: Colors.green,
