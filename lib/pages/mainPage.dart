@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:kiwihabitapp/pages/addNewHabit.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/services/batteryOptimization.dart';
 import 'package:kiwihabitapp/services/iconClass.dart';
@@ -208,12 +209,16 @@ class _MainPageState extends State<MainPage> {
   addNewHabitFunction() {
     if (_yourHabits.length < 5) {
       print("Yeni habit oluşturabilirsiniz");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AddNewHabit()));
     } else {}
   }
 
   slidingCompletedProcess()
   //sliging ekranda habit editlemesi tamamlandıktan sonra ilgili parametreler yerine yazılır.
   {
+    print('_sligingYourHabitAlltimes');
+    print(_sligingYourHabitAlltimes);
     _yourHabits.removeWhere((item) => item['habitName'] == _slidingHeaderText);
 
     Map _editedHabitAdd = {};
@@ -1510,69 +1515,69 @@ class _MainPageState extends State<MainPage> {
                   ],
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 50, 20),
-                  child: InkWell(
-                    onTap: () {
-                      addNewHabitFunction();
-                    },
-                    child: Container(
-                        decoration: BoxDecoration(
-                          gradient: RadialGradient(
-                              center: Alignment(-.5, -.5),
-                              colors: [
-                                Color.fromARGB(255, 191, 179, 206),
-                                Color.fromARGB(255, 159, 140, 181),
-                                Color.fromARGB(255, 134, 107, 165)
-                              ],
-                              radius: .7),
-                          // color: Color(0xffCFFFDC),
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black38,
-                                offset: Offset(5, 5),
-                                spreadRadius: 1,
-                                blurRadius: 10)
-                          ],
-                          // borderRadius: BorderRadius.all(Radius.circular(15))
-                        ),
-                        width: 60,
-                        height: 60,
-                        child: Stack(
-                          children: [
-                            Visibility(
-                              visible: _yourHabits.length >= 5,
-                              child: Align(
-                                alignment: Alignment.topRight,
-                                child: Icon(
-                                  Icons.lock,
-                                  size: 25,
-                                  color: Color.fromARGB(255, 217, 49, 24),
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
+              Positioned(
+                right: 30,
+                bottom: 30,
+                child: InkWell(
+                  onTap: () {
+                    addNewHabitFunction();
+                  },
+                  child: Container(
+                      decoration: BoxDecoration(
+                        gradient: RadialGradient(
+                            center: Alignment(-.5, -.5),
+                            colors: [
+                              Color.fromARGB(255, 191, 179, 206),
+                              Color.fromARGB(255, 159, 140, 181),
+                              Color.fromARGB(255, 134, 107, 165),
+                              Color.fromARGB(255, 99, 74, 127),
+                              Color.fromARGB(255, 67, 45, 93),
+                            ],
+                            radius: .7),
+                        // color: Color(0xffCFFFDC),
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black38,
+                              offset: Offset(5, 5),
+                              spreadRadius: 1,
+                              blurRadius: 10)
+                        ],
+                        // borderRadius: BorderRadius.all(Radius.circular(15))
+                      ),
+                      width: 60,
+                      height: 60,
+                      child: Stack(
+                        children: [
+                          Visibility(
+                            visible: _yourHabits.length >= 5,
+                            child: Align(
+                              alignment: Alignment.topRight,
                               child: Icon(
-                                Icons.add,
-                                size: 35,
-                                color: Color.fromARGB(255, 35, 4, 71),
+                                Icons.lock,
+                                size: 25,
+                                color: Color.fromARGB(255, 149, 149, 149),
                               ),
                             ),
-                          ],
-                        )
-                        // IconTheme(
-                        //   data: new IconThemeData(color: Color(0xff542e71)),
-                        //   child: Icon(
-                        //     Icons.sports_esports,
-                        //     size: 50,
-                        //   ),
-                        // ),
-                        ),
-                  ),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.add,
+                              size: 35,
+                              color: Color.fromARGB(255, 35, 4, 71),
+                            ),
+                          ),
+                        ],
+                      )
+                      // IconTheme(
+                      //   data: new IconThemeData(color: Color(0xff542e71)),
+                      //   child: Icon(
+                      //     Icons.sports_esports,
+                      //     size: 50,
+                      //   ),
+                      // ),
+                      ),
                 ),
               ),
               SlidingUpPanel(
