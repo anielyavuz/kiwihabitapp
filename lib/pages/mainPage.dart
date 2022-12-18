@@ -205,6 +205,12 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  addNewHabitFunction() {
+    if (_yourHabits.length < 5) {
+      print("Yeni habit oluşturabilirsiniz");
+    } else {}
+  }
+
   slidingCompletedProcess()
   //sliging ekranda habit editlemesi tamamlandıktan sonra ilgili parametreler yerine yazılır.
   {
@@ -883,73 +889,111 @@ class _MainPageState extends State<MainPage> {
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
                               child: Container(
-                                height: 90,
+                                height: 55,
                                 decoration: BoxDecoration(
-                                    color: Colors.green,
+                                    color: Color.fromARGB(227, 74, 209, 79),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 width: MediaQuery.of(context).size.width,
-                                child: Stack(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Positioned(
-                                        top: 0.0,
-                                        right: 0.0,
-                                        child: InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              _batterySaver = true;
-                                            });
-                                          },
-                                          child: Icon(
-                                            Icons.close,
-                                            size: 35,
-                                            color: Colors.white,
-                                          ),
-                                        )),
-                                    Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              40, 10, 40, 0),
-                                          child: Text(
-                                            "For better notification timing please disable battery optimization for KiWi",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: _yaziTipiRengi,
-                                              fontSize: 14,
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          3 /
+                                          4,
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 10, 5, 10),
+                                      child: Text(
+                                        "For better notification timing please disable battery optimization for KiWi",
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
 
-                                              fontFamily: 'Times New Roman',
-                                              // fontWeight: FontWeight.bold
+                                          fontFamily: 'Times New Roman',
+                                          // fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width:
+                                          MediaQuery.of(context).size.width / 4,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Container(
+                                            width: 30,
+                                            height: 30,
+                                            child: RawMaterialButton(
+                                              // fillColor: _yaziTipiRengi,
+                                              shape: RoundedRectangleBorder(
+                                                  side: BorderSide(
+                                                      color: _backgroudRengi),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              15.0))),
+                                              // splashColor: Colors.green,
+                                              textStyle: TextStyle(
+                                                  color: _yaziTipiRengi),
+                                              child: Icon(
+                                                Icons.check,
+                                                size: 25,
+                                                color: Colors.black,
+                                              ),
+                                              onPressed: () {
+                                                BatteryOptimization()
+                                                    .showDisableBatteryOptimizationSettings();
+                                                setState(() {
+                                                  _batterySaver = true;
+                                                });
+                                              },
                                             ),
                                           ),
-                                        ),
-                                        RawMaterialButton(
-                                          // fillColor: _yaziTipiRengi,
-                                          shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                  color: _backgroudRengi),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(15.0))),
-                                          // splashColor: Colors.green,
-                                          textStyle:
-                                              TextStyle(color: _yaziTipiRengi),
-                                          child: Text("Disable",
-                                              style: TextStyle(
-                                                color: _yaziTipiRengi,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'Times New Roman',
-                                                // fontWeight: FontWeight.bold
-                                              )),
-                                          onPressed: () {
-                                            BatteryOptimization()
-                                                .showDisableBatteryOptimizationSettings();
-                                            setState(() {
-                                              _batterySaver = true;
-                                            });
-                                          },
-                                        ),
-                                      ],
+                                          // InkWell(
+                                          //   onTap: () {
+                                          //     setState(() {
+                                          //       _batterySaver = true;
+                                          //     });
+                                          //   },
+                                          //   child: Icon(
+                                          //     Icons.close,
+                                          //     size: 35,
+                                          //     color: Colors.white,
+                                          //   ),
+                                          // ),
+                                          Container(
+                                            height: 30,
+                                            width: 30,
+                                            child: RawMaterialButton(
+                                              // fillColor: _yaziTipiRengi,
+                                              shape: RoundedRectangleBorder(
+                                                  side: BorderSide(
+                                                      color: _backgroudRengi),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              15.0))),
+                                              // splashColor: Colors.green,
+                                              textStyle: TextStyle(
+                                                  color: _yaziTipiRengi),
+                                              child: Icon(
+                                                Icons.close,
+                                                size: 25,
+                                                color: Colors.black,
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  _batterySaver = true;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1464,6 +1508,71 @@ class _MainPageState extends State<MainPage> {
                           }),
                     ),
                   ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 50, 20),
+                  child: InkWell(
+                    onTap: () {
+                      addNewHabitFunction();
+                    },
+                    child: Container(
+                        decoration: BoxDecoration(
+                          gradient: RadialGradient(
+                              center: Alignment(-.5, -.5),
+                              colors: [
+                                Color.fromARGB(255, 191, 179, 206),
+                                Color.fromARGB(255, 159, 140, 181),
+                                Color.fromARGB(255, 134, 107, 165)
+                              ],
+                              radius: .7),
+                          // color: Color(0xffCFFFDC),
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black38,
+                                offset: Offset(5, 5),
+                                spreadRadius: 1,
+                                blurRadius: 10)
+                          ],
+                          // borderRadius: BorderRadius.all(Radius.circular(15))
+                        ),
+                        width: 60,
+                        height: 60,
+                        child: Stack(
+                          children: [
+                            Visibility(
+                              visible: _yourHabits.length >= 5,
+                              child: Align(
+                                alignment: Alignment.topRight,
+                                child: Icon(
+                                  Icons.lock,
+                                  size: 25,
+                                  color: Color.fromARGB(255, 217, 49, 24),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.add,
+                                size: 35,
+                                color: Color.fromARGB(255, 35, 4, 71),
+                              ),
+                            ),
+                          ],
+                        )
+                        // IconTheme(
+                        //   data: new IconThemeData(color: Color(0xff542e71)),
+                        //   child: Icon(
+                        //     Icons.sports_esports,
+                        //     size: 50,
+                        //   ),
+                        // ),
+                        ),
+                  ),
                 ),
               ),
               SlidingUpPanel(
