@@ -23,32 +23,32 @@ class IconClass {
       _returnIcon = Icon(
         Icons.school,
         size: size,
-        color: Color.fromARGB(223, 18, 218, 7),
+        color: Color.fromARGB(223, 124, 38, 223),
       );
     } else if (_iconName == 'Art') {
       _returnIcon = Icon(
         Icons.palette,
         size: size,
-        color: Color.fromARGB(223, 18, 218, 7),
+        color: Color.fromARGB(223, 225, 5, 240),
       );
     } else if (_iconName == 'Finance') {
       _returnIcon = Icon(
         Icons.attach_money,
         size: size,
-        color: Color.fromARGB(223, 18, 218, 7),
+        color: Color.fromARGB(223, 12, 162, 7),
       );
     } else if (_iconName == 'Social') {
       _returnIcon = Icon(
         Icons.nightlife,
-        size: size,
-        color: Color.fromARGB(223, 18, 218, 7),
+        size: 25,
+        color: Color.fromARGB(223, 232, 118, 18),
       );
     } else
       () {
         _returnIcon = Icon(
           Icons.nightlife,
           size: size,
-          color: Color.fromARGB(223, 18, 218, 7),
+          color: Color.fromARGB(223, 19, 153, 243),
         );
       };
 
