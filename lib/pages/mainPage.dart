@@ -1688,59 +1688,41 @@ class _MainPageState extends State<MainPage> {
                               )),
                         ],
                       ),
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () {
-                          // slidingCompletedProcess();
-                          removeHabit();
-                          _pc.close();
-
-                          // print("----------");
-                          // print('_habitDays');
-                          // print(_habitDays);
-
-                          // print("----------");
-                          // print('_habitDays');
-                          // print(_habitDays);
-
-                          // print("----------");
-                          // print('_habitDays');
-                          // print(_habitDays);
-
-                          // print("----------");
-                          // print('_habitDetails');
-                          // print(_habitDetails);
-
-                          // print("_sligingYourHabitAlltimes");
-                          // print(_sligingYourHabitAlltimes);
-                          // print("---------------");
-                          // print("_yourHabits");
-                          // print(_yourHabits);
-
-                          // print("---------------");
-                          // print("_habitDetails");
-                          // print(_habitDetails);
-
-                          // print("---------------");
-                          // print("_slidingItemWeekDaysList");
-                          // print(_slidingItemWeekDaysList);
-
-                          // print("---------------");
-
-                          // print("_habitDays");
-                          // print(_habitDays);
-                          // print("---------------");
-
-                          // print("_sligingYourHabitAlltimes");
-                          // print(_sligingYourHabitAlltimes);
-                          // print("---------------");
-                        },
-                        child: Icon(
-                          Icons.check,
-                          size: 25,
-                          color: Color.fromARGB(223, 130, 122, 121),
-                        ),
+                      Row(
+                        children: [
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              removeHabit();
+                              _pc.close();
+                            },
+                            child: Text("Cancel",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 138, 24, 16),
+                                  fontSize: 12,
+                                  fontFamily: 'Times New Roman',
+                                  // fontWeight: FontWeight.bold
+                                )),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              slidingCompletedProcess();
+                              _pc.close();
+                            },
+                            child: Icon(
+                              Icons.check,
+                              size: 30,
+                              color: Color(0xff77A830),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -2436,6 +2418,35 @@ class _MainPageState extends State<MainPage> {
                                               onPressed: null),
                                         );
                                       }),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width*3/5,
+                                  decoration: BoxDecoration(
+                                                color: Color.fromARGB(62, 138, 24, 16),
+                                                border: Border.all(
+                                                    color:
+                                                        Color.fromARGB(255, 138, 24, 16)),
+                                                borderRadius:
+                                                    BorderRadius.circular(50)),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () {
+                                      removeHabit();
+                                      _pc.close();
+                                    },
+                                    child: Text("Delete Habit",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Color.fromARGB(255, 138, 24, 16),
+                                          fontSize: 20,
+                                          fontFamily: 'Times New Roman',
+                                          // fontWeight: FontWeight.bold
+                                        )),
+                                  ),
                                 ),
                               ),
                             ],
