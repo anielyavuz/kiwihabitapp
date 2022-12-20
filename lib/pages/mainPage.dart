@@ -34,6 +34,7 @@ class _MainPageState extends State<MainPage> {
   List _slidingItemWeekDaysList = [];
   int _slidingCountADay = 1;
   String _slidingIconName = "Yoga";
+  bool _editleme = true;
   Icon _slidingIcon = Icon(
     Icons.volunteer_activism,
     size: 25,
@@ -205,6 +206,35 @@ class _MainPageState extends State<MainPage> {
       _opacityAnimationDuration = 250;
       _opacityAnimation = 1;
       currentDayHabits();
+    });
+  }
+
+  removeHabit() {
+    setState(() {
+      _editleme = false;
+    });
+    print("AAA");
+    print(_yourHabits);
+    setState(() {
+      _yourHabits
+          .removeWhere((item) => item['habitName'] == _slidingHeaderText);
+
+      _habitDetails.removeWhere((key, value) => key == _slidingHeaderText);
+      _habitDays.removeWhere((key, value) => key == _slidingHeaderText);
+    });
+    print("BBB");
+    print(_yourHabits);
+    print("001");
+    box.put("chooseYourHabitsHive", _yourHabits);
+    print("002");
+    box.put("habitDetailsHive", _habitDetails);
+    print("003");
+    box.put("habitDays", _habitDays);
+
+    recalculateListWithAnimation();
+
+    Future.delayed(const Duration(milliseconds: 2500), () {
+      notificaitonMap();
     });
   }
 
@@ -1437,7 +1467,7 @@ class _MainPageState extends State<MainPage> {
                                   milliseconds: _opacityAnimationDuration),
                               opacity: _opacityAnimation,
                               child: Container(
-                                padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                 width: MediaQuery.of(context).size.width / 3,
                                 child: RawMaterialButton(
                                     fillColor: Color.fromARGB(90, 54, 151, 42),
@@ -1616,7 +1646,13 @@ class _MainPageState extends State<MainPage> {
               SlidingUpPanel(
                 onPanelSlide: (double pos) {
                   if (pos == 0.0) {
-                    slidingCompletedProcess();
+                    if (_editleme) {
+                      slidingCompletedProcess();
+                    } else {
+                      setState(() {
+                        _editleme = true;
+                      });
+                    }
                   }
                 },
 
@@ -1656,7 +1692,8 @@ class _MainPageState extends State<MainPage> {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () {
-                          slidingCompletedProcess();
+                          // slidingCompletedProcess();
+                          removeHabit();
                           _pc.close();
 
                           // print("----------");
