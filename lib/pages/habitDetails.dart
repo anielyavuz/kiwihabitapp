@@ -855,10 +855,24 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                   TimeOfDay?
                                                                       newTime =
                                                                       await showTimePicker(
-                                                                          context:
-                                                                              context,
-                                                                          initialTime:
-                                                                              _yourHabits[index]['_allTimes'][index2]['time']);
+                                                                    context:
+                                                                        context,
+                                                                    initialTime:
+                                                                        _yourHabits[index]['_allTimes'][index2]
+                                                                            [
+                                                                            'time'],
+                                                                    builder:
+                                                                        (context,
+                                                                            child) {
+                                                                      return MediaQuery(
+                                                                        data: MediaQuery.of(context).copyWith(
+                                                                            alwaysUse24HourFormat:
+                                                                                true),
+                                                                        child: child ??
+                                                                            Container(),
+                                                                      );
+                                                                    },
+                                                                  );
                                                                   if (newTime ==
                                                                       null)
                                                                     return;

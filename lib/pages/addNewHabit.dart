@@ -568,11 +568,12 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                           textStyle:
                                               TextStyle(color: _yaziTipiRengi),
                                           child: Text(
-                                              DateFormat('E').format(
-                                                  DateTime(2000, 1, 3).add(
-                                                      Duration(
-                                                          days: int.parse(
-                                                              day['day'])))),
+                                              DateFormat(
+                                                      'E',
+                                                      Localizations.localeOf(context)
+                                                          .toString())
+                                                  .format(DateTime(2000, 1, 3).add(
+                                                      Duration(days: int.parse(day['day'])))),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 color: Color.fromRGBO(
@@ -953,23 +954,40 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                                       ),
                                                       InkWell(
                                                         onTap: () async {
-                                                          TimeOfDay? newTime = await showTimePicker(
-                                                              context: context,
-                                                              initialTime: TimeOfDay(
-                                                                  hour: int.parse(_slidingYourHabitAlltimes[index2]['time']
-                                                                          .toString()
-                                                                          .split("(")[
-                                                                              1]
-                                                                          .split(")")[
-                                                                              0]
-                                                                          .split(":")[
-                                                                      0]),
-                                                                  minute: int.parse(_slidingYourHabitAlltimes[index2]
-                                                                          ['time']
-                                                                      .toString()
-                                                                      .split("(")[1]
-                                                                      .split(")")[0]
-                                                                      .split(":")[1])));
+                                                          TimeOfDay? newTime =
+                                                              await showTimePicker(
+                                                            context: context,
+                                                            initialTime: TimeOfDay(
+                                                                hour: int.parse(_slidingYourHabitAlltimes[index2]
+                                                                            ['time']
+                                                                        .toString()
+                                                                        .split(
+                                                                            "(")[1]
+                                                                        .split(
+                                                                            ")")[0]
+                                                                        .split(
+                                                                            ":")[
+                                                                    0]),
+                                                                minute: int.parse(_slidingYourHabitAlltimes[
+                                                                            index2]
+                                                                        ['time']
+                                                                    .toString()
+                                                                    .split("(")[1]
+                                                                    .split(")")[0]
+                                                                    .split(":")[1])),
+                                                            builder: (context,
+                                                                child) {
+                                                              return MediaQuery(
+                                                                data: MediaQuery.of(
+                                                                        context)
+                                                                    .copyWith(
+                                                                        alwaysUse24HourFormat:
+                                                                            true),
+                                                                child: child ??
+                                                                    Container(),
+                                                              );
+                                                            },
+                                                          );
                                                           if (newTime == null)
                                                             return;
                                                           else {

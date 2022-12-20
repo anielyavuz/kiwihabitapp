@@ -18,6 +18,7 @@ import 'package:intl/intl.dart';
 import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:kiwihabitapp/services/local_notification_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -27,6 +28,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late var _todayText = AppLocalizations.of(context)!.todayText.toString();
   bool _slidingCheckBoxEveryDay = true;
   List _sligingYourHabitAlltimes = [];
   List _slidingItemWeekDaysList = [];
@@ -601,7 +603,7 @@ class _MainPageState extends State<MainPage> {
                     accountName: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text("Today",
+                        Text(_todayText,
                             style: TextStyle(
                               color: _backgroudRengi,
                               // fontWeight: FontWeight.bold,
@@ -611,7 +613,10 @@ class _MainPageState extends State<MainPage> {
                         Column(
                           children: [
                             Text(
-                                DateFormat('EEEE')
+                                DateFormat(
+                                        'EEEE',
+                                        Localizations.localeOf(context)
+                                            .toString())
                                     .format(DateTime.now())
                                     .toString(),
                                 style: TextStyle(
@@ -621,7 +626,10 @@ class _MainPageState extends State<MainPage> {
                                   // fontFamily: 'Times New Roman'
                                 )),
                             Text(
-                                DateFormat('dd MMMM yyyy')
+                                DateFormat(
+                                        'dd MMMM yyyy',
+                                        Localizations.localeOf(context)
+                                            .toString())
                                     .format(DateTime.now())
                                     .toString(),
                                 style: TextStyle(
@@ -694,13 +702,14 @@ class _MainPageState extends State<MainPage> {
                                   splashColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    print(_todayText);
                                     // notificationsServices
                                     //     .specificTimeNotification(
                                     //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
 
                                     //////////BURASI ÖNEMLİ////////////
-                                    notificationsServices.sendNotifications(
-                                        "KiWi🥝", "Yoga zamanı 💁");
+                                    // notificationsServices.sendNotifications(
+                                    //     "KiWi🥝", "Yoga zamanı 💁");
 
                                     // notificationsServices
                                     //     .sendPayloadNotifications(
@@ -787,8 +796,9 @@ class _MainPageState extends State<MainPage> {
                       (DateFormat('yyyy-MM-dd')
                           .format(DateTime.now())
                           .toString())
-                  ? "Today"
-                  : DateFormat('dd MMMM yyyy')
+                  ? _todayText
+                  : DateFormat('dd MMMM yyyy',
+                          Localizations.localeOf(context).toString())
                       .format(days[_currentIndexCalendar])
                       .toString(),
               style: TextStyle(
@@ -805,6 +815,7 @@ class _MainPageState extends State<MainPage> {
               ),
               onPressed: () async {
                 DateTime? _selectedDate = await showDatePicker(
+                    locale: Localizations.localeOf(context),
                     builder: (context, child) {
                       return Theme(
                         data: Theme.of(context).copyWith(
@@ -1086,7 +1097,12 @@ class _MainPageState extends State<MainPage> {
                                                   ),
                                                   child: Center(
                                                     child: Text(
-                                                        DateFormat('E')
+                                                        DateFormat(
+                                                                'E',
+                                                                Localizations
+                                                                        .localeOf(
+                                                                            context)
+                                                                    .toString())
                                                             .format(days[index])
                                                             .toString(),
                                                         style: days[index]
@@ -1890,11 +1906,12 @@ class _MainPageState extends State<MainPage> {
                                         textStyle:
                                             TextStyle(color: _yaziTipiRengi),
                                         child: Text(
-                                            DateFormat('E').format(
-                                                DateTime(2000, 1, 3).add(
-                                                    Duration(
-                                                        days: int.parse(
-                                                            day['day'])))),
+                                            DateFormat(
+                                                    'E',
+                                                    Localizations.localeOf(context)
+                                                        .toString())
+                                                .format(DateTime(2000, 1, 3).add(
+                                                    Duration(days: int.parse(day['day'])))),
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color:
@@ -2284,24 +2301,39 @@ class _MainPageState extends State<MainPage> {
                                                           highlightColor: Colors
                                                               .transparent,
                                                           onTap: () async {
-                                                            TimeOfDay? newTime = await showTimePicker(
-                                                                context:
-                                                                    context,
-                                                                initialTime: TimeOfDay(
-                                                                    hour: int.parse(_sligingYourHabitAlltimes[index2]['time']
-                                                                            .toString()
-                                                                            .split("(")[
-                                                                                1]
-                                                                            .split(")")[
-                                                                                0]
-                                                                            .split(":")[
-                                                                        0]),
-                                                                    minute: int.parse(_sligingYourHabitAlltimes[index2]
-                                                                            ['time']
-                                                                        .toString()
-                                                                        .split("(")[1]
-                                                                        .split(")")[0]
-                                                                        .split(":")[1])));
+                                                            TimeOfDay? newTime =
+                                                                await showTimePicker(
+                                                              context: context,
+                                                              initialTime: TimeOfDay(
+                                                                  hour: int.parse(_sligingYourHabitAlltimes[index2]['time']
+                                                                          .toString()
+                                                                          .split("(")[
+                                                                              1]
+                                                                          .split(")")[
+                                                                              0]
+                                                                          .split(":")[
+                                                                      0]),
+                                                                  minute: int.parse(_sligingYourHabitAlltimes[index2]
+                                                                          [
+                                                                          'time']
+                                                                      .toString()
+                                                                      .split(
+                                                                          "(")[1]
+                                                                      .split(")")[0]
+                                                                      .split(":")[1])),
+                                                              builder: (context,
+                                                                  child) {
+                                                                return MediaQuery(
+                                                                  data: MediaQuery.of(
+                                                                          context)
+                                                                      .copyWith(
+                                                                          alwaysUse24HourFormat:
+                                                                              true),
+                                                                  child: child ??
+                                                                      Container(),
+                                                                );
+                                                              },
+                                                            );
                                                             if (newTime == null)
                                                               return;
                                                             else {

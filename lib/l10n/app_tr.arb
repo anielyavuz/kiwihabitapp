@@ -4,5 +4,6 @@
     "appHeader":"KiWi - Alışkanlık Takip",
 
     "addYourFirstHabitButton":"İlk alışkanlığını ekle",
-    "allreadyHaveKiwiButton":"Zaten bir KiWi hesabın mı var?"
+    "allreadyHaveKiwiButton":"Zaten bir KiWi hesabın mı var?",
+    "todayText":"Bugün"
 }

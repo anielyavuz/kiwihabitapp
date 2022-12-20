@@ -4,6 +4,7 @@
     "helloWorld":"Hello World! Almanca",
       "appHeader":"KiWi - Gewohnheitsverfolgung",
       "addYourFirstHabitButton":"Fügen Sie Ihre erste Gewohnheit hinzu",
-"allreadyHaveKiwiButton":" Sie haben bereits ein KiWi-Konto?"
+"allreadyHaveKiwiButton":" Sie haben bereits ein KiWi-Konto?",
+    "todayText":"Heute"
      
 }

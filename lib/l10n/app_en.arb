@@ -21,5 +21,10 @@
     "@allreadyHaveKiwiButton":{
         "description":"Already have any habits in KiWi? area"
     }
+    ,
+     "todayText":"Today",
+    "@todayText":{
+        "description":"todayText area"
+    }
 
 }
