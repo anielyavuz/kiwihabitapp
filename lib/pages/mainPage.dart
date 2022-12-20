@@ -1437,11 +1437,12 @@ class _MainPageState extends State<MainPage> {
                                   milliseconds: _opacityAnimationDuration),
                               opacity: _opacityAnimation,
                               child: Container(
+                                padding: const EdgeInsets.fromLTRB(5,0,5,0),
                                 width: MediaQuery.of(context).size.width / 3,
                                 child: RawMaterialButton(
-                                    // fillColor: _yaziTipiRengi,
+                                    fillColor: Color.fromARGB(90, 54, 151, 42),
                                     shape: RoundedRectangleBorder(
-                                        side: BorderSide(color: _yaziTipiRengi),
+                                        side: BorderSide(),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(15.0))),
                                     // splashColor: Colors.green,
