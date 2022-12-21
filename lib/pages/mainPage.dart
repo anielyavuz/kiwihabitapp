@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:kiwihabitapp/pages/addNewHabit.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
+import 'package:kiwihabitapp/pages/graphicPage.dart';
 import 'package:kiwihabitapp/services/batteryOptimization.dart';
 import 'package:kiwihabitapp/services/iconClass.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -703,28 +704,28 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           Column(
                             children: [
-                              // ListTile(
-                              //   leading: Icon(Icons.info_rounded),
-                              //   title: InkWell(
-                              //     onTap: () async {
-                              //       BatteryOptimization()
-                              //           .showDisableBatteryOptimizationSettings();
-                              //       // print(_yourHabits);
-
-                              //       // notificaitonMap();
-                              //     },
-                              //     child: Container(
-                              //       child: Text("Disable Battery Optimization",
-                              //           style: TextStyle(
-                              //             color: _backgroudRengi,
-                              //             fontSize: 18,
-                              //             fontWeight: FontWeight.bold,
-                              //             fontFamily: 'Times New Roman',
-                              //             // fontWeight: FontWeight.bold
-                              //           )),
-                              //     ),
-                              //   ),
-                              // ),
+                              ListTile(
+                                leading: Icon(Icons.graphic_eq),
+                                title: InkWell(
+                                  onTap: () async {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                GraphicPage()));
+                                  },
+                                  child: Container(
+                                    child: Text("Detail Analysis",
+                                        style: TextStyle(
+                                          color: _backgroudRengi,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Times New Roman',
+                                          // fontWeight: FontWeight.bold
+                                        )),
+                                  ),
+                                ),
+                              ),
                               ListTile(
                                 leading:
                                     Icon(Icons.notification_important_rounded),
@@ -1694,7 +1695,9 @@ class _MainPageState extends State<MainPage> {
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () {
-                              removeHabit();
+                              setState(() {
+                                _editleme = false;
+                              });
                               _pc.close();
                             },
                             child: Text("Cancel",
@@ -2423,14 +2426,14 @@ class _MainPageState extends State<MainPage> {
                               Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width*3/5,
+                                  width:
+                                      MediaQuery.of(context).size.width * 3 / 5,
                                   decoration: BoxDecoration(
-                                                color: Color.fromARGB(62, 138, 24, 16),
-                                                border: Border.all(
-                                                    color:
-                                                        Color.fromARGB(255, 138, 24, 16)),
-                                                borderRadius:
-                                                    BorderRadius.circular(50)),
+                                      color: Color.fromARGB(62, 138, 24, 16),
+                                      border: Border.all(
+                                          color:
+                                              Color.fromARGB(255, 138, 24, 16)),
+                                      borderRadius: BorderRadius.circular(50)),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
@@ -2441,7 +2444,8 @@ class _MainPageState extends State<MainPage> {
                                     child: Text("Delete Habit",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          color: Color.fromARGB(255, 138, 24, 16),
+                                          color: Color.fromARGB(
+                                              255, 218, 199, 198),
                                           fontSize: 20,
                                           fontFamily: 'Times New Roman',
                                           // fontWeight: FontWeight.bold
