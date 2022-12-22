@@ -53,6 +53,7 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   disable_battery_optimization: ^1.1.0+1
   fl_chart: ^0.55.2
+  curved_navigation_bar: ^1.0.3
   # firebase_auth: ^0.6.2+1
 dependency_overrides:
   firebase_core_platform_interface: 4.5.1

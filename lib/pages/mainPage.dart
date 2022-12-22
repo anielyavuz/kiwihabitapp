@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:kiwihabitapp/pages/addNewHabit.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
@@ -623,6 +624,34 @@ class _MainPageState extends State<MainPage> {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     return MaterialApp(
       home: Scaffold(
+        bottomNavigationBar: CurvedNavigationBar(
+            onTap: (value) {
+              print(value);
+            },
+            backgroundColor: Color.fromARGB(90, 54, 151, 42),
+            color: _backgroudRengi,
+            items: [
+              Icon(
+                Icons.person,
+                color: _yaziTipiRengi,
+              ),
+              Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
+                    child: Icon(
+                      Icons.lock,
+                      size: 20,
+                      color: Color.fromARGB(255, 149, 149, 149),
+                    ),
+                  ),
+                  Icon(
+                    Icons.people,
+                    color: _yaziTipiRengi,
+                  ),
+                ],
+              )
+            ]),
         drawer: Drawer(
             backgroundColor: _yaziTipiRengi,
             child: Container(
