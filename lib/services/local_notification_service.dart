@@ -31,7 +31,7 @@ class NotificationsServices {
   final BehaviorSubject<String?> onNotificationClick = BehaviorSubject();
 
   final AndroidInitializationSettings _androidInitializationSettings =
-      AndroidInitializationSettings('logo');
+      AndroidInitializationSettings('@drawable/ic_kiwilogo');
   final IOSInitializationSettings iosInitializationSettings =
       IOSInitializationSettings(
           requestAlertPermission: true,

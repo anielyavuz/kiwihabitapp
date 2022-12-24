@@ -625,10 +625,11 @@ class _MainPageState extends State<MainPage> {
     return MaterialApp(
       home: Scaffold(
         bottomNavigationBar: CurvedNavigationBar(
+            height: 40,
             onTap: (value) {
               print(value);
             },
-            backgroundColor: Color.fromARGB(90, 54, 151, 42),
+            backgroundColor: Color.fromARGB(255, 48, 135, 51),
             color: _backgroudRengi,
             items: [
               Icon(
@@ -646,7 +647,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                   Icon(
-                    Icons.people,
+                    Icons.groups,
                     color: _yaziTipiRengi,
                   ),
                 ],
@@ -734,7 +735,7 @@ class _MainPageState extends State<MainPage> {
                           Column(
                             children: [
                               ListTile(
-                                leading: Icon(Icons.graphic_eq),
+                                leading: Icon(Icons.analytics),
                                 title: InkWell(
                                   onTap: () async {
                                     Navigator.push(
@@ -744,7 +745,7 @@ class _MainPageState extends State<MainPage> {
                                                 GraphicPage()));
                                   },
                                   child: Container(
-                                    child: Text("Detail Analysis",
+                                    child: Text("Analytics",
                                         style: TextStyle(
                                           color: _backgroudRengi,
                                           fontSize: 18,
