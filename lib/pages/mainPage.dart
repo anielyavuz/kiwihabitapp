@@ -7,6 +7,7 @@ import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/pages/graphicPage.dart';
 import 'package:kiwihabitapp/services/batteryOptimization.dart';
 import 'package:kiwihabitapp/services/iconClass.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 
@@ -31,6 +32,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late var _todayText = AppLocalizations.of(context)!.todayText.toString();
+
   bool _slidingCheckBoxEveryDay = true;
   List _sligingYourHabitAlltimes = [];
   List _slidingItemWeekDaysList = [];
@@ -42,7 +44,8 @@ class _MainPageState extends State<MainPage> {
     size: 25,
     color: Color.fromARGB(223, 218, 21, 7),
   );
-
+  String version = "";
+  String code = "";
   String _slidingHeaderText = "Drink Water";
   PanelController _pc = new PanelController();
   int _expand1 = 4;
@@ -115,6 +118,14 @@ class _MainPageState extends State<MainPage> {
     }
 
     return days;
+  }
+
+  versionInform() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      version = packageInfo.version;
+      code = packageInfo.buildNumber;
+    });
   }
 
   notificaitonMap() {
@@ -585,6 +596,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+
     checkBatterySaverMode();
     // notificaitonMap();
     listenToNotification(); //payload için
@@ -599,6 +611,7 @@ class _MainPageState extends State<MainPage> {
 
     box = Hive.box("kiwiHive");
     getCurrentChooseYourHabits();
+    versionInform();
   }
 
   copyDeepMap(map) {
@@ -837,6 +850,23 @@ class _MainPageState extends State<MainPage> {
                                           fontFamily: 'Times New Roman',
                                           // fontWeight: FontWeight.bold
                                         )),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: ListTile(
+                                  leading: Icon(Icons.info_rounded),
+                                  title: Container(
+                                    child:
+                                        Text("Version: " + version.toString(),
+                                            style: TextStyle(
+                                              color: _backgroudRengi,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Times New Roman',
+                                              // fontWeight: FontWeight.bold
+                                            )),
                                   ),
                                 ),
                               ),
