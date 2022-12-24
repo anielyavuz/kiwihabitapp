@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:kiwihabitapp/pages/addNewHabit.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/pages/graphicPage.dart';
 import 'package:kiwihabitapp/services/batteryOptimization.dart';
+import 'package:kiwihabitapp/services/firestoreClass.dart';
 import 'package:kiwihabitapp/services/iconClass.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 
@@ -32,11 +35,13 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late var _todayText = AppLocalizations.of(context)!.todayText.toString();
-
+  var _userInfo;
+  var _configsInfo;
   bool _slidingCheckBoxEveryDay = true;
   List _sligingYourHabitAlltimes = [];
   List _slidingItemWeekDaysList = [];
   int _slidingCountADay = 1;
+  int _configsInfoInteger = 0;
   String _slidingIconName = "Yoga";
   bool _editleme = true;
   Icon _slidingIcon = Icon(
@@ -633,39 +638,53 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (Provider.of<QuerySnapshot> != null &&
+        Provider.of<DocumentSnapshot> != null) {
+      _userInfo = Provider.of<DocumentSnapshot>(context).data();
+
+      _configsInfo = Provider.of<QuerySnapshot>(context);
+      if (_userInfo['userAuth'] == "Test") {
+        _configsInfoInteger = 1;
+      } else {
+        _configsInfoInteger = 0;
+      }
+    }
+
     AuthService _authService = AuthService();
     final FirebaseAuth _auth = FirebaseAuth.instance;
     return MaterialApp(
       home: Scaffold(
-        bottomNavigationBar: CurvedNavigationBar(
-            height: 40,
-            onTap: (value) {
-              print(value);
-            },
-            backgroundColor: Color.fromARGB(255, 48, 135, 51),
-            color: _backgroudRengi,
-            items: [
-              Icon(
-                Icons.person,
-                color: _yaziTipiRengi,
-              ),
-              Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
-                    child: Icon(
-                      Icons.lock,
-                      size: 20,
-                      color: Color.fromARGB(255, 149, 149, 149),
+        bottomNavigationBar: _configsInfo.docs[_configsInfoInteger]['Social']
+            ? CurvedNavigationBar(
+                height: 40,
+                onTap: (value) {
+                  print(value);
+                },
+                backgroundColor: Color.fromARGB(255, 48, 135, 51),
+                color: _backgroudRengi,
+                items: [
+                    Icon(
+                      Icons.person,
+                      color: _yaziTipiRengi,
                     ),
-                  ),
-                  Icon(
-                    Icons.groups,
-                    color: _yaziTipiRengi,
-                  ),
-                ],
-              )
-            ]),
+                    Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
+                          child: Icon(
+                            Icons.lock,
+                            size: 20,
+                            color: Color.fromARGB(255, 149, 149, 149),
+                          ),
+                        ),
+                        Icon(
+                          Icons.groups,
+                          color: _yaziTipiRengi,
+                        ),
+                      ],
+                    )
+                  ])
+            : null,
         drawer: Drawer(
             backgroundColor: _yaziTipiRengi,
             child: Container(
@@ -776,14 +795,18 @@ class _MainPageState extends State<MainPage> {
                                   splashColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    print(_todayText);
+                                    // CloudDB().getDataFromFireStore();
+
+                                    print(_configsInfo.docs[_configsInfoInteger]
+                                        ['Social']);
+                                    // print(_todayText);
                                     // notificationsServices
                                     //     .specificTimeNotification(
                                     //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
 
                                     //////////BURASI ÖNEMLİ////////////
-                                    notificationsServices.sendNotifications(
-                                        "KiWi🥝", "Yoga zamanı 💁");
+                                    // notificationsServices.sendNotifications(
+                                    //     "KiWi🥝", "Yoga zamanı 💁");
 
                                     // notificationsServices
                                     //     .sendPayloadNotifications(
