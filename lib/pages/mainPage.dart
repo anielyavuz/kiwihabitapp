@@ -806,8 +806,8 @@ class _MainPageState extends State<MainPage> {
                                     //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
 
                                     //////////BURASI ÖNEMLİ////////////
-                                    // notificationsServices.sendNotifications(
-                                    //     "KiWi🥝", "Yoga zamanı 💁");
+                                    notificationsServices.sendNotifications(
+                                        "KiWi🥝", "Yoga zamanı 💁");
 
                                     // notificationsServices
                                     //     .sendPayloadNotifications(
@@ -1331,6 +1331,10 @@ class _MainPageState extends State<MainPage> {
                                   actionPane: SlidableDrawerActionPane(),
                                   actionExtentRatio: 0.2,
                                   secondaryActions: [
+                                    IconSlideAction(
+                                        caption: "Edit",
+                                        icon: Icons.edit,
+                                        onTap: () {}),
                                     IconSlideAction(
                                         caption: "Delete",
                                         icon: Icons.delete,
