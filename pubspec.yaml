@@ -54,9 +54,10 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   disable_battery_optimization: ^1.1.0+1
   fl_chart: ^0.55.2
-  curved_navigation_bar: ^1.0.3
+  
   package_info_plus: ^1.4.2
   flutter_slidable: ^0.6.0
+  google_nav_bar: ^5.0.6
   # firebase_auth: ^0.6.2+1
 dependency_overrides:
   firebase_core_platform_interface: 4.5.1
