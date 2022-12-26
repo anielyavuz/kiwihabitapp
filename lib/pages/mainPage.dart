@@ -1405,10 +1405,14 @@ class _MainPageState extends State<MainPage> {
                                                 children: [
                                                   Row(
                                                     children: [
-                                                      _icons[_habitDetails[
-                                                              _currentDayHabit[
-                                                                  indexOfCurrentDayHabit]]
-                                                          ['habitCategory']],
+                                                      _habitDetails[_currentDayHabit[
+                                                                  indexOfCurrentDayHabit]] !=
+                                                              null
+                                                          ? _icons[_habitDetails[
+                                                                  _currentDayHabit[
+                                                                      indexOfCurrentDayHabit]]
+                                                              ['habitCategory']]
+                                                          : SizedBox(),
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
