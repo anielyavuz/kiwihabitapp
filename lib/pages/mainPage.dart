@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:kiwihabitapp/pages/addNewHabit.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
@@ -1326,172 +1327,194 @@ class _MainPageState extends State<MainPage> {
                                 duration: Duration(
                                     milliseconds: _opacityAnimationDuration),
                                 opacity: _opacityAnimation,
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  child: RawMaterialButton(
-                                      fillColor:
-                                          Color.fromARGB(255, 40, 25, 56),
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15.0))),
-                                      // splashColor: Colors.green,
-                                      textStyle:
-                                          TextStyle(color: _yaziTipiRengi),
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            15, 5, 15, 5),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                _icons[_habitDetails[
-                                                        _currentDayHabit[
-                                                            indexOfCurrentDayHabit]]
-                                                    ['habitCategory']],
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          5, 0, 0, 0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(_currentDayHabit[
-                                                          indexOfCurrentDayHabit]),
-                                                      // Text(remainHabitTimeRepeat(
-                                                      //         _currentDayHabit[
-                                                      //             indexOfCurrentDayHabit])
-                                                      //     .toString()),
-                                                      Text(_habitDetails[_currentDayHabit[
-                                                                      indexOfCurrentDayHabit]]
-                                                                  ['_allTimes'][
-                                                              remainHabitTimeRepeat(
-                                                                  _currentDayHabit[
-                                                                      indexOfCurrentDayHabit])]['time']
-                                                          .split('(')[1]
-                                                          .split(')')[0])
-                                                    ],
+                                child: Slidable(
+                                  actionPane: SlidableDrawerActionPane(),
+                                  actionExtentRatio: 0.2,
+                                  secondaryActions: [
+                                    IconSlideAction(
+                                        caption: "Delete",
+                                        icon: Icons.delete,
+                                        onTap: () {})
+                                  ],
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 3,
+                                    child: RawMaterialButton(
+                                        fillColor:
+                                            Color.fromARGB(255, 40, 25, 56),
+                                        shape: RoundedRectangleBorder(
+                                            side: BorderSide(),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15.0))),
+                                        // splashColor: Colors.green,
+                                        textStyle:
+                                            TextStyle(color: _yaziTipiRengi),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              15, 5, 15, 5),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  _icons[_habitDetails[
+                                                          _currentDayHabit[
+                                                              indexOfCurrentDayHabit]]
+                                                      ['habitCategory']],
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(5, 0, 0, 0),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(_currentDayHabit[
+                                                            indexOfCurrentDayHabit]),
+                                                        // Text(remainHabitTimeRepeat(
+                                                        //         _currentDayHabit[
+                                                        //             indexOfCurrentDayHabit])
+                                                        //     .toString()),
+                                                        Text(_habitDetails[_currentDayHabit[
+                                                                        indexOfCurrentDayHabit]]
+                                                                    [
+                                                                    '_allTimes']
+                                                                [
+                                                                remainHabitTimeRepeat(
+                                                                    _currentDayHabit[
+                                                                        indexOfCurrentDayHabit])]['time']
+                                                            .split('(')[1]
+                                                            .split(')')[0])
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () {
-                                                // compareCurrentAndCompleted();
-                                              },
-                                              child: Container(
-                                                width: 20,
-                                                height: 20,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.amber,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                                child: Text(
-
-                                                    ////TEST
-                                                    remainHabitRepeat(
-                                                            _currentDayHabit[
-                                                                indexOfCurrentDayHabit])
-                                                        .toString()
-                                                    // _habitDetails[_currentDayHabit[
-                                                    //             indexOfCurrentDayHabit]]
-                                                    //         ['_allTimes']
-                                                    //     .length
-                                                    //     .toString()
-
-                                                    ,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: _backgroudRengi,
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontFamily:
-                                                          'Times New Roman',
-                                                      // fontWeight: FontWeight.bold
-                                                    )),
+                                                ],
                                               ),
-                                            ),
-                                          ],
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () {
+                                                  // compareCurrentAndCompleted();
+                                                },
+                                                child: Container(
+                                                  width: 20,
+                                                  height: 20,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.amber,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  child: Text(
+
+                                                      ////TEST
+                                                      remainHabitRepeat(
+                                                              _currentDayHabit[
+                                                                  indexOfCurrentDayHabit])
+                                                          .toString()
+                                                      // _habitDetails[_currentDayHabit[
+                                                      //             indexOfCurrentDayHabit]]
+                                                      //         ['_allTimes']
+                                                      //     .length
+                                                      //     .toString()
+
+                                                      ,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        color: _backgroudRengi,
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily:
+                                                            'Times New Roman',
+                                                        // fontWeight: FontWeight.bold
+                                                      )),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      onLongPress: () {
-                                        editSingleHabit(
-                                          _currentDayHabit[
-                                              indexOfCurrentDayHabit],
-                                        );
-                                      },
-                                      onPressed: !DateTime.parse(DateFormat(
-                                                      'yyyy-MM-dd')
-                                                  .format(days[
-                                                      _currentIndexCalendar])
-                                                  .toString())
-                                              .isAfter(DateTime.parse(
-                                                  DateFormat('yyyy-MM-dd')
-                                                      .format(DateTime.now())
-                                                      .toString()))
-                                          ? () {
-                                              ////// Today veya önceki günlerde butona basılırsa çalışsın. Gelecek günlerde butona basılırsa çalışmasın çünkü henüz o günün habit'i yapılmadı.
-                                              if (!DateTime.parse(DateFormat(
-                                                          'yyyy-MM-dd')
-                                                      .format(days[
-                                                          _currentIndexCalendar])
-                                                      .toString())
-                                                  .isAfter(DateTime.parse(
-                                                      DateFormat('yyyy-MM-dd')
-                                                          .format(
-                                                              DateTime.now())
-                                                          .toString()))) {
-                                                if (_completedHabits[DateFormat(
-                                                            'dd MMMM yyyy')
+                                        onLongPress: () {
+                                          editSingleHabit(
+                                            _currentDayHabit[
+                                                indexOfCurrentDayHabit],
+                                          );
+                                        },
+                                        onPressed: !DateTime.parse(DateFormat(
+                                                        'yyyy-MM-dd')
+                                                    .format(days[
+                                                        _currentIndexCalendar])
+                                                    .toString())
+                                                .isAfter(DateTime.parse(
+                                                    DateFormat('yyyy-MM-dd')
+                                                        .format(DateTime.now())
+                                                        .toString()))
+                                            ? () {
+                                                ////// Today veya önceki günlerde butona basılırsa çalışsın. Gelecek günlerde butona basılırsa çalışmasın çünkü henüz o günün habit'i yapılmadı.
+                                                if (!DateTime.parse(DateFormat(
+                                                            'yyyy-MM-dd')
                                                         .format(days[
                                                             _currentIndexCalendar])
-                                                        .toString()] !=
-                                                    null) {
-                                                  // print(_habitDetails[_currentDayHabit[
-                                                  //         indexOfCurrentDayHabit]]
-                                                  //     ['_allTimes'][_completedHabits[
-                                                  //         DateFormat('dd MMMM yyyy')
-                                                  //             .format(days[
-                                                  //                 _currentIndexCalendar])
-                                                  //             .toString()][_currentDayHabit[
-                                                  //         indexOfCurrentDayHabit]]
-                                                  //     .length]);
-
-                                                  //ilginç sorun
+                                                        .toString())
+                                                    .isAfter(DateTime.parse(
+                                                        DateFormat('yyyy-MM-dd')
+                                                            .format(
+                                                                DateTime.now())
+                                                            .toString()))) {
                                                   if (_completedHabits[DateFormat(
-                                                                  'dd MMMM yyyy')
-                                                              .format(days[
-                                                                  _currentIndexCalendar])
-                                                              .toString()][
-                                                          _currentDayHabit[
-                                                              indexOfCurrentDayHabit]] !=
+                                                              'dd MMMM yyyy')
+                                                          .format(days[
+                                                              _currentIndexCalendar])
+                                                          .toString()] !=
                                                       null) {
-                                                    completedHabits(
-                                                        _currentDayHabit[
-                                                            indexOfCurrentDayHabit],
-                                                        _habitDetails[
-                                                                _currentDayHabit[
-                                                                    indexOfCurrentDayHabit]]
-                                                            [
-                                                            '_allTimes'][_completedHabits[DateFormat(
-                                                                        'dd MMMM yyyy')
-                                                                    .format(days[
-                                                                        _currentIndexCalendar])
-                                                                    .toString()]
-                                                                [
-                                                                _currentDayHabit[
-                                                                    indexOfCurrentDayHabit]]
-                                                            .length]);
+                                                    // print(_habitDetails[_currentDayHabit[
+                                                    //         indexOfCurrentDayHabit]]
+                                                    //     ['_allTimes'][_completedHabits[
+                                                    //         DateFormat('dd MMMM yyyy')
+                                                    //             .format(days[
+                                                    //                 _currentIndexCalendar])
+                                                    //             .toString()][_currentDayHabit[
+                                                    //         indexOfCurrentDayHabit]]
+                                                    //     .length]);
+
+                                                    //ilginç sorun
+                                                    if (_completedHabits[DateFormat(
+                                                                    'dd MMMM yyyy')
+                                                                .format(days[
+                                                                    _currentIndexCalendar])
+                                                                .toString()][
+                                                            _currentDayHabit[
+                                                                indexOfCurrentDayHabit]] !=
+                                                        null) {
+                                                      completedHabits(
+                                                          _currentDayHabit[
+                                                              indexOfCurrentDayHabit],
+                                                          _habitDetails[
+                                                                  _currentDayHabit[
+                                                                      indexOfCurrentDayHabit]]
+                                                              [
+                                                              '_allTimes'][_completedHabits[DateFormat(
+                                                                          'dd MMMM yyyy')
+                                                                      .format(days[
+                                                                          _currentIndexCalendar])
+                                                                      .toString()]
+                                                                  [
+                                                                  _currentDayHabit[
+                                                                      indexOfCurrentDayHabit]]
+                                                              .length]);
+                                                    } else {
+                                                      completedHabits(
+                                                          _currentDayHabit[
+                                                              indexOfCurrentDayHabit],
+                                                          _habitDetails[
+                                                                  _currentDayHabit[
+                                                                      indexOfCurrentDayHabit]]
+                                                              ['_allTimes'][0]);
+                                                    }
                                                   } else {
+                                                    print("null bir değerdi");
                                                     completedHabits(
                                                         _currentDayHabit[
                                                             indexOfCurrentDayHabit],
@@ -1501,22 +1524,13 @@ class _MainPageState extends State<MainPage> {
                                                             ['_allTimes'][0]);
                                                   }
                                                 } else {
-                                                  print("null bir değerdi");
-                                                  completedHabits(
-                                                      _currentDayHabit[
-                                                          indexOfCurrentDayHabit],
-                                                      _habitDetails[
-                                                              _currentDayHabit[
-                                                                  indexOfCurrentDayHabit]]
-                                                          ['_allTimes'][0]);
+                                                  print("yapma");
                                                 }
-                                              } else {
-                                                print("yapma");
-                                              }
 
-///////////////////////**************/////////////////////// */
-                                            }
-                                          : null),
+                                                ///////////////////////**************/////////////////////// */
+                                              }
+                                            : null),
+                                  ),
                                 ),
                               );
                             }),
