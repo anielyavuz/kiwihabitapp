@@ -689,6 +689,7 @@ class _MainPageState extends State<MainPage> {
       home: Scaffold(
         bottomNavigationBar: _configsInfo.docs[_configsInfoInteger]['Social']
             ? GNav(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 backgroundColor: _backgroudRengi,
                 gap: 20,
                 activeColor: Colors.green,
