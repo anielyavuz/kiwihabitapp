@@ -246,6 +246,7 @@ class _AddNewHabitState extends State<AddNewHabit> {
                             padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                             // width: MediaQuery.of(context).size.width * 9 / 10,
                             child: TextField(
+                              autofocus: true,
                               onChanged: (value2) {},
                               controller: _turkceTextFieldController,
                               decoration: InputDecoration(
