@@ -178,18 +178,20 @@ class _MainPageState extends State<MainPage> {
                   if (_startTime.minute > 9) {
                     notificationsServices.sendScheduledNotifications2(
                         _notificationID,
-                        k,
-                        _startTime.hour.toString() +
-                            ":" +
-                            _startTime.minute.toString(),
+                        "KiWi🥝",
+                        "Time for " + k + " 😎",
+                        // _startTime.hour.toString() +
+                        //     ":" +
+                        //     _startTime.minute.toString(),
                         tzdatetime);
                   } else {
                     notificationsServices.sendScheduledNotifications2(
                         _notificationID,
-                        k,
-                        _startTime.hour.toString() +
-                            ":0" +
-                            _startTime.minute.toString(),
+                        "KiWi🥝",
+                        "Time for " + k + " 😎",
+                        // _startTime.hour.toString() +
+                        //     ":0" +
+                        //     _startTime.minute.toString(),
                         tzdatetime);
                   }
 
