@@ -109,7 +109,7 @@ class _IntroPageState extends State<IntroPage> {
                                 child: Text(
                               _appHeaderText,
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.philosopher(
+                              style: GoogleFonts.publicSans(
                                   fontSize: 32, color: _yaziTipiRengi),
                             )),
                           ),
@@ -163,36 +163,32 @@ class _IntroPageState extends State<IntroPage> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                            _introPages[_index],
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  _yaziTipiRengi,
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontFamily:
-                                                                  'Times New Roman',
-                                                              // fontWeight: FontWeight.bold
-                                                            )),
+                                                          _introPages[_index],
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: GoogleFonts
+                                                              .publicSans(
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color:
+                                                                      _yaziTipiRengi),
+                                                        ),
                                                         SizedBox(
                                                           height: 10,
                                                         ),
                                                         Text(
-                                                            _introSubPages[
-                                                                _index],
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  _yaziTipiRengi,
-                                                              fontSize: 15,
-                                                              fontFamily:
-                                                                  'Times New Roman',
-                                                              // fontWeight: FontWeight.bold
-                                                            )),
+                                                          _introSubPages[
+                                                              _index],
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: GoogleFonts
+                                                              .publicSans(
+                                                                  fontSize: 15,
+                                                                  color:
+                                                                      _yaziTipiRengi),
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
