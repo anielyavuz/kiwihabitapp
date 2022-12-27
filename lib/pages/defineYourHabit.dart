@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
@@ -112,13 +113,10 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                       child: Center(
                         child: Text(
                           "Define Your Habits",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Times New Roman',
-                            // fontWeight: FontWeight.bold
-                          ),
+                          style: GoogleFonts.publicSans(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 25,
+                              color: _yaziTipiRengi),
                         ),
                       ),
                     ),
@@ -142,7 +140,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                           Container(
                             width:
                                 MediaQuery.of(context).size.width * 9 / 10 - 20,
-                            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                            padding: EdgeInsets.fromLTRB(15, 0, 20, 0),
                             decoration: BoxDecoration(
                               color: Color.fromRGBO(21, 9, 35, 1),
                               border: Border.all(color: _yaziTipiRengi),
@@ -170,9 +168,10 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                         children: [
                                           new Text(
                                             value,
-                                            style: TextStyle(
-                                                color: _yaziTipiRengi,
-                                                fontWeight: FontWeight.bold),
+                                            style: GoogleFonts.publicSans(
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: 18,
+                                                color: _yaziTipiRengi),
                                           ),
                                           SizedBox(
                                             width: 10,
@@ -273,12 +272,10 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                   padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
                                   child: Text("Add to habits",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(21, 9, 35, 1),
-                                        fontSize: 15,
-                                        fontFamily: 'Times New Roman',
-                                        // fontWeight: FontWeight.bold
-                                      )),
+                                      style: GoogleFonts.publicSans(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15,
+                                          color: Color.fromRGBO(21, 9, 35, 1))),
                                 ),
                                 onPressed: _habitName == null ||
                                         _habitName == ""
@@ -342,13 +339,11 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Habit List",
-                              style: TextStyle(
-                                color: _yaziTipiRengi,
-                                fontSize: 20,
-                                fontFamily: 'Times New Roman',
-                                decoration: TextDecoration.underline,
-                                // fontWeight: FontWeight.bold
-                              ),
+                              style: GoogleFonts.publicSans(
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 20,
+                                  color: _yaziTipiRengi),
                             )),
                         SingleChildScrollView(
                           child: Container(
@@ -435,8 +430,22 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                       title: Container(
                                           padding:
                                               EdgeInsets.fromLTRB(0, 0, 0, 3),
-                                          child: Text(habit['habitName'])),
-                                      subtitle: Text(habit['habitCategory']),
+                                          child: Text(
+                                            habit['habitName'],
+                                            style: GoogleFonts.publicSans(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 15,
+                                                color: Color.fromRGBO(
+                                                    21, 9, 35, 1)),
+                                          )),
+                                      subtitle: Text(
+                                        habit['habitCategory'],
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w200,
+                                            fontSize: 11,
+                                            color:
+                                                Color.fromRGBO(21, 9, 35, 1)),
+                                      ),
                                       trailing: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                             primary: Colors.redAccent),
@@ -529,12 +538,10 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                               child: Center(
                                   child: Text("Continue",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: _yaziTipiRengi,
-                                        fontSize: 15,
-                                        fontFamily: 'Times New Roman',
-                                        // fontWeight: FontWeight.bold
-                                      ))),
+                                      style: GoogleFonts.publicSans(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15,
+                                          color: _yaziTipiRengi))),
                             ),
                           ),
                         ),

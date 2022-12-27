@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:kiwihabitapp/auth/authFunctions.dart';
@@ -169,13 +170,10 @@ class _HabitDetailsState extends State<HabitDetails> {
                   child: Center(
                     child: Text(
                       "Habit Details",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Times New Roman',
-                        // fontWeight: FontWeight.bold
-                      ),
+                      style: GoogleFonts.publicSans(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                          color: _yaziTipiRengi),
                     ),
                   ),
                 ),
@@ -208,13 +206,10 @@ class _HabitDetailsState extends State<HabitDetails> {
                                           0, 10, 0, 25),
                                       child: Text(
                                         _yourHabits[index]['habitName'],
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Times New Roman',
-                                          // fontWeight: FontWeight.bold
-                                        ),
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 25,
+                                            color: _yaziTipiRengi),
                                       ),
                                     ),
                                     Padding(
@@ -224,15 +219,12 @@ class _HabitDetailsState extends State<HabitDetails> {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           "Goal",
-                                          style: TextStyle(
-                                            decoration:
-                                                TextDecoration.underline,
-                                            color: _yaziTipiRengi,
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'Times New Roman',
-                                            // fontWeight: FontWeight.bold
-                                          ),
+                                          style: GoogleFonts.publicSans(
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 25,
+                                              color: _yaziTipiRengi),
                                         ),
                                       ),
                                     ),
@@ -254,8 +246,8 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                   0,
                                                 ),
                                                 child: SizedBox(
-                                                  height: 20,
-                                                  width: 20,
+                                                  height: 30,
+                                                  width: 30,
                                                   child: RawMaterialButton(
                                                       fillColor: _yourHabits[index]['_allTimes']
                                                                   .length >
@@ -307,7 +299,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                 ),
                                               ),
                                               Container(
-                                                // width: 20,
+                                                width: 45,
                                                 padding: EdgeInsets.fromLTRB(
                                                     5, 0, 5, 0),
                                                 decoration: BoxDecoration(
@@ -319,18 +311,16 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                         BorderRadius.circular(
                                                             5)),
                                                 child: Text(
-                                                    _yourHabits[index]
-                                                            ['_allTimes']
-                                                        .length
-                                                        .toString(),
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: _yaziTipiRengi,
+                                                  _yourHabits[index]
+                                                          ['_allTimes']
+                                                      .length
+                                                      .toString(),
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.publicSans(
+                                                      // fontWeight: FontWeight.bold,
                                                       fontSize: 25,
-                                                      fontFamily:
-                                                          'Times New Roman',
-                                                      // fontWeight: FontWeight.bold
-                                                    )),
+                                                      color: _yaziTipiRengi),
+                                                ),
                                               ),
                                               Padding(
                                                 padding:
@@ -341,8 +331,8 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                   0,
                                                 ),
                                                 child: SizedBox(
-                                                  height: 20,
-                                                  width: 20,
+                                                  height: 30,
+                                                  width: 30,
                                                   child: RawMaterialButton(
                                                       fillColor:
                                                           Color(0xff996B3E),
@@ -395,13 +385,13 @@ class _HabitDetailsState extends State<HabitDetails> {
                                           SizedBox(
                                             width: 15,
                                           ),
-                                          Text("in a day",
-                                              style: TextStyle(
-                                                color: _yaziTipiRengi,
+                                          Text(
+                                            "in a day",
+                                            style: GoogleFonts.publicSans(
+                                                // fontWeight: FontWeight.bold,
                                                 fontSize: 15,
-                                                fontFamily: 'Times New Roman',
-                                                // fontWeight: FontWeight.bold
-                                              ))
+                                                color: _yaziTipiRengi),
+                                          )
                                         ],
                                       ),
                                     ),
@@ -433,20 +423,14 @@ class _HabitDetailsState extends State<HabitDetails> {
                                               splashColor: Colors.green,
                                               textStyle: TextStyle(
                                                   color: _yaziTipiRengi),
-                                              child: Text(
-                                                  DateFormat('E').format(
-                                                      DateTime(2000, 1, 3).add(
-                                                          Duration(
-                                                              days: int.parse(day['day'])))),
+                                              child: Text(DateFormat('E').format(DateTime(2000, 1, 3).add(Duration(days: int.parse(day['day'])))),
                                                   textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        21, 9, 35, 1),
-                                                    fontSize: 12,
-                                                    fontFamily:
-                                                        'Times New Roman',
-                                                    // fontWeight: FontWeight.bold
-                                                  )),
+                                                  style: GoogleFonts.publicSans(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 12,
+                                                      color: Color.fromRGBO(
+                                                          21, 9, 35, 1))),
                                               onPressed: () async {
                                                 int _daySelected = 0;
                                                 for (var _weekDay
@@ -535,11 +519,10 @@ class _HabitDetailsState extends State<HabitDetails> {
                                         dense: true,
                                         title: Text(
                                           "Everyday",
-                                          style: TextStyle(
-                                            color: _yaziTipiRengi,
-                                            fontSize: 15,
-                                            fontFamily: 'Times New Roman',
-                                          ),
+                                          style: GoogleFonts.publicSans(
+                                              // fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                              color: _yaziTipiRengi),
                                         ),
                                         value: _yourHabits[index]
                                             ['_checkedBoxEveryday'],
@@ -631,14 +614,17 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                 .spaceBetween,
                                                         children: [
                                                           Text(
-                                                              "Goal " +
-                                                                  (index2 + 1)
-                                                                      .toString(),
-                                                              style: TextStyle(
-                                                                  color:
-                                                                      _yaziTipiRengi,
-                                                                  fontSize:
-                                                                      15)),
+                                                            "Goal " +
+                                                                (index2 + 1)
+                                                                    .toString(),
+                                                            style: GoogleFonts
+                                                                .publicSans(
+                                                                    // fontWeight: FontWeight.bold,
+                                                                    fontSize:
+                                                                        15,
+                                                                    color:
+                                                                        _yaziTipiRengi),
+                                                          ),
                                                           Row(
                                                             children: [
                                                               InkWell(
@@ -898,11 +884,21 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                     });
                                                                   }
                                                                 },
-                                                                child: _yourHabits[index]['_allTimes'][index2]['time'].minute >
+                                                                child: _yourHabits[index]['_allTimes'][index2]['time']
+                                                                            .minute >
                                                                         9
                                                                     ? Text(
                                                                         _yourHabits[index]['_allTimes'][index2]['time'].hour.toString() +
                                                                             ":" +
+                                                                            _yourHabits[index]['_allTimes'][index2]['time'].minute.toString(),
+                                                                        style: GoogleFonts.publicSans(
+                                                                            // fontWeight: FontWeight.bold,
+                                                                            fontSize: 25,
+                                                                            color: _yaziTipiRengi),
+                                                                      )
+                                                                    : Text(
+                                                                        _yourHabits[index]['_allTimes'][index2]['time'].hour.toString() +
+                                                                            ":0" +
                                                                             _yourHabits[index]['_allTimes'][index2]['time']
                                                                                 .minute
                                                                                 .toString(),
@@ -910,12 +906,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                             color:
                                                                                 _yaziTipiRengi,
                                                                             fontSize:
-                                                                                25))
-                                                                    : Text(
-                                                                        _yourHabits[index]['_allTimes'][index2]['time'].hour.toString() +
-                                                                            ":0" +
-                                                                            _yourHabits[index]['_allTimes'][index2]['time'].minute.toString(),
-                                                                        style: TextStyle(color: _yaziTipiRengi, fontSize: 25)),
+                                                                                25)),
                                                               ),
                                                             ],
                                                           ),
@@ -1034,14 +1025,14 @@ class _HabitDetailsState extends State<HabitDetails> {
                                     border: Border.all(color: _yaziTipiRengi),
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
-                                    child: Text("Next",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: _yaziTipiRengi,
-                                          fontSize: 15,
-                                          fontFamily: 'Times New Roman',
-                                          // fontWeight: FontWeight.bold
-                                        ))),
+                                    child: Text(
+                                  "Next",
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.publicSans(
+                                      // fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: _yaziTipiRengi),
+                                )),
                               ),
                             ),
                           ),

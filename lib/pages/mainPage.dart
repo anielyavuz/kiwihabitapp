@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:kiwihabitapp/pages/addNewHabit.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
@@ -718,12 +719,10 @@ class _MainPageState extends State<MainPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(_todayText,
-                            style: TextStyle(
-                              color: _backgroudRengi,
-                              // fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              // fontFamily: 'Times New Roman'
-                            )),
+                            style: GoogleFonts.publicSans(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20,
+                                color: _backgroudRengi)),
                         Column(
                           children: [
                             Text(
@@ -733,12 +732,10 @@ class _MainPageState extends State<MainPage> {
                                             .toString())
                                     .format(DateTime.now())
                                     .toString(),
-                                style: TextStyle(
-                                  color: _backgroudRengi,
-                                  // fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  // fontFamily: 'Times New Roman'
-                                )),
+                                style: GoogleFonts.publicSans(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18,
+                                    color: _backgroudRengi)),
                             Text(
                                 DateFormat(
                                         'dd MMMM yyyy',
@@ -799,13 +796,10 @@ class _MainPageState extends State<MainPage> {
                                   },
                                   child: Container(
                                     child: Text("Analytics",
-                                        style: TextStyle(
-                                          color: _backgroudRengi,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Times New Roman',
-                                          // fontWeight: FontWeight.bold
-                                        )),
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18,
+                                            color: _backgroudRengi)),
                                   ),
                                 ),
                               ),
@@ -849,13 +843,10 @@ class _MainPageState extends State<MainPage> {
                                   },
                                   child: Container(
                                     child: Text("Notifications Test",
-                                        style: TextStyle(
-                                          color: _backgroudRengi,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Times New Roman',
-                                          // fontWeight: FontWeight.bold
-                                        )),
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18,
+                                            color: _backgroudRengi)),
                                   ),
                                 ),
                               ),
@@ -887,13 +878,10 @@ class _MainPageState extends State<MainPage> {
                                   },
                                   child: Container(
                                     child: Text("Çıkış",
-                                        style: TextStyle(
-                                          color: _backgroudRengi,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Times New Roman',
-                                          // fontWeight: FontWeight.bold
-                                        )),
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18,
+                                            color: _backgroudRengi)),
                                   ),
                                 ),
                               ),
@@ -902,15 +890,12 @@ class _MainPageState extends State<MainPage> {
                                 child: ListTile(
                                   leading: Icon(Icons.info_rounded),
                                   title: Container(
-                                    child:
-                                        Text("Version: " + version.toString(),
-                                            style: TextStyle(
-                                              color: _backgroudRengi,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Times New Roman',
-                                              // fontWeight: FontWeight.bold
-                                            )),
+                                    child: Text(
+                                        "Version: " + version.toString(),
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                            color: _backgroudRengi)),
                                   ),
                                 ),
                               ),
@@ -925,21 +910,20 @@ class _MainPageState extends State<MainPage> {
             )),
         appBar: AppBar(
           title: Text(
-              (DateFormat('yyyy-MM-dd')
-                          .format(days[_currentIndexCalendar])
-                          .toString()) ==
-                      (DateFormat('yyyy-MM-dd')
-                          .format(DateTime.now())
-                          .toString())
-                  ? _todayText
-                  : DateFormat('dd MMMM yyyy',
-                          Localizations.localeOf(context).toString())
-                      .format(days[_currentIndexCalendar])
-                      .toString(),
-              style: TextStyle(
-                color: _yaziTipiRengi,
-                // fontWeight: FontWeight.bold
-              )),
+            (DateFormat('yyyy-MM-dd')
+                        .format(days[_currentIndexCalendar])
+                        .toString()) ==
+                    (DateFormat('yyyy-MM-dd').format(DateTime.now()).toString())
+                ? _todayText
+                : DateFormat('dd MMMM yyyy',
+                        Localizations.localeOf(context).toString())
+                    .format(days[_currentIndexCalendar])
+                    .toString(),
+            style: GoogleFonts.publicSans(
+                // fontWeight: FontWeight.bold,
+                // fontSize: 15,
+                color: _yaziTipiRengi),
+          ),
 
           actions: <Widget>[
             IconButton(
@@ -1042,7 +1026,7 @@ class _MainPageState extends State<MainPage> {
                         ? (Visibility(
                             visible: !_batterySaver,
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                              padding: const EdgeInsets.fromLTRB(5, 0, 5, 8),
                               child: Container(
                                 height: 55,
                                 decoration: BoxDecoration(
@@ -1056,20 +1040,18 @@ class _MainPageState extends State<MainPage> {
                                   children: [
                                     Container(
                                       width: MediaQuery.of(context).size.width *
-                                          3 /
-                                          4,
+                                              3 /
+                                              4 -
+                                          10,
                                       padding: const EdgeInsets.fromLTRB(
                                           10, 10, 5, 10),
                                       child: Text(
                                         "For better notification timing please disable battery optimization for KiWi",
                                         textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 14,
-
-                                          fontFamily: 'Times New Roman',
-                                          // fontWeight: FontWeight.bold
-                                        ),
+                                        style: GoogleFonts.publicSans(
+                                            // fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                            color: Colors.black),
                                       ),
                                     ),
                                     Container(
@@ -1203,15 +1185,12 @@ class _MainPageState extends State<MainPage> {
                                                   const EdgeInsets.fromLTRB(
                                                       0, 2, 0, 1),
                                               child: Text(
-                                                  days[index].day.toString(),
-                                                  style: TextStyle(
-                                                    color: _yaziTipiRengi,
+                                                days[index].day.toString(),
+                                                style: GoogleFonts.publicSans(
+                                                    // fontWeight: FontWeight.bold,
                                                     fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily:
-                                                        'Times New Roman',
-                                                    // fontWeight: FontWeight.bold
-                                                  )),
+                                                    color: _yaziTipiRengi),
+                                              ),
                                             ),
                                             Expanded(
                                               child: Padding(
@@ -1248,7 +1227,8 @@ class _MainPageState extends State<MainPage> {
                                                                         DateTime
                                                                             .now())
                                                                     .toString()
-                                                            ? TextStyle(
+                                                            ? GoogleFonts
+                                                                .publicSans(
                                                                 shadows: [
                                                                   Shadow(
                                                                       color:
@@ -1258,6 +1238,10 @@ class _MainPageState extends State<MainPage> {
                                                                               0,
                                                                               -2))
                                                                 ],
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 12,
                                                                 color: Colors
                                                                     .transparent,
                                                                 decoration:
@@ -1267,26 +1251,14 @@ class _MainPageState extends State<MainPage> {
                                                                     3,
                                                                 decorationColor:
                                                                     _yaziTipiRengi,
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontFamily:
-                                                                    'Times New Roman',
-                                                                // fontWeight: FontWeight.bold
                                                               )
-                                                            : TextStyle(
-                                                                color:
-                                                                    _yaziTipiRengi,
-
-                                                                fontSize: 12,
+                                                            : GoogleFonts.publicSans(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontFamily:
-                                                                    'Times New Roman',
-                                                                // fontWeight: FontWeight.bold
-                                                              )),
+                                                                fontSize: 12,
+                                                                color:
+                                                                    _yaziTipiRengi)),
                                                   ),
                                                 ),
                                               ),
@@ -1424,19 +1396,41 @@ class _MainPageState extends State<MainPage> {
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Text(_currentDayHabit[
-                                                                indexOfCurrentDayHabit]),
+                                                            Text(
+                                                                _currentDayHabit[
+                                                                    indexOfCurrentDayHabit],
+                                                                style: GoogleFonts.publicSans(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontSize:
+                                                                        15,
+                                                                    color:
+                                                                        _yaziTipiRengi)),
                                                             // Text(remainHabitTimeRepeat(
                                                             //         _currentDayHabit[
                                                             //             indexOfCurrentDayHabit])
                                                             //     .toString()),
-                                                            Text(_habitDetails[
-                                                                    _currentDayHabit[
-                                                                        indexOfCurrentDayHabit]]['_allTimes'][remainHabitTimeRepeat(
-                                                                    _currentDayHabit[
-                                                                        indexOfCurrentDayHabit])]['time']
-                                                                .split('(')[1]
-                                                                .split(')')[0])
+                                                            Text(
+                                                              _habitDetails[_currentDayHabit[
+                                                                              indexOfCurrentDayHabit]]
+                                                                          [
+                                                                          '_allTimes']
+                                                                      [
+                                                                      remainHabitTimeRepeat(
+                                                                          _currentDayHabit[
+                                                                              indexOfCurrentDayHabit])]['time']
+                                                                  .split('(')[1]
+                                                                  .split(')')[0],
+                                                              style: GoogleFonts.publicSans(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: 10,
+                                                                  color: _yaziTipiRengi
+                                                                      .withOpacity(
+                                                                          0.6)),
+                                                            )
                                                           ],
                                                         ),
                                                       ),
@@ -1475,16 +1469,14 @@ class _MainPageState extends State<MainPage> {
                                                           ,
                                                           textAlign:
                                                               TextAlign.center,
-                                                          style: TextStyle(
-                                                            color:
-                                                                _backgroudRengi,
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontFamily:
-                                                                'Times New Roman',
-                                                            // fontWeight: FontWeight.bold
-                                                          )),
+                                                          style: GoogleFonts
+                                                              .publicSans(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 16,
+                                                                  color:
+                                                                      _backgroudRengi)),
                                                     ),
                                                   ),
                                                 ],
@@ -1836,12 +1828,10 @@ class _MainPageState extends State<MainPage> {
                           ),
                           Text(_slidingHeaderText,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: _yaziTipiRengi,
-                                fontSize: 18,
-                                fontFamily: 'Times New Roman',
-                                // fontWeight: FontWeight.bold
-                              )),
+                              style: GoogleFonts.publicSans(
+                                  // fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: _yaziTipiRengi)),
                         ],
                       ),
                       Row(
@@ -1932,8 +1922,8 @@ class _MainPageState extends State<MainPage> {
                                             0,
                                           ),
                                           child: SizedBox(
-                                            height: 20,
-                                            width: 20,
+                                            height: 30,
+                                            width: 30,
                                             child: RawMaterialButton(
                                                 fillColor: _slidingCountADay > 1
                                                     ? Color(0xff996B3E)
@@ -1972,7 +1962,7 @@ class _MainPageState extends State<MainPage> {
                                           ),
                                         ),
                                         Container(
-                                          // width: 20,
+                                          width: 45,
                                           padding:
                                               EdgeInsets.fromLTRB(5, 0, 5, 0),
                                           decoration: BoxDecoration(
@@ -1985,12 +1975,10 @@ class _MainPageState extends State<MainPage> {
                                           child: Text(
                                               _slidingCountADay.toString(),
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: _yaziTipiRengi,
-                                                fontSize: 25,
-                                                fontFamily: 'Times New Roman',
-                                                // fontWeight: FontWeight.bold
-                                              )),
+                                              style: GoogleFonts.publicSans(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25,
+                                                  color: _yaziTipiRengi)),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.fromLTRB(
@@ -2000,8 +1988,8 @@ class _MainPageState extends State<MainPage> {
                                             0,
                                           ),
                                           child: SizedBox(
-                                            height: 20,
-                                            width: 20,
+                                            height: 30,
+                                            width: 30,
                                             child: RawMaterialButton(
                                                 fillColor: Color(0xff996B3E),
                                                 shape: RoundedRectangleBorder(
@@ -2051,12 +2039,10 @@ class _MainPageState extends State<MainPage> {
                                       width: 15,
                                     ),
                                     Text("in a day",
-                                        style: TextStyle(
-                                          color: _yaziTipiRengi,
-                                          fontSize: 15,
-                                          fontFamily: 'Times New Roman',
-                                          // fontWeight: FontWeight.bold
-                                        ))
+                                        style: GoogleFonts.publicSans(
+                                            // fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                            color: _yaziTipiRengi))
                                   ],
                                 ),
                               ),
@@ -2088,16 +2074,10 @@ class _MainPageState extends State<MainPage> {
                                                     'E',
                                                     Localizations.localeOf(context)
                                                         .toString())
-                                                .format(DateTime(2000, 1, 3).add(
-                                                    Duration(days: int.parse(day['day'])))),
+                                                .format(DateTime(2000, 1, 3)
+                                                    .add(Duration(days: int.parse(day['day'])))),
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color:
-                                                  Color.fromRGBO(21, 9, 35, 1),
-                                              fontSize: 12,
-                                              fontFamily: 'Times New Roman',
-                                              // fontWeight: FontWeight.bold
-                                            )),
+                                            style: GoogleFonts.publicSans(fontWeight: FontWeight.w600, fontSize: 12, color: Color.fromRGBO(21, 9, 35, 1))),
                                         onPressed: () async {
                                           int _daySelected = 0;
                                           for (var _weekDay
@@ -2168,11 +2148,10 @@ class _MainPageState extends State<MainPage> {
                                   dense: true,
                                   title: Text(
                                     "Everyday",
-                                    style: TextStyle(
-                                      color: _yaziTipiRengi,
-                                      fontSize: 15,
-                                      fontFamily: 'Times New Roman',
-                                    ),
+                                    style: GoogleFonts.publicSans(
+                                        // fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color: _yaziTipiRengi),
                                   ),
                                   value: _slidingCheckBoxEveryDay,
                                   onChanged: (val) {
@@ -2263,10 +2242,12 @@ class _MainPageState extends State<MainPage> {
                                                         "Goal " +
                                                             (index2 + 1)
                                                                 .toString(),
-                                                        style: TextStyle(
-                                                            color:
-                                                                _yaziTipiRengi,
-                                                            fontSize: 15)),
+                                                        style: GoogleFonts
+                                                            .publicSans(
+                                                                // fontWeight: FontWeight.bold,
+                                                                fontSize: 15,
+                                                                color:
+                                                                    _yaziTipiRengi)),
                                                     Row(
                                                       children: [
                                                         InkWell(
@@ -2562,11 +2543,13 @@ class _MainPageState extends State<MainPage> {
                                                                       .split(":")[
                                                                           1]
                                                                       .toString(),
-                                                              style: TextStyle(
-                                                                  color:
-                                                                      _yaziTipiRengi,
-                                                                  fontSize:
-                                                                      25)),
+                                                              style: GoogleFonts
+                                                                  .publicSans(
+                                                                      // fontWeight: FontWeight.bold,
+                                                                      fontSize:
+                                                                          25,
+                                                                      color:
+                                                                          _yaziTipiRengi)),
                                                         ),
                                                       ],
                                                     ),
@@ -2598,13 +2581,11 @@ class _MainPageState extends State<MainPage> {
                                     },
                                     child: Text("Delete Habit",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 218, 199, 198),
-                                          fontSize: 20,
-                                          fontFamily: 'Times New Roman',
-                                          // fontWeight: FontWeight.bold
-                                        )),
+                                        style: GoogleFonts.publicSans(
+                                            // fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            color: Color.fromARGB(
+                                                255, 218, 199, 198))),
                                   ),
                                 ),
                               ),

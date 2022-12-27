@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 
@@ -65,12 +66,8 @@ class _HabitGroupState extends State<HabitGroup> {
           padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
           child: Text(widget.butonYazi,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color.fromRGBO(21, 9, 35, 1),
-                fontSize: 15,
-                fontFamily: 'Times New Roman',
-                // fontWeight: FontWeight.bold
-              )),
+              style: GoogleFonts.publicSans(
+                  fontSize: 15, color: Color.fromRGBO(21, 9, 35, 1))),
         ),
         onPressed: () async {
           setState(() {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TextFieldDecoration extends StatefulWidget {
   ValueChanged<String> textfieldData;
@@ -44,7 +45,10 @@ class _TextFieldDecorationState extends State<TextFieldDecoration> {
           ),
         ),
         hintText: widget.hintYazi,
-        hintStyle: TextStyle(color: Color.fromARGB(75, 21, 9, 35)),
+        hintStyle: GoogleFonts.publicSans(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 18,
+                                color: Color.fromARGB(75, 21, 9, 35)),
       ),
     );
   }

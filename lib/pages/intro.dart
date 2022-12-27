@@ -328,12 +328,9 @@ class _IntroPageState extends State<IntroPage> {
                                   padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
                                   child: Text(_addYourFirstHabitText,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(21, 9, 35, 1),
-                                        fontSize: 15,
-                                        fontFamily: 'Times New Roman',
-                                        // fontWeight: FontWeight.bold
-                                      )),
+                                      style: GoogleFonts.publicSans(
+                                          fontSize: 15,
+                                          color: Color.fromRGBO(21, 9, 35, 1))),
                                 ),
                                 onPressed: () async {
                                   Navigator.push(
@@ -366,17 +363,14 @@ class _IntroPageState extends State<IntroPage> {
                                 child: Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: _yaziTipiRengi),
+                                      border: Border.all(color: _yaziTipiRengi.withOpacity(0.5),width: 0.7),
                                       borderRadius: BorderRadius.circular(15)),
                                   child: Center(
                                       child: Text(_alreadyHaveAnyHabitText,
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: _yaziTipiRengi,
-                                            fontSize: 15,
-                                            fontFamily: 'Times New Roman',
-                                            // fontWeight: FontWeight.bold
-                                          ))),
+                                          style: GoogleFonts.publicSans(
+                                              fontSize: 15,
+                                              color: _yaziTipiRengi.withOpacity(0.8)))),
                                 ),
                               ),
                             )

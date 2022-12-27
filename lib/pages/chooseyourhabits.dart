@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
@@ -49,13 +50,8 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                         child: Text(
                           "Choose Your Habits",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: _yaziTipiRengi,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Times New Roman',
-                            // fontWeight: FontWeight.bold
-                          ),
+                          style: GoogleFonts.publicSans(
+                              fontSize: 25, color: _yaziTipiRengi),
                         ),
                       ),
                     ),
@@ -80,13 +76,9 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                             children: [
                                               Text("Health",
                                                   textAlign: TextAlign.start,
-                                                  style: TextStyle(
-                                                    color: _yaziTipiRengi,
-                                                    fontSize: 25,
-                                                    fontFamily:
-                                                        'Times New Roman',
-                                                    // fontWeight: FontWeight.bold
-                                                  )),
+                                                  style: GoogleFonts.publicSans(
+                                                      fontSize: 25,
+                                                      color: _yaziTipiRengi)),
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.fromLTRB(
@@ -130,12 +122,9 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                           children: [
                                             Text("Sport",
                                                 textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                  color: _yaziTipiRengi,
-                                                  fontSize: 25,
-                                                  fontFamily: 'Times New Roman',
-                                                  // fontWeight: FontWeight.bold
-                                                )),
+                                                style: GoogleFonts.publicSans(
+                                                    fontSize: 25,
+                                                    color: _yaziTipiRengi)),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.fromLTRB(
@@ -180,12 +169,9 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                       children: [
                                         Text("Study",
                                             textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              color: _yaziTipiRengi,
-                                              fontSize: 25,
-                                              fontFamily: 'Times New Roman',
-                                              // fontWeight: FontWeight.bold
-                                            )),
+                                            style: GoogleFonts.publicSans(
+                                                fontSize: 25,
+                                                color: _yaziTipiRengi)),
                                         Padding(
                                           padding: const EdgeInsets.fromLTRB(
                                               8, 0, 0, 0),
@@ -228,12 +214,9 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                       children: [
                                         Text("Art",
                                             textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              color: _yaziTipiRengi,
-                                              fontSize: 25,
-                                              fontFamily: 'Times New Roman',
-                                              // fontWeight: FontWeight.bold
-                                            )),
+                                            style: GoogleFonts.publicSans(
+                                                fontSize: 25,
+                                                color: _yaziTipiRengi)),
                                         Padding(
                                           padding: const EdgeInsets.fromLTRB(
                                               8, 0, 0, 0),
@@ -276,12 +259,9 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                       children: [
                                         Text("Finance",
                                             textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              color: _yaziTipiRengi,
-                                              fontSize: 25,
-                                              fontFamily: 'Times New Roman',
-                                              // fontWeight: FontWeight.bold
-                                            )),
+                                            style: GoogleFonts.publicSans(
+                                                fontSize: 25,
+                                                color: _yaziTipiRengi)),
                                         Padding(
                                           padding: const EdgeInsets.fromLTRB(
                                               8, 0, 0, 0),
@@ -324,12 +304,9 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                       children: [
                                         Text("Social",
                                             textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              color: _yaziTipiRengi,
-                                              fontSize: 25,
-                                              fontFamily: 'Times New Roman',
-                                              // fontWeight: FontWeight.bold
-                                            )),
+                                            style: GoogleFonts.publicSans(
+                                                fontSize: 25,
+                                                color: _yaziTipiRengi)),
                                         Padding(
                                           padding: const EdgeInsets.fromLTRB(
                                               8, 0, 0, 0),
@@ -372,12 +349,9 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                       children: [
                                         Text("Quit a Bad Habit",
                                             textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              color: _yaziTipiRengi,
-                                              fontSize: 25,
-                                              fontFamily: 'Times New Roman',
-                                              // fontWeight: FontWeight.bold
-                                            )),
+                                            style: GoogleFonts.publicSans(
+                                                fontSize: 25,
+                                                color: _yaziTipiRengi)),
                                         Padding(
                                           padding: const EdgeInsets.fromLTRB(
                                               8, 0, 0, 0),
@@ -417,6 +391,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                     Expanded(
                       flex: 2,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
                             onTap: () async {
@@ -471,12 +446,9 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                 child: Center(
                                     child: Text("Continue",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: _yaziTipiRengi,
-                                          fontSize: 15,
-                                          fontFamily: 'Times New Roman',
-                                          // fontWeight: FontWeight.bold
-                                        ))),
+                                        style: GoogleFonts.publicSans(
+                                            fontSize: 15,
+                                            color: _yaziTipiRengi))),
                               ),
                             ),
                           ),
@@ -510,16 +482,16 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                 width: MediaQuery.of(context).size.width / 2,
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
-                                    border: Border.all(color: _yaziTipiRengi),
-                                    borderRadius: BorderRadius.circular(15)),
+                                    // border: Border.all(color: _yaziTipiRengi.withOpacity(0.8),width: 0.7),
+                                    // borderRadius: BorderRadius.circular(15)
+                                    ),
                                 child: Center(
                                     child: Text("Define Your Habit",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: _yaziTipiRengi,
+                                        style: GoogleFonts.publicSans(
+                                          decoration: TextDecoration.underline,
                                           fontSize: 15,
-                                          fontFamily: 'Times New Roman',
-                                          // fontWeight: FontWeight.bold
+                                          color: _yaziTipiRengi.withOpacity(0.8),
                                         ))),
                               ),
                             ),
