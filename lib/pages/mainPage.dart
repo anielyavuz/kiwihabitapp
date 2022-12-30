@@ -811,17 +811,18 @@ class _MainPageState extends State<MainPage> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     // CloudDB().getDataFromFireStore();
+                                    AuthService().googleSignIn();
 
-                                    print(_configsInfo.docs[_configsInfoInteger]
-                                        ['Social']);
-                                    // print(_todayText);
-                                    // notificationsServices
-                                    //     .specificTimeNotification(
-                                    //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
+                                    // print(_configsInfo.docs[_configsInfoInteger]
+                                    //     ['Social']);
+                                    // // print(_todayText);
+                                    // // notificationsServices
+                                    // //     .specificTimeNotification(
+                                    // //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
 
-                                    //////////BURASI ÖNEMLİ////////////
-                                    notificationsServices.sendNotifications(
-                                        "KiWi🥝", "Yoga zamanı 💁");
+                                    // //////////BURASI ÖNEMLİ////////////
+                                    // notificationsServices.sendNotifications(
+                                    //     "KiWi🥝", "Yoga zamanı 💁");
 
                                     // notificationsServices
                                     //     .sendPayloadNotifications(
