@@ -33,7 +33,7 @@ class AuthService {
       idToken: googleSignInAuthentication.idToken,
     );
     var user = await _auth.signInWithCredential(credential);
-    print("Login olldu $user");
+    print("Login olladu $user");
     // Map returnCode = {};
     // try {
     //   var user = await _auth.signInAnonymously();
