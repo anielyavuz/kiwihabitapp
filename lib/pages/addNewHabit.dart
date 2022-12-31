@@ -283,7 +283,7 @@ class _AddNewHabitState extends State<AddNewHabit> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(15,0,20,0),
+                              padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton<String>(
                                     borderRadius: BorderRadius.circular(20),
@@ -331,11 +331,12 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                                         ? Icon(
                                                             Icons.school,
                                                             size: 25,
-                                                            color: Color.fromARGB(
-                                                                223,
-                                                                124,
-                                                                38,
-                                                                223),
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    223,
+                                                                    124,
+                                                                    38,
+                                                                    223),
                                                           )
                                                         : value == 'Art'
                                                             ? Icon(
@@ -365,7 +366,8 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                                                     ? Icon(
                                                                         Icons
                                                                             .nightlife,
-                                                                        size: 25,
+                                                                        size:
+                                                                            25,
                                                                         color: Color.fromARGB(
                                                                             223,
                                                                             232,
@@ -375,7 +377,8 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                                                     : Icon(
                                                                         Icons
                                                                             .smoke_free,
-                                                                        size: 25,
+                                                                        size:
+                                                                            25,
                                                                         color: Color.fromARGB(
                                                                             223,
                                                                             19,
@@ -776,6 +779,9 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                                               ['alarm']) {
                                                             ScaffoldMessenger
                                                                     .of(context)
+                                                                .hideCurrentSnackBar();
+                                                            ScaffoldMessenger
+                                                                    .of(context)
                                                                 .showSnackBar(
                                                               SnackBar(
                                                                 duration: Duration(
@@ -806,6 +812,9 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                                               ),
                                                             );
                                                           } else {
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .hideCurrentSnackBar();
                                                             ScaffoldMessenger
                                                                     .of(context)
                                                                 .showSnackBar(
@@ -873,6 +882,9 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                                               'notification']) {
                                                             ScaffoldMessenger
                                                                     .of(context)
+                                                                .hideCurrentSnackBar();
+                                                            ScaffoldMessenger
+                                                                    .of(context)
                                                                 .showSnackBar(
                                                               SnackBar(
                                                                 duration: Duration(
@@ -903,6 +915,9 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                                               ),
                                                             );
                                                           } else {
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .hideCurrentSnackBar();
                                                             ScaffoldMessenger
                                                                     .of(context)
                                                                 .showSnackBar(

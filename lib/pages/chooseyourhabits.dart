@@ -404,6 +404,8 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                     MaterialPageRoute(
                                         builder: (context) => HabitDetails()));
                               } else {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     duration: Duration(milliseconds: 2000),
@@ -491,7 +493,8 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                         style: GoogleFonts.publicSans(
                                           decoration: TextDecoration.underline,
                                           fontSize: 15,
-                                          color: _yaziTipiRengi.withOpacity(0.8),
+                                          color:
+                                              _yaziTipiRengi.withOpacity(0.8),
                                         ))),
                               ),
                             ),

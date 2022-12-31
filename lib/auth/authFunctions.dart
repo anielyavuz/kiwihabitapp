@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -11,8 +12,19 @@ class AuthService {
     try {
       var user = await _auth.signInAnonymously();
 
-      await _firestore.collection("Users").doc(user.user!.uid).set(
-          {"registerType": "Anonym", "id": user.user!.uid, "userAuth": "Prod"});
+      await _firestore.collection("Users").doc(user.user!.uid).set({
+        "registerType": "Anonym",
+        "id": user.user!.uid,
+        "userAuth": "Prod",
+        "createTime": DateFormat('dd/MM/yyyy - HH:mm:ss')
+            .format(DateTime.now())
+            .toString(),
+        "yourHabits": [],
+        "habitDetails": [],
+        "habitDays": [],
+        "completedHabits": {},
+        "finalCompleted": {},
+      });
     } on FirebaseAuthException catch (e) {
       returnCode['status'] = false;
       returnCode['value'] = e.code;

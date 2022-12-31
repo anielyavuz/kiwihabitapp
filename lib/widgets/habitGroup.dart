@@ -78,6 +78,7 @@ class _HabitGroupState extends State<HabitGroup> {
                 _habit['habitCategory'] = widget.butonCategory;
                 _chooseYourHabits.add(_habit);
               } else {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                       duration: Duration(milliseconds: 4000),

@@ -650,6 +650,9 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                       'alarm']) {
                                                                     ScaffoldMessenger.of(
                                                                             context)
+                                                                        .hideCurrentSnackBar();
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
                                                                         .showSnackBar(
                                                                       SnackBar(
                                                                         duration:
@@ -677,6 +680,9 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                       ),
                                                                     );
                                                                   } else {
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .hideCurrentSnackBar();
                                                                     ScaffoldMessenger.of(
                                                                             context)
                                                                         .showSnackBar(
@@ -754,6 +760,9 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                       'notification']) {
                                                                     ScaffoldMessenger.of(
                                                                             context)
+                                                                        .hideCurrentSnackBar();
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
                                                                         .showSnackBar(
                                                                       SnackBar(
                                                                         duration:
@@ -781,6 +790,9 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                       ),
                                                                     );
                                                                   } else {
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .hideCurrentSnackBar();
                                                                     ScaffoldMessenger.of(
                                                                             context)
                                                                         .showSnackBar(

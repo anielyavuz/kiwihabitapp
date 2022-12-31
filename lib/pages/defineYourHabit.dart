@@ -298,6 +298,8 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                           getCurrentChooseYourHabits();
                                         } else {
                                           ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
                                                 duration: Duration(
@@ -491,6 +493,8 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                   MaterialPageRoute(
                                       builder: (context) => HabitDetails()));
                             } else {
+                              ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar();
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   duration: Duration(milliseconds: 2000),

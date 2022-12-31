@@ -15,4 +15,15 @@ class CloudDB {
     // print(_allResults);
     return _finalData;
   }
+
+  transportDataFromOnPremToCloud(String uid, var _yourHabits, var _habitDetails,
+      var _habitDays, var _completedHabits, var _finalCompleted) async {
+    FirebaseFirestore.instance.collection('Users').doc(uid).update({
+      'yourHabits': _yourHabits,
+      'habitDetails': _habitDetails,
+      'habitDays': _habitDays,
+      'completedHabits': _completedHabits,
+      'finalCompleted': _finalCompleted
+    });
+  }
 }
