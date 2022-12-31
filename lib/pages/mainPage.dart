@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -72,7 +73,7 @@ class _MainPageState extends State<MainPage> {
   final Color _backgroudRengi = Color.fromRGBO(21, 9, 35, 1);
   List _currentDayHabit = [];
   Map _currentDayCompletedHabits = {};
-
+  bool _bottomNavigatorShow = true;
   Map _completedHabits = {};
   Map _icons = {
     "Health": Icon(
@@ -347,6 +348,18 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  Function listEquality = const DeepCollectionEquality.unordered().equals;
+  transportDataFromOnPremToCloud()
+  //onpremden clouda aktaran fonksiyon burası. Uygulama ilk açıldığında senkronizasyonu yapar. Eğer daha az aktarım yapılsın istenirse bu fonksyion başka yerlere taşınabilir.
+  {
+    if (_userInfo != null) {
+      if (_userInfo['id'] != null) {
+        CloudDB().transportDataFromOnPremToCloud(_userInfo['id'], _yourHabits,
+            _habitDetails, _habitDays, _completedHabits, _finalCompleted);
+      }
+    }
+  }
+
   getCurrentChooseYourHabits() async {
     _yourHabits = await box.get("chooseYourHabitsHive") ?? []; //eski
 
@@ -357,6 +370,9 @@ class _MainPageState extends State<MainPage> {
     _finalCompleted = await box.get("finalCompleted") ?? {};
 
     recalculateListWithAnimation();
+    Future.delayed(const Duration(milliseconds: 2500), () {
+      transportDataFromOnPremToCloud();
+    });
   }
 
   returnFromCompletedHabitList(String _habitName) {
@@ -689,23 +705,25 @@ class _MainPageState extends State<MainPage> {
     return MaterialApp(
       home: Scaffold(
         bottomNavigationBar: _configsInfo.docs[_configsInfoInteger]['Social']
-            ? GNav(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                backgroundColor: _backgroudRengi,
-                gap: 20,
-                activeColor: Colors.green,
-                tabBackgroundColor: Color.fromARGB(255, 45, 15, 79),
-                color: _yaziTipiRengi,
-                tabs: [
-                    GButton(
-                      icon: Icons.person,
-                      text: "Single",
-                    ),
-                    GButton(
-                      icon: Icons.groups,
-                      text: "Social",
-                    )
-                  ])
+            ? _bottomNavigatorShow
+                ? GNav(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    backgroundColor: _backgroudRengi,
+                    gap: 20,
+                    activeColor: Colors.green,
+                    tabBackgroundColor: Color.fromARGB(255, 45, 15, 79),
+                    color: _yaziTipiRengi,
+                    tabs: [
+                        GButton(
+                          icon: Icons.person,
+                          text: "Single",
+                        ),
+                        GButton(
+                          icon: Icons.groups,
+                          text: "Social",
+                        )
+                      ])
+                : null
             : null,
         drawer: Drawer(
             backgroundColor: _yaziTipiRengi,
@@ -810,7 +828,9 @@ class _MainPageState extends State<MainPage> {
                                   splashColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    // CloudDB().getDataFromFireStore();
+                                    print(DateFormat('dd/MM/yyyy - HH:mm:ss')
+                                        .format(DateTime.now())
+                                        .toString());
                                     AuthService().googleSignIn();
 
                                     // print(_configsInfo.docs[_configsInfoInteger]
@@ -1795,6 +1815,9 @@ class _MainPageState extends State<MainPage> {
               SlidingUpPanel(
                 onPanelSlide: (double pos) {
                   if (pos == 0.0) {
+                    setState(() {
+                      _bottomNavigatorShow = true;
+                    });
                     if (_editleme) {
                       slidingCompletedProcess();
                     } else {
@@ -1802,6 +1825,10 @@ class _MainPageState extends State<MainPage> {
                         _editleme = true;
                       });
                     }
+                  } else {
+                    setState(() {
+                      _bottomNavigatorShow = false;
+                    });
                   }
                 },
 
@@ -2272,6 +2299,9 @@ class _MainPageState extends State<MainPage> {
                                                                 ['alarm']) {
                                                               ScaffoldMessenger
                                                                       .of(context)
+                                                                  .hideCurrentSnackBar();
+                                                              ScaffoldMessenger
+                                                                      .of(context)
                                                                   .showSnackBar(
                                                                 SnackBar(
                                                                   duration: Duration(
@@ -2301,6 +2331,9 @@ class _MainPageState extends State<MainPage> {
                                                                 ),
                                                               );
                                                             } else {
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .hideCurrentSnackBar();
                                                               ScaffoldMessenger
                                                                       .of(context)
                                                                   .showSnackBar(
@@ -2374,6 +2407,9 @@ class _MainPageState extends State<MainPage> {
                                                                 'notification']) {
                                                               ScaffoldMessenger
                                                                       .of(context)
+                                                                  .hideCurrentSnackBar();
+                                                              ScaffoldMessenger
+                                                                      .of(context)
                                                                   .showSnackBar(
                                                                 SnackBar(
                                                                   duration: Duration(
@@ -2403,6 +2439,9 @@ class _MainPageState extends State<MainPage> {
                                                                 ),
                                                               );
                                                             } else {
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .hideCurrentSnackBar();
                                                               ScaffoldMessenger
                                                                       .of(context)
                                                                   .showSnackBar(
