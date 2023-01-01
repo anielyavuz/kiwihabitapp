@@ -38,6 +38,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  bool _isButtonPressed = false;
   late var _todayText = AppLocalizations.of(context)!.todayText.toString();
   var _userInfo;
   var _configsInfo;
@@ -127,6 +128,19 @@ class _MainPageState extends State<MainPage> {
     }
 
     return days;
+  }
+
+  isButtonPressedCheck() {
+    setState(() {
+      print("button true");
+      _isButtonPressed = true;
+    });
+    Future.delayed(const Duration(milliseconds: 100), () {
+      setState(() {
+        _isButtonPressed = false;
+        print("button false");
+      });
+    });
   }
 
   versionInform() async {
@@ -1377,14 +1391,16 @@ class _MainPageState extends State<MainPage> {
                                     child: Padding(
                                       padding:
                                           const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                      child: Container(
-                                        // width:
-                                        //     MediaQuery.of(context).size.width / 3,
+                                      child: AnimatedContainer(
+                                        duration: Duration(milliseconds: 50),
                                         child: RawMaterialButton(
                                             splashColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            fillColor:
-                                                Color.fromARGB(255, 40, 25, 56),
+                                            highlightColor: Colors.green,
+                                            fillColor: _isButtonPressed == false
+                                                ? Color.fromARGB(
+                                                    255, 40, 25, 56)
+                                                : Color.fromARGB(
+                                                    255, 75, 47, 105),
                                             shape: RoundedRectangleBorder(
                                                 side: BorderSide(),
                                                 borderRadius: BorderRadius.all(
@@ -1514,13 +1530,12 @@ class _MainPageState extends State<MainPage> {
                                               );
                                             },
                                             onPressed:
-                                                !DateTime.parse(DateFormat('yyyy-MM-dd')
-                                                            .format(days[
-                                                                _currentIndexCalendar])
-                                                            .toString())
+                                                !DateTime.parse(DateFormat('yyyy-MM-dd').format(days[_currentIndexCalendar]).toString())
                                                         .isAfter(DateTime.parse(
-                                                            DateFormat('yyyy-MM-dd')
-                                                                .format(DateTime.now())
+                                                            DateFormat(
+                                                                    'yyyy-MM-dd')
+                                                                .format(
+                                                                    DateTime.now())
                                                                 .toString()))
                                                     ? () {
                                                         ////// Today veya önceki günlerde butona basılırsa çalışsın. Gelecek günlerde butona basılırsa çalışmasın çünkü henüz o günün habit'i yapılmadı.
@@ -1561,6 +1576,7 @@ class _MainPageState extends State<MainPage> {
                                                                         .toString()][_currentDayHabit[
                                                                     indexOfCurrentDayHabit]] !=
                                                                 null) {
+                                                              isButtonPressedCheck();
                                                               completedHabits(
                                                                   _currentDayHabit[
                                                                       indexOfCurrentDayHabit],
@@ -1575,6 +1591,7 @@ class _MainPageState extends State<MainPage> {
                                                                           .toString()][_currentDayHabit[indexOfCurrentDayHabit]]
                                                                       .length]);
                                                             } else {
+                                                              isButtonPressedCheck();
                                                               completedHabits(
                                                                   _currentDayHabit[
                                                                       indexOfCurrentDayHabit],
@@ -1585,6 +1602,7 @@ class _MainPageState extends State<MainPage> {
                                                                       '_allTimes'][0]);
                                                             }
                                                           } else {
+                                                            isButtonPressedCheck();
                                                             print(
                                                                 "null bir değerdi");
                                                             completedHabits(
