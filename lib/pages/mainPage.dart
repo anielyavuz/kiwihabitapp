@@ -1477,48 +1477,39 @@ class _MainPageState extends State<MainPage> {
                                                       ),
                                                     ],
                                                   ),
-                                                  InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () {
-                                                      // compareCurrentAndCompleted();
-                                                    },
-                                                    child: Container(
-                                                      width: 20,
-                                                      height: 20,
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.amber,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10)),
-                                                      child: Text(
+                                                  Container(
+                                                    width: 20,
+                                                    height: 20,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.amber,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    10)),
+                                                    child: Text(
 
-                                                          ////TEST
-                                                          remainHabitRepeat(
-                                                                  _currentDayHabit[
-                                                                      indexOfCurrentDayHabit])
-                                                              .toString()
-                                                          // _habitDetails[_currentDayHabit[
-                                                          //             indexOfCurrentDayHabit]]
-                                                          //         ['_allTimes']
-                                                          //     .length
-                                                          //     .toString()
+                                                        ////TEST
+                                                        remainHabitRepeat(
+                                                                _currentDayHabit[
+                                                                    indexOfCurrentDayHabit])
+                                                            .toString()
+                                                        // _habitDetails[_currentDayHabit[
+                                                        //             indexOfCurrentDayHabit]]
+                                                        //         ['_allTimes']
+                                                        //     .length
+                                                        //     .toString()
 
-                                                          ,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .publicSans(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 16,
-                                                                  color:
-                                                                      _backgroudRengi)),
-                                                    ),
+                                                        ,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: GoogleFonts
+                                                            .publicSans(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 16,
+                                                                color:
+                                                                    _backgroudRengi)),
                                                   ),
                                                 ],
                                               ),
