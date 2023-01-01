@@ -813,112 +813,26 @@ class _MainPageState extends State<MainPage> {
                     accountEmail: null,
                   ),
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: Stack(
-                        children: [
-                          Column(
-                            children: [
-                              Visibility(
-                                visible: _configsInfo.docs[_configsInfoInteger]
-                                    ['Analytics'],
-                                child: ListTile(
-                                  leading: Icon(Icons.analytics),
-                                  title: InkWell(
-                                    onTap: () async {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  GraphicPage()));
-                                    },
-                                    child: Container(
-                                      child: Text("Analytics",
-                                          style: GoogleFonts.publicSans(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 18,
-                                              color: _backgroudRengi)),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              ListTile(
-                                leading:
-                                    Icon(Icons.notification_important_rounded),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Visibility(
+                              visible: _configsInfo.docs[_configsInfoInteger]
+                                  ['Analytics'],
+                              child: ListTile(
+                                leading: Icon(Icons.analytics),
                                 title: InkWell(
-                                  splashColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    print(DateFormat('dd/MM/yyyy - HH:mm:ss')
-                                        .format(DateTime.now())
-                                        .toString());
-                                    AuthService().googleSignIn();
-
-                                    // print(_configsInfo.docs[_configsInfoInteger]
-                                    //     ['Social']);
-                                    // // print(_todayText);
-                                    // // notificationsServices
-                                    // //     .specificTimeNotification(
-                                    // //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
-
-                                    // //////////BURASI ÖNEMLİ////////////
-                                    // notificationsServices.sendNotifications(
-                                    //     "KiWi🥝", "Yoga zamanı 💁");
-
-                                    // notificationsServices
-                                    //     .sendPayloadNotifications(
-                                    //         0,
-                                    //         "KiWi🥝",
-                                    //         "Premium ol 💁",
-                                    //         "payload navigationnnnn");
-                                    // DateTime dt = DateTime.now().add(Duration(
-                                    //     seconds:
-                                    //         5)); //Or whatever DateTime you want
-                                    // var tzdatetime = tz.TZDateTime.from(dt,
-                                    //     tz.local); //could be var instead of final
-                                    // // notificationsServices
-                                    // //     .sendScheduledNotifications2(
-                                    // //         0, "Swim", "20:05", tzdatetime);
-                                    // notificationsServices.stopNotifications();
-
-                                    //////////BURASI ÖNEMLİ////////////
-                                  },
-                                  child: Container(
-                                    child: Text("Notifications Test",
-                                        style: GoogleFonts.publicSans(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                            color: _backgroudRengi)),
-                                  ),
-                                ),
-                              ),
-                              ListTile(
-                                leading: Icon(Icons.exit_to_app),
-                                title: InkWell(
-                                  splashColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    await _auth.signOut();
-
-                                    var a = await _authService.signOut();
-
-                                    box.put("chooseYourHabitsHive", []);
-                                    box.put("habitDetailsHive", []);
-                                    box.put("habitDays", []);
-                                    box.put("completedHabits", {});
-                                    box.put("finalCompleted", {});
-
-                                    Navigator.pushAndRemoveUntil(
+                                    Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                CheckAuth()),
-                                        (Route<dynamic> route) => false);
-
-                                    // Navigator.push(
-                                    //     context, MaterialPageRoute(builder: (context) => CheckAuth()));
+                                            builder: (context) =>
+                                                GraphicPage()));
                                   },
                                   child: Container(
-                                    child: Text("Çıkış",
+                                    child: Text("Analytics",
                                         style: GoogleFonts.publicSans(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 18,
@@ -926,24 +840,106 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                 ),
                               ),
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: ListTile(
-                                  leading: Icon(Icons.info_rounded),
-                                  title: Container(
-                                    child: Text(
-                                        "Version: " + version.toString(),
-                                        style: GoogleFonts.publicSans(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
-                                            color: _backgroudRengi)),
-                                  ),
+                            ),
+                            ListTile(
+                              leading:
+                                  Icon(Icons.notification_important_rounded),
+                              title: InkWell(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  print(DateFormat('dd/MM/yyyy - HH:mm:ss')
+                                      .format(DateTime.now())
+                                      .toString());
+                                  AuthService().googleSignIn();
+
+                                  // print(_configsInfo.docs[_configsInfoInteger]
+                                  //     ['Social']);
+                                  // // print(_todayText);
+                                  // // notificationsServices
+                                  // //     .specificTimeNotification(
+                                  // //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
+
+                                  // //////////BURASI ÖNEMLİ////////////
+                                  // notificationsServices.sendNotifications(
+                                  //     "KiWi🥝", "Yoga zamanı 💁");
+
+                                  // notificationsServices
+                                  //     .sendPayloadNotifications(
+                                  //         0,
+                                  //         "KiWi🥝",
+                                  //         "Premium ol 💁",
+                                  //         "payload navigationnnnn");
+                                  // DateTime dt = DateTime.now().add(Duration(
+                                  //     seconds:
+                                  //         5)); //Or whatever DateTime you want
+                                  // var tzdatetime = tz.TZDateTime.from(dt,
+                                  //     tz.local); //could be var instead of final
+                                  // // notificationsServices
+                                  // //     .sendScheduledNotifications2(
+                                  // //         0, "Swim", "20:05", tzdatetime);
+                                  // notificationsServices.stopNotifications();
+
+                                  //////////BURASI ÖNEMLİ////////////
+                                },
+                                child: Container(
+                                  child: Text("Notifications Test",
+                                      style: GoogleFonts.publicSans(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18,
+                                          color: _backgroudRengi)),
                                 ),
                               ),
-                            ],
-                          )
-                        ],
-                      ),
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.info_rounded),
+                              title: Container(
+                                child: Text(
+                                    "Version: " + version.toString(),
+                                    style: GoogleFonts.publicSans(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                        color: _backgroudRengi)),
+                              ),
+                            ),
+                          ],
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.exit_to_app),
+                          title: InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              await _auth.signOut();
+
+                              var a = await _authService.signOut();
+
+                              box.put("chooseYourHabitsHive", []);
+                              box.put("habitDetailsHive", []);
+                              box.put("habitDays", []);
+                              box.put("completedHabits", {});
+                              box.put("finalCompleted", {});
+
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          CheckAuth()),
+                                  (Route<dynamic> route) => false);
+
+                              // Navigator.push(
+                              //     context, MaterialPageRoute(builder: (context) => CheckAuth()));
+                            },
+                            child: Container(
+                              child: Text("Çıkış",
+                                  style: GoogleFonts.publicSans(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18,
+                                      color: _backgroudRengi)),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
