@@ -802,22 +802,26 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           Column(
                             children: [
-                              ListTile(
-                                leading: Icon(Icons.analytics),
-                                title: InkWell(
-                                  onTap: () async {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                GraphicPage()));
-                                  },
-                                  child: Container(
-                                    child: Text("Analytics",
-                                        style: GoogleFonts.publicSans(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                            color: _backgroudRengi)),
+                              Visibility(
+                                visible: _configsInfo.docs[_configsInfoInteger]
+                                    ['Analytics'],
+                                child: ListTile(
+                                  leading: Icon(Icons.analytics),
+                                  title: InkWell(
+                                    onTap: () async {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  GraphicPage()));
+                                    },
+                                    child: Container(
+                                      child: Text("Analytics",
+                                          style: GoogleFonts.publicSans(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
+                                              color: _backgroudRengi)),
+                                    ),
                                   ),
                                 ),
                               ),
