@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "728766484396-74g81dcueu69aljtcq5bog7pjdug8po7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kiwihabitapp",
+            "certificate_hash": "949382156376284b6bec2d1c4472d0b8b531ce1a"
+          }
+        },
+        {
           "client_id": "728766484396-8ffso4qlk98k28pq5ba2tqcd28ane8a1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
