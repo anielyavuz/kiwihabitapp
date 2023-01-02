@@ -43,6 +43,7 @@ class _MainPageState extends State<MainPage> {
   late var _todayText = AppLocalizations.of(context)!.todayText.toString();
   var _userInfo;
   var _configsInfo;
+  String _infoResult = "Notifications Test";
   bool _slidingCheckBoxEveryDay = true;
   List _sligingYourHabitAlltimes = [];
   List _slidingItemWeekDaysList = [];
@@ -851,8 +852,18 @@ class _MainPageState extends State<MainPage> {
                                   print(DateFormat('dd/MM/yyyy - HH:mm:ss')
                                       .format(DateTime.now())
                                       .toString());
-                                  AuthService().googleSignIn();
-
+                                  var _result =
+                                      await AuthService().googleSignInTest();
+                                  print("AAAAAAAA " + _result.toString());
+                                  if (_result) {
+                                    setState(() {
+                                      _infoResult = _result.toString();
+                                    });
+                                  } else {
+                                    setState(() {
+                                      _infoResult = _result.toString();
+                                    });
+                                  }
                                   // print(_configsInfo.docs[_configsInfoInteger]
                                   //     ['Social']);
                                   // // print(_todayText);
@@ -883,7 +894,7 @@ class _MainPageState extends State<MainPage> {
                                   //////////BURASI ÖNEMLİ////////////
                                 },
                                 child: Container(
-                                  child: Text("Notifications Test",
+                                  child: Text(_infoResult,
                                       style: GoogleFonts.publicSans(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 18,

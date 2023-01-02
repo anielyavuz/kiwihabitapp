@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>['email']);
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   Future<Map> anonymSignIn() async {
     Map returnCode = {};
     try {
@@ -34,12 +34,31 @@ class AuthService {
     return returnCode;
   }
 
+  googleSignInTest() async {
+    bool _result = true;
+    GoogleSignInAccount? googleUsers =
+        await _googleSignIn.signIn().then((value) {
+      print("AAAAAAAA");
+      _result = true;
+    }).onError((error, stackTrace) {
+      print("BBBBBBBB");
+      print(error);
+      _result = false;
+    });
+    return _result;
+  }
+
   googleSignIn() async {
-    GoogleSignInAccount? googleUsers = await _googleSignIn.signIn();
+    GoogleSignInAccount? googleUsers =
+        await _googleSignIn.signIn().then((value) {
+      print("AAAAAAAAA");
+    }).onError((error, stackTrace) {
+      print("BBBBB");
+    });
 
     GoogleSignInAuthentication googleSignInAuthentication =
         await googleUsers!.authentication;
-
+    print("CCCCCCCCC");
     final credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
