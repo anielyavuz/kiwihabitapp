@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "728766484396-j05urate90v1icfj4rhdt1lmtcfn9pop.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kiwihabitapp",
+            "certificate_hash": "7f8c4c6922fdbb26e811c56fad3ba9fce141d8ad"
+          }
+        },
+        {
+          "client_id": "728766484396-j0ka0oljr4dj4mkjqf0uen1274k3f4d9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kiwihabitapp",
+            "certificate_hash": "f8c91bbadb1299a18edbe7d0cff08176284d5c47"
+          }
+        },
+        {
           "client_id": "728766484396-aiihbrhp59tco34s71nfse2uka6fqa1m.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +45,13 @@
             {
               "client_id": "728766484396-aiihbrhp59tco34s71nfse2uka6fqa1m.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "728766484396-f6h02lkm7rdc180v05n5dh7os2j274lo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kiwihabitapp"
+              }
             }
           ]
         }
