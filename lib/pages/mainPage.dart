@@ -489,7 +489,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   editSingleHabit(String slidingHeaderText) {
-    PlayAudio().play("popUp");
+    PlayAudio().play("baloncuk");
     int _habitCount = 0;
     for (var item in _yourHabits) {
       if (item['habitName'] == slidingHeaderText) {

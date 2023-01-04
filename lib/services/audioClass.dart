@@ -30,6 +30,12 @@ class PlayAudio {
           .then((ByteData soundData) {
         return pool.load(soundData);
       });
+    } else if (command == "baloncuk") {
+      soundId = await rootBundle
+          .load("assets/audio/baloncuk.mp3")
+          .then((ByteData soundData) {
+        return pool.load(soundData);
+      });
     } else {
       soundId = await rootBundle
           .load("assets/audio/popUp.mp3")

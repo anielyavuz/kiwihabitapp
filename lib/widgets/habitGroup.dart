@@ -74,7 +74,7 @@ class _HabitGroupState extends State<HabitGroup> {
           setState(() {
             if (!_chooseYourHabitsName.contains(widget.butonYazi)) {
               if (_chooseYourHabits.length < 5) {
-                PlayAudio().play("check");
+                PlayAudio().play("baloncuk");
                 var _habit = {};
                 _habit['habitName'] = widget.butonYazi;
                 _habit['habitCategory'] = widget.butonCategory;
@@ -107,7 +107,7 @@ class _HabitGroupState extends State<HabitGroup> {
                 );
               }
             } else {
-              PlayAudio().play("uncheck");
+              PlayAudio().play("baloncuk");
               setState(() {
                 var _habit = {};
                 _habit['habitName'] = widget.butonYazi;

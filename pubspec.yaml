@@ -106,6 +106,7 @@ flutter:
     - assets/audio/check.mp3
     - assets/audio/uncheck.mp3
     - assets/audio/popUp.mp3
+    - assets/audio/baloncuk.mp3
     # - assets/audio/wrong2.mp3
     # - images/a_dot_ham.jpeg
 
