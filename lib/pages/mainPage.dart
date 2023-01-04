@@ -489,6 +489,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   editSingleHabit(String slidingHeaderText) {
+    PlayAudio().play("popUp");
     int _habitCount = 0;
     for (var item in _yourHabits) {
       if (item['habitName'] == slidingHeaderText) {
@@ -855,7 +856,7 @@ class _MainPageState extends State<MainPage> {
                                   print(DateFormat('dd/MM/yyyy - HH:mm:ss')
                                       .format(DateTime.now())
                                       .toString());
-                                  PlayAudio().play("Check");
+
                                   // print(_configsInfo.docs[_configsInfoInteger]
                                   //     ['Social']);
                                   // // print(_todayText);
@@ -1550,6 +1551,8 @@ class _MainPageState extends State<MainPage> {
                                                                       _currentIndexCalendar])
                                                                   .toString()] !=
                                                               null) {
+                                                            PlayAudio()
+                                                                .play("tik");
                                                             // print(_habitDetails[_currentDayHabit[
                                                             //         indexOfCurrentDayHabit]]
                                                             //     ['_allTimes'][_completedHabits[

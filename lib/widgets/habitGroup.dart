@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
+import 'package:kiwihabitapp/services/audioClass.dart';
 
 class HabitGroup extends StatefulWidget {
   final Color
@@ -73,6 +74,7 @@ class _HabitGroupState extends State<HabitGroup> {
           setState(() {
             if (!_chooseYourHabitsName.contains(widget.butonYazi)) {
               if (_chooseYourHabits.length < 5) {
+                PlayAudio().play("check");
                 var _habit = {};
                 _habit['habitName'] = widget.butonYazi;
                 _habit['habitCategory'] = widget.butonCategory;
@@ -105,6 +107,7 @@ class _HabitGroupState extends State<HabitGroup> {
                 );
               }
             } else {
+              PlayAudio().play("uncheck");
               setState(() {
                 var _habit = {};
                 _habit['habitName'] = widget.butonYazi;

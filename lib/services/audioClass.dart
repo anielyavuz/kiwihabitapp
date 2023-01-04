@@ -6,19 +6,38 @@ class PlayAudio {
 
   play(String command) async {
     int soundId;
-    if (command == "Check") {
+    if (command == "tik") {
       soundId = await rootBundle
-          .load("assets/audio/correct.mp3")
+          .load("assets/audio/tik.mp3")
+          .then((ByteData soundData) {
+        return pool.load(soundData);
+      });
+    } else if (command == "popUp") {
+      soundId = await rootBundle
+          .load("assets/audio/popUp.mp3")
+          .then((ByteData soundData) {
+        return pool.load(soundData);
+      });
+    } else if (command == "check") {
+      soundId = await rootBundle
+          .load("assets/audio/check.mp3")
+          .then((ByteData soundData) {
+        return pool.load(soundData);
+      });
+    } else if (command == "uncheck") {
+      soundId = await rootBundle
+          .load("assets/audio/uncheck.mp3")
           .then((ByteData soundData) {
         return pool.load(soundData);
       });
     } else {
       soundId = await rootBundle
-          .load("assets/audio/wrong2.mp3")
+          .load("assets/audio/popUp.mp3")
           .then((ByteData soundData) {
         return pool.load(soundData);
       });
     }
+
     print("Test");
     int streamId = await pool.play(soundId);
   }
