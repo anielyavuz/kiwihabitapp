@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -10,6 +11,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:kiwihabitapp/pages/addNewHabit.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/pages/graphicPage.dart';
+import 'package:kiwihabitapp/services/audioClass.dart';
 import 'package:kiwihabitapp/services/batteryOptimization.dart';
 import 'package:kiwihabitapp/services/firestoreClass.dart';
 import 'package:kiwihabitapp/services/iconClass.dart';
@@ -29,6 +31,7 @@ import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:kiwihabitapp/services/local_notification_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soundpool/soundpool.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -43,7 +46,7 @@ class _MainPageState extends State<MainPage> {
   late var _todayText = AppLocalizations.of(context)!.todayText.toString();
   var _userInfo;
   var _configsInfo;
-  String _infoResult = "Notifications Test";
+
   bool _slidingCheckBoxEveryDay = true;
   List _sligingYourHabitAlltimes = [];
   List _slidingItemWeekDaysList = [];
@@ -852,18 +855,7 @@ class _MainPageState extends State<MainPage> {
                                   print(DateFormat('dd/MM/yyyy - HH:mm:ss')
                                       .format(DateTime.now())
                                       .toString());
-                                  var _result =
-                                      await AuthService().googleSignInTest();
-                                  print("AAAAAAAA " + _result.toString());
-                                  if (_result) {
-                                    setState(() {
-                                      _infoResult = _result.toString();
-                                    });
-                                  } else {
-                                    setState(() {
-                                      _infoResult = _result.toString();
-                                    });
-                                  }
+                                  PlayAudio().play("Check");
                                   // print(_configsInfo.docs[_configsInfoInteger]
                                   //     ['Social']);
                                   // // print(_todayText);
@@ -894,7 +886,7 @@ class _MainPageState extends State<MainPage> {
                                   //////////BURASI ÖNEMLİ////////////
                                 },
                                 child: Container(
-                                  child: Text(_infoResult,
+                                  child: Text("Notifications Test",
                                       style: GoogleFonts.publicSans(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 18,

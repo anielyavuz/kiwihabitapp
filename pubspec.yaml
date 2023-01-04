@@ -54,7 +54,7 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   disable_battery_optimization: ^1.1.0+1
   fl_chart: ^0.55.2
-  
+  soundpool: ^2.3.0
   package_info_plus: ^1.4.2
   flutter_slidable: ^0.6.0
   google_nav_bar: ^5.0.6
@@ -102,6 +102,8 @@ flutter:
     - assets/json/sleep.json
     - assets/json/read.json
     - assets/json/work.json
+    - assets/audio/correct.mp3
+    - assets/audio/wrong2.mp3
     # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
