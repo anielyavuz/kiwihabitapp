@@ -128,6 +128,7 @@ class _MainPageState extends State<MainPage> {
   int _initialPage = 100; //initial page değeri değişirse bu değerde değişmeli
   PageController _pageController =
       PageController(viewportFraction: 1 / 7, initialPage: 100);
+
   List<DateTime> calculateDaysInterval(DateTime startDate, DateTime endDate) {
     for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
       days.add(startDate.add(Duration(days: i)));
@@ -621,15 +622,24 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       _currentDayHabit = [];
       _habitDays.forEach((k, v) {
-        if (v.contains(((DateTime.now().add(
-                        Duration(days: _initialPage - _defaultinitialPage)))
-                    .difference(DateTime(2000, 1, 3))
-                    .inDays %
-                7)
-            .toString())) {
-          setState(() {
-            _currentDayHabit.add(k);
-          });
+        if (DateTime.parse(DateFormat(
+                    'yyyy-MM-dd', Localizations.localeOf(context).toString())
+                .format(DateTime.parse(_userInfo['createTime'])))
+            .add(Duration(seconds: -1))
+            .isBefore(DateTime.parse(DateFormat(
+                    'yyyy-MM-dd', Localizations.localeOf(context).toString())
+                .format(DateTime.now().add(
+                    Duration(days: _initialPage - _defaultinitialPage)))))) {
+          if (v.contains(((DateTime.now().add(
+                          Duration(days: _initialPage - _defaultinitialPage)))
+                      .difference(DateTime(2000, 1, 3))
+                      .inDays %
+                  7)
+              .toString())) {
+            setState(() {
+              _currentDayHabit.add(k);
+            });
+          }
         }
       });
     });
@@ -868,72 +878,106 @@ class _MainPageState extends State<MainPage> {
                                 ),
                               ),
                             ),
-                            ListTile(
-                              leading:
-                                  Icon(Icons.notification_important_rounded),
-                              title: InkWell(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  print(DateFormat('dd/MM/yyyy - HH:mm:ss')
-                                      .format(DateTime.now())
-                                      .toString());
+                            // ListTile(
+                            //   leading:
+                            //       Icon(Icons.notification_important_rounded),
+                            //   title: InkWell(
+                            //     splashColor: Colors.transparent,
+                            //     highlightColor: Colors.transparent,
+                            //     onTap: () async {
+                            //       print(DateFormat('dd/MM/yyyy - HH:mm:ss')
+                            //           .format(DateTime.now())
+                            //           .toString());
 
-                                  // print(_configsInfo.docs[_configsInfoInteger]
-                                  //     ['Social']);
-                                  // // print(_todayText);
-                                  // // notificationsServices
-                                  // //     .specificTimeNotification(
-                                  // //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
+                            //       // print(_configsInfo.docs[_configsInfoInteger]
+                            //       //     ['Social']);
+                            //       // // print(_todayText);
+                            //       // // notificationsServices
+                            //       // //     .specificTimeNotification(
+                            //       // //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
 
-                                  // //////////BURASI ÖNEMLİ////////////
-                                  // notificationsServices.sendNotifications(
-                                  //     "KiWi🥝", "Yoga zamanı 💁");
+                            //       // //////////BURASI ÖNEMLİ////////////
+                            //       // notificationsServices.sendNotifications(
+                            //       //     "KiWi🥝", "Yoga zamanı 💁");
 
-                                  // notificationsServices
-                                  //     .sendPayloadNotifications(
-                                  //         0,
-                                  //         "KiWi🥝",
-                                  //         "Premium ol 💁",
-                                  //         "payload navigationnnnn");
-                                  // DateTime dt = DateTime.now().add(Duration(
-                                  //     seconds:
-                                  //         5)); //Or whatever DateTime you want
-                                  // var tzdatetime = tz.TZDateTime.from(dt,
-                                  //     tz.local); //could be var instead of final
-                                  // // notificationsServices
-                                  // //     .sendScheduledNotifications2(
-                                  // //         0, "Swim", "20:05", tzdatetime);
-                                  // notificationsServices.stopNotifications();
+                            //       // notificationsServices
+                            //       //     .sendPayloadNotifications(
+                            //       //         0,
+                            //       //         "KiWi🥝",
+                            //       //         "Premium ol 💁",
+                            //       //         "payload navigationnnnn");
+                            //       // DateTime dt = DateTime.now().add(Duration(
+                            //       //     seconds:
+                            //       //         5)); //Or whatever DateTime you want
+                            //       // var tzdatetime = tz.TZDateTime.from(dt,
+                            //       //     tz.local); //could be var instead of final
+                            //       // // notificationsServices
+                            //       // //     .sendScheduledNotifications2(
+                            //       // //         0, "Swim", "20:05", tzdatetime);
+                            //       // notificationsServices.stopNotifications();
 
-                                  //////////BURASI ÖNEMLİ////////////
-                                },
-                                child: Container(
-                                  child: Text("Notifications Test",
-                                      style: GoogleFonts.publicSans(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 18,
-                                          color: _backgroudRengi)),
-                                ),
-                              ),
-                            ),
+                            //       //////////BURASI ÖNEMLİ////////////
+                            //     },
+                            //     child: Container(
+                            //       child: Text("Notifications Test",
+                            //           style: GoogleFonts.publicSans(
+                            //               fontWeight: FontWeight.w600,
+                            //               fontSize: 18,
+                            //               color: _backgroudRengi)),
+                            //     ),
+                            //   ),
+                            // ),
+
                             ListTile(
                               leading: Icon(Icons.info_rounded),
-                              title: Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Version: " + version.toString(),
-                                        style: GoogleFonts.publicSans(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
-                                            color: _backgroudRengi)),
-                                    Text(_userInfo['id'],
-                                        style: GoogleFonts.publicSans(
-                                            fontWeight: FontWeight.w200,
-                                            fontSize: 8,
-                                            color: _backgroudRengi))
-                                  ],
+                              title: InkWell(
+                                onTap: () {
+                                  print(DateTime.parse(DateFormat(
+                                              'yyyy-MM-dd',
+                                              Localizations.localeOf(context)
+                                                  .toString())
+                                          .format(DateTime.parse(
+                                              _userInfo['createTime'])))
+                                      .add(Duration(seconds: -1)));
+                                  print("***");
+                                  print(DateTime.parse(DateFormat(
+                                          'yyyy-MM-dd',
+                                          Localizations.localeOf(context)
+                                              .toString())
+                                      .format(DateTime.now().add(Duration(
+                                          days: _initialPage -
+                                              _defaultinitialPage)))));
+                                  print("***");
+                                  print(DateTime.parse(DateFormat(
+                                              'yyyy-MM-dd',
+                                              Localizations.localeOf(context)
+                                                  .toString())
+                                          .format(DateTime.parse(
+                                              _userInfo['createTime'])))
+                                      .add(Duration(seconds: -1))
+                                      .isBefore(DateTime.parse(DateFormat(
+                                              'yyyy-MM-dd', Localizations.localeOf(context).toString())
+                                          .format(DateTime.now().add(Duration(days: _initialPage - _defaultinitialPage))))));
+
+                                  print("***");
+                                },
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Version: " + version.toString(),
+                                          style: GoogleFonts.publicSans(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16,
+                                              color: _backgroudRengi)),
+                                      Text(_userInfo['id'],
+                                          style: GoogleFonts.publicSans(
+                                              fontWeight: FontWeight.w200,
+                                              fontSize: 8,
+                                              color: _backgroudRengi))
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

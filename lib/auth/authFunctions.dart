@@ -16,9 +16,9 @@ class AuthService {
         "registerType": "Anonym",
         "id": user.user!.uid,
         "userAuth": "Prod",
-        "createTime": DateFormat('dd/MM/yyyy - HH:mm:ss')
-            .format(DateTime.now())
-            .toString(),
+        "userSubscription": "Free",
+        "createTime":
+            DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()).toString(),
         "yourHabits": [],
         "habitDetails": [],
         "habitDays": [],
