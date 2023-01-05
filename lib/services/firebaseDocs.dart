@@ -7,7 +7,7 @@ class FirebaseDocs {
   playAudio(String url) async {
     // Create a player
     final duration = await player.setUrl(// Load a URL
-        'https://foo.com/bar.mp3'); // Schemes: (https: | file: | asset: )
+        url); // Schemes: (https: | file: | asset: )
     player.play();
   }
 }
