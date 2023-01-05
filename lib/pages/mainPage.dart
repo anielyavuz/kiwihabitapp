@@ -13,6 +13,7 @@ import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/pages/graphicPage.dart';
 import 'package:kiwihabitapp/services/audioClass.dart';
 import 'package:kiwihabitapp/services/batteryOptimization.dart';
+import 'package:kiwihabitapp/services/firebaseDocs.dart';
 import 'package:kiwihabitapp/services/firestoreClass.dart';
 import 'package:kiwihabitapp/services/iconClass.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -838,6 +839,27 @@ class _MainPageState extends State<MainPage> {
                                   },
                                   child: Container(
                                     child: Text("Analytics",
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18,
+                                            color: _backgroudRengi)),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: _configsInfo.docs[_configsInfoInteger]
+                                  ['AudioTest'],
+                              child: ListTile(
+                                leading: Icon(Icons.voicemail),
+                                title: InkWell(
+                                  onTap: () async {
+                                    FirebaseDocs().playAudio(
+                                        _configsInfo.docs[_configsInfoInteger]
+                                            ['AudioTestInfo']);
+                                  },
+                                  child: Container(
+                                    child: Text("Audio Test",
                                         style: GoogleFonts.publicSans(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 18,
