@@ -989,9 +989,9 @@ class _MainPageState extends State<MainPage> {
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              await _auth.signOut();
-
-                              var a = await _authService.signOut();
+                              var a = await _authService
+                                  .signOutAndDeleteUser(_userInfo['id']);
+                              // await _auth.signOut();
 
                               box.put("chooseYourHabitsHive", []);
                               box.put("habitDetailsHive", []);

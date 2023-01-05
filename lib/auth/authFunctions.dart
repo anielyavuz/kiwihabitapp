@@ -82,4 +82,10 @@ class AuthService {
   signOut() async {
     return await _auth.signOut();
   }
+
+  signOutAndDeleteUser(String uid) async {
+    var k =
+        await FirebaseFirestore.instance.collection("Users").doc(uid).delete();
+    return await _auth.signOut();
+  }
 }
