@@ -919,16 +919,21 @@ class _MainPageState extends State<MainPage> {
                             ),
                             ListTile(
                               leading: Icon(Icons.info_rounded),
-                              title: InkWell(
-                                onTap: () {
-                                  print(_userInfo['id']);
-                                },
-                                child: Container(
-                                  child: Text("Version: " + version.toString(),
-                                      style: GoogleFonts.publicSans(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                          color: _backgroudRengi)),
+                              title: Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Version: " + version.toString(),
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                            color: _backgroudRengi)),
+                                    Text(_userInfo['id'],
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w200,
+                                            fontSize: 8,
+                                            color: _backgroudRengi))
+                                  ],
                                 ),
                               ),
                             ),
