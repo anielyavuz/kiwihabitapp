@@ -7,12 +7,18 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final googleSignIn = GoogleSignIn();
+  GoogleSignInAccount? _user;
+  GoogleSignInAccount get user => _user!;
   Future<Map> anonymSignIn() async {
     Map returnCode = {};
     try {
       var user = await _auth.signInAnonymously();
 
       await _firestore.collection("Users").doc(user.user!.uid).set({
+        "userName": "Guest",
+        "email": "",
+        "photoUrl": "",
         "registerType": "Anonym",
         "id": user.user!.uid,
         "userAuth": "Prod",
@@ -34,58 +40,104 @@ class AuthService {
     return returnCode;
   }
 
-  googleSignInTest() async {
-    bool _result = true;
-    GoogleSignInAccount? googleUsers =
-        await _googleSignIn.signIn().then((value) {
-      print("AAAAAAAA");
-      _result = true;
-    }).onError((error, stackTrace) {
-      print("BBBBBBBB");
-      print(error);
-      _result = false;
+  googleLoginFromMainPage(var anonymData) async {
+    await _auth.signOut();
+    final googleUser = await _googleSignIn.signIn();
+
+    if (googleUser == null) return;
+    _user = googleUser;
+    final googleAuth = await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    var newUser = await FirebaseAuth.instance.signInWithCredential(credential);
+
+    await _firestore.collection("Users").doc(newUser.user!.uid).set({
+      "userName": googleUser.displayName,
+      "email": googleUser.email,
+      "photoUrl": googleUser.photoUrl,
+      "registerType": "Google",
+      "id": newUser.user!.uid,
+      "userAuth": anonymData['userAuth'],
+      "userSubscription": "Free",
+      "createTime": anonymData['createTime'],
+      "yourHabits": anonymData['yourHabits'],
+      "habitDetails": anonymData['habitDetails'],
+      "habitDays": anonymData['habitDays'],
+      "completedHabits": anonymData['completedHabits'],
+      "finalCompleted": anonymData['finalCompleted'],
+    }).then((value) async {
+      //silemedik çünkü user log out oldu ve yetkisi gitti...
+      // var k = await FirebaseFirestore.instance
+      //     .collection("Users")
+      //     .doc(anonymData['id'])
+      //     .delete();
     });
-    return _result;
+    // if (!doesGoogleUserExist(newUser.user!.uid)) {
+    //   await _firestore.collection("Users").doc(newUser.user!.uid).set(anonymData);
+    // }
   }
 
-  googleSignIn() async {
-    GoogleSignInAccount? googleUsers =
-        await _googleSignIn.signIn().then((value) {
-      print("AAAAAAAAA");
-    }).onError((error, stackTrace) {
-      print("BBBBB");
+  Future<bool> doesGoogleUserExist(String email) async {
+// if the size of value is greater then 0 then that doc exist.
+
+    print("qqqqqqqqqqqqqqqqqq");
+    bool _accountAlreadyExist = false;
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .where('email', isEqualTo: email)
+        .get()
+        .then((value) {
+      if (value.size > 0) {
+        _accountAlreadyExist = true;
+      } else {
+        _accountAlreadyExist = false;
+      }
     });
 
-    GoogleSignInAuthentication googleSignInAuthentication =
-        await googleUsers!.authentication;
-    print("CCCCCCCCC");
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
-    var user = await _auth.signInWithCredential(credential);
-    print("Login olladu $user");
-    // Map returnCode = {};
-    // try {
-    //   var user = await _auth.signInAnonymously();
+    print("eeeeeeeee $_accountAlreadyExist");
+    return _accountAlreadyExist;
+  }
 
-    //   await _firestore.collection("Users").doc(user.user!.uid).set(
-    //       {"registerType": "Anonym", "id": user.user!.uid, "userAuth": "Prod"});
-    // } on FirebaseAuthException catch (e) {
-    //   returnCode['status'] = false;
-    //   returnCode['value'] = e.code;
-    //   print('Failed with error code: ${e.code}');
-    //   print(e.message);
-    // }
+  googleLoginFromIntroPage() async {
+    final googleUser = await _googleSignIn.signIn();
+    if (googleUser == null) return;
+    _user = googleUser;
+    final googleAuth = await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    var newUser = await FirebaseAuth.instance.signInWithCredential(credential);
+    print("BÖYLEE BİR KULLANICI YOK GERİ ÇIK " + googleUser.email.toString());
+    var _exist = await doesGoogleUserExist(googleUser.email);
+    if (_exist) {
+    } else {
+      print("Kullanıcı geçmişten var");
+    }
   }
 
   signOut() async {
     return await _auth.signOut();
   }
 
-  signOutAndDeleteUser(String uid) async {
-    var k =
-        await FirebaseFirestore.instance.collection("Users").doc(uid).delete();
-    return await _auth.signOut();
+  signOutAndDeleteUser(String uid, String registerType) async {
+    if (registerType == "Anonym") {
+      print("AAAAAAAAAAA $uid");
+      var k = await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(uid)
+          .delete()
+          .then((value) async {
+        return await _auth.signOut();
+      }).onError((error, stackTrace) async {
+        return await _auth.signOut();
+      });
+    } else {
+      return await _auth.signOut();
+    }
   }
 }

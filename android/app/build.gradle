@@ -16,7 +16,7 @@ if (flutterVersionCode == null) {
     flutterVersionCode = '2'
 }
 else{
-    flutterVersionCode = '7'
+    flutterVersionCode = '8'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
@@ -30,6 +30,7 @@ else{
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'com.google.gms.google-services'
 
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
@@ -57,7 +58,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.turneight.kiwihabitapp"
+        applicationId "com.example.kiwihabitapp"
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()

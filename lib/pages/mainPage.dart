@@ -174,58 +174,60 @@ class _MainPageState extends State<MainPage> {
               .inDays %
           7);
       // print(_nameDayInt);
-      if (_habitDays != null) {
-        _habitDays.forEach((k, v) {
-          if (v.contains(_nameDayInt.toString())) {
-            for (var _habitInfo in _habitDetails[k]['_allTimes']) {
-              ///örn:  [{time: TimeOfDay(12:30), notification: true, alarm: false}]}z
-              ///
-              if (_habitInfo['notification']) {
-                TimeOfDay _startTime = TimeOfDay(
-                    hour: int.parse(_habitInfo['time']
-                        .split("(")[1]
-                        .split(")")[0]
-                        .split(":")[0]),
-                    minute: int.parse(_habitInfo['time']
-                        .split("(")[1]
-                        .split(")")[0]
-                        .split(":")[1]));
-                DateTime _dt = DateTime(
-                    DateTime.now().add(Duration(days: _addedDay)).year,
-                    DateTime.now().add(Duration(days: _addedDay)).month,
-                    DateTime.now().add(Duration(days: _addedDay)).day,
-                    _startTime.hour,
-                    _startTime.minute);
-                var tzdatetime = tz.TZDateTime.from(
-                    _dt, tz.local); //could be var instead of final
+      if (_habitDetails.length > 0) {
+        if (_habitDays != null) {
+          _habitDays.forEach((k, v) {
+            if (v.contains(_nameDayInt.toString())) {
+              for (var _habitInfo in _habitDetails[k]['_allTimes']) {
+                ///örn:  [{time: TimeOfDay(12:30), notification: true, alarm: false}]}z
+                ///
+                if (_habitInfo['notification']) {
+                  TimeOfDay _startTime = TimeOfDay(
+                      hour: int.parse(_habitInfo['time']
+                          .split("(")[1]
+                          .split(")")[0]
+                          .split(":")[0]),
+                      minute: int.parse(_habitInfo['time']
+                          .split("(")[1]
+                          .split(")")[0]
+                          .split(":")[1]));
+                  DateTime _dt = DateTime(
+                      DateTime.now().add(Duration(days: _addedDay)).year,
+                      DateTime.now().add(Duration(days: _addedDay)).month,
+                      DateTime.now().add(Duration(days: _addedDay)).day,
+                      _startTime.hour,
+                      _startTime.minute);
+                  var tzdatetime = tz.TZDateTime.from(
+                      _dt, tz.local); //could be var instead of final
 
-                if (_dt.isAfter(DateTime.now())) {
-                  if (_startTime.minute > 9) {
-                    notificationsServices.sendScheduledNotifications2(
-                        _notificationID,
-                        "KiWi🥝",
-                        "Time for " + k + " 😎",
-                        // _startTime.hour.toString() +
-                        //     ":" +
-                        //     _startTime.minute.toString(),
-                        tzdatetime);
-                  } else {
-                    notificationsServices.sendScheduledNotifications2(
-                        _notificationID,
-                        "KiWi🥝",
-                        "Time for " + k + " 😎",
-                        // _startTime.hour.toString() +
-                        //     ":0" +
-                        //     _startTime.minute.toString(),
-                        tzdatetime);
+                  if (_dt.isAfter(DateTime.now())) {
+                    if (_startTime.minute > 9) {
+                      notificationsServices.sendScheduledNotifications2(
+                          _notificationID,
+                          "KiWi🥝",
+                          "Time for " + k + " 😎",
+                          // _startTime.hour.toString() +
+                          //     ":" +
+                          //     _startTime.minute.toString(),
+                          tzdatetime);
+                    } else {
+                      notificationsServices.sendScheduledNotifications2(
+                          _notificationID,
+                          "KiWi🥝",
+                          "Time for " + k + " 😎",
+                          // _startTime.hour.toString() +
+                          //     ":0" +
+                          //     _startTime.minute.toString(),
+                          tzdatetime);
+                    }
+
+                    _notificationID += 1;
                   }
-
-                  _notificationID += 1;
                 }
               }
             }
-          }
-        });
+          });
+        }
       }
     }
 
@@ -376,8 +378,35 @@ class _MainPageState extends State<MainPage> {
   {
     if (_userInfo != null) {
       if (_userInfo['id'] != null) {
-        CloudDB().transportDataFromOnPremToCloud(_userInfo['id'], _yourHabits,
-            _habitDetails, _habitDays, _completedHabits, _finalCompleted);
+        print("ALOOOOO $_habitDetails");
+        if (_habitDetails.length > 0) {
+          print("000000000000");
+          CloudDB().transportDataFromOnPremToCloud(_userInfo['id'], _yourHabits,
+              _habitDetails, _habitDays, _habitDays, _finalCompleted);
+        } else {
+          print("Burada eksikler var.....");
+          box.put("chooseYourHabitsHive", _userInfo['yourHabits']);
+          box.put("habitDetailsHive", _userInfo['habitDetails']);
+          box.put("habitDays", _userInfo['habitDays']);
+          box.put("completedHabits", _userInfo['completedHabits']);
+          box.put("finalCompleted", _userInfo['finalCompleted']);
+
+          setState(() {
+            _yourHabits = _userInfo['yourHabits'];
+            _habitDetails = _userInfo['habitDetails'];
+            _habitDays = _userInfo['habitDays'];
+            _habitDays = _userInfo['completedHabits'];
+            _finalCompleted = _userInfo['finalCompleted'];
+          });
+
+          recalculateListWithAnimation();
+
+          Future.delayed(const Duration(milliseconds: 2500), () {
+            notificaitonMap();
+          });
+
+          print("Burada eksikler var.....");
+        }
       }
     }
   }
@@ -720,20 +749,24 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    AuthService _authService = AuthService();
+    final FirebaseAuth _auth = FirebaseAuth.instance;
     if (Provider.of<QuerySnapshot> != null &&
         Provider.of<DocumentSnapshot> != null) {
       _userInfo = Provider.of<DocumentSnapshot>(context).data();
 
       _configsInfo = Provider.of<QuerySnapshot>(context);
-      if (_userInfo['userAuth'] == "Test") {
-        _configsInfoInteger = 1;
+      if (_userInfo != null) {
+        if (_userInfo['userAuth'] == "Test") {
+          _configsInfoInteger = 1;
+        } else {
+          _configsInfoInteger = 0;
+        }
       } else {
-        _configsInfoInteger = 0;
+        _auth.signOut();
       }
     }
 
-    AuthService _authService = AuthService();
-    final FirebaseAuth _auth = FirebaseAuth.instance;
     return MaterialApp(
       home: Scaffold(
         bottomNavigationBar: _configsInfo.docs[_configsInfoInteger]['Social']
@@ -878,6 +911,46 @@ class _MainPageState extends State<MainPage> {
                                 ),
                               ),
                             ),
+
+                            _userInfo['userName'] == "Guest"
+                                ? ListTile(
+                                    leading: Icon(Icons.person),
+                                    title: InkWell(
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        AuthService()
+                                            .googleLoginFromMainPage(_userInfo);
+                                      },
+                                      child: Container(
+                                        child: Text("Sign In",
+                                            style: GoogleFonts.publicSans(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18,
+                                                color: _backgroudRengi)),
+                                      ),
+                                    ),
+                                  )
+                                : ListTile(
+                                    leading: CircleAvatar(
+                                        backgroundColor:
+                                            Colors.black.withOpacity(0),
+                                        backgroundImage: NetworkImage(
+                                            _userInfo['photoUrl'])),
+                                    title: InkWell(
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {},
+                                      child: Container(
+                                        child: Text(_userInfo['userName'],
+                                            style: GoogleFonts.publicSans(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18,
+                                                color: _backgroudRengi)),
+                                      ),
+                                    ),
+                                  ),
+
                             // ListTile(
                             //   leading:
                             //       Icon(Icons.notification_important_rounded),
@@ -989,8 +1062,8 @@ class _MainPageState extends State<MainPage> {
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              var a = await _authService
-                                  .signOutAndDeleteUser(_userInfo['id']);
+                              var a = await _authService.signOutAndDeleteUser(
+                                  _userInfo['id'], _userInfo['registerType']);
                               // await _auth.signOut();
 
                               box.put("chooseYourHabitsHive", []);

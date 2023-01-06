@@ -353,24 +353,25 @@ class _IntroPageState extends State<IntroPage> {
                             ),
                             InkWell(
                               onTap: () async {
-                                // box.put("key1", "value2");
-                                final value =
-                                    box.get("loginLogsHive") ?? "null";
-                                print(value);
+                                AuthService().googleLoginFromIntroPage();
                               },
                               child: FittedBox(
                                 fit: BoxFit.fill,
                                 child: Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: _yaziTipiRengi.withOpacity(0.5),width: 0.7),
+                                      border: Border.all(
+                                          color:
+                                              _yaziTipiRengi.withOpacity(0.5),
+                                          width: 0.7),
                                       borderRadius: BorderRadius.circular(15)),
                                   child: Center(
                                       child: Text(_alreadyHaveAnyHabitText,
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.publicSans(
                                               fontSize: 15,
-                                              color: _yaziTipiRengi.withOpacity(0.8)))),
+                                              color: _yaziTipiRengi
+                                                  .withOpacity(0.8)))),
                                 ),
                               ),
                             )
