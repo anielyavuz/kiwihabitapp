@@ -353,7 +353,9 @@ class _IntroPageState extends State<IntroPage> {
                             ),
                             InkWell(
                               onTap: () async {
-                                AuthService().googleLoginFromIntroPage();
+                                var _exist = await AuthService()
+                                    .googleLoginFromIntroPage();
+                                print("$_exist 4444444444444");
                               },
                               child: FittedBox(
                                 fit: BoxFit.fill,

@@ -80,25 +80,21 @@ class AuthService {
     // }
   }
 
-  Future<bool> doesGoogleUserExist(String email) async {
+  Future<bool> doesGoogleUserExist(String uid) async {
 // if the size of value is greater then 0 then that doc exist.
 
-    print("qqqqqqqqqqqqqqqqqq");
-    bool _accountAlreadyExist = false;
-    await FirebaseFirestore.instance
-        .collection('Users')
-        .where('email', isEqualTo: email)
-        .get()
-        .then((value) {
-      if (value.size > 0) {
-        _accountAlreadyExist = true;
-      } else {
-        _accountAlreadyExist = false;
-      }
-    });
+    print("PPPPPPPPPP  ");
+    try {
+      // Get reference to Firestore collection
+      var collectionRef = FirebaseFirestore.instance.collection('Users');
 
-    print("eeeeeeeee $_accountAlreadyExist");
-    return _accountAlreadyExist;
+      var doc = await collectionRef.doc(uid).get();
+
+      print("_accountAlreadyExistttttttt = " + doc.exists.toString());
+      return doc.exists;
+    } catch (e) {
+      throw e;
+    }
   }
 
   googleLoginFromIntroPage() async {
@@ -110,14 +106,11 @@ class AuthService {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-
     var newUser = await FirebaseAuth.instance.signInWithCredential(credential);
-    print("BÖYLEE BİR KULLANICI YOK GERİ ÇIK " + googleUser.email.toString());
-    var _exist = await doesGoogleUserExist(googleUser.email);
-    if (_exist) {
-    } else {
-      print("Kullanıcı geçmişten var");
-    }
+    print("OOOOOOOOOOO  ");
+    print(newUser.user!.uid);
+
+    //
   }
 
   signOut() async {

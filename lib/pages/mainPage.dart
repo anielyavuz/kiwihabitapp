@@ -11,11 +11,13 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:kiwihabitapp/pages/addNewHabit.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/pages/graphicPage.dart';
+import 'package:kiwihabitapp/pages/intro.dart';
 import 'package:kiwihabitapp/services/audioClass.dart';
 import 'package:kiwihabitapp/services/batteryOptimization.dart';
 import 'package:kiwihabitapp/services/firebaseDocs.dart';
 import 'package:kiwihabitapp/services/firestoreClass.dart';
 import 'package:kiwihabitapp/services/iconClass.dart';
+import 'package:kiwihabitapp/services/twoButtonPopUp.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -126,15 +128,49 @@ class _MainPageState extends State<MainPage> {
   var _datetime;
   final int _defaultinitialPage = 100;
   int _initialPage = 100; //initial page değeri değişirse bu değerde değişmeli
+  AuthService _authService = AuthService();
   PageController _pageController =
       PageController(viewportFraction: 1 / 7, initialPage: 100);
-
+  BaseAlertDialog baseAlertDialog = BaseAlertDialog();
   List<DateTime> calculateDaysInterval(DateTime startDate, DateTime endDate) {
     for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
       days.add(startDate.add(Duration(days: i)));
     }
 
     return days;
+  }
+
+  askToLoginBeforeExit() {
+    var baseDialog = BaseAlertDialog(
+        title: "Warning",
+        content: "You will lose your habits, please login before exit.",
+        yesOnPressed: () async {
+          //
+          var k = await AuthService().googleLoginFromMainPage(_userInfo);
+          Navigator.of(context, rootNavigator: true).pop(false);
+        },
+        noOnPressed: () async {
+          var a = await _authService.signOutAndDeleteUser(
+              _userInfo['id'], _userInfo['registerType']);
+          // await _auth.signOut();
+
+          box.put("chooseYourHabitsHive", []);
+          box.put("habitDetailsHive", []);
+          box.put("habitDays", []);
+          box.put("completedHabits", {});
+          box.put("finalCompleted", {});
+
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => CheckAuth()),
+              (Route<dynamic> route) => false);
+
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => CheckAuth()));
+        },
+        yes: "Login",
+        no: "Exit");
+    showDialog(context: context, builder: (BuildContext context) => baseDialog);
   }
 
   isButtonPressedCheck(int isButtonPressedID) {
@@ -749,7 +785,6 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    AuthService _authService = AuthService();
     final FirebaseAuth _auth = FirebaseAuth.instance;
     if (Provider.of<QuerySnapshot> != null &&
         Provider.of<DocumentSnapshot> != null) {
@@ -763,7 +798,14 @@ class _MainPageState extends State<MainPage> {
           _configsInfoInteger = 0;
         }
       } else {
-        _auth.signOut();
+        Future.delayed(const Duration(milliseconds: 500), () async {
+          print("IIIIIIIIIIIIIII");
+          await _auth.signOut();
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => IntroPage()),
+              (Route<dynamic> route) => false);
+        });
       }
     }
 
@@ -912,44 +954,47 @@ class _MainPageState extends State<MainPage> {
                               ),
                             ),
 
-                            _userInfo['userName'] == "Guest"
-                                ? ListTile(
-                                    leading: Icon(Icons.person),
-                                    title: InkWell(
-                                      splashColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        AuthService()
-                                            .googleLoginFromMainPage(_userInfo);
-                                      },
-                                      child: Container(
-                                        child: Text("Sign In",
-                                            style: GoogleFonts.publicSans(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18,
-                                                color: _backgroudRengi)),
-                                      ),
-                                    ),
-                                  )
-                                : ListTile(
-                                    leading: CircleAvatar(
-                                        backgroundColor:
-                                            Colors.black.withOpacity(0),
-                                        backgroundImage: NetworkImage(
-                                            _userInfo['photoUrl'])),
-                                    title: InkWell(
-                                      splashColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {},
-                                      child: Container(
-                                        child: Text(_userInfo['userName'],
-                                            style: GoogleFonts.publicSans(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18,
-                                                color: _backgroudRengi)),
-                                      ),
-                                    ),
-                                  ),
+                            _userInfo != null
+                                ? _userInfo['userName'] == "Guest"
+                                    ? ListTile(
+                                        leading: Icon(Icons.person),
+                                        title: InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            AuthService()
+                                                .googleLoginFromMainPage(
+                                                    _userInfo);
+                                          },
+                                          child: Container(
+                                            child: Text("Sign In",
+                                                style: GoogleFonts.publicSans(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 18,
+                                                    color: _backgroudRengi)),
+                                          ),
+                                        ),
+                                      )
+                                    : ListTile(
+                                        leading: CircleAvatar(
+                                            backgroundColor:
+                                                Colors.black.withOpacity(0),
+                                            backgroundImage: NetworkImage(
+                                                _userInfo['photoUrl'])),
+                                        title: InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {},
+                                          child: Container(
+                                            child: Text(_userInfo['userName'],
+                                                style: GoogleFonts.publicSans(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 18,
+                                                    color: _backgroudRengi)),
+                                          ),
+                                        ),
+                                      )
+                                : SizedBox(),
 
                             // ListTile(
                             //   leading:
@@ -1044,7 +1089,10 @@ class _MainPageState extends State<MainPage> {
                                               fontWeight: FontWeight.w600,
                                               fontSize: 16,
                                               color: _backgroudRengi)),
-                                      Text(_userInfo['id'],
+                                      Text(
+                                          _userInfo != null
+                                              ? _userInfo['id']
+                                              : "",
                                           style: GoogleFonts.publicSans(
                                               fontWeight: FontWeight.w200,
                                               fontSize: 8,
@@ -1062,25 +1110,31 @@ class _MainPageState extends State<MainPage> {
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              var a = await _authService.signOutAndDeleteUser(
-                                  _userInfo['id'], _userInfo['registerType']);
-                              // await _auth.signOut();
+                              if (_userInfo['userName'] == "Guest") {
+                                askToLoginBeforeExit();
+                              } else {
+                                var a = await _authService.signOutAndDeleteUser(
+                                    _userInfo['id'], _userInfo['registerType']);
+                                // await _auth.signOut();
 
-                              box.put("chooseYourHabitsHive", []);
-                              box.put("habitDetailsHive", []);
-                              box.put("habitDays", []);
-                              box.put("completedHabits", {});
-                              box.put("finalCompleted", {});
+                                box.put("chooseYourHabitsHive", []);
+                                box.put("habitDetailsHive", []);
+                                box.put("habitDays", []);
+                                box.put("completedHabits", {});
+                                box.put("finalCompleted", {});
 
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          CheckAuth()),
-                                  (Route<dynamic> route) => false);
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            CheckAuth()),
+                                    (Route<dynamic> route) => false);
 
-                              // Navigator.push(
-                              //     context, MaterialPageRoute(builder: (context) => CheckAuth()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CheckAuth()));
+                              }
                             },
                             child: Container(
                               child: Text("Çıkış",
