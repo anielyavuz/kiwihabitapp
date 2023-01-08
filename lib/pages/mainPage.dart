@@ -414,13 +414,13 @@ class _MainPageState extends State<MainPage> {
   {
     if (_userInfo != null) {
       if (_userInfo['id'] != null) {
-        print("ALOOOOO $_habitDetails");
+        // print("ALOOOOO $_habitDetails");
         if (_habitDetails.length > 0) {
-          print("000000000000");
+          // print("000000000000");
           CloudDB().transportDataFromOnPremToCloud(_userInfo['id'], _yourHabits,
               _habitDetails, _habitDays, _habitDays, _finalCompleted);
         } else {
-          print("Burada eksikler var.....");
+          // print("Burada eksikler var.....");
           box.put("chooseYourHabitsHive", _userInfo['yourHabits']);
           box.put("habitDetailsHive", _userInfo['habitDetails']);
           box.put("habitDays", _userInfo['habitDays']);
@@ -441,7 +441,7 @@ class _MainPageState extends State<MainPage> {
             notificaitonMap();
           });
 
-          print("Burada eksikler var.....");
+          // print("Burada eksikler var.....");
         }
       }
     }
@@ -484,12 +484,12 @@ class _MainPageState extends State<MainPage> {
 
     // _finalCompleted = copyDeepMap(_completedHabits);
 
-    print("Final Map'e klonlanıyorr");
+    //print("Final Map'e klonlanıyorr");
   }
 
   completedHabits(String _habitName, Map _time) {
-    print('_completedHabits');
-    print(_completedHabits);
+    //print('_completedHabits');
+    //print(_completedHabits);
     if (_completedHabits[DateFormat('dd MMMM yyyy')
             .format(days[_currentIndexCalendar])
             .toString()] ==
@@ -518,7 +518,7 @@ class _MainPageState extends State<MainPage> {
                 .toString()][_habitName]
             .length ==
         _habitDetails[_habitName]['_allTimes'].length) {
-      print("Map finale Klonlanıyorrr");
+      //print("Map finale Klonlanıyorrr");
 
       if (_finalCompleted[DateFormat('dd MMMM yyyy')
               .format(days[_currentIndexCalendar])
@@ -549,8 +549,8 @@ class _MainPageState extends State<MainPage> {
     box.put("completedHabits", _completedHabits);
     box.put("finalCompleted", _finalCompleted);
 
-    // print('_completedHabits2');
-    // print(_completedHabits);
+    // //print('_completedHabits2');
+    // //print(_completedHabits);
 
     compareCurrentAndCompleted();
   }
@@ -578,7 +578,7 @@ class _MainPageState extends State<MainPage> {
     });
 
     _pc.open();
-    // print("EDİTLE");
+    // //print("EDİTLE");
   }
 
   remainHabitRepeat(String habitName) {
@@ -641,8 +641,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   compareCurrentAndCompleted() {
-    // print('_habitDetails');
-    // print(_habitDetails);
+    // //print('_habitDetails');
+    // //print(_habitDetails);
 
     List _willRemoveHabitNames = [];
     for (var habitName in _currentDayHabit) {
@@ -659,13 +659,13 @@ class _MainPageState extends State<MainPage> {
                       .toString()][habitName]
                   .length ==
               _habitDetails[habitName]['_allTimes'].length) {
-            print("Habitin tüm tekrarları bitti, kaldırılabilir");
+            //print("Habitin tüm tekrarları bitti, kaldırılabilir");
 
             _willRemoveHabitNames.add(habitName);
-            // print(_willRemoveHabitNames);
+            // //print(_willRemoveHabitNames);
             //
           } else {
-            print("Henüz bu habitte yapılacak tekrar var...");
+            //print("Henüz bu habitte yapılacak tekrar var...");
           }
         }
       }
@@ -675,7 +675,7 @@ class _MainPageState extends State<MainPage> {
         setState(() {
           _currentDayHabit.removeWhere((item) => item == _willRemoveHabitName);
         });
-        // print("$_willRemoveHabitName habitini kaldırıyorum.");
+        // //print("$_willRemoveHabitName habitini kaldırıyorum.");
       }
 
       // recalculateListForCurrentListWithAnimation();
@@ -709,8 +709,8 @@ class _MainPageState extends State<MainPage> {
       });
     });
     compareCurrentAndCompleted();
-    // print("_currentDayHabit");
-    // print(_currentDayHabit);
+    // //print("_currentDayHabit");
+    // //print(_currentDayHabit);
   }
 
   // Future<void> _configureLocalTimeZone() async {
@@ -730,7 +730,7 @@ class _MainPageState extends State<MainPage> {
 
   void onNotificationListener(String? payload) {
     if (payload != null && payload.isNotEmpty) {
-      print('payload $payload');
+      //print('payload $payload');
 
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => BePremiumUser()));
@@ -799,7 +799,7 @@ class _MainPageState extends State<MainPage> {
         }
       } else {
         Future.delayed(const Duration(milliseconds: 500), () async {
-          print("IIIIIIIIIIIIIII");
+          //print("IIIIIIIIIIIIIII");
           await _auth.signOut();
           Navigator.pushAndRemoveUntil(
               context,
@@ -1003,13 +1003,13 @@ class _MainPageState extends State<MainPage> {
                             //     splashColor: Colors.transparent,
                             //     highlightColor: Colors.transparent,
                             //     onTap: () async {
-                            //       print(DateFormat('dd/MM/yyyy - HH:mm:ss')
+                            //       //print(DateFormat('dd/MM/yyyy - HH:mm:ss')
                             //           .format(DateTime.now())
                             //           .toString());
 
-                            //       // print(_configsInfo.docs[_configsInfoInteger]
+                            //       // //print(_configsInfo.docs[_configsInfoInteger]
                             //       //     ['Social']);
-                            //       // // print(_todayText);
+                            //       // // //print(_todayText);
                             //       // // notificationsServices
                             //       // //     .specificTimeNotification(
                             //       // //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
@@ -1050,34 +1050,34 @@ class _MainPageState extends State<MainPage> {
                               leading: Icon(Icons.info_rounded),
                               title: InkWell(
                                 onTap: () {
-                                  print(DateTime.parse(DateFormat(
-                                              'yyyy-MM-dd',
-                                              Localizations.localeOf(context)
-                                                  .toString())
-                                          .format(DateTime.parse(
-                                              _userInfo['createTime'])))
-                                      .add(Duration(seconds: -1)));
-                                  print("***");
-                                  print(DateTime.parse(DateFormat(
-                                          'yyyy-MM-dd',
-                                          Localizations.localeOf(context)
-                                              .toString())
-                                      .format(DateTime.now().add(Duration(
-                                          days: _initialPage -
-                                              _defaultinitialPage)))));
-                                  print("***");
-                                  print(DateTime.parse(DateFormat(
-                                              'yyyy-MM-dd',
-                                              Localizations.localeOf(context)
-                                                  .toString())
-                                          .format(DateTime.parse(
-                                              _userInfo['createTime'])))
-                                      .add(Duration(seconds: -1))
-                                      .isBefore(DateTime.parse(DateFormat(
-                                              'yyyy-MM-dd', Localizations.localeOf(context).toString())
-                                          .format(DateTime.now().add(Duration(days: _initialPage - _defaultinitialPage))))));
+                                  //print(DateTime.parse(DateFormat(
+                                  //             'yyyy-MM-dd',
+                                  //             Localizations.localeOf(context)
+                                  //                 .toString())
+                                  //         .format(DateTime.parse(
+                                  //             _userInfo['createTime'])))
+                                  //     .add(Duration(seconds: -1)));
+                                  // print("***");
+                                  // print(DateTime.parse(DateFormat(
+                                  //         'yyyy-MM-dd',
+                                  //         Localizations.localeOf(context)
+                                  //             .toString())
+                                  //     .format(DateTime.now().add(Duration(
+                                  //         days: _initialPage -
+                                  //             _defaultinitialPage)))));
+                                  // print("***");
+                                  // print(DateTime.parse(DateFormat(
+                                  //             'yyyy-MM-dd',
+                                  //             Localizations.localeOf(context)
+                                  //                 .toString())
+                                  //         .format(DateTime.parse(
+                                  //             _userInfo['createTime'])))
+                                  //     .add(Duration(seconds: -1))
+                                  //     .isBefore(DateTime.parse(DateFormat(
+                                  //             'yyyy-MM-dd', Localizations.localeOf(context).toString())
+                                  //         .format(DateTime.now().add(Duration(days: _initialPage - _defaultinitialPage))))));
 
-                                  print("***");
+                                  // print("***");
                                 },
                                 child: Container(
                                   child: Column(
@@ -1386,7 +1386,7 @@ class _MainPageState extends State<MainPage> {
                       child: PageView(
                           controller: _pageController,
                           onPageChanged: (int index) => setState(() {
-                                // print(index);
+                                // //print(index);
                                 _currentIndexCalendar = index;
                                 _initialPage = index;
                                 recalculateListWithAnimation();
@@ -1565,7 +1565,7 @@ class _MainPageState extends State<MainPage> {
                           child: ListView.builder(
                               itemCount: _currentDayHabit.length,
                               itemBuilder: (context, indexOfCurrentDayHabit) {
-                                // print(_kaydirmaNoktalari);
+                                // //print(_kaydirmaNoktalari);
                                 return AnimatedOpacity(
                                   duration: Duration(
                                       milliseconds: _opacityAnimationDuration),
@@ -1756,7 +1756,7 @@ class _MainPageState extends State<MainPage> {
                                                               null) {
                                                             PlayAudio()
                                                                 .play("tik");
-                                                            // print(_habitDetails[_currentDayHabit[
+                                                            // //print(_habitDetails[_currentDayHabit[
                                                             //         indexOfCurrentDayHabit]]
                                                             //     ['_allTimes'][_completedHabits[
                                                             //         DateFormat('dd MMMM yyyy')
@@ -1805,8 +1805,8 @@ class _MainPageState extends State<MainPage> {
                                                           } else {
                                                             isButtonPressedCheck(
                                                                 indexOfCurrentDayHabit);
-                                                            print(
-                                                                "null bir değerdi");
+                                                            // print(
+                                                            //     "null bir değerdi");
                                                             completedHabits(
                                                                 _currentDayHabit[
                                                                     indexOfCurrentDayHabit],
@@ -1920,8 +1920,8 @@ class _MainPageState extends State<MainPage> {
                                             splashColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () {
-                                              print(_currentDayCompletedHabits);
-                                              print("****");
+                                              // print(_currentDayCompletedHabits);
+                                              // print("****");
                                             },
                                             child: Container(
                                               child: Icon(
@@ -2770,7 +2770,7 @@ class _MainPageState extends State<MainPage> {
                                                                         newTime
                                                                             .minute
                                                                             .toString()));
-                                                                print(newTime);
+                                                                // print(newTime);
                                                               }
 
                                                               setState(() {
