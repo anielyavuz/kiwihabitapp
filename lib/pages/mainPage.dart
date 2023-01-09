@@ -173,6 +173,22 @@ class _MainPageState extends State<MainPage> {
     showDialog(context: context, builder: (BuildContext context) => baseDialog);
   }
 
+  deleteAccount() {
+    var baseDialog = BaseAlertDialog(
+        title: "Really?👀",
+        content: "If you continue, you will lose your habits. Are you sure?",
+        yesOnPressed: () async {
+          AuthService().signOutAndDeleteUser(_userInfo['id'], "Anonym");
+          Navigator.of(context, rootNavigator: true).pop(false);
+        },
+        noOnPressed: () async {
+          Navigator.of(context, rootNavigator: true).pop(false);
+        },
+        yes: "Yes",
+        no: "Cancel");
+    showDialog(context: context, builder: (BuildContext context) => baseDialog);
+  }
+
   isButtonPressedCheck(int isButtonPressedID) {
     setState(() {
       print("button true");
@@ -1104,45 +1120,76 @@ class _MainPageState extends State<MainPage> {
                             ),
                           ],
                         ),
-                        ListTile(
-                          leading: Icon(Icons.exit_to_app),
-                          title: InkWell(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              if (_userInfo['userName'] == "Guest") {
-                                askToLoginBeforeExit();
-                              } else {
-                                var a = await _authService.signOutAndDeleteUser(
-                                    _userInfo['id'], _userInfo['registerType']);
-                                // await _auth.signOut();
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
+                          child: Column(
+                            children: [
+                              _userInfo != null
+                                  ? _userInfo['userName'] == "Guest"
+                                      ? SizedBox()
+                                      : ListTile(
+                                          leading: Icon(Icons.delete),
+                                          title: InkWell(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              deleteAccount();
+                                            },
+                                            child: Container(
+                                              child: Text("Delete Account",
+                                                  style: GoogleFonts.publicSans(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 18,
+                                                      color: _backgroudRengi)),
+                                            ),
+                                          ),
+                                        )
+                                  : SizedBox(),
+                              ListTile(
+                                leading: Icon(Icons.exit_to_app),
+                                title: InkWell(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    if (_userInfo['userName'] == "Guest") {
+                                      askToLoginBeforeExit();
+                                    } else {
+                                      var a = await _authService
+                                          .signOutAndDeleteUser(_userInfo['id'],
+                                              _userInfo['registerType']);
+                                      // await _auth.signOut();
 
-                                box.put("chooseYourHabitsHive", []);
-                                box.put("habitDetailsHive", []);
-                                box.put("habitDays", []);
-                                box.put("completedHabits", {});
-                                box.put("finalCompleted", {});
+                                      box.put("chooseYourHabitsHive", []);
+                                      box.put("habitDetailsHive", []);
+                                      box.put("habitDays", []);
+                                      box.put("completedHabits", {});
+                                      box.put("finalCompleted", {});
 
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            CheckAuth()),
-                                    (Route<dynamic> route) => false);
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  CheckAuth()),
+                                          (Route<dynamic> route) => false);
 
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => CheckAuth()));
-                              }
-                            },
-                            child: Container(
-                              child: Text("Çıkış",
-                                  style: GoogleFonts.publicSans(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18,
-                                      color: _backgroudRengi)),
-                            ),
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CheckAuth()));
+                                    }
+                                  },
+                                  child: Container(
+                                    child: Text("Exit",
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18,
+                                            color: _backgroudRengi)),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
