@@ -281,53 +281,55 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                         _habitName == ""
                                     ? null
                                     : () async {
-                                        if (_YourHabits.length < 5) {
-                                          setState(() {
-                                            var _habit = {};
-                                            _habit['habitName'] = _habitName;
-                                            _habit['habitCategory'] = _category;
-                                            // print(_habitName);
-                                            _YourHabits.add(_habit);
-                                          });
-                                          print(
-                                              "DDDDDDDDDDDDDAAAAAAAAAAAAATTTTTTTTTTTTAAAAAAAAAAAAAAAAA1");
+                                        // if (_YourHabits.length < 5) {
 
-                                          box.put("chooseYourHabitsHive",
-                                              _YourHabits);
+                                        setState(() {
+                                          var _habit = {};
+                                          _habit['habitName'] = _habitName;
+                                          _habit['habitCategory'] = _category;
+                                          // print(_habitName);
+                                          _YourHabits.add(_habit);
+                                        });
+                                        print(
+                                            "DDDDDDDDDDDDDAAAAAAAAAAAAATTTTTTTTTTTTAAAAAAAAAAAAAAAAA1");
 
-                                          getCurrentChooseYourHabits();
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                                duration: Duration(
-                                                    milliseconds: 4000),
-                                                content: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text('Habit limit reached'),
-                                                    Icon(
-                                                      Icons.error,
-                                                      color: Colors.yellow,
-                                                      size: 25,
-                                                    ),
-                                                  ],
-                                                ),
-                                                action: SnackBarAction(
-                                                  label: "Be a Premium User",
-                                                  onPressed: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                BePremiumUser()));
-                                                  },
-                                                )),
-                                          );
-                                        }
+                                        box.put("chooseYourHabitsHive",
+                                            _YourHabits);
+
+                                        getCurrentChooseYourHabits();
+                                        // }
+                                        // else {
+                                        //   ScaffoldMessenger.of(context)
+                                        //       .hideCurrentSnackBar();
+                                        //   ScaffoldMessenger.of(context)
+                                        //       .showSnackBar(
+                                        //     SnackBar(
+                                        //         duration: Duration(
+                                        //             milliseconds: 4000),
+                                        //         content: Row(
+                                        //           mainAxisAlignment:
+                                        //               MainAxisAlignment.center,
+                                        //           children: [
+                                        //             Text('Habit limit reached'),
+                                        //             Icon(
+                                        //               Icons.error,
+                                        //               color: Colors.yellow,
+                                        //               size: 25,
+                                        //             ),
+                                        //           ],
+                                        //         ),
+                                        //         action: SnackBarAction(
+                                        //           label: "Be a Premium User",
+                                        //           onPressed: () {
+                                        //             Navigator.push(
+                                        //                 context,
+                                        //                 MaterialPageRoute(
+                                        //                     builder: (context) =>
+                                        //                         BePremiumUser()));
+                                        //           },
+                                        //         )),
+                                        //   );
+                                        // }
                                       }),
                           ),
                         ],

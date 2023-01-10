@@ -368,11 +368,11 @@ class _MainPageState extends State<MainPage> {
   }
 
   addNewHabitFunction() {
-    if (_yourHabits.length < 5) {
-      print("Yeni habit oluşturabilirsiniz");
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => AddNewHabit()));
-    } else {}
+    // if (_yourHabits.length < 5) {
+    print("Yeni habit oluşturabilirsiniz");
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AddNewHabit()));
+    // } else {}
   }
 
   slidingCompletedProcess()
@@ -2052,17 +2052,17 @@ class _MainPageState extends State<MainPage> {
                       height: 60,
                       child: Stack(
                         children: [
-                          Visibility(
-                            visible: _yourHabits.length >= 5,
-                            child: Align(
-                              alignment: Alignment.topRight,
-                              child: Icon(
-                                Icons.lock,
-                                size: 25,
-                                color: Color.fromARGB(255, 149, 149, 149),
-                              ),
-                            ),
-                          ),
+                          // Visibility(
+                          //   visible: _yourHabits.length >= 5,
+                          //   child: Align(
+                          //     alignment: Alignment.topRight,
+                          //     child: Icon(
+                          //       Icons.lock,
+                          //       size: 25,
+                          //       color: Color.fromARGB(255, 149, 149, 149),
+                          //     ),
+                          //   ),
+                          // ),
                           Align(
                             alignment: Alignment.center,
                             child: Icon(

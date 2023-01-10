@@ -73,39 +73,41 @@ class _HabitGroupState extends State<HabitGroup> {
         onPressed: () async {
           setState(() {
             if (!_chooseYourHabitsName.contains(widget.butonYazi)) {
-              if (_chooseYourHabits.length < 5) {
-                PlayAudio().play("baloncuk");
-                var _habit = {};
-                _habit['habitName'] = widget.butonYazi;
-                _habit['habitCategory'] = widget.butonCategory;
-                _chooseYourHabits.add(_habit);
-              } else {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      duration: Duration(milliseconds: 4000),
-                      content: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Habit limit reached'),
-                          Icon(
-                            Icons.error,
-                            color: Colors.yellow,
-                            size: 25,
-                          ),
-                        ],
-                      ),
-                      action: SnackBarAction(
-                        label: "Be a Premium User",
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BePremiumUser()));
-                        },
-                      )),
-                );
-              }
+              // if (_chooseYourHabits.length < 5) {
+              PlayAudio().play("baloncuk");
+              var _habit = {};
+              _habit['habitName'] = widget.butonYazi;
+              _habit['habitCategory'] = widget.butonCategory;
+              _chooseYourHabits.add(_habit);
+              // }
+              // else {
+              //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              //   ScaffoldMessenger.of(context).showSnackBar(
+              //     SnackBar(
+              //         duration: Duration(milliseconds: 4000),
+              //         content: Row(
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           children: [
+              //             Text('Habit limit reached'),
+              //             Icon(
+              //               Icons.error,
+              //               color: Colors.yellow,
+              //               size: 25,
+              //             ),
+              //           ],
+              //         ),
+              //         action: SnackBarAction(
+              //           label: "Be a Premium User",
+              //           onPressed: () {
+              //             Navigator.push(
+              //                 context,
+              //                 MaterialPageRoute(
+              //                     builder: (context) => BePremiumUser()));
+              //           },
+              //         )),
+              //   );
+              // }
+
             } else {
               PlayAudio().play("baloncuk");
               setState(() {
