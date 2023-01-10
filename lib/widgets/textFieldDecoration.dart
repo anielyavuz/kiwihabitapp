@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TextFieldDecoration extends StatefulWidget {
   ValueChanged<String> textfieldData;
   final String hintYazi;
-  TextFieldDecoration({Key? key, required this.hintYazi, required this.textfieldData})
+  TextFieldDecoration(
+      {Key? key, required this.hintYazi, required this.textfieldData})
       : super(key: key);
 
   @override
@@ -18,6 +20,9 @@ class _TextFieldDecorationState extends State<TextFieldDecoration> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(40),
+      ],
       onChanged: (value2) {
         setState(() {
           // var someCapitalizedString = "someString".capitalize();
@@ -46,9 +51,9 @@ class _TextFieldDecorationState extends State<TextFieldDecoration> {
         ),
         hintText: widget.hintYazi,
         hintStyle: GoogleFonts.publicSans(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 18,
-                                color: Color.fromARGB(75, 21, 9, 35)),
+            fontWeight: FontWeight.w400,
+            fontSize: 18,
+            color: Color.fromARGB(75, 21, 9, 35)),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
@@ -246,6 +247,9 @@ class _AddNewHabitState extends State<AddNewHabit> {
                             padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                             // width: MediaQuery.of(context).size.width * 9 / 10,
                             child: TextField(
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(40),
+                              ],
                               autofocus: true,
                               onChanged: (value2) {},
                               controller: _turkceTextFieldController,

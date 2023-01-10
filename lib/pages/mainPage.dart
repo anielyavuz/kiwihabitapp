@@ -165,8 +165,7 @@ class _MainPageState extends State<MainPage> {
               MaterialPageRoute(builder: (BuildContext context) => CheckAuth()),
               (Route<dynamic> route) => false);
 
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => CheckAuth()));
+          Navigator.of(context, rootNavigator: true).pop(false);
         },
         yes: "Login",
         no: "Exit");
