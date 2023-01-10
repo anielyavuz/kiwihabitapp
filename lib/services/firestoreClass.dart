@@ -26,4 +26,11 @@ class CloudDB {
       'finalCompleted': _finalCompleted
     });
   }
+
+  userLoginData(
+      String uid, List _loginTimes, var userName, String _date) async {
+    FirebaseFirestore.instance.collection('LoginInfo').doc(_date).update({
+      uid: {"LoginTimes": _loginTimes, "UserName": userName}
+    });
+  }
 }
