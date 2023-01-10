@@ -64,6 +64,7 @@ class _MainPageState extends State<MainPage> {
   );
   String version = "";
   String code = "";
+  late List _loginLogs;
   String _slidingHeaderText = "Drink Water";
   PanelController _pc = new PanelController();
   int _expand1 = 4;
@@ -759,6 +760,27 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
+  loginLogsAdd() {
+    _loginLogs = box.get("loginLogsHive") ?? [];
+    DateTime now = new DateTime.now();
+    DateTime bugunSifirSifir = DateTime.parse(
+        DateFormat('yyyy-MM-dd').format(DateTime.now()).toString());
+    DateTime date = new DateTime(
+        now.year, now.month, now.day, now.hour, now.minute, now.second);
+
+    _loginLogs.add(date);
+
+    print(_loginLogs.length);
+    print(_loginLogs);
+    box.put("loginLogsHive", _loginLogs);
+    for (DateTime _loginLog in _loginLogs) {
+      if (_loginLog.isBefore(bugunSifirSifir)) {
+        print(_loginLog);
+        print("yazılacak");
+      }
+    }
+  }
+
   Timer? timer;
   @override
   void initState() {
@@ -777,6 +799,7 @@ class _MainPageState extends State<MainPage> {
         DateTime.now().add(Duration(days: _initialPage)));
 
     box = Hive.box("kiwiHive");
+    loginLogsAdd();
     getCurrentChooseYourHabits();
     versionInform();
   }
@@ -1164,6 +1187,7 @@ class _MainPageState extends State<MainPage> {
                                       box.put("habitDays", []);
                                       box.put("completedHabits", {});
                                       box.put("finalCompleted", {});
+                                      box.put("loginLogsHive", []);
 
                                       Navigator.pushAndRemoveUntil(
                                           context,
