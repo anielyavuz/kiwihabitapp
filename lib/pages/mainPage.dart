@@ -849,33 +849,10 @@ class _MainPageState extends State<MainPage> {
 
     return MaterialApp(
       home: Scaffold(
-        bottomNavigationBar: _configsInfo.docs[_configsInfoInteger]['Social']
-            ? _bottomNavigatorShow
-                ? GNav(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    backgroundColor: _backgroudRengi,
-                    gap: 20,
-                    activeColor: Colors.green,
-                    tabBackgroundColor: Color.fromARGB(255, 45, 15, 79),
-                    color: _yaziTipiRengi,
-                    tabs: [
-                        GButton(
-                          icon: Icons.person,
-                          text: "Single",
-                        ),
-                        GButton(
-                          icon: Icons.groups,
-                          text: "Social",
-                        )
-                      ])
-                : null
-            : null,
         drawer: Drawer(
             backgroundColor: _yaziTipiRengi,
             child: Container(
               child: Column(
-                // Remove padding
-
                 children: [
                   UserAccountsDrawerHeader(
                     accountName: Row(
@@ -1084,136 +1061,108 @@ class _MainPageState extends State<MainPage> {
                             //   ),
                             // ),
 
-                            ListTile(
-                              leading: Icon(Icons.info_rounded),
-                              title: InkWell(
-                                onTap: () {
-                                  //print(DateTime.parse(DateFormat(
-                                  //             'yyyy-MM-dd',
-                                  //             Localizations.localeOf(context)
-                                  //                 .toString())
-                                  //         .format(DateTime.parse(
-                                  //             _userInfo['createTime'])))
-                                  //     .add(Duration(seconds: -1)));
-                                  // print("***");
-                                  // print(DateTime.parse(DateFormat(
-                                  //         'yyyy-MM-dd',
-                                  //         Localizations.localeOf(context)
-                                  //             .toString())
-                                  //     .format(DateTime.now().add(Duration(
-                                  //         days: _initialPage -
-                                  //             _defaultinitialPage)))));
-                                  // print("***");
-                                  // print(DateTime.parse(DateFormat(
-                                  //             'yyyy-MM-dd',
-                                  //             Localizations.localeOf(context)
-                                  //                 .toString())
-                                  //         .format(DateTime.parse(
-                                  //             _userInfo['createTime'])))
-                                  //     .add(Duration(seconds: -1))
-                                  //     .isBefore(DateTime.parse(DateFormat(
-                                  //             'yyyy-MM-dd', Localizations.localeOf(context).toString())
-                                  //         .format(DateTime.now().add(Duration(days: _initialPage - _defaultinitialPage))))));
-
-                                  // print("***");
-                                },
-                                child: Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Version: " + version.toString(),
-                                          style: GoogleFonts.publicSans(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16,
-                                              color: _backgroudRengi)),
-                                      Text(
-                                          _userInfo != null
-                                              ? _userInfo['id']
-                                              : "",
-                                          style: GoogleFonts.publicSans(
-                                              fontWeight: FontWeight.w200,
-                                              fontSize: 8,
-                                              color: _backgroudRengi))
-                                    ],
-                                  ),
+                            
+                          ],
+                        ),
+                        Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(8),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Version: " + version.toString(),
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                            color: _backgroudRengi)),
+                                    Text(
+                                        _userInfo != null
+                                            ? _userInfo['id']
+                                            : "",
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w200,
+                                            fontSize: 8,
+                                            color: _backgroudRengi))
+                                  ],
                                 ),
+                              ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
+                              child: Column(
+                                children: [
+                                  _userInfo != null
+                                      ? _userInfo['userName'] == "Guest"
+                                          ? SizedBox()
+                                          : ListTile(
+                                              leading: Icon(Icons.delete),
+                                              title: InkWell(
+                                                splashColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                onTap: () async {
+                                                  deleteAccount();
+                                                },
+                                                child: Container(
+                                                  child: Text("Delete Account",
+                                                      style: GoogleFonts.publicSans(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18,
+                                                          color: _backgroudRengi)),
+                                                ),
+                                              ),
+                                            )
+                                      : SizedBox(),
+                                  ListTile(
+                                    leading: Icon(Icons.exit_to_app),
+                                    title: InkWell(
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        if (_userInfo['userName'] == "Guest") {
+                                          askToLoginBeforeExit();
+                                        } else {
+                                          var a = await _authService
+                                              .signOutAndDeleteUser(_userInfo['id'],
+                                                  _userInfo['registerType']);
+                                          // await _auth.signOut();
+
+                                          box.put("chooseYourHabitsHive", []);
+                                          box.put("habitDetailsHive", []);
+                                          box.put("habitDays", []);
+                                          box.put("completedHabits", {});
+                                          box.put("finalCompleted", {});
+                                          box.put("loginLogsHive", []);
+
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (BuildContext context) =>
+                                                      CheckAuth()),
+                                              (Route<dynamic> route) => false);
+
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CheckAuth()));
+                                        }
+                                      },
+                                      child: Container(
+                                        child: Text("Exit",
+                                            style: GoogleFonts.publicSans(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18,
+                                                color: _backgroudRengi)),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
-                          child: Column(
-                            children: [
-                              _userInfo != null
-                                  ? _userInfo['userName'] == "Guest"
-                                      ? SizedBox()
-                                      : ListTile(
-                                          leading: Icon(Icons.delete),
-                                          title: InkWell(
-                                            splashColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              deleteAccount();
-                                            },
-                                            child: Container(
-                                              child: Text("Delete Account",
-                                                  style: GoogleFonts.publicSans(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 18,
-                                                      color: _backgroudRengi)),
-                                            ),
-                                          ),
-                                        )
-                                  : SizedBox(),
-                              ListTile(
-                                leading: Icon(Icons.exit_to_app),
-                                title: InkWell(
-                                  splashColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    if (_userInfo['userName'] == "Guest") {
-                                      askToLoginBeforeExit();
-                                    } else {
-                                      var a = await _authService
-                                          .signOutAndDeleteUser(_userInfo['id'],
-                                              _userInfo['registerType']);
-                                      // await _auth.signOut();
-
-                                      box.put("chooseYourHabitsHive", []);
-                                      box.put("habitDetailsHive", []);
-                                      box.put("habitDays", []);
-                                      box.put("completedHabits", {});
-                                      box.put("finalCompleted", {});
-                                      box.put("loginLogsHive", []);
-
-                                      Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  CheckAuth()),
-                                          (Route<dynamic> route) => false);
-
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CheckAuth()));
-                                    }
-                                  },
-                                  child: Container(
-                                    child: Text("Exit",
-                                        style: GoogleFonts.publicSans(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                            color: _backgroudRengi)),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
                         ),
                       ],
                     ),
@@ -1755,38 +1704,98 @@ class _MainPageState extends State<MainPage> {
                                                       ),
                                                     ],
                                                   ),
-                                                  Container(
-                                                    width: 20,
-                                                    height: 20,
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.amber,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    child: Text(
+                                                  Row(
+                                                    children: [
+                                                      Visibility(
+                                                        visible: (_habitDetails[
+                                                                            _currentDayHabit[indexOfCurrentDayHabit]]
+                                                                        [
+                                                                        '_allTimes']
+                                                                    .length -
+                                                                remainHabitRepeat(
+                                                                    _currentDayHabit[
+                                                                        indexOfCurrentDayHabit])) >
+                                                            0,
+                                                        child: Container(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                          // width: 50,
+                                                          height: 16,
+                                                          decoration: BoxDecoration(
+                                                              color: Color.fromARGB(137, 28, 192, 31),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                  (_habitDetails[_currentDayHabit[indexOfCurrentDayHabit]]['_allTimes'].length -
+                                                                          remainHabitRepeat(_currentDayHabit[
+                                                                              indexOfCurrentDayHabit]))
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: GoogleFonts.publicSans(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      fontSize:
+                                                                          14,
+                                                                      color:
+                                                                          _yaziTipiRengi)),
+                                                              Icon(
+                                                                Icons.check,
+                                                                size: 14,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      Container(
+                                                        width: 20,
+                                                        height: 20,
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.amber,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
+                                                        child: Text(
 
-                                                        ////TEST
-                                                        remainHabitRepeat(
-                                                                _currentDayHabit[
-                                                                    indexOfCurrentDayHabit])
-                                                            .toString()
-                                                        // _habitDetails[_currentDayHabit[
-                                                        //             indexOfCurrentDayHabit]]
-                                                        //         ['_allTimes']
-                                                        //     .length
-                                                        //     .toString()
+                                                            ////TEST
+                                                            remainHabitRepeat(
+                                                                    _currentDayHabit[
+                                                                        indexOfCurrentDayHabit])
+                                                                .toString()
+                                                            // _habitDetails[_currentDayHabit[
+                                                            //             indexOfCurrentDayHabit]]
+                                                            //         ['_allTimes']
+                                                            //     .length
+                                                            //     .toString()
 
-                                                        ,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: GoogleFonts
-                                                            .publicSans(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 16,
-                                                                color:
-                                                                    _backgroudRengi)),
+                                                            ,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: GoogleFonts
+                                                                .publicSans(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        16,
+                                                                    color:
+                                                                        _backgroudRengi)),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ],
                                               ),
