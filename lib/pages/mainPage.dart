@@ -144,7 +144,7 @@ class _MainPageState extends State<MainPage> {
   askToLoginBeforeExit() {
     var baseDialog = BaseAlertDialog(
         title: "Warning",
-        content: "You will lose your habits, please login before exit.",
+        content: "You will lose your habits data, please sign up before leave.",
         yesOnPressed: () async {
           //
           var k = await AuthService().googleLoginFromMainPage(_userInfo);
@@ -168,7 +168,7 @@ class _MainPageState extends State<MainPage> {
 
           Navigator.of(context, rootNavigator: true).pop(false);
         },
-        yes: "Login",
+        yes: "Sign Up",
         no: "Exit");
     showDialog(context: context, builder: (BuildContext context) => baseDialog);
   }
