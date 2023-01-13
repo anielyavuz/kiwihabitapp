@@ -30,11 +30,103 @@
           }
         },
         {
+          "client_id": "728766484396-ades6350e5kiau45t8hk3a9thtu3os78.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kiwihabitapp",
+            "certificate_hash": "4f3da83377096097dc739248a33391a53a5d1c40"
+          }
+        },
+        {
+          "client_id": "728766484396-c517nq1kn7ee2jv4fv6jdr97sqgtlb5j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kiwihabitapp",
+            "certificate_hash": "947804db4abd81a9ac85d661cbbe0c109ae9246b"
+          }
+        },
+        {
           "client_id": "728766484396-j0ka0oljr4dj4mkjqf0uen1274k3f4d9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.kiwihabitapp",
             "certificate_hash": "f8c91bbadb1299a18edbe7d0cff08176284d5c47"
+          }
+        },
+        {
+          "client_id": "728766484396-aiihbrhp59tco34s71nfse2uka6fqa1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvp4VmVEYrB0x3KhFP-q7uMsRm7G50TYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "728766484396-aiihbrhp59tco34s71nfse2uka6fqa1m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "728766484396-f6h02lkm7rdc180v05n5dh7os2j274lo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kiwihabitapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728766484396:android:7cbc75e2794e3f4b983409",
+        "android_client_info": {
+          "package_name": "com.turneight.kiwihabitapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "728766484396-f7294usjlk65a9mjlr1ed3mui7bqe27o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.turneight.kiwihabitapp",
+            "certificate_hash": "4f3da83377096097dc739248a33391a53a5d1c40"
+          }
+        },
+        {
+          "client_id": "728766484396-kf912d6febsh9f2i9ttrrolb7ag2d2pr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.turneight.kiwihabitapp",
+            "certificate_hash": "f8c91bbadb1299a18edbe7d0cff08176284d5c47"
+          }
+        },
+        {
+          "client_id": "728766484396-sacbsuqu5ph5k7e2u4vi6nmkr87qcqj3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.turneight.kiwihabitapp",
+            "certificate_hash": "949382156376284b6bec2d1c4472d0b8b531ce1a"
+          }
+        },
+        {
+          "client_id": "728766484396-scca6ercgqr50oskstfksllf99423pnl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.turneight.kiwihabitapp",
+            "certificate_hash": "947804db4abd81a9ac85d661cbbe0c109ae9246b"
+          }
+        },
+        {
+          "client_id": "728766484396-um4hudpqkgj8l9o3u7iifkd5qsg6mrqp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.turneight.kiwihabitapp",
+            "certificate_hash": "7f8c4c6922fdbb26e811c56fad3ba9fce141d8ad"
           }
         },
         {
