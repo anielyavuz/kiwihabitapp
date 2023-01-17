@@ -17,6 +17,7 @@ import 'package:kiwihabitapp/services/batteryOptimization.dart';
 import 'package:kiwihabitapp/services/firebaseDocs.dart';
 import 'package:kiwihabitapp/services/firestoreClass.dart';
 import 'package:kiwihabitapp/services/iconClass.dart';
+import 'package:kiwihabitapp/services/loginOptionsPopUp.dart';
 import 'package:kiwihabitapp/services/twoButtonPopUp.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -141,14 +142,32 @@ class _MainPageState extends State<MainPage> {
     return days;
   }
 
+  loginOptionsPopUp() {
+    var baseDialog = LoginOptionsBaseAlertDialog(
+        title: "Please Pick a Login Method",
+        content: "",
+        yesOnPressed: () async {
+          Navigator.of(context, rootNavigator: true).pop(false);
+          AuthService().googleLoginFromMainPage(_userInfo);
+        },
+        noOnPressed: () async {
+          Navigator.of(context, rootNavigator: true).pop(false);
+        },
+        yes: "Google Sign In",
+        no: "Apple ID Sign In");
+    showDialog(context: context, builder: (BuildContext context) => baseDialog);
+  }
+
   askToLoginBeforeExit() {
     var baseDialog = BaseAlertDialog(
         title: "Warning",
         content: "You will lose your habits data, please sign up before leave.",
         yesOnPressed: () async {
           //
-          var k = await AuthService().googleLoginFromMainPage(_userInfo);
+
+          // var k = await AuthService().googleLoginFromMainPage(_userInfo);
           Navigator.of(context, rootNavigator: true).pop(false);
+          loginOptionsPopUp();
         },
         noOnPressed: () async {
           var a = await _authService.signOutAndDeleteUser(
@@ -160,13 +179,14 @@ class _MainPageState extends State<MainPage> {
           box.put("habitDays", []);
           box.put("completedHabits", {});
           box.put("finalCompleted", {});
+          Navigator.of(context, rootNavigator: true).pop(false);
 
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (BuildContext context) => CheckAuth()),
               (Route<dynamic> route) => false);
 
-          Navigator.of(context, rootNavigator: true).pop(false);
+          // Navigator.of(context, rootNavigator: true).pop(false);
         },
         yes: "Sign Up",
         no: "Exit");
@@ -983,9 +1003,7 @@ class _MainPageState extends State<MainPage> {
                                           splashColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            AuthService()
-                                                .googleLoginFromMainPage(
-                                                    _userInfo);
+                                            loginOptionsPopUp();
                                           },
                                           child: Container(
                                             child: Text("Sign In",
@@ -1066,8 +1084,6 @@ class _MainPageState extends State<MainPage> {
                             //     ),
                             //   ),
                             // ),
-
-                            
                           ],
                         ),
                         Stack(
@@ -1075,26 +1091,22 @@ class _MainPageState extends State<MainPage> {
                           children: [
                             Container(
                               padding: EdgeInsets.all(8),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Version: " + version.toString(),
-                                        style: GoogleFonts.publicSans(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
-                                            color: _backgroudRengi)),
-                                    Text(
-                                        _userInfo != null
-                                            ? _userInfo['id']
-                                            : "",
-                                        style: GoogleFonts.publicSans(
-                                            fontWeight: FontWeight.w200,
-                                            fontSize: 8,
-                                            color: _backgroudRengi))
-                                  ],
-                                ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Version: " + version.toString(),
+                                      style: GoogleFonts.publicSans(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: _backgroudRengi)),
+                                  Text(_userInfo != null ? _userInfo['id'] : "",
+                                      style: GoogleFonts.publicSans(
+                                          fontWeight: FontWeight.w200,
+                                          fontSize: 8,
+                                          color: _backgroudRengi))
+                                ],
                               ),
+                            ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
                               child: Column(
@@ -1106,7 +1118,8 @@ class _MainPageState extends State<MainPage> {
                                               leading: Icon(Icons.delete),
                                               title: InkWell(
                                                 splashColor: Colors.transparent,
-                                                highlightColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
                                                 onTap: () async {
                                                   deleteAccount();
                                                 },
@@ -1116,7 +1129,8 @@ class _MainPageState extends State<MainPage> {
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: 18,
-                                                          color: _backgroudRengi)),
+                                                          color:
+                                                              _backgroudRengi)),
                                                 ),
                                               ),
                                             )
@@ -1131,7 +1145,8 @@ class _MainPageState extends State<MainPage> {
                                           askToLoginBeforeExit();
                                         } else {
                                           var a = await _authService
-                                              .signOutAndDeleteUser(_userInfo['id'],
+                                              .signOutAndDeleteUser(
+                                                  _userInfo['id'],
                                                   _userInfo['registerType']);
                                           // await _auth.signOut();
 
@@ -1145,8 +1160,9 @@ class _MainPageState extends State<MainPage> {
                                           Navigator.pushAndRemoveUntil(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (BuildContext context) =>
-                                                      CheckAuth()),
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          CheckAuth()),
                                               (Route<dynamic> route) => false);
 
                                           Navigator.push(
@@ -1730,7 +1746,12 @@ class _MainPageState extends State<MainPage> {
                                                           // width: 50,
                                                           height: 16,
                                                           decoration: BoxDecoration(
-                                                              color: Color.fromARGB(137, 28, 192, 31),
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      137,
+                                                                      28,
+                                                                      192,
+                                                                      31),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -1917,7 +1938,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0,0,0,10),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                       child: Container(
                         // width:
                         //     MediaQuery.of(context).size.width *
@@ -1927,9 +1948,10 @@ class _MainPageState extends State<MainPage> {
                         // width: 50,
 
                         child: ListView.builder(
-                            itemCount: _finalCompleted[DateFormat('dd MMMM yyyy')
-                                        .format(days[_currentIndexCalendar])
-                                        .toString()] !=
+                            itemCount: _finalCompleted[
+                                        DateFormat('dd MMMM yyyy')
+                                            .format(days[_currentIndexCalendar])
+                                            .toString()] !=
                                     null
                                 ? _finalCompleted[DateFormat('dd MMMM yyyy')
                                         .format(days[_currentIndexCalendar])
@@ -1947,16 +1969,19 @@ class _MainPageState extends State<MainPage> {
                                     milliseconds: _opacityAnimationDuration),
                                 opacity: _opacityAnimation,
                                 child: Container(
-                                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                   width: MediaQuery.of(context).size.width / 3,
                                   child: RawMaterialButton(
-                                      fillColor: Color.fromARGB(90, 54, 151, 42),
+                                      fillColor:
+                                          Color.fromARGB(90, 54, 151, 42),
                                       shape: RoundedRectangleBorder(
                                           side: BorderSide(),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(15.0))),
                                       // splashColor: Colors.green,
-                                      textStyle: TextStyle(color: _yaziTipiRengi),
+                                      textStyle:
+                                          TextStyle(color: _yaziTipiRengi),
                                       child: Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             15, 10, 15, 10),
@@ -1972,7 +1997,8 @@ class _MainPageState extends State<MainPage> {
                                                           5, 0, 0, 0),
                                                   child: Row(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text(_finalCompleted[DateFormat(
                                                                   'dd MMMM yyyy')
@@ -2005,7 +2031,8 @@ class _MainPageState extends State<MainPage> {
                                             ),
                                             InkWell(
                                               splashColor: Colors.transparent,
-                                              highlightColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
                                               onTap: () {
                                                 // print(_currentDayCompletedHabits);
                                                 // print("****");
@@ -2036,18 +2063,21 @@ class _MainPageState extends State<MainPage> {
                                                         _currentIndexCalendar])
                                                     .toString()]
                                             .keys
-                                            .toList()[indexOffinalCompletedHabit]
+                                            .toList()[
+                                                indexOffinalCompletedHabit]
                                             .toString());
                                       },
                                       onPressed: () {
-                                        returnFromCompletedHabitList(_finalCompleted[
-                                                DateFormat('dd MMMM yyyy')
+                                        returnFromCompletedHabitList(
+                                            _finalCompleted[DateFormat(
+                                                        'dd MMMM yyyy')
                                                     .format(days[
                                                         _currentIndexCalendar])
                                                     .toString()]
-                                            .keys
-                                            .toList()[indexOffinalCompletedHabit]
-                                            .toString());
+                                                .keys
+                                                .toList()[
+                                                    indexOffinalCompletedHabit]
+                                                .toString());
                                       }),
                                 ),
                               );

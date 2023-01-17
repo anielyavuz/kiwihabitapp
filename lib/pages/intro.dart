@@ -8,6 +8,7 @@ import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kiwihabitapp/services/loginOptionsPopUp.dart';
 import 'package:lottie/lottie.dart';
 
 class IntroPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class _IntroPageState extends State<IntroPage> {
   int _index = 0;
 
   AuthService _authService = AuthService();
-
+  var _userInfo;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   late var _currentlanguageText =
@@ -29,6 +30,22 @@ class _IntroPageState extends State<IntroPage> {
   bool _loadingIcon = false;
   late Box box;
   late List _loginLogs;
+
+  loginOptionsPopUp() {
+    var baseDialog = LoginOptionsBaseAlertDialog(
+        title: "Please Pick a Login Method",
+        content: "",
+        yesOnPressed: () async {
+          Navigator.of(context, rootNavigator: true).pop(false);
+          var _exist = await AuthService().googleLoginFromIntroPage();
+        },
+        noOnPressed: () async {
+          Navigator.of(context, rootNavigator: true).pop(false);
+        },
+        yes: "Google Sign In",
+        no: "Apple ID Sign In");
+    showDialog(context: context, builder: (BuildContext context) => baseDialog);
+  }
 
   @override
   void initState() {
@@ -353,9 +370,7 @@ class _IntroPageState extends State<IntroPage> {
                             ),
                             InkWell(
                               onTap: () async {
-                                var _exist = await AuthService()
-                                    .googleLoginFromIntroPage();
-                                print("$_exist 4444444444444");
+                                loginOptionsPopUp();
                               },
                               child: FittedBox(
                                 fit: BoxFit.fill,
