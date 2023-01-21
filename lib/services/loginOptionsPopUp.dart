@@ -67,36 +67,18 @@ class LoginOptionsBaseAlertDialog extends StatelessWidget {
                 constraints: BoxConstraints(
                     minWidth: MediaQuery.of(context).size.width * 3 / 5,
                     minHeight: 40),
-                fillColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                    side: BorderSide(color: Color.fromARGB(184, 24, 130, 18))),
+                fillColor: Color.fromARGB(255, 33, 15, 53),
+                // shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                //     side: BorderSide(color: Color.fromARGB(184, 24, 130, 18))),
                 splashColor: Colors.transparent,
                 textStyle: TextStyle(color: _yaziTipiRengi),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      child: Image(
-                          image: AssetImage("assets/images/Apple.png")),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                          child: Text(this._no!,
-                              style: TextStyle(
-                                color: _yaziTipiRengi,
-                                fontSize: 14,
-                                fontFamily: 'Times New Roman',
-                                // fontWeight: FontWeight.bold
-                              )),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                child: Container(
+                    // width: MediaQuery.of(context).size.width * 3 / 5,
+                    height: 40,
+                    child: Image(
+                        // fit: BoxFit.fill,
+                        image: AssetImage("assets/images/Apple.png"))),
                 onPressed: () {
                   this._yesOnPressed!();
                 },
@@ -135,40 +117,23 @@ class LoginOptionsBaseAlertDialog extends StatelessWidget {
               //   },
               // ),
             ),
+
             RawMaterialButton(
               constraints: BoxConstraints(
                   minWidth: MediaQuery.of(context).size.width * 3 / 5,
                   minHeight: 40),
               fillColor: Color.fromARGB(255, 33, 15, 53),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  side: BorderSide(color: Color.fromARGB(184, 24, 130, 18))),
+              // shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              //     side: BorderSide(color: Color.fromARGB(184, 24, 130, 18))),
               splashColor: Colors.transparent,
               textStyle: TextStyle(color: _yaziTipiRengi),
-              child: Row(
-                children: [
-                  Container(
-                      // width: MediaQuery.of(context).size.width * 3 / 5,
-                      height: 40,
-                      child: Image(
-                          fit: BoxFit.fill,
-                          image: AssetImage("assets/images/Google.png"))),
-                  // Expanded(
-                  //   child: Center(
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                  //       child: Text(this._yes!,
-                  //           style: TextStyle(
-                  //             color: _yaziTipiRengi,
-                  //             fontSize: 14,
-                  //             fontFamily: 'Times New Roman',
-                  //             // fontWeight: FontWeight.bold
-                  //           )),
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
+              child: Container(
+                  // width: MediaQuery.of(context).size.width * 3 / 5,
+                  height: 45,
+                  child: Image(
+                      // fit: BoxFit.fill,
+                      image: AssetImage("assets/images/Google.png"))),
               onPressed: () {
                 this._yesOnPressed!();
               },
