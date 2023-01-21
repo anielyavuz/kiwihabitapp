@@ -14,10 +14,11 @@ class AuthService {
   GoogleSignInAccount? _user;
   GoogleSignInAccount get user => _user!;
 
-  Future signInWithApple({List<Scope> scopes = const []}) async {
+  Future appleLoginFromMainPage(var anonymData) async {
     // 1. perform the sign-in request
-    final result = await TheAppleSignIn.performRequests(
-        [AppleIdRequest(requestedScopes: scopes)]);
+    final result = await TheAppleSignIn.performRequests([
+      AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+    ]);
     // 2. check the result
     switch (result.status) {
       case AuthorizationStatus.authorized:
@@ -28,36 +29,42 @@ class AuthService {
           accessToken:
               String.fromCharCodes(appleIdCredential.authorizationCode!),
         );
-        print("Kkkkkkkkkk");
-        final fullName = appleIdCredential.fullName;
 
-        print('${fullName?.givenName} ${fullName?.familyName}');
-        return credential;
-        final userCredential = await _auth.signInWithCredential(credential);
-        final firebaseUser = userCredential.user!;
-        if (scopes.contains(Scope.fullName)) {
-          final fullName = appleIdCredential.fullName;
-          if (fullName != null &&
-              fullName.givenName != null &&
-              fullName.familyName != null) {
-            final displayName = '${fullName.givenName} ${fullName.familyName}';
-            await firebaseUser.updateDisplayName(displayName);
-          }
-        }
-      //   return firebaseUser;
-      // case AuthorizationStatus.error:
-      //   throw PlatformException(
-      //     code: 'ERROR_AUTHORIZATION_DENIED',
-      //     message: result.error.toString(),
-      //   );
+        final newUser = await _auth.signInWithCredential(credential);
+        final firebaseUser = newUser.user!;
+        print("AAAAAAAAAAAAA11");
+        // print(newUser.user!.uid);
+        // print(newUser.user);
 
-      // case AuthorizationStatus.cancelled:
-      //   throw PlatformException(
-      //     code: 'ERROR_ABORTED_BY_USER',
-      //     message: 'Sign in aborted by user',
-      //   );
-      // default:
-      //   throw UnimplementedError();
+        await _firestore.collection("Users").doc(newUser.user!.uid).set({
+          "userName": newUser.user!.displayName != null
+              ? newUser.user!.displayName
+              : "KiWi User",
+          "email": newUser.user!.email != null ? newUser.user!.email : "",
+          "photoUrl": newUser.user!.photoURL != null
+              ? newUser.user!.photoURL
+              : "https://firebasestorage.googleapis.com/v0/b/kiwihabitapp-5f514.appspot.com/o/kiwiLogo.png?alt=media&token=90320926-0ff1-4fc8-a3eb-62c9d85e0ef0",
+          "registerType": "Apple",
+          "id": newUser.user!.uid,
+          "userAuth": anonymData['userAuth'],
+          "userSubscription": "Free",
+          "createTime": anonymData['createTime'],
+          "yourHabits": anonymData['yourHabits'],
+          "habitDetails": anonymData['habitDetails'],
+          "habitDays": anonymData['habitDays'],
+          "completedHabits": anonymData['completedHabits'],
+          "finalCompleted": anonymData['finalCompleted'],
+        }).then((value) async {
+          //silemedik çünkü user log out oldu ve yetkisi gitti...
+          // var k = await FirebaseFirestore.instance
+          //     .collection("Users")
+          //     .doc(anonymData['id'])
+          //     .delete();
+        });
+      // if (!doesGoogleUserExist(newUser.user!.uid)) {
+      //   await _firestore.collection("Users").doc(newUser.user!.uid).set(anonymData);
+      // }
+
     }
   }
 
@@ -146,6 +153,33 @@ class AuthService {
     } catch (e) {
       throw e;
     }
+  }
+
+  appleLoginFromIntroPage() async {
+    // 1. perform the sign-in request
+    final result = await TheAppleSignIn.performRequests([
+      AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+    ]);
+    // 2. check the result
+    switch (result.status) {
+      case AuthorizationStatus.authorized:
+        final appleIdCredential = result.credential!;
+        final oAuthProvider = OAuthProvider('apple.com');
+        final credential = oAuthProvider.credential(
+          idToken: String.fromCharCodes(appleIdCredential.identityToken!),
+          accessToken:
+              String.fromCharCodes(appleIdCredential.authorizationCode!),
+        );
+
+        final newUser = await _auth.signInWithCredential(credential);
+        final firebaseUser = newUser.user!;
+        print("AAAAAAAAAAAAA11");
+      // print(newUser.user!.uid);
+      // print(newUser.user);
+
+    }
+
+    //
   }
 
   googleLoginFromIntroPage() async {
