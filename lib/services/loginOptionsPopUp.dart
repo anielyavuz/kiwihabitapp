@@ -53,7 +53,8 @@ class LoginOptionsBaseAlertDialog extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Visibility(
-                visible: Platform.isIOS,
+                visible: true,
+                // Platform.isIOS,
                 child: InkWell(
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
