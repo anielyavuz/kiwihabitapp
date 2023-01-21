@@ -766,6 +766,8 @@ PODS:
   - PromisesObjC (2.1.1)
   - soundpool (0.0.1):
     - Flutter
+  - the_apple_sign_in (1.0.0):
+    - Flutter
 
 DEPENDENCIES:
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
@@ -782,6 +784,7 @@ DEPENDENCIES:
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - soundpool (from `.symlinks/plugins/soundpool/ios`)
+  - the_apple_sign_in (from `.symlinks/plugins/the_apple_sign_in/ios`)
 
 SPEC REPOS:
   trunk:
@@ -831,6 +834,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_ios/ios"
   soundpool:
     :path: ".symlinks/plugins/soundpool/ios"
+  the_apple_sign_in:
+    :path: ".symlinks/plugins/the_apple_sign_in/ios"
 
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
@@ -865,6 +870,7 @@ SPEC CHECKSUMS:
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   soundpool: c7f4422ca206e77f8900ed3c4ee6a6ff5a0e38a9
+  the_apple_sign_in: 2e78c83cdb09eba07bb16dcc1f3bc12fcdc8263d
 
 PODFILE CHECKSUM: 6c38e84d75835979f7a9379a7d6dbc82e7aa28f0
 

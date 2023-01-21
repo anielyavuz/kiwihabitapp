@@ -40,6 +40,7 @@ class _IntroPageState extends State<IntroPage> {
           var _exist = await AuthService().googleLoginFromIntroPage();
         },
         noOnPressed: () async {
+          var _exist = await AuthService().signInWithApple();
           Navigator.of(context, rootNavigator: true).pop(false);
         },
         yes: "Google Sign In",

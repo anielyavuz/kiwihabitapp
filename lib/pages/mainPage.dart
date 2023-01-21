@@ -151,6 +151,7 @@ class _MainPageState extends State<MainPage> {
           AuthService().googleLoginFromMainPage(_userInfo);
         },
         noOnPressed: () async {
+          AuthService().signInWithApple();
           Navigator.of(context, rootNavigator: true).pop(false);
         },
         yes: "Google Sign In",
