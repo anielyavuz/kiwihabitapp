@@ -34,108 +34,174 @@ class LoginOptionsBaseAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      actionsAlignment: MainAxisAlignment.center,
       title: Center(
         child: new Text(this._title!,
             style: TextStyle(
                 color: Color.fromARGB(184, 24, 130, 18),
-                fontSize: 20,
+                fontSize: 25,
                 fontFamily: 'Times New Roman',
                 fontWeight: FontWeight.bold)),
       ),
-      content: SizedBox(),
+      content: Text(
+        "Choose your Sıgn In method",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            color: _yaziTipiRengi,
+            fontSize: 12,
+            fontFamily: 'Times New Roman',
+            fontWeight: FontWeight.normal),
+      ),
       backgroundColor: Color.fromARGB(255, 33, 15, 53),
       shape:
           RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25)),
       actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Visibility(
-                visible: true,
-                // Platform.isIOS,
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  child: Container(
-                    width: 90,
-                    height: 45,
-                    color: Color.fromARGB(255, 33, 15, 53),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
-                      child: Center(
-                        child: Text(this._no!,
-                            style: TextStyle(
-                              shadows: [
-                                Shadow(
-                                    color: Color.fromARGB(184, 24, 130, 18),
-                                    offset: Offset(0, -2))
-                              ],
-                              decorationColor: Color.fromARGB(184, 24, 130, 18),
-                              decoration: TextDecoration.underline,
-                              decorationThickness: 2,
-                              color: Colors.transparent,
-                              fontSize: 13,
-                              fontFamily: 'Times New Roman',
-                              // fontWeight: FontWeight.bold
-                            )),
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    this._noOnPressed!();
-                  },
-                ),
-              ),
-              RawMaterialButton(
-                fillColor: Color.fromARGB(255, 33, 15, 53),
+        Column(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Visibility(
+              visible: true,
+              // Platform.isIOS,
+              child: RawMaterialButton(
+                constraints: BoxConstraints(
+                    minWidth: MediaQuery.of(context).size.width * 3 / 5,
+                    minHeight: 40),
+                fillColor: Colors.black,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
                     side: BorderSide(color: Color.fromARGB(184, 24, 130, 18))),
                 splashColor: Colors.transparent,
                 textStyle: TextStyle(color: _yaziTipiRengi),
-                child: Text(this._yes!,
-                    style: TextStyle(
-                      color: _yaziTipiRengi,
-                      fontSize: 15,
-                      fontFamily: 'Times New Roman',
-                      // fontWeight: FontWeight.bold
-                    )),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      child: Image(
+                          image: AssetImage("assets/images/Apple.png")),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                          child: Text(this._no!,
+                              style: TextStyle(
+                                color: _yaziTipiRengi,
+                                fontSize: 14,
+                                fontFamily: 'Times New Roman',
+                                // fontWeight: FontWeight.bold
+                              )),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 onPressed: () {
                   this._yesOnPressed!();
                 },
-              )
+              ),
 
-              // new FlatButton(
-              //   child: new Text(this._yes,
-              //       style: TextStyle(
-              //           color: Colors.green,
-              //           fontSize: 15,
-              //           fontFamily: 'Times New Roman',
-              //           fontWeight: FontWeight.bold)),
-              //   textColor: Colors.green,
-              //   onPressed: () {
-              //     this._yesOnPressed();
+              // InkWell(
+              //   splashColor: Colors.transparent,
+              //   highlightColor: Colors.transparent,
+              //   child: Container(
+              //     width: 90,
+              //     height: 45,
+              //     color: Color.fromARGB(255, 33, 15, 53),
+              //     child: Padding(
+              //       padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+              //       child: Center(
+              //         child: Text(this._no!,
+              //             style: TextStyle(
+              //               shadows: [
+              //                 Shadow(
+              //                     color: Color.fromARGB(184, 24, 130, 18),
+              //                     offset: Offset(0, -2))
+              //               ],
+              //               decorationColor: Color.fromARGB(184, 24, 130, 18),
+              //               decoration: TextDecoration.underline,
+              //               decorationThickness: 2,
+              //               color: Colors.transparent,
+              //               fontSize: 13,
+              //               fontFamily: 'Times New Roman',
+              //               // fontWeight: FontWeight.bold
+              //             )),
+              //       ),
+              //     ),
+              //   ),
+              //   onTap: () {
+              //     this._noOnPressed!();
               //   },
-              // )
+              // ),
+            ),
+            RawMaterialButton(
+              constraints: BoxConstraints(
+                  minWidth: MediaQuery.of(context).size.width * 3 / 5,
+                  minHeight: 40),
+              fillColor: Color.fromARGB(255, 33, 15, 53),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                  side: BorderSide(color: Color.fromARGB(184, 24, 130, 18))),
+              splashColor: Colors.transparent,
+              textStyle: TextStyle(color: _yaziTipiRengi),
+              child: Row(
+                children: [
+                  Container(
+                      // width: MediaQuery.of(context).size.width * 3 / 5,
+                      height: 40,
+                      child: Image(
+                          fit: BoxFit.fill,
+                          image: AssetImage("assets/images/Google.png"))),
+                  // Expanded(
+                  //   child: Center(
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                  //       child: Text(this._yes!,
+                  //           style: TextStyle(
+                  //             color: _yaziTipiRengi,
+                  //             fontSize: 14,
+                  //             fontFamily: 'Times New Roman',
+                  //             // fontWeight: FontWeight.bold
+                  //           )),
+                  //     ),
+                  //   ),
+                  // ),
+                ],
+              ),
+              onPressed: () {
+                this._yesOnPressed!();
+              },
+            )
 
-              ,
+            // new FlatButton(
+            //   child: new Text(this._yes,
+            //       style: TextStyle(
+            //           color: Colors.green,
+            //           fontSize: 15,
+            //           fontFamily: 'Times New Roman',
+            //           fontWeight: FontWeight.bold)),
+            //   textColor: Colors.green,
+            //   onPressed: () {
+            //     this._yesOnPressed();
+            //   },
+            // )
 
-              // new FlatButton(
-              //   child: Text(this._no,
-              //       style: TextStyle(
-              //           color: Colors.redAccent,
-              //           fontSize: 15,
-              //           fontFamily: 'Times New Roman',
-              //           fontWeight: FontWeight.bold)),
-              //   textColor: Colors.redAccent,
-              //   onPressed: () {
-              //     this._noOnPressed();
-              //   },
-              // )
-            ],
-          ),
+            ,
+
+            // new FlatButton(
+            //   child: Text(this._no,
+            //       style: TextStyle(
+            //           color: Colors.redAccent,
+            //           fontSize: 15,
+            //           fontFamily: 'Times New Roman',
+            //           fontWeight: FontWeight.bold)),
+            //   textColor: Colors.redAccent,
+            //   onPressed: () {
+            //     this._noOnPressed();
+            //   },
+            // )
+          ],
         ),
       ],
     );

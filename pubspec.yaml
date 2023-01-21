@@ -99,6 +99,8 @@ flutter:
     - assets/json/loading.json
     - assets/images/kiwiLogo.png
     - assets/images/kapak.jpg
+    - assets/images/Google.png
+    - assets/images/Apple.png
     - assets/json/exercise.json
     - assets/json/yoga.json
     - assets/json/sleep.json
