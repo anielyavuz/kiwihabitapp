@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginOptionsBaseAlertDialog extends StatelessWidget {
   //When creating please recheck 'context' if there is an error!
@@ -36,41 +37,39 @@ class LoginOptionsBaseAlertDialog extends StatelessWidget {
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.center,
       title: Center(
-        child: new Text(this._title!,
-            style: TextStyle(
-                color: Color.fromARGB(184, 24, 130, 18),
-                fontSize: 25,
-                fontFamily: 'Times New Roman',
-                fontWeight: FontWeight.bold)),
+        child: new Text(
+          "Continue with",
+          style: GoogleFonts.publicSans(fontSize: 22, color: _yaziTipiRengi),
+        ),
       ),
-      content: Text(
-        "Choose your Sıgn In method",
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            color: _yaziTipiRengi,
-            fontSize: 12,
-            fontFamily: 'Times New Roman',
-            fontWeight: FontWeight.normal),
-      ),
-      backgroundColor: Color.fromARGB(255, 33, 15, 53),
+      // content: Text(
+      //   "Choose your Sıgn In method",
+      //   textAlign: TextAlign.center,
+      //   style: TextStyle(
+      //       color: _yaziTipiRengi,
+      //       fontSize: 12,
+      //       fontFamily: 'Times New Roman',
+      //       fontWeight: FontWeight.normal),
+      // ),
+      backgroundColor: Color.fromARGB(255, 31, 18, 57),
       shape:
           RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25)),
       actions: <Widget>[
-        Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Visibility(
               visible: true,
               // Platform.isIOS,
               child: RawMaterialButton(
-                constraints: BoxConstraints(
-                    minWidth: MediaQuery.of(context).size.width * 3 / 5,
-                    minHeight: 40),
-                fillColor: Color.fromARGB(255, 33, 15, 53),
-                // shape: RoundedRectangleBorder(
-                //     borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                //     side: BorderSide(color: Color.fromARGB(184, 24, 130, 18))),
+                constraints: BoxConstraints(minWidth: 55, minHeight: 55),
+                fillColor: _yaziTipiRengi,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                  // side: BorderSide(color: Color.fromARGB(184, 24, 130, 18)
+
+                  // )
+                ),
                 splashColor: Colors.transparent,
                 textStyle: TextStyle(color: _yaziTipiRengi),
                 child: Container(
@@ -80,92 +79,29 @@ class LoginOptionsBaseAlertDialog extends StatelessWidget {
                         // fit: BoxFit.fill,
                         image: AssetImage("assets/images/Apple.png"))),
                 onPressed: () {
-                  this._yesOnPressed!();
+                  this._noOnPressed!();
                 },
               ),
-
-              // InkWell(
-              //   splashColor: Colors.transparent,
-              //   highlightColor: Colors.transparent,
-              //   child: Container(
-              //     width: 90,
-              //     height: 45,
-              //     color: Color.fromARGB(255, 33, 15, 53),
-              //     child: Padding(
-              //       padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
-              //       child: Center(
-              //         child: Text(this._no!,
-              //             style: TextStyle(
-              //               shadows: [
-              //                 Shadow(
-              //                     color: Color.fromARGB(184, 24, 130, 18),
-              //                     offset: Offset(0, -2))
-              //               ],
-              //               decorationColor: Color.fromARGB(184, 24, 130, 18),
-              //               decoration: TextDecoration.underline,
-              //               decorationThickness: 2,
-              //               color: Colors.transparent,
-              //               fontSize: 13,
-              //               fontFamily: 'Times New Roman',
-              //               // fontWeight: FontWeight.bold
-              //             )),
-              //       ),
-              //     ),
-              //   ),
-              //   onTap: () {
-              //     this._noOnPressed!();
-              //   },
-              // ),
             ),
-
             RawMaterialButton(
-              constraints: BoxConstraints(
-                  minWidth: MediaQuery.of(context).size.width * 3 / 5,
-                  minHeight: 40),
-              fillColor: Color.fromARGB(255, 33, 15, 53),
-              // shape: RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.all(Radius.circular(15.0)),
-              //     side: BorderSide(color: Color.fromARGB(184, 24, 130, 18))),
+              constraints: BoxConstraints(minWidth: 55, minHeight: 55),
+              fillColor: _yaziTipiRengi,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                // side: BorderSide(color: Color.fromARGB(184, 24, 130, 18))
+              ),
               splashColor: Colors.transparent,
               textStyle: TextStyle(color: _yaziTipiRengi),
               child: Container(
                   // width: MediaQuery.of(context).size.width * 3 / 5,
-                  height: 45,
+                  height: 40,
                   child: Image(
                       // fit: BoxFit.fill,
                       image: AssetImage("assets/images/Google.png"))),
               onPressed: () {
                 this._yesOnPressed!();
               },
-            )
-
-            // new FlatButton(
-            //   child: new Text(this._yes,
-            //       style: TextStyle(
-            //           color: Colors.green,
-            //           fontSize: 15,
-            //           fontFamily: 'Times New Roman',
-            //           fontWeight: FontWeight.bold)),
-            //   textColor: Colors.green,
-            //   onPressed: () {
-            //     this._yesOnPressed();
-            //   },
-            // )
-
-            ,
-
-            // new FlatButton(
-            //   child: Text(this._no,
-            //       style: TextStyle(
-            //           color: Colors.redAccent,
-            //           fontSize: 15,
-            //           fontFamily: 'Times New Roman',
-            //           fontWeight: FontWeight.bold)),
-            //   textColor: Colors.redAccent,
-            //   onPressed: () {
-            //     this._noOnPressed();
-            //   },
-            // )
+            ),
           ],
         ),
       ],
