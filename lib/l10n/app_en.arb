@@ -27,4 +27,29 @@
         "description":"todayText area"
     }
 
+
+    ,
+     "introFirstScreen":"Energize your life",
+    "@introFirstScreen":{
+        "description":"Energize your life"
+    }
+
+     ,
+     "introFirstScreenDetail":"Create your workout goals that will boost your life energy with 🥝.",
+    "@introFirstScreen":{
+        "description":"Create your workout goals that will boost your life energy with 🥝."
+    }
+
+     ,
+     "introSecondScreen":"Remove Stress from Your Life",
+    "@introSecondScreen":{
+        "description":"Remove Stress from Your Life"
+    }
+
+     ,
+     "introSecondScreenDetail":"Make your plans and take a break from the stress of life with 🥝",
+    "@introSecondScreenDetail":{
+        "description":"Make your plans and take a break from the stress of life with 🥝"
+    }
+
 }

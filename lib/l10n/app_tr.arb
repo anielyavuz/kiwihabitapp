@@ -5,5 +5,10 @@
 
     "addYourFirstHabitButton":"İlk alışkanlığını ekle",
     "allreadyHaveKiwiButton":"Zaten bir KiWi hesabın mı var?",
-    "todayText":"Bugün"
+    "todayText":"Bugün",
+     "introFirstScreen":"Hayatınıza Haraket Katın",
+     "introFirstScreenDetail":"🥝 ile hayat enerjinizi yükseltecek egzersiz hedeflerinizi oluşturun.",
+    "introSecondScreen":"Stresi Hayatınızdan Çıkarın",
+     "introSecondScreenDetail":"🥝 ile planlarınızı yapın ve hayatın stresine ara verin"
+    
 }

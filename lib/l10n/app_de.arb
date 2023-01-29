@@ -5,6 +5,12 @@
       "appHeader":"KiWi - Gewohnheitsverfolgung",
       "addYourFirstHabitButton":"Fügen Sie Ihre erste Gewohnheit hinzu",
 "allreadyHaveKiwiButton":" Sie haben bereits ein KiWi-Konto?",
-    "todayText":"Heute"
+    "todayText":"Heute",
+    "introFirstScreen":"Geben Sie Ihrem Leben Energie",
+     "introFirstScreenDetail":"Erstellen Sie Ihre Trainingsziele, die Ihre Lebensenergie mit 🥝 steigern.",
+  "introSecondScreen":"Entfernen Sie Stress aus Ihrem Leben",
+     "introSecondScreenDetail":"Machen Sie Ihre Pläne und nehmen Sie sich mit 🥝 eine Auszeit vom Stress des Lebens"
+  
+
      
 }

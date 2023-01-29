@@ -83,15 +83,27 @@ class _IntroPageState extends State<IntroPage> {
         AppLocalizations.of(context)!.addYourFirstHabitButton.toString();
     late var _alreadyHaveAnyHabitText =
         AppLocalizations.of(context)!.allreadyHaveKiwiButton.toString();
+    late var _introFirstScreen =
+        AppLocalizations.of(context)!.introFirstScreen.toString();
+
+    late var _introFirstScreenDetail =
+        AppLocalizations.of(context)!.introFirstScreenDetail.toString();
+
+    late var _introSecondScreen =
+        AppLocalizations.of(context)!.introFirstScreen.toString();
+
+    late var _introSecondScreenDetail =
+        AppLocalizations.of(context)!.introFirstScreenDetail.toString();
+
     List _introPages = [
-      "Hayatınıza Haraket Katın",
-      "Stresi Hayatınızdan Çıkarın",
+      _introFirstScreen,
+      _introSecondScreen,
       "Kişisel Gelişiminize Odaklanın",
       "Düzenli Alışkanlıklar Edinin"
     ];
     List _introSubPages = [
-      "🥝 ile hayat enerjinizi yükseltecek egzersiz hedeflerinizi oluşturun.",
-      "🥝 ile planlarınızı yapın ve hayatın stresine ara verin",
+      _introFirstScreenDetail,
+      _introSecondScreenDetail,
       "🥝 ile hayatınızı düzene sokun ve hedeflerinize ulaşın.",
       "🥝 ile hayatınıza pozitif alışkanlıklar kazandırın.",
     ];
