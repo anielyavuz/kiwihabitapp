@@ -34,7 +34,7 @@ class AuthService {
         final firebaseUser = newUser.user!;
         print("AAAAAAAAAAAAA11");
         // print(newUser.user!.uid);
-        // print(newUser.user);
+        print(newUser.user);
 
         await _firestore.collection("Users").doc(newUser.user!.uid).set({
           "userName": newUser.user!.displayName != null
