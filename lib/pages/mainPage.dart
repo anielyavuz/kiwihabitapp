@@ -48,6 +48,21 @@ class _MainPageState extends State<MainPage> {
   bool _isButtonPressed = false;
   int _isButtonPressedID = 0;
   late var _todayText = AppLocalizations.of(context)!.todayText.toString();
+  late var _signIn = AppLocalizations.of(context)!.signIn.toString();
+  late var _exitButton = AppLocalizations.of(context)!.exitButton.toString();
+  late var _deleteAccount =
+      AppLocalizations.of(context)!.deleteAccount.toString();
+  late var _cancelButton =
+      AppLocalizations.of(context)!.cancelButton.toString();
+
+  late var _deleteHabit = AppLocalizations.of(context)!.deleteHabit.toString();
+
+  late var _goalText = AppLocalizations.of(context)!.goalText.toString();
+
+  late var _inADayText = AppLocalizations.of(context)!.inADay.toString();
+
+  late var _everyDay = AppLocalizations.of(context)!.everyDay.toString();
+
   var _userInfo;
   var _configsInfo;
 
@@ -189,8 +204,8 @@ class _MainPageState extends State<MainPage> {
 
           // Navigator.of(context, rootNavigator: true).pop(false);
         },
-        yes: "Sign Up",
-        no: "Exit");
+        yes: _signIn,
+        no: _exitButton);
     showDialog(context: context, builder: (BuildContext context) => baseDialog);
   }
 
@@ -211,7 +226,7 @@ class _MainPageState extends State<MainPage> {
         yesOnPressed: () async {
           Navigator.of(context, rootNavigator: true).pop(false);
         },
-        yes: "Cancel",
+        yes: _cancelButton,
         no: "Delete");
     showDialog(context: context, builder: (BuildContext context) => baseDialog);
   }
@@ -1007,7 +1022,7 @@ class _MainPageState extends State<MainPage> {
                                             loginOptionsPopUp();
                                           },
                                           child: Container(
-                                            child: Text("Sign In",
+                                            child: Text(_signIn,
                                                 style: GoogleFonts.publicSans(
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 18,
@@ -1125,7 +1140,7 @@ class _MainPageState extends State<MainPage> {
                                                   deleteAccount();
                                                 },
                                                 child: Container(
-                                                  child: Text("Delete Account",
+                                                  child: Text(_deleteAccount,
                                                       style: GoogleFonts.publicSans(
                                                           fontWeight:
                                                               FontWeight.w600,
@@ -1174,7 +1189,7 @@ class _MainPageState extends State<MainPage> {
                                         }
                                       },
                                       child: Container(
-                                        child: Text("Exit",
+                                        child: Text(_exitButton,
                                             style: GoogleFonts.publicSans(
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 18,
@@ -2216,7 +2231,7 @@ class _MainPageState extends State<MainPage> {
                               });
                               _pc.close();
                             },
-                            child: Text("Cancel",
+                            child: Text(_cancelButton,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 138, 24, 16),
@@ -2409,7 +2424,7 @@ class _MainPageState extends State<MainPage> {
                                     SizedBox(
                                       width: 15,
                                     ),
-                                    Text("in a day",
+                                    Text(_inADayText,
                                         style: GoogleFonts.publicSans(
                                             // fontWeight: FontWeight.bold,
                                             fontSize: 15,
@@ -2518,7 +2533,7 @@ class _MainPageState extends State<MainPage> {
                                   visualDensity: VisualDensity(horizontal: -4),
                                   dense: true,
                                   title: Text(
-                                    "Everyday",
+                                    _everyDay,
                                     style: GoogleFonts.publicSans(
                                         // fontWeight: FontWeight.bold,
                                         fontSize: 15,
@@ -2610,7 +2625,8 @@ class _MainPageState extends State<MainPage> {
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                        "Goal " +
+                                                        _goalText +
+                                                            " " +
                                                             (index2 + 1)
                                                                 .toString(),
                                                         style: GoogleFonts
@@ -2962,7 +2978,7 @@ class _MainPageState extends State<MainPage> {
                                       removeHabit();
                                       _pc.close();
                                     },
-                                    child: Text("Delete Habit",
+                                    child: Text(_deleteHabit,
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.publicSans(
                                             // fontWeight: FontWeight.bold,

@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HabitDetails extends StatefulWidget {
   const HabitDetails({Key? key}) : super(key: key);
@@ -16,6 +17,21 @@ class HabitDetails extends StatefulWidget {
 
 class _HabitDetailsState extends State<HabitDetails> {
   @override
+  late var _habitDetails =
+      AppLocalizations.of(context)!.habitDetails.toString();
+
+  late var _goalText = AppLocalizations.of(context)!.goalText.toString();
+
+  late var _inADayText = AppLocalizations.of(context)!.inADay.toString();
+
+  late var _everyDay = AppLocalizations.of(context)!.everyDay.toString();
+
+  late var _nextButton = AppLocalizations.of(context)!.nextButton.toString();
+  late var _previousButton =
+      AppLocalizations.of(context)!.previousButton.toString();
+  late var _finishButton =
+      AppLocalizations.of(context)!.finishButton.toString();
+
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   bool _loadingIcon = false;
   AuthService _authService = AuthService();
@@ -169,7 +185,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                 child: Container(
                   child: Center(
                     child: Text(
-                      "Habit Details",
+                      _habitDetails,
                       style: GoogleFonts.publicSans(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
@@ -218,7 +234,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                       child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                          "Goal",
+                                          _goalText,
                                           style: GoogleFonts.publicSans(
                                               decoration:
                                                   TextDecoration.underline,
@@ -386,7 +402,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                             width: 15,
                                           ),
                                           Text(
-                                            "in a day",
+                                            _inADayText,
                                             style: GoogleFonts.publicSans(
                                                 // fontWeight: FontWeight.bold,
                                                 fontSize: 15,
@@ -454,7 +470,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                     }
                                                   }
                                                   if (_allDaysSelected) {
-                                                    // _checkedBoxEveryday = true;
+                                                    // _checkedBoxEveryday  = true;
                                                     _yourHabits[index][
                                                             '_checkedBoxEveryday'] =
                                                         true;
@@ -518,7 +534,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                             VisualDensity(horizontal: -4),
                                         dense: true,
                                         title: Text(
-                                          "Everyday",
+                                          _everyDay,
                                           style: GoogleFonts.publicSans(
                                               // fontWeight: FontWeight.bold,
                                               fontSize: 15,
@@ -614,7 +630,8 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                                 .spaceBetween,
                                                         children: [
                                                           Text(
-                                                            "Goal " +
+                                                            _goalText +
+                                                                " " +
                                                                 (index2 + 1)
                                                                     .toString(),
                                                             style: GoogleFonts
@@ -1038,7 +1055,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
                                     child: Text(
-                                  "Next",
+                                  _nextButton,
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.publicSans(
                                       // fontWeight: FontWeight.bold,
@@ -1088,7 +1105,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                       border: Border.all(color: _yaziTipiRengi),
                                       borderRadius: BorderRadius.circular(15)),
                                   child: Center(
-                                      child: Text("Previous",
+                                      child: Text(_previousButton,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: _yaziTipiRengi,
@@ -1144,7 +1161,7 @@ class _HabitDetailsState extends State<HabitDetails> {
                                     border: Border.all(color: _yaziTipiRengi),
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
-                                    child: Text("Finish",
+                                    child: Text(_finishButton,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: _yaziTipiRengi,

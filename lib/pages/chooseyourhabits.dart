@@ -10,6 +10,7 @@ import 'package:kiwihabitapp/pages/habitDetails.dart';
 import 'package:kiwihabitapp/pages/intro.dart';
 import 'package:kiwihabitapp/widgets/habitGroup.dart';
 import 'package:kiwihabitapp/widgets/habitGroup2.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChooseHabits extends StatefulWidget {
   const ChooseHabits({Key? key}) : super(key: key);
@@ -19,6 +20,18 @@ class ChooseHabits extends StatefulWidget {
 }
 
 class _ChooseHabitsState extends State<ChooseHabits> {
+//   ,"chooseYourHabits":"Habitlerinizi Seçin"
+// ,"continue":"Devam et"
+// ,"or":"Veya"
+// ,"defineYourHabit":"Habitlerinizi Seçin"
+  late var _chooseYourHabits =
+      AppLocalizations.of(context)!.chooseYourHabits.toString();
+  late var _continueButton =
+      AppLocalizations.of(context)!.continueButton.toString();
+  late var _orButton = AppLocalizations.of(context)!.orButton.toString();
+  late var _defineYourHabit =
+      AppLocalizations.of(context)!.defineYourHabit.toString();
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   AuthService _authService = AuthService();
@@ -48,7 +61,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                       flex: 1,
                       child: Center(
                         child: Text(
-                          "Choose Your Habits",
+                          _chooseYourHabits,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.publicSans(
                               fontSize: 25, color: _yaziTipiRengi),
@@ -446,7 +459,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                     border: Border.all(color: _yaziTipiRengi),
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
-                                    child: Text("Continue",
+                                    child: Text(_continueButton,
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.publicSans(
                                             fontSize: 15,
@@ -456,7 +469,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                           ),
                           Container(
                             padding: const EdgeInsets.all(8),
-                            child: Text("--- or ---",
+                            child: Text("--- $_orButton ---",
                                 style: TextStyle(
                                   color: _yaziTipiRengi,
                                   fontSize: 15,
@@ -488,7 +501,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                     // borderRadius: BorderRadius.circular(15)
                                     ),
                                 child: Center(
-                                    child: Text("Define Your Habit",
+                                    child: Text(_defineYourHabit,
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.publicSans(
                                           decoration: TextDecoration.underline,

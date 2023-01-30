@@ -10,5 +10,43 @@
      "introFirstScreenDetail":"🥝 ile hayat enerjinizi yükseltecek egzersiz hedeflerinizi oluşturun.",
     "introSecondScreen":"Stresi Hayatınızdan Çıkarın",
      "introSecondScreenDetail":"🥝 ile planlarınızı yapın ve hayatın stresine ara verin"
+
+     ,
+    "introThirdScreen":"Kişisel Gelişiminize Odaklanın",
+     "introThirdScreenDetail":"🥝 ile hayatınızı düzene sokun ve hedeflerinize ulaşın."
     
+     ,
+    "introFourthScreen":"Düzenli Alışkanlıklar Edinin",
+     "introFourthScreenDetail":"🥝 ile hayatınıza pozitif alışkanlıklar kazandırın."
+
+
+,"chooseYourHabits":"Alışkanlıklarınızı Seçin"
+,"continueButton":"Devam et"
+,"orButton":"veya"
+,"defineYourHabit":"Alışkanlık Tanımla"
+
+
+,"habitName":"Alışkanlık Adı"
+,"addToHabits":"Alışkanlıklarıma Ekle"
+,"habitList":"Alışkanlık Listesi"
+
+
+,"habitDetails":"Alışkanlık Detayları"
+,"goalText":"Hedef"
+,"inADay":"kere (Günde)"
+,"everyDay":"Her gün"
+
+,"nextButton":"İleri"
+,"previousButton":"Geri"
+,"finishButton":"Bitir"
+
+
+
+,"signIn":"Giriş Yap"
+,"exitButton":"Çıkış"
+,"cancelButton":"İptal"
+,"deleteHabit":"Alışkanlığı Sil"
+,"deleteAccount":"Hesabımı Sil"
+,"addNewHabit":"Yeni Alışkanlık Ekle"
+
 }

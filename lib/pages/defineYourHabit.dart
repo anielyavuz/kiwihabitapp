@@ -5,6 +5,7 @@ import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
 import 'package:kiwihabitapp/pages/habitDetails.dart';
 import 'package:kiwihabitapp/widgets/textFieldDecoration.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DefineYourHabit extends StatefulWidget {
   const DefineYourHabit({Key? key}) : super(key: key);
@@ -14,6 +15,16 @@ class DefineYourHabit extends StatefulWidget {
 }
 
 class _DefineYourHabitState extends State<DefineYourHabit> {
+  late var _defineYourHabit =
+      AppLocalizations.of(context)!.defineYourHabit.toString();
+
+  late var _habitNameTextField =
+      AppLocalizations.of(context)!.habitName.toString();
+  late var _addToHabits = AppLocalizations.of(context)!.addToHabits.toString();
+  late var _habitList = AppLocalizations.of(context)!.habitList.toString();
+  late var _continueButton =
+      AppLocalizations.of(context)!.continueButton.toString();
+
   var _habitName;
   late Box box;
   List _yourFinalHabits = [];
@@ -112,7 +123,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                     child: Container(
                       child: Center(
                         child: Text(
-                          "Define Your Habits",
+                          _defineYourHabit,
                           style: GoogleFonts.publicSans(
                               fontWeight: FontWeight.w800,
                               fontSize: 25,
@@ -130,7 +141,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                               padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                               width: MediaQuery.of(context).size.width * 9 / 10,
                               child: TextFieldDecoration(
-                                hintYazi: "Habit Name",
+                                hintYazi: _habitNameTextField,
                                 textfieldData: (newtextfieldData) {
                                   setState(() {
                                     _habitName = newtextfieldData;
@@ -270,7 +281,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                 textStyle: TextStyle(color: _yaziTipiRengi),
                                 child: Padding(
                                   padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                                  child: Text("Add to habits",
+                                  child: Text(_addToHabits,
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.publicSans(
                                           fontWeight: FontWeight.w400,
@@ -342,7 +353,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                             padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Habit List",
+                              _habitList,
                               style: GoogleFonts.publicSans(
                                   decoration: TextDecoration.underline,
                                   fontWeight: FontWeight.w800,
@@ -542,7 +553,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                   border: Border.all(color: _yaziTipiRengi),
                                   borderRadius: BorderRadius.circular(15)),
                               child: Center(
-                                  child: Text("Continue",
+                                  child: Text(_continueButton,
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.publicSans(
                                           fontWeight: FontWeight.w400,

@@ -17,9 +17,9 @@
         "description":"Add Your First Habit area"
     }
     ,
-     "allreadyHaveKiwiButton":"Already have any habits in KiWi?",
+     "allreadyHaveKiwiButton":"Already have a KiWi account?",
     "@allreadyHaveKiwiButton":{
-        "description":"Already have any habits in KiWi? area"
+        "description":"Already have a KiWi account? area"
     }
     ,
      "todayText":"Today",
@@ -51,5 +51,169 @@
     "@introSecondScreenDetail":{
         "description":"Make your plans and take a break from the stress of life with 🥝"
     }
+    ,
+     "introThirdScreen":"Focus on Your Personal Development",
+    "@introThirdScreen":{
+        "description":"Focus on Your Personal Development"
+    }
+
+     ,
+     "introThirdScreenDetail":"Streamline your life and achieve your goals with 🥝.",
+    "@introThirdScreenDetail":{
+        "description":"Streamline your life and achieve your goals with 🥝."
+    }
+
+
+
+,
+     "introFourthScreen":"Learn Regular Habits",
+    "@introFourthScreen":{
+        "description":"Learn Regular Habits"
+    }
+
+
+
+      ,
+     "introFourthScreenDetail":"Build positive habits into your life with 🥝.",
+    "@introFourthScreenDetail":{
+        "description":"Build positive habits into your life with 🥝."
+    }
+
+    ,
+     "chooseYourHabits":"Choose Your Habits",
+    "@chooseYourHabits":{
+        "description":"Choose Your Habits"
+    }
+
+    ,
+     "continueButton":"Continue",
+    "@continueButton":{
+        "description":"Continue"
+}
+         ,
+
+     "orButton":"Or",
+    "@orButton":{
+        "description":"Or"
+         
+    },
+     "defineYourHabit":"Define Your Habit",
+    "@defineYourHabit":{
+        "description":"Define Your Habit"
+
+    }
+    ,
+     "habitName":"Habit Name",
+    "@habitName":{
+        "description":"Habit Name"
+
+    }
+     ,
+     "addToHabits":"Add to habits",
+    "@addToHabits":{
+        "description":"Add to habits"
+
+    }
+
+     ,
+     "habitList":"Habit List",
+    "@habitList":{
+        "description":"Habit List"
+
+    }
+
+     ,
+     "habitDetails":"Habit Details",
+    "@habitDetails":{
+        "description":"Habit Details"
+
+    }
+     ,
+     "goalText":"Goal",
+    "@goalText":{
+        "description":"goalText"
+
+    }
+
+    ,
+     "inADay":"in a day",
+    "@inADay":{
+        "description":"inADay"
+
+    }
+
+    ,
+     "everyDay":"Every day",
+    "@everyDay":{
+        "description":"everyDay"
+
+    }
+
+      ,
+     "nextButton":"Next",
+    "@nextButton":{
+        "description":"nextButton"
+
+    }
+
+     ,
+     "previousButton":"Previous",
+    "@previousButton":{
+        "description":"previousButton"
+
+    }
+    ,
+     "finishButton":"Finish",
+    "@finishButton":{
+        "description":"finishButton"
+
+    }
+
+    ,
+     "signIn":"Sign In",
+    "@signIn":{
+        "description":"signIn"
+
+    }
+
+     ,
+     "exitButton":"Exit",
+    "@exitButton":{
+        "description":"Exit"
+
+    }
+    ,
+     "cancelButton":"Cancel",
+    "@cancelButton":{
+        "description":"cancelButton"
+
+    }
+    ,
+     "deleteHabit":"Delete Habit",
+    "@deleteHabit":{
+        "description":"deleteHabit"
+
+    }
+
+
+    ,
+     "deleteAccount":"Delete Account",
+    "@deleteAccount":{
+        "description":"deleteAccount"
+
+    }
+
+     ,
+     "addNewHabit":"Add New Habit",
+    "@addNewHabit":{
+        "description":"addNewHabit"
+
+    }
+
+
+
+
+
+
 
 }

@@ -4,13 +4,44 @@
     "helloWorld":"Hello World! Almanca",
       "appHeader":"KiWi - Gewohnheitsverfolgung",
       "addYourFirstHabitButton":"Fügen Sie Ihre erste Gewohnheit hinzu",
-"allreadyHaveKiwiButton":" Sie haben bereits ein KiWi-Konto?",
+"allreadyHaveKiwiButton":"Sie haben bereits ein KiWi-Konto?",
     "todayText":"Heute",
     "introFirstScreen":"Geben Sie Ihrem Leben Energie",
      "introFirstScreenDetail":"Erstellen Sie Ihre Trainingsziele, die Ihre Lebensenergie mit 🥝 steigern.",
   "introSecondScreen":"Entfernen Sie Stress aus Ihrem Leben",
-     "introSecondScreenDetail":"Machen Sie Ihre Pläne und nehmen Sie sich mit 🥝 eine Auszeit vom Stress des Lebens"
+     "introSecondScreenDetail":"Machen Sie Ihre Pläne und nehmen Sie sich mit 🥝 eine Auszeit vom Stress des Lebens",
   
+"introThirdScreen":"Konzentrieren Sie sich auf Ihre persönliche Entwicklung",
+     "introThirdScreenDetail":"Optimiere dein Leben und erreiche deine Ziele mit 🥝."
+    ,
+    "introFourthScreen":"Lerne regelmäßige Gewohnheiten",
+     "introFourthScreenDetail":"Baue mit 🥝 positive Gewohnheiten in dein Leben ein."
+ 
+     ,"chooseYourHabits":"Wähle deine Gewohnheiten"
+     ,"continueButton":"Weitermachen"
+,"orButton":"Oder"
+,"defineYourHabit":"Wählen Sie Ihre Gewohnheiten"
 
-     
+
+,"habitName":"Gewohnheitsname"
+,"addToHabits":"Zu den Gewohnheiten hinzufügen"
+,"habitList":"Gewohnheitsliste"
+
+
+,"habitDetails":"Gewohnheitsdetails"
+,"goalText":"Ziel"
+,"inADay":"in einem Tag"
+,"everyDay":"jeden Tag"
+
+,"nextButton":"nächste"
+,"previousButton":"früher"
+,"finishButton":"Fertig"
+
+
+,"signIn":"Anmelden"
+,"exitButton":"Ausgang"
+,"cancelButton":"Absagen"
+,"deleteHabit":"Gewohnheit löschen"
+,"deleteAccount":"Konto löschen"
+,"addNewHabit":"neue Gewohnheit hinzufügen"
 }

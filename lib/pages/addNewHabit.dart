@@ -7,6 +7,7 @@ import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
 import 'package:kiwihabitapp/pages/habitDetails.dart';
 import 'package:kiwihabitapp/widgets/textFieldDecoration.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddNewHabit extends StatefulWidget {
   const AddNewHabit({Key? key}) : super(key: key);
@@ -16,6 +17,16 @@ class AddNewHabit extends StatefulWidget {
 }
 
 class _AddNewHabitState extends State<AddNewHabit> {
+  late var _goalText = AppLocalizations.of(context)!.goalText.toString();
+
+  late var _inADayText = AppLocalizations.of(context)!.inADay.toString();
+
+  late var _everyDay = AppLocalizations.of(context)!.everyDay.toString();
+  late var _habitNameTextField =
+      AppLocalizations.of(context)!.habitName.toString();
+  late var _addToHabits = AppLocalizations.of(context)!.addToHabits.toString();
+  late var _addNewHabit = AppLocalizations.of(context)!.addNewHabit.toString();
+
   bool _slidingCheckBoxEveryDay = true;
   List _slidingYourHabitAlltimes = [
     {
@@ -226,7 +237,7 @@ class _AddNewHabitState extends State<AddNewHabit> {
                     child: Container(
                       child: Center(
                         child: Text(
-                          "Add New Habit",
+                          _addNewHabit,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 25,
@@ -272,7 +283,7 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                     width: 2.0,
                                   ),
                                 ),
-                                hintText: "Habit Name",
+                                hintText: _habitNameTextField,
                                 hintStyle: TextStyle(
                                     color: Color.fromARGB(75, 21, 9, 35)),
                               ),
@@ -544,7 +555,7 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                       SizedBox(
                                         width: 15,
                                       ),
-                                      Text("in a day",
+                                      Text(_inADayText,
                                           style: TextStyle(
                                             color: _yaziTipiRengi,
                                             fontSize: 15,
@@ -665,7 +676,7 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                         VisualDensity(horizontal: -4),
                                     dense: true,
                                     title: Text(
-                                      "Everyday",
+                                      _everyDay,
                                       style: TextStyle(
                                         color: _yaziTipiRengi,
                                         fontSize: 15,
@@ -759,7 +770,8 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                      "Goal " +
+                                                      _goalText +
+                                                          " " +
                                                           (index2 + 1)
                                                               .toString(),
                                                       style: TextStyle(
@@ -1091,7 +1103,7 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                 textStyle: TextStyle(color: _yaziTipiRengi),
                                 child: Padding(
                                   padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                                  child: Text("Add to habits",
+                                  child: Text(_addToHabits,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Color.fromRGBO(21, 9, 35, 1),

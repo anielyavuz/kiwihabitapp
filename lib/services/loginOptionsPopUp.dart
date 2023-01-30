@@ -59,8 +59,7 @@ class LoginOptionsBaseAlertDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Visibility(
-              visible: true,
-              // Platform.isIOS,
+              visible: Platform.isIOS,
               child: RawMaterialButton(
                 constraints: BoxConstraints(minWidth: 55, minHeight: 55),
                 fillColor: _yaziTipiRengi,

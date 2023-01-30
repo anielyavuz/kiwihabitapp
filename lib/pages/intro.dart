@@ -90,22 +90,33 @@ class _IntroPageState extends State<IntroPage> {
         AppLocalizations.of(context)!.introFirstScreenDetail.toString();
 
     late var _introSecondScreen =
-        AppLocalizations.of(context)!.introFirstScreen.toString();
+        AppLocalizations.of(context)!.introSecondScreen.toString();
 
     late var _introSecondScreenDetail =
-        AppLocalizations.of(context)!.introFirstScreenDetail.toString();
+        AppLocalizations.of(context)!.introSecondScreenDetail.toString();
+    late var _introThirdScreen =
+        AppLocalizations.of(context)!.introThirdScreen.toString();
+
+    late var _introThirdScreenDetail =
+        AppLocalizations.of(context)!.introThirdScreenDetail.toString();
+
+    late var _introFourthScreen =
+        AppLocalizations.of(context)!.introFourthScreen.toString();
+
+    late var _introFourthScreenDetail =
+        AppLocalizations.of(context)!.introFourthScreenDetail.toString();
 
     List _introPages = [
       _introFirstScreen,
       _introSecondScreen,
-      "Kişisel Gelişiminize Odaklanın",
-      "Düzenli Alışkanlıklar Edinin"
+      _introThirdScreen,
+      _introFourthScreen
     ];
     List _introSubPages = [
       _introFirstScreenDetail,
       _introSecondScreenDetail,
-      "🥝 ile hayatınızı düzene sokun ve hedeflerinize ulaşın.",
-      "🥝 ile hayatınıza pozitif alışkanlıklar kazandırın.",
+      _introThirdScreenDetail,
+      _introFourthScreenDetail,
     ];
     List _introImages = [
       'assets/json/exercise.json',
