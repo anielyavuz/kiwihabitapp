@@ -44,4 +44,8 @@
 ,"deleteHabit":"Gewohnheit löschen"
 ,"deleteAccount":"Konto löschen"
 ,"addNewHabit":"neue Gewohnheit hinzufügen"
+
+,"dontHaveKiwiAccount":"Entschuldigung, Sie haben kein KiWi-Konto."
+,"deleteAccountConfirm":"Wenn Sie fortfahren, werden Sie Ihre Gewohnheiten verlieren. Bist du dir sicher?"
+,"reallyAsk":"Wirklich?👀"
 }

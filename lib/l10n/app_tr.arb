@@ -49,4 +49,8 @@
 ,"deleteAccount":"Hesabımı Sil"
 ,"addNewHabit":"Yeni Alışkanlık Ekle"
 
+,"dontHaveKiwiAccount":"Mevcutta bir KiWi hesabın yok."
+,"deleteAccountConfirm":"Eğer devam edersen alışkanlık verilerini kaybedeceksin. Emin misin?"
+,"reallyAsk":"Emin misin?👀"
+
 }

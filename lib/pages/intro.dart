@@ -8,6 +8,7 @@ import 'package:kiwihabitapp/auth/authFunctions.dart';
 import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kiwihabitapp/services/buttonlessPopUp.dart';
 import 'package:kiwihabitapp/services/loginOptionsPopUp.dart';
 import 'package:lottie/lottie.dart';
 
@@ -27,6 +28,10 @@ class _IntroPageState extends State<IntroPage> {
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   late var _currentlanguageText =
       AppLocalizations.of(context)!.language.toString();
+
+  late var _dontHaveKiwiAccount =
+      AppLocalizations.of(context)!.dontHaveKiwiAccount.toString();
+
   bool _loadingIcon = false;
   late Box box;
   late List _loginLogs;
@@ -41,7 +46,18 @@ class _IntroPageState extends State<IntroPage> {
         },
         noOnPressed: () async {
           Navigator.of(context, rootNavigator: true).pop(false);
-          AuthService().appleLoginFromIntroPage();
+          var _userVarYok = await AuthService().appleLoginFromIntroPage();
+          print("CCCCCCCCC");
+          print(_userVarYok);
+          if (!_userVarYok) {
+            showDialog(
+              context: context,
+              builder: (_) => ButtonlessPopUp(
+                input: _dontHaveKiwiAccount + "🤔",
+                fontSize: 22.0,
+              ),
+            );
+          }
         },
         yes: "Google Sign In",
         no: "Apple ID Sign In");

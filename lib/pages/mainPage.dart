@@ -63,6 +63,11 @@ class _MainPageState extends State<MainPage> {
 
   late var _everyDay = AppLocalizations.of(context)!.everyDay.toString();
 
+  late var _deleteAccountConfirm =
+      AppLocalizations.of(context)!.deleteAccountConfirm.toString();
+
+  late var _reallyAsk = AppLocalizations.of(context)!.reallyAsk.toString();
+
   var _userInfo;
   var _configsInfo;
 
@@ -211,8 +216,8 @@ class _MainPageState extends State<MainPage> {
 
   deleteAccount() {
     var baseDialog = BaseAlertDialog(
-        title: "Really?👀",
-        content: "If you continue, you will lose your habits. Are you sure?",
+        title: _reallyAsk,
+        content: _deleteAccountConfirm,
         noOnPressed: () async {
           AuthService().signOutAndDeleteUser(_userInfo['id'], "Anonym");
           Navigator.of(context, rootNavigator: true).pop(false);

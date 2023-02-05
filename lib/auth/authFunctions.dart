@@ -156,6 +156,7 @@ class AuthService {
   }
 
   appleLoginFromIntroPage() async {
+    bool _userVarMi = true;
     // 1. perform the sign-in request
     final result = await TheAppleSignIn.performRequests([
       AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
@@ -174,10 +175,18 @@ class AuthService {
         final newUser = await _auth.signInWithCredential(credential);
         final firebaseUser = newUser.user!;
         print("AAAAAAAAAAAAA11");
-      // print(newUser.user!.uid);
+        print(newUser.user!.uid);
+
+        var _userVarYok = await doesGoogleUserExist(newUser.user!.uid);
+        _userVarMi = _userVarYok;
+
+        print(_userVarYok);
       // print(newUser.user);
 
     }
+    print("BBBBBBBB");
+    print(_userVarMi);
+    return _userVarMi;
 
     //
   }

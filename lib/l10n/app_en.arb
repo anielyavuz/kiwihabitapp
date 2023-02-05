@@ -210,6 +210,27 @@
 
     }
 
+    ,
+     "dontHaveKiwiAccount":"Sorry, you don't have a KiWi account",
+    "@dontHaveKiwiAccount":{
+        "description":"Sorry, you don't have a KiWi account"
+
+    }
+
+    ,
+     "deleteAccountConfirm":"If you continue, you will lose your habits. Are you sure?",
+    "@deleteAccountConfirm":{
+        "description":"Sorry, you don't have a KiWi account"
+
+    }
+
+    ,
+     "reallyAsk":"Really?👀",
+    "@reallyAsk":{
+        "description":"reallyAsk"
+
+    }
+
 
 
 
