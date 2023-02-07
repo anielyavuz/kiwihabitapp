@@ -35,6 +35,7 @@ class LoginOptionsBaseAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      actionsPadding: EdgeInsets.fromLTRB(0, 0, 0, 20),
       actionsAlignment: MainAxisAlignment.center,
       title: Center(
         child: new Text(
@@ -56,30 +57,33 @@ class LoginOptionsBaseAlertDialog extends StatelessWidget {
           RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25)),
       actions: <Widget>[
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Visibility(
               visible: Platform.isIOS,
-              child: RawMaterialButton(
-                constraints: BoxConstraints(minWidth: 55, minHeight: 55),
-                fillColor: _yaziTipiRengi,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  // side: BorderSide(color: Color.fromARGB(184, 24, 130, 18)
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0,0,20,0),
+                child: RawMaterialButton(
+                  constraints: BoxConstraints(minWidth: 55, minHeight: 55),
+                  fillColor: _yaziTipiRengi,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    // side: BorderSide(color: Color.fromARGB(184, 24, 130, 18)
 
-                  // )
+                    // )
+                  ),
+                  splashColor: Colors.transparent,
+                  textStyle: TextStyle(color: _yaziTipiRengi),
+                  child: Container(
+                      // width: MediaQuery.of(context).size.width * 3 / 5,
+                      height: 40,
+                      child: Image(
+                          // fit: BoxFit.fill,
+                          image: AssetImage("assets/images/Apple.png"))),
+                  onPressed: () {
+                    this._noOnPressed!();
+                  },
                 ),
-                splashColor: Colors.transparent,
-                textStyle: TextStyle(color: _yaziTipiRengi),
-                child: Container(
-                    // width: MediaQuery.of(context).size.width * 3 / 5,
-                    height: 40,
-                    child: Image(
-                        // fit: BoxFit.fill,
-                        image: AssetImage("assets/images/Apple.png"))),
-                onPressed: () {
-                  this._noOnPressed!();
-                },
               ),
             ),
             RawMaterialButton(
