@@ -39,7 +39,7 @@ class LoginOptionsBaseAlertDialog extends StatelessWidget {
       actionsAlignment: MainAxisAlignment.center,
       title: Center(
         child: new Text(
-          "Continue with",
+          _title!,
           style: GoogleFonts.publicSans(fontSize: 22, color: _yaziTipiRengi),
         ),
       ),
@@ -62,7 +62,7 @@ class LoginOptionsBaseAlertDialog extends StatelessWidget {
             Visibility(
               visible: Platform.isIOS,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(0,0,20,0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                 child: RawMaterialButton(
                   constraints: BoxConstraints(minWidth: 55, minHeight: 55),
                   fillColor: _yaziTipiRengi,

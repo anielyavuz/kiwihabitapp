@@ -32,13 +32,16 @@ class _IntroPageState extends State<IntroPage> {
   late var _dontHaveKiwiAccount =
       AppLocalizations.of(context)!.dontHaveKiwiAccount.toString();
 
+  late var _continueWith =
+      AppLocalizations.of(context)!.continueWith.toString();
+
   bool _loadingIcon = false;
   late Box box;
   late List _loginLogs;
 
   loginOptionsPopUp() {
     var baseDialog = LoginOptionsBaseAlertDialog(
-        title: "Please Pick a Login Method",
+        title: _continueWith,
         content: "",
         yesOnPressed: () async {
           Navigator.of(context, rootNavigator: true).pop(false);
