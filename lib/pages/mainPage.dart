@@ -12,6 +12,7 @@ import 'package:kiwihabitapp/pages/addNewHabit.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/pages/graphicPage.dart';
 import 'package:kiwihabitapp/pages/intro.dart';
+import 'package:kiwihabitapp/pages/quickReminder.dart';
 import 'package:kiwihabitapp/services/audioClass.dart';
 import 'package:kiwihabitapp/services/batteryOptimization.dart';
 import 'package:kiwihabitapp/services/firebaseDocs.dart';
@@ -412,6 +413,11 @@ class _MainPageState extends State<MainPage> {
     Future.delayed(const Duration(milliseconds: 2500), () {
       notificaitonMap();
     });
+  }
+
+  quickReminderFunction() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => QuickReminder()));
   }
 
   addNewHabitFunction() {
@@ -1233,7 +1239,7 @@ class _MainPageState extends State<MainPage> {
           actions: <Widget>[
             IconButton(
               icon: Icon(
-                Icons.calendar_month,
+                Icons.today,
                 size: 30.00,
                 color: _yaziTipiRengi,
               ),
@@ -2106,6 +2112,73 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                   ],
+                ),
+              ),
+              Positioned(
+                right: 35,
+                bottom: 150,
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () {
+                    quickReminderFunction();
+                  },
+                  child: Container(
+                      decoration: BoxDecoration(
+                        gradient: RadialGradient(
+                            center: Alignment(-.5, -.5),
+                            colors: [
+                              Color.fromARGB(255, 219, 232, 215),
+                              Color.fromARGB(255, 199, 229, 190),
+                              Color.fromARGB(255, 178, 232, 161),
+                              Color.fromARGB(255, 119, 184, 99),
+                              Color.fromARGB(255, 57, 122, 37),
+                            ],
+                            radius: .7),
+                        // color: Color(0xffCFFFDC),
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black38,
+                              offset: Offset(5, 5),
+                              spreadRadius: 1,
+                              blurRadius: 10)
+                        ],
+                        // borderRadius: BorderRadius.all(Radius.circular(15))
+                      ),
+                      width: 60,
+                      height: 60,
+                      child: Stack(
+                        children: [
+                          // Visibility(
+                          //   visible: _yourHabits.length >= 5,
+                          //   child: Align(
+                          //     alignment: Alignment.topRight,
+                          //     child: Icon(
+                          //       Icons.lock,
+                          //       size: 25,
+                          //       color: Color.fromARGB(255, 149, 149, 149),
+                          //     ),
+                          //   ),
+                          // ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.flash_on,
+                              size: 35,
+                              color: Color.fromARGB(255, 35, 4, 71),
+                            ),
+                          ),
+                        ],
+                      )
+                      // IconTheme(
+                      //   data: new IconThemeData(color: Color(0xff542e71)),
+                      //   child: Icon(
+                      //     Icons.sports_esports,
+                      //     size: 50,
+                      //   ),
+                      // ),
+                      ),
                 ),
               ),
               Positioned(
