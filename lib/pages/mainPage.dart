@@ -194,10 +194,6 @@ class _MainPageState extends State<MainPage> {
           loginOptionsPopUp();
         },
         noOnPressed: () async {
-          var a = await _authService.signOutAndDeleteUser(
-              _userInfo['id'], _userInfo['registerType']);
-          // await _auth.signOut();
-
           box.put("chooseYourHabitsHive", []);
           box.put("habitDetailsHive", []);
           box.put("habitDays", []);
@@ -205,6 +201,11 @@ class _MainPageState extends State<MainPage> {
           box.put("finalCompleted", {});
           box.put("reminderMapHive", {});
           box.put("reminderDateMapHive", {});
+          var a = await _authService.signOutAndDeleteUser(
+              _userInfo['id'], _userInfo['registerType']);
+          // await _auth.signOut();
+          print("Silindiiiiiiiii");
+
           Navigator.of(context, rootNavigator: true).pop(false);
 
           Navigator.pushAndRemoveUntil(
@@ -224,9 +225,6 @@ class _MainPageState extends State<MainPage> {
         title: _reallyAsk,
         content: _deleteAccountConfirm,
         noOnPressed: () async {
-          AuthService().signOutAndDeleteUser(_userInfo['id'], "Anonym");
-          Navigator.of(context, rootNavigator: true).pop(false);
-
           box.put("chooseYourHabitsHive", []);
           box.put("habitDetailsHive", []);
           box.put("habitDays", []);
@@ -234,6 +232,8 @@ class _MainPageState extends State<MainPage> {
           box.put("finalCompleted", {});
           box.put("reminderMapHive", {});
           box.put("reminderDateMapHive", {});
+          AuthService().signOutAndDeleteUser(_userInfo['id'], "Anonym");
+          Navigator.of(context, rootNavigator: true).pop(false);
         },
         yesOnPressed: () async {
           Navigator.of(context, rootNavigator: true).pop(false);
@@ -265,18 +265,38 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  test() {
+    print(_reminderDatesMap);
+    print("------------");
+    print(_reminderMap);
+
+    _reminderMap.forEach((k, v) {
+      print("??");
+      print(_reminderDatesMap[k]);
+
+      print("Test " +
+          tz.TZDateTime.from(_reminderDatesMap[k], tz.local).toString());
+    });
+  }
+
   notificaitonMap() {
     notificationsServices.stopNotifications();
 
     _reminderMap.forEach((k, v) {
-      notificationsServices.sendScheduledNotifications2(
-          k,
-          "KiWi🥝",
-          "Reminder for " + v + " 😎",
-          // _startTime.hour.toString() +
-          //     ":0" +
-          //     _startTime.minute.toString(),
-          _reminderDatesMap[k]);
+      // print("Tarih bilinmiyor " + _reminderDatesMap[k].toString());
+      if (_reminderDatesMap[k].isAfter(DateTime.now())) {
+        print("Tarih sonra " + _reminderDatesMap[k].toString());
+        print("Test " +
+            tz.TZDateTime.from(_reminderDatesMap[k], tz.local).toString());
+        notificationsServices.sendScheduledNotifications2(
+            k,
+            "KiWi🥝",
+            "Reminder for " + v + " 😎",
+            // _startTime.hour.toString() +
+            //     ":0" +
+            //     _startTime.minute.toString(),
+            tz.TZDateTime.from(_reminderDatesMap[k], tz.local));
+      }
     });
     int _notificationID = 0;
     List list = List.generate(
@@ -997,6 +1017,21 @@ class _MainPageState extends State<MainPage> {
                       children: [
                         Column(
                           children: [
+                            ListTile(
+                              leading: Icon(Icons.important_devices),
+                              title: InkWell(
+                                onTap: () async {
+                                  test();
+                                },
+                                child: Container(
+                                  child: Text("Test",
+                                      style: GoogleFonts.publicSans(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18,
+                                          color: _backgroudRengi)),
+                                ),
+                              ),
+                            ),
                             Visibility(
                               visible: _configsInfo.docs[_configsInfoInteger]
                                   ['Analytics'],
@@ -2144,6 +2179,7 @@ class _MainPageState extends State<MainPage> {
                   highlightColor: Colors.transparent,
                   onTap: () {
                     quickReminderFunction();
+                    // test();
                   },
                   child: Container(
                       decoration: BoxDecoration(
