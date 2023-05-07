@@ -79,7 +79,7 @@ class _QuickReminderState extends State<QuickReminder>
         //     _startTime.minute.toString(),
         tzdatetime);
     _reminderMap[_tempLastReminderID + 1] = _reminderName;
-    _reminderDatesMap[_tempLastReminderID + 1] = tzdatetime;
+    _reminderDatesMap[_tempLastReminderID + 1] = _dt;
     box.put("reminderMapHive", _reminderMap);
     box.put("reminderDateMapHive", _reminderDatesMap);
     print(_reminderMap);
@@ -215,210 +215,296 @@ class _QuickReminderState extends State<QuickReminder>
               Column(
                 children: [
                   Expanded(
-                    flex: 1,
-                    child: Container(
-                      child: Center(
-                        child: Text(
-                          _addNewHabit,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Times New Roman',
-                            // fontWeight: FontWeight.bold
+                    flex: 3,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: Center(
+                            child: Text(
+                              _addNewHabit,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Times New Roman',
+                                // fontWeight: FontWeight.bold
+                              ),
+                            ),
                           ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                          // width: MediaQuery.of(context).size.width * 9 / 10,
+                          child: TextField(
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(40),
+                            ],
+                            autofocus: true,
+                            onChanged: (value2) {
+                              setState(() {
+                                _reminderName = value2;
+                              });
+                            },
+                            controller: _turkceTextFieldController,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(10),
+                              isCollapsed: true,
+                              filled: true,
+                              fillColor: _yaziTipiRengi,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                  color: Colors.green,
+                                  width: 1.0,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                  color: Colors.purple,
+                                  width: 2.0,
+                                ),
+                              ),
+                              hintText: _habitNameTextField,
+                              hintStyle: TextStyle(
+                                  color: Color.fromARGB(75, 21, 9, 35)),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 5, 15, 10),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            gradient: RadialGradient(
+                                center: Alignment(.7, -.7),
+                                colors:
+                                    _reminderName == null || _reminderName == ""
+                                        ? [
+                                            // Colors.white,
+                                            // Colors.white
+                                            Color.fromARGB(49, 149, 117, 205)!,
+                                            Color.fromARGB(49, 126, 87, 194)!,
+                                            Color.fromARGB(49, 104, 58, 183)!,
+                                            Color.fromARGB(48, 94, 53, 177)!,
+                                            Color.fromARGB(49, 82, 45, 168)!,
+                                            Color.fromARGB(49, 69, 39, 160)!,
+                                          ]
+                                        : [
+                                            Colors.deepPurple[300]!,
+                                            Colors.deepPurple[400]!,
+                                            Colors.deepPurple[500]!,
+                                            Colors.deepPurple[600]!,
+                                            Colors.deepPurple[700]!,
+                                            Colors.deepPurple[800]!,
+                                          ],
+                                radius: .7),
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                            border: Border.all(width: 2)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.today,
+                                  size: 60.00,
+                                  color: _reminderName == null ||
+                                          _reminderName == ""
+                                      ? Color.fromARGB(49, 209, 204, 215)
+                                      : Color.fromARGB(255, 209, 204, 215),
+                                ),
+                                onPressed: () async {
+                                  datePickFunction();
+                                },
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () async {
+                                datePickFunction();
+                              },
+                              child: Text(
+                                  _remindDay == DateTime.now()
+                                      ? DateFormat(
+                                              'dd-MM-yyyy',
+                                              Localizations.localeOf(context)
+                                                  .toString())
+                                          .format(DateTime.now())
+                                      : DateFormat(
+                                              'dd-MM-yyyy',
+                                              Localizations.localeOf(context)
+                                                  .toString())
+                                          .format(_remindDay),
+                                  style: TextStyle(
+                                    color: _reminderName == null ||
+                                            _reminderName == ""
+                                        ? Color.fromARGB(49, 209, 204, 215)
+                                        : Color.fromARGB(255, 209, 204, 215),
+                                    fontSize: 40,
+                                    fontFamily: 'Times New Roman',
+                                    // fontWeight: FontWeight.bold
+                                  )),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                   Expanded(
-                      flex: 7,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                            // width: MediaQuery.of(context).size.width * 9 / 10,
-                            child: TextField(
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(40),
-                              ],
-                              autofocus: true,
-                              onChanged: (value2) {
-                                setState(() {
-                                  _reminderName = value2;
-                                });
-                              },
-                              controller: _turkceTextFieldController,
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(10),
-                                isCollapsed: true,
-                                filled: true,
-                                fillColor: _yaziTipiRengi,
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
-                                    color: Colors.green,
-                                    width: 1.0,
-                                  ),
+                    flex: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 5, 15, 10),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            gradient: RadialGradient(
+                                center: Alignment(-.7, -.7),
+                                colors:
+                                    _reminderName == null || _reminderName == ""
+                                        ? [
+                                            // Colors.white,
+                                            // Colors.white
+                                            Color.fromARGB(49, 149, 117, 205)!,
+                                            Color.fromARGB(49, 126, 87, 194)!,
+                                            Color.fromARGB(49, 104, 58, 183)!,
+                                            Color.fromARGB(48, 94, 53, 177)!,
+                                            Color.fromARGB(49, 82, 45, 168)!,
+                                            Color.fromARGB(49, 69, 39, 160)!,
+                                          ]
+                                        : [
+                                            Colors.deepPurple[300]!,
+                                            Colors.deepPurple[400]!,
+                                            Colors.deepPurple[500]!,
+                                            Colors.deepPurple[600]!,
+                                            Colors.deepPurple[700]!,
+                                            Colors.deepPurple[800]!,
+                                          ],
+                                radius: .7),
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                            border: Border.all(width: 2)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 80,
+                              height: double.infinity,
+                              // width: double.infinity,
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.schedule,
+                                  size: 60.00,
+                                  color: _reminderName == null ||
+                                          _reminderName == ""
+                                      ? Color.fromARGB(49, 209, 204, 215)
+                                      : Color.fromARGB(255, 209, 204, 215),
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
-                                    color: Colors.purple,
-                                    width: 2.0,
-                                  ),
-                                ),
-                                hintText: _habitNameTextField,
-                                hintStyle: TextStyle(
-                                    color: Color.fromARGB(75, 21, 9, 35)),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.today,
-                                    size: 30.00,
-                                    color: _yaziTipiRengi,
-                                  ),
-                                  onPressed: () async {
-                                    datePickFunction();
-                                  },
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () async {
-                                  datePickFunction();
-                                },
-                                child: Text(
-                                    _remindDay == DateTime.now()
-                                        ? DateFormat(
-                                                'dd-MM-yyyy',
-                                                Localizations.localeOf(context)
-                                                    .toString())
-                                            .format(DateTime.now())
-                                        : DateFormat(
-                                                'dd-MM-yyyy',
-                                                Localizations.localeOf(context)
-                                                    .toString())
-                                            .format(_remindDay),
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 209, 204, 215),
-                                      fontSize: 15,
-                                      fontFamily: 'Times New Roman',
-                                      // fontWeight: FontWeight.bold
-                                    )),
-                              )
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.schedule,
-                                    size: 30.00,
-                                    color: _yaziTipiRengi,
-                                  ),
-                                  onPressed: () async {
-                                    timePickFunction();
-                                  },
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () async {
+                                onPressed: () async {
                                   timePickFunction();
                                 },
-                                child: Text(
-                                    _remindTime.minute < 10
-                                        ? _remindTime.hour.toString() +
-                                            ":0" +
-                                            _remindTime.minute.toString()
-                                        : _remindTime.hour.toString() +
-                                            ":" +
-                                            _remindTime.minute.toString(),
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 209, 204, 215),
-                                      fontSize: 15,
-                                      fontFamily: 'Times New Roman',
-                                      // fontWeight: FontWeight.bold
-                                    )),
-                              )
-                            ],
-                          ),
-                          Visibility(
-                            visible: false,
-                            child: Theme(
-                              data: ThemeData(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                              ),
-                              child: CheckboxListTile(
-                                side: BorderSide(
-                                    color: Color(0xff996B3E), width: 1),
-                                activeColor: Color(0xff77A830),
-                                // tileColor: Color(0xff996B3E),
-                                checkColor: _yaziTipiRengi,
-                                contentPadding: EdgeInsets.zero,
-                                visualDensity: VisualDensity(horizontal: -4),
-                                dense: true,
-                                title: Text(
-                                  "Israrla Hatırlat (Kapatılana kadar her 3 dk)",
-                                  style: TextStyle(
-                                    color: _yaziTipiRengi,
-                                    fontSize: 15,
-                                    fontFamily: 'Times New Roman',
-                                  ),
-                                ),
-                                value: _insistCheckBox,
-                                onChanged: (val) {
-                                  setState(() {
-                                    _insistCheckBox = !_insistCheckBox;
-                                  });
-                                },
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
                               ),
                             ),
+                            InkWell(
+                              onTap: () async {
+                                timePickFunction();
+                              },
+                              child: Text(
+                                  _remindTime.minute < 10
+                                      ? _remindTime.hour.toString() +
+                                          ":0" +
+                                          _remindTime.minute.toString()
+                                      : _remindTime.hour.toString() +
+                                          ":" +
+                                          _remindTime.minute.toString(),
+                                  style: TextStyle(
+                                    color: _reminderName == null ||
+                                            _reminderName == ""
+                                        ? Color.fromARGB(49, 209, 204, 215)
+                                        : Color.fromARGB(255, 209, 204, 215),
+                                    fontSize: 40,
+                                    fontFamily: 'Times New Roman',
+                                    // fontWeight: FontWeight.bold
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: RawMaterialButton(
+                          fillColor:
+                              _reminderName == null || _reminderName == ""
+                                  ? Color.fromARGB(48, 43, 218, 49)
+                                  : Color.fromARGB(255, 43, 218, 49),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          splashColor: Color(0xff867ae9),
+                          textStyle: TextStyle(color: _yaziTipiRengi),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                            child: Text(_addToHabits,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color.fromRGBO(21, 9, 35, 1),
+                                  fontSize: 15,
+                                  fontFamily: 'Times New Roman',
+                                  // fontWeight: FontWeight.bold
+                                )),
                           ),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                            child: RawMaterialButton(
-                                fillColor:
-                                    _reminderName == null || _reminderName == ""
-                                        ? _yaziTipiRengi.withOpacity(0.2)
-                                        : _yaziTipiRengi,
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(15.0))),
-                                splashColor: Color(0xff867ae9),
-                                textStyle: TextStyle(color: _yaziTipiRengi),
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                                  child: Text(_addToHabits,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(21, 9, 35, 1),
-                                        fontSize: 15,
-                                        fontFamily: 'Times New Roman',
-                                        // fontWeight: FontWeight.bold
-                                      )),
-                                ),
-                                onPressed:
-                                    _reminderName == null || _reminderName == ""
-                                        ? null
-                                        : () async {
-                                            addNewReminder();
-                                          }),
-                          ),
-                        ],
-                      )),
+                          onPressed:
+                              _reminderName == null || _reminderName == ""
+                                  ? null
+                                  : () async {
+                                      addNewReminder();
+                                    }),
+                    ),
+                  ),
+                  Expanded(flex: 1, child: SizedBox())
                 ],
+              ),
+              Visibility(
+                visible: false,
+                child: Theme(
+                  data: ThemeData(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                  ),
+                  child: CheckboxListTile(
+                    side: BorderSide(color: Color(0xff996B3E), width: 1),
+                    activeColor: Color(0xff77A830),
+                    // tileColor: Color(0xff996B3E),
+                    checkColor: _yaziTipiRengi,
+                    contentPadding: EdgeInsets.zero,
+                    visualDensity: VisualDensity(horizontal: -4),
+                    dense: true,
+                    title: Text(
+                      "Israrla Hatırlat (Kapatılana kadar her 3 dk)",
+                      style: TextStyle(
+                        color: _yaziTipiRengi,
+                        fontSize: 15,
+                        fontFamily: 'Times New Roman',
+                      ),
+                    ),
+                    value: _insistCheckBox,
+                    onChanged: (val) {
+                      setState(() {
+                        _insistCheckBox = !_insistCheckBox;
+                      });
+                    },
+                    controlAffinity: ListTileControlAffinity.leading,
+                  ),
+                ),
               ),
               Positioned(
                 left: 5,
