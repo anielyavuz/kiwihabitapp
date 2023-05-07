@@ -46,6 +46,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  Map _reminderMap = {};
+  Map _reminderDatesMap = {};
   bool _isButtonPressed = false;
   int _isButtonPressedID = 0;
   late var _todayText = AppLocalizations.of(context)!.todayText.toString();
@@ -201,6 +203,8 @@ class _MainPageState extends State<MainPage> {
           box.put("habitDays", []);
           box.put("completedHabits", {});
           box.put("finalCompleted", {});
+          box.put("reminderMapHive", {});
+          box.put("reminderDateMapHive", {});
           Navigator.of(context, rootNavigator: true).pop(false);
 
           Navigator.pushAndRemoveUntil(
@@ -228,6 +232,8 @@ class _MainPageState extends State<MainPage> {
           box.put("habitDays", []);
           box.put("completedHabits", {});
           box.put("finalCompleted", {});
+          box.put("reminderMapHive", {});
+          box.put("reminderDateMapHive", {});
         },
         yesOnPressed: () async {
           Navigator.of(context, rootNavigator: true).pop(false);
@@ -261,6 +267,17 @@ class _MainPageState extends State<MainPage> {
 
   notificaitonMap() {
     notificationsServices.stopNotifications();
+
+    _reminderMap.forEach((k, v) {
+      notificationsServices.sendScheduledNotifications2(
+          k,
+          "KiWi🥝",
+          "Reminder for " + v + " 😎",
+          // _startTime.hour.toString() +
+          //     ":0" +
+          //     _startTime.minute.toString(),
+          _reminderDatesMap[k]);
+    });
     int _notificationID = 0;
     List list = List.generate(
         10,
@@ -518,7 +535,10 @@ class _MainPageState extends State<MainPage> {
 
   getCurrentChooseYourHabits() async {
     _yourHabits = await box.get("chooseYourHabitsHive") ?? []; //eski
-
+    _reminderMap =
+        await box.get("reminderMapHive") ?? {999999: "startReminder"}; //eski
+    _reminderDatesMap =
+        await box.get("reminderDateMapHive") ?? {999999: DateTime.now()}; //eski
     _habitDetails = await box.get("habitDetailsHive") ?? [];
     _habitDays = await box.get("habitDays") ?? [];
     _completedHabits = await box.get("completedHabits") ?? {};
@@ -828,8 +848,8 @@ class _MainPageState extends State<MainPage> {
     box.put("loginLogsHive", _loginLogs);
     for (DateTime _loginLog in _loginLogs) {
       if (_loginLog.isBefore(bugunSifirSifir)) {
-        print(_loginLog);
-        print("yazılacak");
+        // print(_loginLog);
+        // print("yazılacak");
       }
     }
   }
@@ -1183,6 +1203,8 @@ class _MainPageState extends State<MainPage> {
                                           box.put("completedHabits", {});
                                           box.put("finalCompleted", {});
                                           box.put("loginLogsHive", []);
+                                          box.put("reminderMapHive", {});
+                                          box.put("reminderDateMapHive", {});
 
                                           Navigator.pushAndRemoveUntil(
                                               context,

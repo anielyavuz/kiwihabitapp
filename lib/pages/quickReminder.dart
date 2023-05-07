@@ -6,8 +6,13 @@ import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
 import 'package:kiwihabitapp/pages/habitDetails.dart';
+import 'package:kiwihabitapp/services/local_notification_service.dart';
 import 'package:kiwihabitapp/widgets/textFieldDecoration.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lottie/lottie.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+
+import 'package:timezone/timezone.dart' as tz;
 
 class QuickReminder extends StatefulWidget {
   const QuickReminder({Key? key}) : super(key: key);
@@ -16,12 +21,20 @@ class QuickReminder extends StatefulWidget {
   State<QuickReminder> createState() => _QuickReminderState();
 }
 
-class _QuickReminderState extends State<QuickReminder> {
+class _QuickReminderState extends State<QuickReminder>
+    with TickerProviderStateMixin {
+  NotificationsServices notificationsServices = NotificationsServices();
+  late AnimationController _checkController;
+  String _lonieURL = "";
+  Map _reminderMap = {};
+  Map _reminderDatesMap = {};
   String _reminderName = "";
   final int _defaultinitialPage = 100;
   int _initialPage = 100; //initial page değeri değişirse bu değerde değişmeli
   DateTime _remindDay = DateTime.now();
-  var _remindTime = TimeOfDay(hour: 20, minute: int.parse("0" + 0.toString()));
+  var _remindTime = TimeOfDay(
+      hour: DateTime.now().add(Duration(minutes: 30)).hour,
+      minute: DateTime.now().add(Duration(minutes: 30)).minute);
   PageController _pageController =
       PageController(viewportFraction: 1 / 7, initialPage: 100);
   final Color _backgroudRengi = Color.fromRGBO(21, 9, 35, 1);
@@ -35,137 +48,66 @@ class _QuickReminderState extends State<QuickReminder> {
   late var _addToHabits = AppLocalizations.of(context)!.addToHabits.toString();
   late var _addNewHabit = AppLocalizations.of(context)!.addNewHabit.toString();
 
-  bool _insistCheckBoxEveryDay = false;
-  List _slidingYourHabitAlltimes = [
-    {
-      'time': TimeOfDay(hour: 12, minute: 30).toString(),
-      'notification': true,
-      'alarm': false
-    }
-  ];
-  List _slidingItemWeekDaysList = [
-    {
-      'day': DateTime(2000, 1, 3)
-          .difference(DateTime(2000, 1, 3))
-          .inDays
-          .toString(),
-      'value': true
-    },
-    {
-      'day': DateTime(2000, 1, 4)
-          .difference(DateTime(2000, 1, 3))
-          .inDays
-          .toString(),
-      'value': true
-    },
-    {
-      'day': DateTime(2000, 1, 5)
-          .difference(DateTime(2000, 1, 3))
-          .inDays
-          .toString(),
-      'value': true
-    },
-    {
-      'day': DateTime(2000, 1, 6)
-          .difference(DateTime(2000, 1, 3))
-          .inDays
-          .toString(),
-      'value': true
-    },
-    {
-      'day': DateTime(2000, 1, 7)
-          .difference(DateTime(2000, 1, 3))
-          .inDays
-          .toString(),
-      'value': true
-    },
-    {
-      'day': DateTime(2000, 1, 8)
-          .difference(DateTime(2000, 1, 3))
-          .inDays
-          .toString(),
-      'value': true
-    },
-    {
-      'day': DateTime(2000, 1, 9)
-          .difference(DateTime(2000, 1, 3))
-          .inDays
-          .toString(),
-      'value': true
-    },
-  ];
-  int _slidingCountADay = 1;
-  String _slidingIconName = "Yoga";
-  Icon _slidingIcon = Icon(
-    Icons.volunteer_activism,
-    size: 25,
-    color: Color.fromARGB(223, 218, 21, 7),
-  );
+  bool _insistCheckBox = false;
 
-  var _habitName;
   late Box box;
   List _yourFinalHabits = [];
   var _category = "Health";
   List _yourHabits = [];
-  List _allDefaultHabits = [
-    "Yoga",
-    "Meditation",
-    "Drink Water",
-    "Sleep Well",
-    "Walk",
-    "Push Up",
-    "Run",
-    "Swim",
-    "Read a book",
-    "Learn English",
-    "Math Exercise",
-    "Law",
-    "Play Guitar",
-    "Painting",
-    "Play Piano",
-    "Dance",
-    "Saving Money",
-    "Investing",
-    "Donation",
-    "Market Search",
-    "Cinema",
-    "Meet with friends",
-    "Theater",
-    "Listen Podcast",
-    "Quit smoking",
-    "Quit eating snacks",
-    "Quit alcohol",
-    "Stop swearing"
-  ];
+
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   TextEditingController _turkceTextFieldController = TextEditingController();
   var _habitDetails;
   var habitName;
   var _habitDays;
+
+  scheduleReminderNotification() {
+    int _tempLastReminderID = 0;
+    _reminderMap.forEach((k, v) {
+      _tempLastReminderID = k;
+    });
+    DateTime _dt = DateTime(_remindDay.year, _remindDay.month, _remindDay.day,
+        _remindTime.hour, _remindTime.minute);
+    var tzdatetime = tz.TZDateTime.from(_dt, tz.local);
+
+    notificationsServices.sendScheduledNotifications2(
+        _tempLastReminderID + 1,
+        "KiWi🥝",
+        "Reminder for " + _reminderName + " 😎",
+        // _startTime.hour.toString() +
+        //     ":0" +
+        //     _startTime.minute.toString(),
+        tzdatetime);
+    _reminderMap[_tempLastReminderID + 1] = _reminderName;
+    _reminderDatesMap[_tempLastReminderID + 1] = tzdatetime;
+    box.put("reminderMapHive", _reminderMap);
+    box.put("reminderDateMapHive", _reminderDatesMap);
+    print(_reminderMap);
+  }
+
   addNewReminder() {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (BuildContext context) => CheckAuth()),
-        (Route<dynamic> route) => false);
+    if (!_insistCheckBox) {
+      scheduleReminderNotification();
+
+      setState(() {
+        _lonieURL = "assets/json/check.json";
+      });
+      _checkController.forward();
+      Future.delayed(const Duration(milliseconds: 1200), () {
+        _checkController.reset();
+        setState(() {
+          _lonieURL = "";
+        });
+
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => CheckAuth()),
+            (Route<dynamic> route) => false);
+      });
+    } else {}
   }
 
   Future<bool> _onBackPressed() async {
-    // List _tempList = [];
-    // for (var habit in _YourHabits) {
-    //   print(habit["habitName"]);
-    //   if (!_allDefaultHabits.contains(habit["habitName"]))
-    //     setState(() {
-    //       _tempList.add(habit['habitName']);
-    //     });
-    // }
-
-    // for (var item in _tempList) {
-    //   _YourHabits.removeWhere((element) => element["habitName"] == item);
-    // }
-    // box.put("chooseYourHabitsHive", _YourHabits);
-
-    // getCurrentChooseYourHabits();
-
     Navigator.pop(context);
 
     // Navigator.pop(context);
@@ -178,12 +120,17 @@ class _QuickReminderState extends State<QuickReminder> {
 
     box = Hive.box("kiwiHive");
     getCurrentChooseYourHabits();
+
+    _checkController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1500));
   }
 
   timePickFunction() async {
     TimeOfDay? newTime = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay(hour: 20, minute: 00),
+      initialTime: TimeOfDay(
+          hour: DateTime.now().add(Duration(minutes: 30)).hour,
+          minute: DateTime.now().add(Duration(minutes: 30)).minute),
       builder: (context, child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
@@ -249,16 +196,10 @@ class _QuickReminderState extends State<QuickReminder> {
   }
 
   getCurrentChooseYourHabits() async {
-    _yourHabits = box.get("chooseYourHabitsHive") ?? [];
-    _habitDetails = await box.get("habitDetailsHive") ?? [];
-    _habitDays = await box.get("habitDays") ?? [];
-
-    // for (var item in _yourHabits) {
-    //   setState(() {
-    //     _chooseYourHabitsName.add(item['habitName']);
-    //   });
-    // }
-    // print(_yourHabits);
+    _reminderMap =
+        await box.get("reminderMapHive") ?? {999999: "startReminder"}; //eski
+    _reminderDatesMap =
+        await box.get("reminderDateMapHive") ?? {999999: DateTime.now()}; //eski
   }
 
   @override
@@ -410,36 +351,39 @@ class _QuickReminderState extends State<QuickReminder> {
                               )
                             ],
                           ),
-                          Theme(
-                            data: ThemeData(
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                            ),
-                            child: CheckboxListTile(
-                              side: BorderSide(
-                                  color: Color(0xff996B3E), width: 1),
-                              activeColor: Color(0xff77A830),
-                              // tileColor: Color(0xff996B3E),
-                              checkColor: _yaziTipiRengi,
-                              contentPadding: EdgeInsets.zero,
-                              visualDensity: VisualDensity(horizontal: -4),
-                              dense: true,
-                              title: Text(
-                                "Israrla Hatırlat (Kapatılana kadar her 3 dk)",
-                                style: TextStyle(
-                                  color: _yaziTipiRengi,
-                                  fontSize: 15,
-                                  fontFamily: 'Times New Roman',
-                                ),
+                          Visibility(
+                            visible: false,
+                            child: Theme(
+                              data: ThemeData(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                               ),
-                              value: _insistCheckBoxEveryDay,
-                              onChanged: (val) {
-                                setState(() {
-                                  _insistCheckBoxEveryDay =
-                                      !_insistCheckBoxEveryDay;
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity.leading,
+                              child: CheckboxListTile(
+                                side: BorderSide(
+                                    color: Color(0xff996B3E), width: 1),
+                                activeColor: Color(0xff77A830),
+                                // tileColor: Color(0xff996B3E),
+                                checkColor: _yaziTipiRengi,
+                                contentPadding: EdgeInsets.zero,
+                                visualDensity: VisualDensity(horizontal: -4),
+                                dense: true,
+                                title: Text(
+                                  "Israrla Hatırlat (Kapatılana kadar her 3 dk)",
+                                  style: TextStyle(
+                                    color: _yaziTipiRengi,
+                                    fontSize: 15,
+                                    fontFamily: 'Times New Roman',
+                                  ),
+                                ),
+                                value: _insistCheckBox,
+                                onChanged: (val) {
+                                  setState(() {
+                                    _insistCheckBox = !_insistCheckBox;
+                                  });
+                                },
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                              ),
                             ),
                           ),
                           Container(
@@ -483,29 +427,6 @@ class _QuickReminderState extends State<QuickReminder> {
                   child: IconButton(
                       onPressed: () async {
                         _onBackPressed();
-                        // List _tempList = [];
-                        // for (var habit in _YourHabits) {
-                        //   print(habit["habitName"]);
-                        //   if (!_allDefaultHabits.contains(habit["habitName"]))
-                        //     setState(() {
-                        //       _tempList.add(habit['habitName']);
-                        //     });
-                        // }
-
-                        // for (var item in _tempList) {
-                        //   _YourHabits.removeWhere(
-                        //       (element) => element["habitName"] == item);
-                        // }
-                        // box.put("chooseYourHabitsHive", _YourHabits);
-
-                        // getCurrentChooseYourHabits();
-
-                        // // Navigator.pop(context);
-
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => ChooseHabits()));
                       },
                       icon: Icon(
                         Icons.arrow_back_ios,
@@ -513,7 +434,25 @@ class _QuickReminderState extends State<QuickReminder> {
                         color: Colors.white,
                       )),
                 ),
-              )
+              ),
+              Positioned(
+                top: MediaQuery.of(context).size.height - 340 + 80,
+                right: MediaQuery.of(context).size.width / 2 - 125,
+                child: Container(
+                  //  BoxDecoration(
+                  //   border: Border.all(color: Colors.black),
+                  //   color: Color(0xff70e000),
+                  //   borderRadius:
+                  //       BorderRadius.all(Radius.circular(50 / 2)),
+                  // )
+
+                  width: 250,
+                  height: 250,
+                  child: _lonieURL == ""
+                      ? SizedBox()
+                      : Lottie.asset(_lonieURL, controller: _checkController),
+                ),
+              ),
             ],
           ),
         ),
