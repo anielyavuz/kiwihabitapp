@@ -1676,161 +1676,159 @@ class _MainPageState extends State<MainPage> {
                                   ))),
                     ),
                     Container(
-                      height: _tempWillDelete.length * 53 + 5,
+                      height: _tempWillDelete.length * 48 + 5,
                       padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                       child: ListView.builder(
                           itemCount: _tempWillDelete.length,
                           itemBuilder: (context, indexOfCurrentDayHabit) {
-                            return Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                              child: AnimatedOpacity(
-                                duration: Duration(
-                                    milliseconds: _opacityAnimationDuration),
-                                opacity: _opacityAnimation,
-                                child: Slidable(
-                                  actionPane: SlidableDrawerActionPane(),
-                                  actionExtentRatio: 0.2,
-                                  secondaryActions: [
-                                    IconSlideAction(
-                                        caption: "Edit",
-                                        icon: Icons.edit,
-                                        onTap: () {}),
-                                    IconSlideAction(
-                                        caption: "Delete",
-                                        icon: Icons.delete,
-                                        onTap: () {})
-                                  ],
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                    child: AnimatedContainer(
-                                      duration: Duration(milliseconds: 50),
-                                      child: RawMaterialButton(
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.green,
-                                          fillColor: Colors.amber,
-                                          shape: RoundedRectangleBorder(
-                                              side: BorderSide(),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(15.0))),
-                                          // splashColor: Colors.green,
-                                          textStyle:
-                                              TextStyle(color: _yaziTipiRengi),
-                                          child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                15, 8, 15, 8),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    SizedBox(),
-                                                    Padding(
-                                                      padding: const EdgeInsets
-                                                          .fromLTRB(5, 0, 0, 0),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text("BBBB",
-                                                              style: GoogleFonts.publicSans(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 15,
-                                                                  color:
-                                                                      _yaziTipiRengi)),
-                                                          // Text(remainHabitTimeRepeat(
-                                                          //         _currentDayHabit[
-                                                          //             indexOfCurrentDayHabit])
-                                                          //     .toString()),
-                                                          Text(
-                                                            "BB",
+                            return AnimatedOpacity(
+                              duration: Duration(
+                                  milliseconds: _opacityAnimationDuration),
+                              opacity: _opacityAnimation,
+                              child: Slidable(
+                                actionPane: SlidableDrawerActionPane(),
+                                actionExtentRatio: 0.2,
+                                secondaryActions: [
+                                  IconSlideAction(
+                                      caption: "Edit",
+                                      icon: Icons.edit,
+                                      onTap: () {}),
+                                  IconSlideAction(
+                                      caption: "Delete",
+                                      icon: Icons.delete,
+                                      onTap: () {})
+                                ],
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                  child: AnimatedContainer(
+                                    duration: Duration(milliseconds: 50),
+                                    child: RawMaterialButton(
+                                        splashColor: Colors.transparent,
+                                        highlightColor: Colors.green,
+                                        fillColor:
+                                            Color.fromARGB(255, 37, 107, 16),
+                                        shape: RoundedRectangleBorder(
+                                            side: BorderSide(),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15.0))),
+                                        // splashColor: Colors.green,
+                                        textStyle:
+                                            TextStyle(color: _yaziTipiRengi),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              15, 8, 15, 8),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  SizedBox(),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(5, 0, 0, 0),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text("BBBB",
                                                             style: GoogleFonts.publicSans(
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w500,
-                                                                fontSize: 10,
-                                                                color: _yaziTipiRengi
-                                                                    .withOpacity(
-                                                                        0.6)),
-                                                          )
-                                                        ],
-                                                      ),
+                                                                        .w600,
+                                                                fontSize: 15,
+                                                                color:
+                                                                    _yaziTipiRengi)),
+                                                        // Text(remainHabitTimeRepeat(
+                                                        //         _currentDayHabit[
+                                                        //             indexOfCurrentDayHabit])
+                                                        //     .toString()),
+                                                        Text(
+                                                          "BB",
+                                                          style: GoogleFonts.publicSans(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 10,
+                                                              color: _yaziTipiRengi
+                                                                  .withOpacity(
+                                                                      0.6)),
+                                                        )
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 5),
-                                                      // width: 50,
-                                                      height: 16,
-                                                      decoration: BoxDecoration(
-                                                          color: Color.fromARGB(
-                                                              137, 28, 192, 31),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10)),
-                                                      child: Row(
-                                                        children: [
-                                                          Text("AAAA",
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: GoogleFonts.publicSans(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  fontSize: 14,
-                                                                  color:
-                                                                      _yaziTipiRengi)),
-                                                          Icon(
-                                                            Icons.check,
-                                                            size: 14,
-                                                            color: Colors.white,
-                                                          ),
-                                                        ],
-                                                      ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 5),
+                                                    // width: 50,
+                                                    height: 16,
+                                                    decoration: BoxDecoration(
+                                                        color: Color.fromARGB(
+                                                            137, 28, 192, 31),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    10)),
+                                                    child: Row(
+                                                      children: [
+                                                        Text("AAAA",
+                                                            textAlign:
+                                                                TextAlign
+                                                                    .center,
+                                                            style: GoogleFonts.publicSans(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                fontSize: 14,
+                                                                color:
+                                                                    _yaziTipiRengi)),
+                                                        Icon(
+                                                          Icons.check,
+                                                          size: 14,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ],
                                                     ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Container(
-                                                      width: 20,
-                                                      height: 20,
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.amber,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10)),
-                                                      child: Text("AA",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .publicSans(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 16,
-                                                                  color:
-                                                                      _backgroudRengi)),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Container(
+                                                    width: 20,
+                                                    height: 20,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.amber,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    10)),
+                                                    child: Text("AA",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: GoogleFonts
+                                                            .publicSans(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 16,
+                                                                color:
+                                                                    _backgroudRengi)),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
-                                          onLongPress: () {},
-                                          onPressed: () {}),
-                                    ),
+                                        ),
+                                        onLongPress: () {},
+                                        onPressed: () {}),
                                   ),
                                 ),
                               ),
