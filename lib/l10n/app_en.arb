@@ -239,6 +239,27 @@
 
     }
 
+    ,
+     "quickNotificationAdd":"Add A Quick Notification",
+    "@quickNotificationAdd":{
+        "description":"quickNotificationAdd"
+
+    }
+
+    ,
+     "quickNotificationTextLabel":"Quick Notification Name",
+    "@quickNotificationTextLabel":{
+        "description":"quickNotificationTextLabel"
+
+    }
+
+     ,
+     "scheduleNotification":"Schedule Notification",
+    "@scheduleNotification":{
+        "description":"scheduleNotification"
+
+    }
+
 
 
 

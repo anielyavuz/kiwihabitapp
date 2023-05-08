@@ -48,6 +48,13 @@ class _QuickReminderState extends State<QuickReminder>
   late var _addToHabits = AppLocalizations.of(context)!.addToHabits.toString();
   late var _addNewHabit = AppLocalizations.of(context)!.addNewHabit.toString();
 
+  late var _quickNotificationAdd =
+      AppLocalizations.of(context)!.quickNotificationAdd.toString();
+  late var _quickNotificationTextLabel =
+      AppLocalizations.of(context)!.quickNotificationTextLabel.toString();
+  late var _scheduleNotification =
+      AppLocalizations.of(context)!.scheduleNotification.toString();
+
   bool _insistCheckBox = false;
 
   late Box box;
@@ -222,7 +229,7 @@ class _QuickReminderState extends State<QuickReminder>
                         Container(
                           child: Center(
                             child: Text(
-                              _addNewHabit,
+                              _quickNotificationAdd,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 25,
@@ -266,7 +273,7 @@ class _QuickReminderState extends State<QuickReminder>
                                   width: 2.0,
                                 ),
                               ),
-                              hintText: _habitNameTextField,
+                              hintText: _quickNotificationTextLabel,
                               hintStyle: TextStyle(
                                   color: Color.fromARGB(75, 21, 9, 35)),
                             ),
@@ -479,7 +486,7 @@ class _QuickReminderState extends State<QuickReminder>
                           textStyle: TextStyle(color: _yaziTipiRengi),
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                            child: Text(_addToHabits,
+                            child: Text(_scheduleNotification,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color.fromRGBO(21, 9, 35, 1),
