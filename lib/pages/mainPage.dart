@@ -1294,54 +1294,91 @@ class _MainPageState extends State<MainPage> {
           ),
 
           actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.today,
-                size: 30.00,
-                color: _yaziTipiRengi,
-              ),
-              onPressed: () async {
-                DateTime? _selectedDate = await showDatePicker(
-                    locale: Localizations.localeOf(context),
-                    builder: (context, child) {
-                      return Theme(
-                        data: Theme.of(context).copyWith(
-                          colorScheme: ColorScheme.light(
-                            primary: _backgroudRengi, // header background color
-                            onPrimary: _yaziTipiRengi, // header text color
-                            onSurface: Color.fromARGB(
-                                255, 20, 39, 20), // body text color
-                          ),
-                          textButtonTheme: TextButtonThemeData(
-                            style: TextButton.styleFrom(
-                              primary: _backgroudRengi, // button text color
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Visibility(
+                    visible: _defaultinitialPage != _initialPage,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.replay_circle_filled,
+                              size: 30.00,
+                              color: _yaziTipiRengi,
                             ),
+                            onPressed: () async {
+                              _pageController.jumpToPage(_defaultinitialPage);
+                              },
                           ),
-                        ),
-                        child: child!,
-                      );
-                    },
-                    context: context,
-                    initialDate: DateTime.now().add(
-                        Duration(days: _initialPage - _defaultinitialPage)),
-                    firstDate: DateTime.now()
-                        .subtract(Duration(days: _defaultinitialPage)),
-                    lastDate: DateTime.now()
-                        .add(Duration(days: _defaultinitialPage)));
-                // print(_selectedDate);
-                if (_selectedDate != null) {
-                  var _difference = _selectedDate
-                      .difference(DateTime(DateTime.now().year,
-                          DateTime.now().month, DateTime.now().day))
-                      .inDays;
+                          Text(
+                            "Today",
+                            style: GoogleFonts.publicSans(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 10,
+                                color: _yaziTipiRengi),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.today,
+                    size: 30.00,
+                    color: _yaziTipiRengi,
+                  ),
+                  onPressed: () async {
+                    DateTime? _selectedDate = await showDatePicker(
+                        locale: Localizations.localeOf(context),
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary:
+                                    _backgroudRengi, // header background color
+                                onPrimary: _yaziTipiRengi, // header text color
+                                onSurface: Color.fromARGB(
+                                    255, 20, 39, 20), // body text color
+                              ),
+                              textButtonTheme: TextButtonThemeData(
+                                style: TextButton.styleFrom(
+                                  primary: _backgroudRengi, // button text color
+                                ),
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
+                        context: context,
+                        initialDate: DateTime.now().add(
+                            Duration(days: _initialPage - _defaultinitialPage)),
+                        firstDate: DateTime.now()
+                            .subtract(Duration(days: _defaultinitialPage)),
+                        lastDate: DateTime.now()
+                            .add(Duration(days: _defaultinitialPage)));
+                    // print(_selectedDate);
+                    if (_selectedDate != null) {
+                      var _difference = _selectedDate
+                          .difference(DateTime(DateTime.now().year,
+                              DateTime.now().month, DateTime.now().day))
+                          .inDays;
 
-                  _pageController.jumpToPage(_defaultinitialPage + _difference);
-                  // _pageController.animateToPage(
-                  //     _defaultinitialPage + _difference,
-                  //     duration: Duration(milliseconds: 500),
-                  //     curve: Curves.easeInCirc);
-                }
-              },
+                      _pageController
+                          .jumpToPage(_defaultinitialPage + _difference);
+                      // _pageController.animateToPage(
+                      //     _defaultinitialPage + _difference,
+                      //     duration: Duration(milliseconds: 500),
+                      //     curve: Curves.easeInCirc);
+                    }
+                  },
+                ),
+              ],
             )
           ],
           centerTitle: false,
@@ -1637,38 +1674,6 @@ class _MainPageState extends State<MainPage> {
                                     ),
                                   ))),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: Visibility(
-                        visible: _defaultinitialPage != _initialPage,
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            _pageController.jumpToPage(_defaultinitialPage);
-                          },
-                          child: FittedBox(
-                            fit: BoxFit.fill,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 3,
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: _yaziTipiRengi),
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Center(
-                                  child: Text("Back to Today",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: _yaziTipiRengi,
-                                        fontSize: 15,
-                                        fontFamily: 'Times New Roman',
-                                        // fontWeight: FontWeight.bold
-                                      ))),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                     Expanded(
                       child: GestureDetector(
                         onPanUpdate: (details) {
@@ -1687,6 +1692,7 @@ class _MainPageState extends State<MainPage> {
                           }
                         },
                         child: Container(
+                          padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                           child: ListView.builder(
                               itemCount: _currentDayHabit.length,
                               itemBuilder: (context, indexOfCurrentDayHabit) {
