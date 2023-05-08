@@ -307,52 +307,65 @@ class _QuickReminderState extends State<QuickReminder>
                                 radius: .7),
                             borderRadius: BorderRadius.all(Radius.circular(50)),
                             border: Border.all(width: 2)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.today,
-                                  size: 60.00,
-                                  color: _reminderName == null ||
-                                          _reminderName == ""
-                                      ? Color.fromARGB(49, 209, 204, 215)
-                                      : Color.fromARGB(255, 209, 204, 215),
-                                ),
-                                onPressed: () async {
+                        child: InkWell(
+                          onTap: _reminderName == null || _reminderName == ""
+                              ? null
+                              : () async {
                                   datePickFunction();
                                 },
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () async {
-                                datePickFunction();
-                              },
-                              child: Text(
-                                  _remindDay == DateTime.now()
-                                      ? DateFormat(
-                                              'dd-MM-yyyy',
-                                              Localizations.localeOf(context)
-                                                  .toString())
-                                          .format(DateTime.now())
-                                      : DateFormat(
-                                              'dd-MM-yyyy',
-                                              Localizations.localeOf(context)
-                                                  .toString())
-                                          .format(_remindDay),
-                                  style: TextStyle(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.today,
+                                    size: 60.00,
                                     color: _reminderName == null ||
                                             _reminderName == ""
                                         ? Color.fromARGB(49, 209, 204, 215)
                                         : Color.fromARGB(255, 209, 204, 215),
-                                    fontSize: 40,
-                                    fontFamily: 'Times New Roman',
-                                    // fontWeight: FontWeight.bold
-                                  )),
-                            ),
-                          ],
+                                  ),
+                                  onPressed: _reminderName == null ||
+                                          _reminderName == ""
+                                      ? null
+                                      : () async {
+                                          datePickFunction();
+                                        },
+                                ),
+                              ),
+                              InkWell(
+                                onTap:
+                                    _reminderName == null || _reminderName == ""
+                                        ? null
+                                        : () async {
+                                            datePickFunction();
+                                          },
+                                child: Text(
+                                    _remindDay == DateTime.now()
+                                        ? DateFormat(
+                                                'dd-MM-yyyy',
+                                                Localizations.localeOf(context)
+                                                    .toString())
+                                            .format(DateTime.now())
+                                        : DateFormat(
+                                                'dd-MM-yyyy',
+                                                Localizations.localeOf(context)
+                                                    .toString())
+                                            .format(_remindDay),
+                                    style: TextStyle(
+                                      color: _reminderName == null ||
+                                              _reminderName == ""
+                                          ? Color.fromARGB(49, 209, 204, 215)
+                                          : Color.fromARGB(255, 209, 204, 215),
+                                      fontSize: 40,
+                                      fontFamily: 'Times New Roman',
+                                      // fontWeight: FontWeight.bold
+                                    )),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -361,78 +374,91 @@ class _QuickReminderState extends State<QuickReminder>
                     flex: 4,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(15, 5, 15, 10),
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            gradient: RadialGradient(
-                                center: Alignment(-.7, -.7),
-                                colors:
-                                    _reminderName == null || _reminderName == ""
-                                        ? [
-                                            // Colors.white,
-                                            // Colors.white
-                                            Color.fromARGB(49, 149, 117, 205),
-                                            Color.fromARGB(49, 126, 87, 194),
-                                            Color.fromARGB(49, 104, 58, 183),
-                                            Color.fromARGB(48, 94, 53, 177),
-                                            Color.fromARGB(49, 82, 45, 168),
-                                            Color.fromARGB(49, 69, 39, 160),
-                                          ]
-                                        : [
-                                            Colors.deepPurple[300]!,
-                                            Colors.deepPurple[400]!,
-                                            Colors.deepPurple[500]!,
-                                            Colors.deepPurple[600]!,
-                                            Colors.deepPurple[700]!,
-                                            Colors.deepPurple[800]!,
-                                          ],
-                                radius: .7),
-                            borderRadius: BorderRadius.all(Radius.circular(50)),
-                            border: Border.all(width: 2)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 80,
-                              height: double.infinity,
-                              // width: double.infinity,
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.schedule,
-                                  size: 60.00,
-                                  color: _reminderName == null ||
-                                          _reminderName == ""
-                                      ? Color.fromARGB(49, 209, 204, 215)
-                                      : Color.fromARGB(255, 209, 204, 215),
-                                ),
-                                onPressed: () async {
-                                  timePickFunction();
-                                },
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () async {
+                      child: InkWell(
+                        onTap: _reminderName == null || _reminderName == ""
+                            ? null
+                            : () async {
                                 timePickFunction();
                               },
-                              child: Text(
-                                  _remindTime.minute < 10
-                                      ? _remindTime.hour.toString() +
-                                          ":0" +
-                                          _remindTime.minute.toString()
-                                      : _remindTime.hour.toString() +
-                                          ":" +
-                                          _remindTime.minute.toString(),
-                                  style: TextStyle(
-                                    color: _reminderName == null ||
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              gradient: RadialGradient(
+                                  center: Alignment(-.7, -.7),
+                                  colors: _reminderName == null ||
+                                          _reminderName == ""
+                                      ? [
+                                          // Colors.white,
+                                          // Colors.white
+                                          Color.fromARGB(49, 149, 117, 205),
+                                          Color.fromARGB(49, 126, 87, 194),
+                                          Color.fromARGB(49, 104, 58, 183),
+                                          Color.fromARGB(48, 94, 53, 177),
+                                          Color.fromARGB(49, 82, 45, 168),
+                                          Color.fromARGB(49, 69, 39, 160),
+                                        ]
+                                      : [
+                                          Colors.deepPurple[300]!,
+                                          Colors.deepPurple[400]!,
+                                          Colors.deepPurple[500]!,
+                                          Colors.deepPurple[600]!,
+                                          Colors.deepPurple[700]!,
+                                          Colors.deepPurple[800]!,
+                                        ],
+                                  radius: .7),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                              border: Border.all(width: 2)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 80,
+                                height: double.infinity,
+                                // width: double.infinity,
+                                child: IconButton(
+                                    icon: Icon(
+                                      Icons.schedule,
+                                      size: 60.00,
+                                      color: _reminderName == null ||
+                                              _reminderName == ""
+                                          ? Color.fromARGB(49, 209, 204, 215)
+                                          : Color.fromARGB(255, 209, 204, 215),
+                                    ),
+                                    onPressed: _reminderName == null ||
                                             _reminderName == ""
-                                        ? Color.fromARGB(49, 209, 204, 215)
-                                        : Color.fromARGB(255, 209, 204, 215),
-                                    fontSize: 40,
-                                    fontFamily: 'Times New Roman',
-                                    // fontWeight: FontWeight.bold
-                                  )),
-                            )
-                          ],
+                                        ? null
+                                        : () async {
+                                            timePickFunction();
+                                          }),
+                              ),
+                              InkWell(
+                                onTap:
+                                    _reminderName == null || _reminderName == ""
+                                        ? null
+                                        : () async {
+                                            timePickFunction();
+                                          },
+                                child: Text(
+                                    _remindTime.minute < 10
+                                        ? _remindTime.hour.toString() +
+                                            ":0" +
+                                            _remindTime.minute.toString()
+                                        : _remindTime.hour.toString() +
+                                            ":" +
+                                            _remindTime.minute.toString(),
+                                    style: TextStyle(
+                                      color: _reminderName == null ||
+                                              _reminderName == ""
+                                          ? Color.fromARGB(49, 209, 204, 215)
+                                          : Color.fromARGB(255, 209, 204, 215),
+                                      fontSize: 40,
+                                      fontFamily: 'Times New Roman',
+                                      // fontWeight: FontWeight.bold
+                                    )),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
