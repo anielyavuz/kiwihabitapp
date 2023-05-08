@@ -286,7 +286,7 @@ class _MainPageState extends State<MainPage> {
       // print("Tarih bilinmiyor " + _reminderDatesMap[k].toString());
       if (_reminderDatesMap[k].isAfter(DateTime.now())) {
         print("Tarih sonra " + _reminderDatesMap[k].toString());
-        print("Test " +
+        print("Test $k " +
             tz.TZDateTime.from(_reminderDatesMap[k], tz.local).toString());
         notificationsServices.sendScheduledNotifications2(
             k,
