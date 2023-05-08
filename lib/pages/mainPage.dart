@@ -1676,7 +1676,7 @@ class _MainPageState extends State<MainPage> {
                                   ))),
                     ),
                     Container(
-                      height: _tempWillDelete.length * 60,
+                      height: _tempWillDelete.length * 53 + 5,
                       padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                       child: ListView.builder(
                           itemCount: _tempWillDelete.length,
