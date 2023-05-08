@@ -62,7 +62,7 @@ class _QuickReminderState extends State<QuickReminder>
   var _habitDays;
 
   scheduleReminderNotification() {
-    int _tempLastReminderID = 0;
+    int _tempLastReminderID = 999999;
     _reminderMap.forEach((k, v) {
       _tempLastReminderID = k;
     });
@@ -289,12 +289,12 @@ class _QuickReminderState extends State<QuickReminder>
                                         ? [
                                             // Colors.white,
                                             // Colors.white
-                                            Color.fromARGB(49, 149, 117, 205)!,
-                                            Color.fromARGB(49, 126, 87, 194)!,
-                                            Color.fromARGB(49, 104, 58, 183)!,
-                                            Color.fromARGB(48, 94, 53, 177)!,
-                                            Color.fromARGB(49, 82, 45, 168)!,
-                                            Color.fromARGB(49, 69, 39, 160)!,
+                                            Color.fromARGB(49, 149, 117, 205),
+                                            Color.fromARGB(49, 126, 87, 194),
+                                            Color.fromARGB(49, 104, 58, 183),
+                                            Color.fromARGB(48, 94, 53, 177),
+                                            Color.fromARGB(49, 82, 45, 168),
+                                            Color.fromARGB(49, 69, 39, 160),
                                           ]
                                         : [
                                             Colors.deepPurple[300]!,
@@ -371,12 +371,12 @@ class _QuickReminderState extends State<QuickReminder>
                                         ? [
                                             // Colors.white,
                                             // Colors.white
-                                            Color.fromARGB(49, 149, 117, 205)!,
-                                            Color.fromARGB(49, 126, 87, 194)!,
-                                            Color.fromARGB(49, 104, 58, 183)!,
-                                            Color.fromARGB(48, 94, 53, 177)!,
-                                            Color.fromARGB(49, 82, 45, 168)!,
-                                            Color.fromARGB(49, 69, 39, 160)!,
+                                            Color.fromARGB(49, 149, 117, 205),
+                                            Color.fromARGB(49, 126, 87, 194),
+                                            Color.fromARGB(49, 104, 58, 183),
+                                            Color.fromARGB(48, 94, 53, 177),
+                                            Color.fromARGB(49, 82, 45, 168),
+                                            Color.fromARGB(49, 69, 39, 160),
                                           ]
                                         : [
                                             Colors.deepPurple[300]!,
@@ -522,7 +522,7 @@ class _QuickReminderState extends State<QuickReminder>
                 ),
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height - 340 + 80,
+                top: MediaQuery.of(context).size.height - 340,
                 right: MediaQuery.of(context).size.width / 2 - 125,
                 child: Container(
                   //  BoxDecoration(

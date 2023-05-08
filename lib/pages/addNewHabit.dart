@@ -26,7 +26,7 @@ class _AddNewHabitState extends State<AddNewHabit> {
       AppLocalizations.of(context)!.habitName.toString();
   late var _addToHabits = AppLocalizations.of(context)!.addToHabits.toString();
   late var _addNewHabit = AppLocalizations.of(context)!.addNewHabit.toString();
-
+  String _textBoxInput = "";
   bool _slidingCheckBoxEveryDay = true;
   List _slidingYourHabitAlltimes = [
     {
@@ -262,7 +262,11 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                 LengthLimitingTextInputFormatter(40),
                               ],
                               autofocus: true,
-                              onChanged: (value2) {},
+                              onChanged: (value2) {
+                                setState(() {
+                                  _textBoxInput = value2;
+                                });
+                              },
                               controller: _turkceTextFieldController,
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.all(10),
@@ -1091,11 +1095,10 @@ class _AddNewHabitState extends State<AddNewHabit> {
                           Container(
                             padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                             child: RawMaterialButton(
-                                fillColor: _turkceTextFieldController.text ==
-                                            null ||
-                                        _turkceTextFieldController.text == ""
-                                    ? _yaziTipiRengi.withOpacity(0.2)
-                                    : _yaziTipiRengi,
+                                fillColor:
+                                    _textBoxInput == null || _textBoxInput == ""
+                                        ? _yaziTipiRengi.withOpacity(0.2)
+                                        : _yaziTipiRengi,
                                 shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(15.0))),
@@ -1112,13 +1115,12 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                         // fontWeight: FontWeight.bold
                                       )),
                                 ),
-                                onPressed: _turkceTextFieldController.text ==
-                                            null ||
-                                        _turkceTextFieldController.text == ""
-                                    ? null
-                                    : () async {
-                                        addNewHabit();
-                                      }),
+                                onPressed:
+                                    _textBoxInput == null || _textBoxInput == ""
+                                        ? null
+                                        : () async {
+                                            addNewHabit();
+                                          }),
                           ),
                         ],
                       )),
