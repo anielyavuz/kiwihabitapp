@@ -1680,7 +1680,7 @@ class _MainPageState extends State<MainPage> {
                       padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                       child: ListView.builder(
                           itemCount: _tempWillDelete.length,
-                          itemBuilder: (context, indexOfCurrentDayHabit) {
+                          itemBuilder: (context, indexOfNotification) {
                             return AnimatedOpacity(
                               duration: Duration(
                                   milliseconds: _opacityAnimationDuration),
@@ -1689,10 +1689,10 @@ class _MainPageState extends State<MainPage> {
                                 actionPane: SlidableDrawerActionPane(),
                                 actionExtentRatio: 0.2,
                                 secondaryActions: [
-                                  IconSlideAction(
-                                      caption: "Edit",
-                                      icon: Icons.edit,
-                                      onTap: () {}),
+                                  // IconSlideAction(
+                                  //     caption: "Edit",
+                                  //     icon: Icons.edit,
+                                  //     onTap: () {}),
                                   IconSlideAction(
                                       caption: "Delete",
                                       icon: Icons.delete,
@@ -1720,8 +1720,7 @@ class _MainPageState extends State<MainPage> {
                                               15, 8, 15, 8),
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Row(
                                                 children: [
@@ -1734,95 +1733,53 @@ class _MainPageState extends State<MainPage> {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text("BBBB",
-                                                            style: GoogleFonts.publicSans(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontSize: 15,
-                                                                color:
-                                                                    _yaziTipiRengi)),
+                                                        Text(
+                                                            _tempWillDelete[
+                                                                indexOfNotification],
+                                                            style: GoogleFonts
+                                                                .publicSans(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontSize:
+                                                                        15,
+                                                                    color:
+                                                                        _yaziTipiRengi)),
                                                         // Text(remainHabitTimeRepeat(
                                                         //         _currentDayHabit[
                                                         //             indexOfCurrentDayHabit])
                                                         //     .toString()),
                                                         Text(
                                                           "BB",
-                                                          style: GoogleFonts.publicSans(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize: 10,
-                                                              color: _yaziTipiRengi
-                                                                  .withOpacity(
-                                                                      0.6)),
+                                                          style: GoogleFonts
+                                                              .publicSans(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: 10,
+                                                                  color: _yaziTipiRengi
+                                                                      .withOpacity(
+                                                                          0.6)),
                                                         )
                                                       ],
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 5),
-                                                    // width: 50,
-                                                    height: 16,
-                                                    decoration: BoxDecoration(
-                                                        color: Color.fromARGB(
-                                                            137, 28, 192, 31),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    10)),
-                                                    child: Row(
-                                                      children: [
-                                                        Text("AAAA",
-                                                            textAlign:
-                                                                TextAlign
-                                                                    .center,
-                                                            style: GoogleFonts.publicSans(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                fontSize: 14,
-                                                                color:
-                                                                    _yaziTipiRengi)),
-                                                        Icon(
-                                                          Icons.check,
-                                                          size: 14,
-                                                          color: Colors.white,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 20,
-                                                    height: 20,
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.amber,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    10)),
-                                                    child: Text("AA",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: GoogleFonts
-                                                            .publicSans(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 16,
-                                                                color:
-                                                                    _backgroudRengi)),
-                                                  ),
-                                                ],
+                                              Container(
+                                                width: 20,
+                                                height: 20,
+                                                decoration: BoxDecoration(
+                                                    color: _yaziTipiRengi,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                child: Icon(
+                                                  Icons.flash_on,
+                                                  // size: 35,
+                                                  color: Color.fromARGB(
+                                                      255, 35, 4, 71),
+                                                ),
                                               ),
                                             ],
                                           ),
