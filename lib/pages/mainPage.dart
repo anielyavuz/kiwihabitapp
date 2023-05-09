@@ -50,6 +50,7 @@ class _MainPageState extends State<MainPage> {
   Map _reminderDatesMap = {};
   bool _isButtonPressed = false;
   int _isButtonPressedID = 0;
+
   late var _todayText = AppLocalizations.of(context)!.todayText.toString();
   late var _signIn = AppLocalizations.of(context)!.signIn.toString();
   late var _exitButton = AppLocalizations.of(context)!.exitButton.toString();
@@ -151,7 +152,8 @@ class _MainPageState extends State<MainPage> {
   double _opacityAnimation = 0;
   int _opacityAnimationDuration = 500;
   var _datetime;
-  List _tempWillDelete = ["Drink Water", "Walk", "Take a pill"];
+  List _oneTimeNotificationTodayList = [];
+  Map _oneTimeNotificationTodayMap = {};
   final int _defaultinitialPage = 100;
   int _initialPage = 100; //initial page değeri değişirse bu değerde değişmeli
   AuthService _authService = AuthService();
@@ -266,18 +268,54 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  test() {
-    print(_reminderDatesMap);
-    print("------------");
-    print(_reminderMap);
-
-    _reminderMap.forEach((k, v) {
-      print("??");
-      print(_reminderDatesMap[k]);
-
-      print("Test " +
-          tz.TZDateTime.from(_reminderDatesMap[k], tz.local).toString());
+  oneTimeReminderForCurrentDay() {
+    setState(() {
+      _oneTimeNotificationTodayList = [];
+      _oneTimeNotificationTodayMap = {};
     });
+    _reminderDatesMap.forEach((k, v) {
+      print(v);
+      if (v.year ==
+              DateTime.now()
+                  .add(Duration(days: _initialPage - _defaultinitialPage))
+                  .year &&
+          v.month ==
+              DateTime.now()
+                  .add(Duration(days: _initialPage - _defaultinitialPage))
+                  .month &&
+          v.day ==
+              DateTime.now()
+                  .add(Duration(days: _initialPage - _defaultinitialPage))
+                  .day) {
+        setState(() {
+          _oneTimeNotificationTodayList.add(_reminderMap[k]);
+          _oneTimeNotificationTodayMap[_reminderMap[k]] = v;
+        });
+        print("Bugun");
+      }
+
+      // if (v.isBefore(DateTime.now())) {
+      //   print("önce");
+      // } else {
+      //   print("Sonra");
+      // }
+    });
+  }
+
+  test() {
+    oneTimeReminderForCurrentDay();
+
+    // print(_reminderDatesMap);
+    // print("------------");
+    // print(_reminderMap);
+
+    // _reminderMap.forEach((k, v) {
+    //   print("??");
+    //   print(_reminderDatesMap[k]);
+
+    //   print("Test " +
+    //       tz.TZDateTime.from(_reminderDatesMap[k], tz.local).toString());
+    // });
   }
 
   notificaitonMap() {
@@ -292,7 +330,7 @@ class _MainPageState extends State<MainPage> {
         notificationsServices.sendScheduledNotifications2(
             k,
             "KiWi🥝",
-            "Reminder for " + v + " 😎",
+            v + " ⚡️",
             // _startTime.hour.toString() +
             //     ":0" +
             //     _startTime.minute.toString(),
@@ -343,7 +381,7 @@ class _MainPageState extends State<MainPage> {
                       notificationsServices.sendScheduledNotifications2(
                           _notificationID,
                           "KiWi🥝",
-                          "Time for " + k + " 😎",
+                          k + " ⏲",
                           // _startTime.hour.toString() +
                           //     ":" +
                           //     _startTime.minute.toString(),
@@ -352,7 +390,7 @@ class _MainPageState extends State<MainPage> {
                       notificationsServices.sendScheduledNotifications2(
                           _notificationID,
                           "KiWi🥝",
-                          "Time for " + k + " 😎",
+                          k + " ⏲",
                           // _startTime.hour.toString() +
                           //     ":0" +
                           //     _startTime.minute.toString(),
@@ -392,6 +430,7 @@ class _MainPageState extends State<MainPage> {
       _opacityAnimationDuration = 250;
       _opacityAnimation = 1;
       currentDayHabits();
+      oneTimeReminderForCurrentDay();
     });
   }
 
@@ -1676,10 +1715,10 @@ class _MainPageState extends State<MainPage> {
                                   ))),
                     ),
                     Container(
-                      height: _tempWillDelete.length * 48 + 5,
+                      height: _oneTimeNotificationTodayList.length * 48 + 5,
                       padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                       child: ListView.builder(
-                          itemCount: _tempWillDelete.length,
+                          itemCount: _oneTimeNotificationTodayList.length,
                           itemBuilder: (context, indexOfNotification) {
                             return AnimatedOpacity(
                               duration: Duration(
@@ -1706,8 +1745,12 @@ class _MainPageState extends State<MainPage> {
                                     child: RawMaterialButton(
                                         splashColor: Colors.transparent,
                                         highlightColor: Colors.green,
-                                        fillColor:
-                                            Color.fromARGB(255, 37, 107, 16),
+                                        fillColor: _oneTimeNotificationTodayMap[
+                                                    _oneTimeNotificationTodayList[
+                                                        indexOfNotification]]
+                                                .isAfter(DateTime.now())
+                                            ? Color.fromARGB(255, 37, 107, 16)
+                                            : Color.fromARGB(255, 54, 61, 54),
                                         shape: RoundedRectangleBorder(
                                             side: BorderSide(),
                                             borderRadius: BorderRadius.all(
@@ -1734,7 +1777,7 @@ class _MainPageState extends State<MainPage> {
                                                               .start,
                                                       children: [
                                                         Text(
-                                                            _tempWillDelete[
+                                                            _oneTimeNotificationTodayList[
                                                                 indexOfNotification],
                                                             style: GoogleFonts
                                                                 .publicSans(
@@ -1750,7 +1793,12 @@ class _MainPageState extends State<MainPage> {
                                                         //             indexOfCurrentDayHabit])
                                                         //     .toString()),
                                                         Text(
-                                                          "BB",
+                                                          DateFormat(
+                                                                  'dd/MM/yyyy - HH:mm')
+                                                              .format(_oneTimeNotificationTodayMap[
+                                                                  _oneTimeNotificationTodayList[
+                                                                      indexOfNotification]])
+                                                              .toString(),
                                                           style: GoogleFonts
                                                               .publicSans(
                                                                   fontWeight:
