@@ -80,7 +80,7 @@ class _QuickReminderState extends State<QuickReminder>
     notificationsServices.sendScheduledNotifications2(
         _tempLastReminderID + 1,
         "KiWi🥝",
-        "Reminder for " + _reminderName + " 😎",
+        _reminderName + " ⚡️",
         // _startTime.hour.toString() +
         //     ":0" +
         //     _startTime.minute.toString(),
