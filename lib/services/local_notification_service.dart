@@ -200,6 +200,10 @@ class NotificationsServices {
   //           UILocalNotificationDateInterpretation.absoluteTime);
   // }
 
+  void stopOneNotificationWithID(int _id) async {
+    _flutterLocalNotificationsPlugin.cancel(_id);
+  }
+
   void stopNotifications() async {
     _flutterLocalNotificationsPlugin.cancelAll();
   }

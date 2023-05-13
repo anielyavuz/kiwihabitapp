@@ -153,6 +153,7 @@ class _MainPageState extends State<MainPage> {
   int _opacityAnimationDuration = 500;
   var _datetime;
   List _oneTimeNotificationTodayList = [];
+  List _oneTimeNotificationIDList = [];
   Map _oneTimeNotificationTodayMap = {};
   final int _defaultinitialPage = 100;
   int _initialPage = 100; //initial page değeri değişirse bu değerde değişmeli
@@ -268,10 +269,21 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  deleteOneTimeReminder(int id) {
+    _reminderMap.remove(id);
+    _reminderDatesMap.remove(id);
+    box.put("reminderMapHive", _reminderMap); //eski
+
+    box.put("reminderDateMapHive", _reminderDatesMap); //eski
+    notificationsServices.stopOneNotificationWithID(id);
+    oneTimeReminderForCurrentDay();
+  }
+
   oneTimeReminderForCurrentDay() {
     setState(() {
       _oneTimeNotificationTodayList = [];
       _oneTimeNotificationTodayMap = {};
+      _oneTimeNotificationIDList = [];
     });
     _reminderDatesMap.forEach((k, v) {
       print(v);
@@ -286,10 +298,12 @@ class _MainPageState extends State<MainPage> {
           v.day ==
               DateTime.now()
                   .add(Duration(days: _initialPage - _defaultinitialPage))
-                  .day) {
+                  .day &&
+          k != 999999) {
         setState(() {
           _oneTimeNotificationTodayList.add(_reminderMap[k]);
           _oneTimeNotificationTodayMap[_reminderMap[k]] = v;
+          _oneTimeNotificationIDList.add(k);
         });
         print("Bugun");
       }
@@ -303,11 +317,11 @@ class _MainPageState extends State<MainPage> {
   }
 
   test() {
-    oneTimeReminderForCurrentDay();
+    // oneTimeReminderForCurrentDay();
 
-    // print(_reminderDatesMap);
-    // print("------------");
-    // print(_reminderMap);
+    print(_reminderDatesMap);
+    print("------------");
+    print(_reminderMap);
 
     // _reminderMap.forEach((k, v) {
     //   print("??");
@@ -1735,7 +1749,11 @@ class _MainPageState extends State<MainPage> {
                                   IconSlideAction(
                                       caption: "Delete",
                                       icon: Icons.delete,
-                                      onTap: () {})
+                                      onTap: () {
+                                        deleteOneTimeReminder(
+                                            _oneTimeNotificationIDList[
+                                                indexOfNotification]);
+                                      })
                                 ],
                                 child: Padding(
                                   padding:
