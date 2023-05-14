@@ -154,7 +154,8 @@ class _MainPageState extends State<MainPage> {
   var _datetime;
   List _oneTimeNotificationTodayList = [];
   List _oneTimeNotificationIDList = [];
-  Map _oneTimeNotificationTodayMap = {};
+  List _oneTimeNotificationDateList = [];
+
   final int _defaultinitialPage = 100;
   int _initialPage = 100; //initial page değeri değişirse bu değerde değişmeli
   AuthService _authService = AuthService();
@@ -282,8 +283,9 @@ class _MainPageState extends State<MainPage> {
   oneTimeReminderForCurrentDay() {
     setState(() {
       _oneTimeNotificationTodayList = [];
-      _oneTimeNotificationTodayMap = {};
+
       _oneTimeNotificationIDList = [];
+      _oneTimeNotificationDateList = [];
     });
     _reminderDatesMap.forEach((k, v) {
       print(v);
@@ -302,8 +304,9 @@ class _MainPageState extends State<MainPage> {
           k != 999999) {
         setState(() {
           _oneTimeNotificationTodayList.add(_reminderMap[k]);
-          _oneTimeNotificationTodayMap[_reminderMap[k]] = v;
+
           _oneTimeNotificationIDList.add(k);
+          _oneTimeNotificationDateList.add(v);
         });
         print("Bugun");
       }
@@ -1763,9 +1766,8 @@ class _MainPageState extends State<MainPage> {
                                     child: RawMaterialButton(
                                         splashColor: Colors.transparent,
                                         highlightColor: Colors.green,
-                                        fillColor: _oneTimeNotificationTodayMap[
-                                                    _oneTimeNotificationTodayList[
-                                                        indexOfNotification]]
+                                        fillColor: _oneTimeNotificationDateList[
+                                                    indexOfNotification]
                                                 .isAfter(DateTime.now())
                                             ? Color.fromARGB(255, 37, 107, 16)
                                             : Color.fromARGB(255, 54, 61, 54),
@@ -1813,9 +1815,8 @@ class _MainPageState extends State<MainPage> {
                                                         Text(
                                                           DateFormat(
                                                                   'dd/MM/yyyy - HH:mm')
-                                                              .format(_oneTimeNotificationTodayMap[
-                                                                  _oneTimeNotificationTodayList[
-                                                                      indexOfNotification]])
+                                                              .format(_oneTimeNotificationDateList[
+                                                                  indexOfNotification])
                                                               .toString(),
                                                           style: GoogleFonts
                                                               .publicSans(
