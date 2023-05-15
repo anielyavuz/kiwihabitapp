@@ -222,18 +222,24 @@ class _IntroPageState extends State<IntroPage> {
                                                           MainAxisAlignment
                                                               .center,
                                                       children: [
-                                                        Text(
-                                                          _introPages[_index],
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: GoogleFonts
-                                                              .publicSans(
-                                                                  fontSize: 18,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color:
-                                                                      _yaziTipiRengi),
+                                                        FittedBox(
+                                                          fit: BoxFit.fill,
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.fromLTRB(8,0,8,0),
+                                                            child: Text(
+                                                              _introPages[_index],
+                                                              textAlign:
+                                                                  TextAlign.center,
+                                                              style: GoogleFonts
+                                                                  .publicSans(
+                                                                      fontSize: 18,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color:
+                                                                          _yaziTipiRengi),
+                                                            ),
+                                                          ),
                                                         ),
                                                         SizedBox(
                                                           height: 10,
