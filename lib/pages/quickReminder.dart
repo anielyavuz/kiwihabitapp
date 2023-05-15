@@ -222,7 +222,7 @@ class _QuickReminderState extends State<QuickReminder>
               Column(
                 children: [
                   Expanded(
-                    flex: 3,
+                    flex: 4,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -252,6 +252,7 @@ class _QuickReminderState extends State<QuickReminder>
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(40),
                             ],
+                            style: TextStyle(fontSize: 22),
                             autofocus: true,
                             onChanged: (value2) {
                               setState(() {
@@ -260,7 +261,7 @@ class _QuickReminderState extends State<QuickReminder>
                             },
                             controller: _turkceTextFieldController,
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(10),
+                              contentPadding: EdgeInsets.all(16),
                               isCollapsed: true,
                               filled: true,
                               fillColor: _yaziTipiRengi,
@@ -476,7 +477,7 @@ class _QuickReminderState extends State<QuickReminder>
                     ),
                   ),
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: Container(
                       padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                       child: RawMaterialButton(
