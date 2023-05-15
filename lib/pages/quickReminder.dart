@@ -214,7 +214,7 @@ class _QuickReminderState extends State<QuickReminder>
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         backgroundColor: Color.fromRGBO(21, 9, 35, 1),
         body: SafeArea(
           child: Stack(
@@ -224,24 +224,29 @@ class _QuickReminderState extends State<QuickReminder>
                   Expanded(
                     flex: 3,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
+                          width: MediaQuery.of(context).size.width - 80,
                           child: Center(
-                            child: Text(
-                              _quickNotificationAdd,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Times New Roman',
-                                // fontWeight: FontWeight.bold
+                            child: FittedBox(
+                              fit: BoxFit.fill,
+                              child: Text(
+                                _quickNotificationAdd,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Times New Roman',
+                                  // fontWeight: FontWeight.bold
+                                ),
                               ),
                             ),
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                          padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                           // width: MediaQuery.of(context).size.width * 9 / 10,
                           child: TextField(
                             inputFormatters: [
