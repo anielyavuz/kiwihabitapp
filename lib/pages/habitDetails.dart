@@ -198,6 +198,7 @@ class _HabitDetailsState extends State<HabitDetails> {
               Expanded(
                 flex: 7,
                 child: PageView(
+                    physics: NeverScrollableScrollPhysics(),
                     controller: _pageController,
                     onPageChanged: (int index) => setState(() {
                           _index = index;
@@ -998,9 +999,46 @@ class _HabitDetailsState extends State<HabitDetails> {
                                       : true,
                           child: InkWell(
                             onTap: () async {
-                              _pageController.previousPage(
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.easeInCirc);
+                              bool _tempHicSeciliDegilmi = false;
+                              for (var day in _yourHabits[_pageNumber]
+                                  ['_weekDays']) {
+                                if (day['value']) {
+                                  _tempHicSeciliDegilmi = true;
+                                  break;
+                                }
+                              }
+                              if (_tempHicSeciliDegilmi) {
+                                _pageController.previousPage(
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.easeInCirc);
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: Duration(milliseconds: 2000),
+                                    content: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                            'Please select at least one day.👀'),
+                                      ],
+                                    ),
+                                    // action: SnackBarAction(
+                                    //   label: "Be a Premium User",
+                                    //   onPressed: () {
+                                    //     Navigator.push(
+                                    //         context,
+                                    //         MaterialPageRoute(
+                                    //             builder: (context) =>
+                                    //                 BePremiumUser()));
+                                    //   },
+                                    // )
+                                  ),
+                                );
+                                print("seçili item yok");
+                              }
 
                               // Navigator.push(
                               //     context,
