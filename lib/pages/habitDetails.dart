@@ -37,6 +37,7 @@ class _HabitDetailsState extends State<HabitDetails> {
   AuthService _authService = AuthService();
   bool _checkedBoxEveryday = true;
   bool _checkedBoxAlarm = true;
+  bool _checkBoxHerGun = true;
   Map habitsMap = {};
   int _index = 0;
   int _inADay = 1;
@@ -481,35 +482,34 @@ class _HabitDetailsState extends State<HabitDetails> {
                                                     // _checkedBoxEveryday = false;
                                                   }
                                                 } else {
-                                                  if (!day['value'] == true) {
-                                                    bool _allDaysSelected =
-                                                        true;
-                                                    setState(() {
-                                                      day['value'] =
-                                                          !day['value'];
-                                                    });
-                                                    for (var _weekDay
-                                                        in _yourHabits[index]
-                                                            ['_weekDays']) {
-                                                      if (!_weekDay['value']) {
-                                                        _allDaysSelected =
-                                                            false;
-                                                      }
-                                                    }
-                                                    if (_allDaysSelected) {
-                                                      _yourHabits[index][
-                                                              '_checkedBoxEveryday'] =
-                                                          true;
-                                                      // _checkedBoxEveryday =
-                                                      //     true;
-                                                    } else {
-                                                      _yourHabits[index][
-                                                              '_checkedBoxEveryday'] =
-                                                          false;
-                                                      // _checkedBoxEveryday =
-                                                      //     false;
+                                                  // if (!day['value'] == true) {
+
+                                                  bool _allDaysSelected = true;
+                                                  setState(() {
+                                                    day['value'] =
+                                                        !day['value'];
+                                                  });
+                                                  for (var _weekDay
+                                                      in _yourHabits[index]
+                                                          ['_weekDays']) {
+                                                    if (!_weekDay['value']) {
+                                                      _allDaysSelected = false;
                                                     }
                                                   }
+                                                  if (_allDaysSelected) {
+                                                    _yourHabits[index][
+                                                            '_checkedBoxEveryday'] =
+                                                        true;
+                                                    // _checkedBoxEveryday =
+                                                    //     true;
+                                                  } else {
+                                                    _yourHabits[index][
+                                                            '_checkedBoxEveryday'] =
+                                                        false;
+                                                    // _checkedBoxEveryday =
+                                                    //     false;
+                                                  }
+                                                  // }
                                                 }
 
                                                 // print("-------------");
@@ -552,6 +552,18 @@ class _HabitDetailsState extends State<HabitDetails> {
                                               for (var day in _yourHabits[index]
                                                   ['_weekDays']) {
                                                 day['value'] = true;
+                                              }
+                                            });
+                                          } else {
+                                            print("tik kalktı");
+
+                                            setState(() {
+                                              _yourHabits[index]
+                                                      ['_checkedBoxEveryday'] =
+                                                  false;
+                                              for (var day in _yourHabits[index]
+                                                  ['_weekDays']) {
+                                                day['value'] = false;
                                               }
                                             });
                                           }
@@ -1029,9 +1041,47 @@ class _HabitDetailsState extends State<HabitDetails> {
                               : true,
                           child: InkWell(
                             onTap: () async {
-                              _pageController.nextPage(
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.easeInCirc);
+                              bool _tempHicSeciliDegilmi = false;
+                              for (var day in _yourHabits[_pageNumber]
+                                  ['_weekDays']) {
+                                if (day['value']) {
+                                  _tempHicSeciliDegilmi = true;
+                                  break;
+                                }
+                              }
+                              print(_pageNumber);
+                              if (_tempHicSeciliDegilmi) {
+                                _pageController.nextPage(
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.easeInCirc);
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: Duration(milliseconds: 2000),
+                                    content: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                            'Please select at least one day.👀'),
+                                      ],
+                                    ),
+                                    // action: SnackBarAction(
+                                    //   label: "Be a Premium User",
+                                    //   onPressed: () {
+                                    //     Navigator.push(
+                                    //         context,
+                                    //         MaterialPageRoute(
+                                    //             builder: (context) =>
+                                    //                 BePremiumUser()));
+                                    //   },
+                                    // )
+                                  ),
+                                );
+                                print("seçili item yok");
+                              }
 
                               // Navigator.push(
                               //     context,
@@ -1080,9 +1130,48 @@ class _HabitDetailsState extends State<HabitDetails> {
                             visible: _yourHabits.length == 1 ? false : true,
                             child: InkWell(
                               onTap: () async {
-                                _pageController.previousPage(
-                                    duration: Duration(milliseconds: 500),
-                                    curve: Curves.easeInCirc);
+                                print(_pageNumber);
+                                bool _tempHicSeciliDegilmi = false;
+                                for (var day in _yourHabits[_pageNumber]
+                                    ['_weekDays']) {
+                                  if (day['value']) {
+                                    _tempHicSeciliDegilmi = true;
+                                    break;
+                                  }
+                                }
+
+                                if (_tempHicSeciliDegilmi) {
+                                  _pageController.previousPage(
+                                      duration: Duration(milliseconds: 500),
+                                      curve: Curves.easeInCirc);
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      duration: Duration(milliseconds: 2000),
+                                      content: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                              'Please select at least one day.👀'),
+                                        ],
+                                      ),
+                                      // action: SnackBarAction(
+                                      //   label: "Be a Premium User",
+                                      //   onPressed: () {
+                                      //     Navigator.push(
+                                      //         context,
+                                      //         MaterialPageRoute(
+                                      //             builder: (context) =>
+                                      //                 BePremiumUser()));
+                                      //   },
+                                      // )
+                                    ),
+                                  );
+                                  print("seçili item yok");
+                                }
 
                                 // Navigator.push(
                                 //     context,
