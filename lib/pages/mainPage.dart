@@ -2363,8 +2363,8 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               Positioned(
-                right: 35,
-                bottom: 150,
+                right: 42.5,
+                bottom: 100,
                 child: InkWell(
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
@@ -2395,8 +2395,8 @@ class _MainPageState extends State<MainPage> {
                         ],
                         // borderRadius: BorderRadius.all(Radius.circular(15))
                       ),
-                      width: 60,
-                      height: 60,
+                      width: 45,
+                      height: 45,
                       child: Stack(
                         children: [
                           // Visibility(
@@ -2414,7 +2414,7 @@ class _MainPageState extends State<MainPage> {
                             alignment: Alignment.center,
                             child: Icon(
                               Icons.flash_on,
-                              size: 35,
+                              size: 30,
                               color: Color.fromARGB(255, 35, 4, 71),
                             ),
                           ),
