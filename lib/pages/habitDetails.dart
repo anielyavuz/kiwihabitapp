@@ -1246,38 +1246,75 @@ class _HabitDetailsState extends State<HabitDetails> {
                           ),
                           InkWell(
                             onTap: () async {
-                              // print(_yourHabits);
-
-                              // List _tempHabits = List.from(_yourHabits);
-                              List _tempHabits = _yourHabits.toList();
-                              for (var _yourHabits in _tempHabits) {
-                                for (var _yourHabitsTime
-                                    in _yourHabits['_allTimes']) {
-                                  _yourHabitsTime['time'] =
-                                      _yourHabitsTime['time'].toString();
+                              bool _tempHicSeciliDegilmi = false;
+                              for (var day in _yourHabits[_pageNumber]
+                                  ['_weekDays']) {
+                                if (day['value']) {
+                                  _tempHicSeciliDegilmi = true;
+                                  break;
                                 }
                               }
+                              if (_tempHicSeciliDegilmi) {
+                                // print(_yourHabits);
 
-                              writeHabitsFinaltoDB();
-                              print(_tempHabits);
-                              print("Sayfa değiştir....");
-                              setState(() {
-                                _loadingIcon = true;
-                              });
-                              var a = await _authService.anonymSignIn();
+                                // List _tempHabits = List.from(_yourHabits);
+                                List _tempHabits = _yourHabits.toList();
+                                for (var _yourHabits in _tempHabits) {
+                                  for (var _yourHabitsTime
+                                      in _yourHabits['_allTimes']) {
+                                    _yourHabitsTime['time'] =
+                                        _yourHabitsTime['time'].toString();
+                                  }
+                                }
 
-                              setState(() {
-                                _loadingIcon = false;
-                              });
+                                writeHabitsFinaltoDB();
+                                print(_tempHabits);
+                                print("Sayfa değiştir....");
+                                setState(() {
+                                  _loadingIcon = true;
+                                });
+                                var a = await _authService.anonymSignIn();
 
-                              box.put("chooseYourHabitsHive", _tempHabits);
+                                setState(() {
+                                  _loadingIcon = false;
+                                });
 
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          CheckAuth()),
-                                  (Route<dynamic> route) => false);
+                                box.put("chooseYourHabitsHive", _tempHabits);
+
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            CheckAuth()),
+                                    (Route<dynamic> route) => false);
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: Duration(milliseconds: 2000),
+                                    content: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                            'Please select at least one day.👀'),
+                                      ],
+                                    ),
+                                    // action: SnackBarAction(
+                                    //   label: "Be a Premium User",
+                                    //   onPressed: () {
+                                    //     Navigator.push(
+                                    //         context,
+                                    //         MaterialPageRoute(
+                                    //             builder: (context) =>
+                                    //                 BePremiumUser()));
+                                    //   },
+                                    // )
+                                  ),
+                                );
+                                print("seçili item yok");
+                              }
                             },
                             child: FittedBox(
                               fit: BoxFit.fill,
