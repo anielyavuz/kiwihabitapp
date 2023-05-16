@@ -214,15 +214,14 @@ class AuthService {
   signOutAndDeleteUser(String uid, String registerType) async {
     if (registerType == "Anonym") {
       print("AAAAAAAAAAA $uid");
+
+      await _auth.signOut();
       var k = await FirebaseFirestore.instance
           .collection("Users")
           .doc(uid)
           .delete()
-          .then((value) async {
-        return await _auth.signOut();
-      }).onError((error, stackTrace) async {
-        return await _auth.signOut();
-      });
+          .then((value) async {})
+          .onError((error, stackTrace) async {});
     } else {
       return await _auth.signOut();
     }

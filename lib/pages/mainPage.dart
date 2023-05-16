@@ -213,10 +213,10 @@ class _MainPageState extends State<MainPage> {
 
           Navigator.of(context, rootNavigator: true).pop(false);
 
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => CheckAuth()),
-              (Route<dynamic> route) => false);
+          // Navigator.pushAndRemoveUntil(
+          //     context,
+          //     MaterialPageRoute(builder: (BuildContext context) => CheckAuth()),
+          //     (Route<dynamic> route) => false);
 
           // Navigator.of(context, rootNavigator: true).pop(false);
         },
@@ -1894,7 +1894,8 @@ class _MainPageState extends State<MainPage> {
                                         style: GoogleFonts.publicSans(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 20,
-                                            color: Color.fromARGB(30, 123, 49, 207))),
+                                            color: Color.fromARGB(
+                                                30, 123, 49, 207))),
                                   )
                                 ],
                               ),
