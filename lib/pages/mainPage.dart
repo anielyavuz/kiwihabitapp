@@ -15,6 +15,7 @@ import 'package:kiwihabitapp/pages/intro.dart';
 import 'package:kiwihabitapp/pages/quickReminder.dart';
 import 'package:kiwihabitapp/services/audioClass.dart';
 import 'package:kiwihabitapp/services/batteryOptimization.dart';
+import 'package:kiwihabitapp/services/dailyLogs.dart';
 import 'package:kiwihabitapp/services/firebaseDocs.dart';
 import 'package:kiwihabitapp/services/firestoreClass.dart';
 import 'package:kiwihabitapp/services/iconClass.dart';
@@ -170,7 +171,16 @@ class _MainPageState extends State<MainPage> {
     return days;
   }
 
+  dailyLogs(String _log) {
+    Future.delayed(const Duration(milliseconds: 2000), () {
+      if (_configsInfo.docs[_configsInfoInteger]['DailyLogs']) {
+        DailyLogs().writeLog(_userInfo['id'], _userInfo['userName'], _log);
+      }
+    });
+  }
+
   loginOptionsPopUp() {
+    dailyLogs("Login Options Button Clicked");
     var baseDialog = LoginOptionsBaseAlertDialog(
         title: "Please Pick a Login Method",
         content: "",
@@ -507,18 +517,29 @@ class _MainPageState extends State<MainPage> {
     Future.delayed(const Duration(milliseconds: 2500), () {
       notificaitonMap();
     });
+
+    dailyLogs("Habit Delete");
   }
 
   quickReminderFunction() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => QuickReminder()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => QuickReminder(
+                  userInfo: _userInfo,
+                )));
+
+    dailyLogs("Quick Reminder Design Button Clicked");
   }
 
   addNewHabitFunction() {
     // if (_yourHabits.length < 5) {
     print("Yeni habit oluşturabilirsiniz");
+    dailyLogs("Add New Habit Button Clicked");
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AddNewHabit()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => AddNewHabit(userInfo: _userInfo)));
     // } else {}
   }
 
@@ -714,7 +735,7 @@ class _MainPageState extends State<MainPage> {
 
     box.put("completedHabits", _completedHabits);
     box.put("finalCompleted", _finalCompleted);
-
+    dailyLogs("Habit Click");
     // //print('_completedHabits2');
     // //print(_completedHabits);
 
@@ -745,6 +766,8 @@ class _MainPageState extends State<MainPage> {
 
     _pc.open();
     // //print("EDİTLE");
+
+    dailyLogs("Habit Edit");
   }
 
   remainHabitRepeat(String habitName) {
@@ -952,6 +975,7 @@ class _MainPageState extends State<MainPage> {
     loginLogsAdd();
     getCurrentChooseYourHabits();
     versionInform();
+    dailyLogs("Login");
   }
 
   copyDeepMap(map) {

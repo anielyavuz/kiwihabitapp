@@ -6,6 +6,7 @@ import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
 import 'package:kiwihabitapp/pages/habitDetails.dart';
+import 'package:kiwihabitapp/services/dailyLogs.dart';
 import 'package:kiwihabitapp/services/local_notification_service.dart';
 import 'package:kiwihabitapp/widgets/textFieldDecoration.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,7 +16,8 @@ import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class QuickReminder extends StatefulWidget {
-  const QuickReminder({Key? key}) : super(key: key);
+  final Map userInfo;
+  const QuickReminder({Key? key, required this.userInfo}) : super(key: key);
 
   @override
   State<QuickReminder> createState() => _QuickReminderState();
@@ -105,13 +107,20 @@ class _QuickReminderState extends State<QuickReminder>
         setState(() {
           _lonieURL = "";
         });
-
+        dailyLogs("Quick Reminder Created");
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (BuildContext context) => CheckAuth()),
             (Route<dynamic> route) => false);
       });
     } else {}
+  }
+
+  dailyLogs(String _log) {
+    // Future.delayed(const Duration(milliseconds: 2000), () {
+    //   DailyLogs()
+    //       .writeLog(widget.userInfo['id'], widget.userInfo['userName'], _log);
+    // });
   }
 
   Future<bool> _onBackPressed() async {

@@ -6,11 +6,13 @@ import 'package:kiwihabitapp/auth/authentication.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
 import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
 import 'package:kiwihabitapp/pages/habitDetails.dart';
+import 'package:kiwihabitapp/services/dailyLogs.dart';
 import 'package:kiwihabitapp/widgets/textFieldDecoration.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddNewHabit extends StatefulWidget {
-  const AddNewHabit({Key? key}) : super(key: key);
+  final Map userInfo;
+  const AddNewHabit({Key? key, required this.userInfo}) : super(key: key);
 
   @override
   State<AddNewHabit> createState() => _AddNewHabitState();
@@ -169,11 +171,19 @@ class _AddNewHabitState extends State<AddNewHabit> {
     box.put("habitDetailsHive", _habitDetails);
     print("3");
     box.put("habitDays", _habitDays);
+    dailyLogs("New Habit Created");
 
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (BuildContext context) => CheckAuth()),
         (Route<dynamic> route) => false);
+  }
+
+  dailyLogs(String _log) {
+    // Future.delayed(const Duration(milliseconds: 2000), () {
+    //   DailyLogs()
+    //       .writeLog(widget.userInfo['id'], widget.userInfo['userName'], _log);
+    // });
   }
 
   Future<bool> _onBackPressed() async {
