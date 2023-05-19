@@ -408,7 +408,7 @@ class _MainPageState extends State<MainPage> {
                       notificationsServices.sendScheduledNotifications2(
                           _notificationID,
                           "KiWi🥝",
-                          k + " ⏲",
+                          k + " 🔔",
                           // _startTime.hour.toString() +
                           //     ":" +
                           //     _startTime.minute.toString(),
@@ -417,7 +417,7 @@ class _MainPageState extends State<MainPage> {
                       notificationsServices.sendScheduledNotifications2(
                           _notificationID,
                           "KiWi🥝",
-                          k + " ⏲",
+                          k + " 🔔",
                           // _startTime.hour.toString() +
                           //     ":0" +
                           //     _startTime.minute.toString(),
