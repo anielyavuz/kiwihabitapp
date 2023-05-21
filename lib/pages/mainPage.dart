@@ -1030,6 +1030,13 @@ class _MainPageState extends State<MainPage> {
               child: Column(
                 children: [
                   UserAccountsDrawerHeader(
+                    currentAccountPictureSize: Size.square(MediaQuery.of(context).size.width*3/4),
+                    currentAccountPicture: Text(
+                      "Kiwi",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Color.fromARGB(255, 17, 173, 20),
+                      fontSize: 50),
+                    ),
                     accountName: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -1086,10 +1093,7 @@ class _MainPageState extends State<MainPage> {
                     //       ],
                     //     )),
                     decoration: BoxDecoration(
-                      color: _backgroudRengi,
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage("assets/images/kapak.jpg")),
+                      color: _yaziTipiRengi,
                     ),
                     accountEmail: null,
                   ),
@@ -1306,7 +1310,10 @@ class _MainPageState extends State<MainPage> {
                                             )
                                       : SizedBox(),
                                   ListTile(
-                                    leading: Icon(Icons.exit_to_app, color: _yaziTipiRengi,),
+                                    leading: Icon(
+                                      Icons.exit_to_app,
+                                      color: _yaziTipiRengi,
+                                    ),
                                     title: InkWell(
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
