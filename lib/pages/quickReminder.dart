@@ -17,7 +17,10 @@ import 'package:timezone/timezone.dart' as tz;
 
 class QuickReminder extends StatefulWidget {
   final Map userInfo;
-  const QuickReminder({Key? key, required this.userInfo}) : super(key: key);
+  final int newInitialPage;
+  const QuickReminder(
+      {Key? key, required this.userInfo, required this.newInitialPage})
+      : super(key: key);
 
   @override
   State<QuickReminder> createState() => _QuickReminderState();

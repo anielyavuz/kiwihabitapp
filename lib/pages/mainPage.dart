@@ -527,6 +527,7 @@ class _MainPageState extends State<MainPage> {
         MaterialPageRoute(
             builder: (context) => QuickReminder(
                   userInfo: _userInfo,
+                  newInitialPage: 100,
                 )));
 
     dailyLogs("Quick Reminder Design Button Clicked");
