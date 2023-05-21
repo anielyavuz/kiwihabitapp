@@ -1024,353 +1024,356 @@ class _MainPageState extends State<MainPage> {
 
     return MaterialApp(
       home: Scaffold(
-        drawer: Drawer(
-            backgroundColor: Color.fromRGBO(51, 21, 85, 1),
-            child: Container(
-              child: Column(
-                children: [
-                  UserAccountsDrawerHeader(
-                    currentAccountPictureSize: Size.square(MediaQuery.of(context).size.width*3/4),
-                    currentAccountPicture: Text(
-                      "Kiwi",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Color.fromARGB(255, 17, 173, 20),
-                      fontSize: 50),
-                    ),
-                    accountName: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(_todayText,
-                            style: GoogleFonts.publicSans(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20,
-                                color: _backgroudRengi)),
-                        Column(
-                          children: [
-                            Text(
-                                DateFormat(
-                                        'EEEE',
-                                        Localizations.localeOf(context)
-                                            .toString())
-                                    .format(DateTime.now())
-                                    .toString(),
-                                style: GoogleFonts.publicSans(
-                                    fontWeight: FontWeight.w600,
+        drawer: Container(
+          width: MediaQuery.of(context).size.width*3/4,
+          child: Drawer(
+              backgroundColor: Color.fromRGBO(51, 21, 85, 1),
+              child: Container(
+                child: Column(
+                  children: [
+                    UserAccountsDrawerHeader(
+                      currentAccountPictureSize: Size.square(MediaQuery.of(context).size.width*3/4-35),
+                      currentAccountPicture: Text(
+                        "Kiwi",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Color.fromARGB(255, 17, 173, 20),
+                        fontSize: 50),
+                      ),
+                      accountName: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(_todayText,
+                              style: GoogleFonts.publicSans(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  color: _backgroudRengi)),
+                          Column(
+                            children: [
+                              Text(
+                                  DateFormat(
+                                          'EEEE',
+                                          Localizations.localeOf(context)
+                                              .toString())
+                                      .format(DateTime.now())
+                                      .toString(),
+                                  style: GoogleFonts.publicSans(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18,
+                                      color: _backgroudRengi)),
+                              Text(
+                                  DateFormat(
+                                          'dd MMMM yyyy',
+                                          Localizations.localeOf(context)
+                                              .toString())
+                                      .format(DateTime.now())
+                                      .toString(),
+                                  style: TextStyle(
+                                    color: _backgroudRengi,
+                                    // fontWeight: FontWeight.bold,
                                     fontSize: 18,
-                                    color: _backgroudRengi)),
-                            Text(
-                                DateFormat(
-                                        'dd MMMM yyyy',
-                                        Localizations.localeOf(context)
-                                            .toString())
-                                    .format(DateTime.now())
-                                    .toString(),
-                                style: TextStyle(
-                                  color: _backgroudRengi,
-                                  // fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  // fontFamily: 'Times New Roman'
-                                )),
-                          ],
-                        ),
-                      ],
+                                    // fontFamily: 'Times New Roman'
+                                  )),
+                            ],
+                          ),
+                        ],
+                      ),
+                      // currentAccountPicture: GestureDetector(
+                      //     onTap: () {
+                      //       // uploadImage();
+                      //       // //profil fotosunun yenileneceği alan burası
+                      //     },
+                      //     child: Stack(
+                      //       children: [
+                      //         // CircleAvatar(
+                      //         //   backgroundColor: Colors.transparent,
+                      //         //   backgroundImage: _photo,
+                      //         //   // child: ClipOval(
+                      //         //   //   child: _photo,
+                      //         //   // )
+                      //         // ),
+                      //         // Center(child: Icon(Icons.add_a_photo_rounded))
+                      //       ],
+                      //     )),
+                      decoration: BoxDecoration(
+                        color: _yaziTipiRengi,
+                      ),
+                      accountEmail: null,
                     ),
-                    // currentAccountPicture: GestureDetector(
-                    //     onTap: () {
-                    //       // uploadImage();
-                    //       // //profil fotosunun yenileneceği alan burası
-                    //     },
-                    //     child: Stack(
-                    //       children: [
-                    //         // CircleAvatar(
-                    //         //   backgroundColor: Colors.transparent,
-                    //         //   backgroundImage: _photo,
-                    //         //   // child: ClipOval(
-                    //         //   //   child: _photo,
-                    //         //   // )
-                    //         // ),
-                    //         // Center(child: Icon(Icons.add_a_photo_rounded))
-                    //       ],
-                    //     )),
-                    decoration: BoxDecoration(
-                      color: _yaziTipiRengi,
-                    ),
-                    accountEmail: null,
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            ListTile(
-                              leading: Icon(
-                                Icons.important_devices,
-                                color: _yaziTipiRengi,
-                              ),
-                              title: InkWell(
-                                onTap: () async {
-                                  test();
-                                },
-                                child: Container(
-                                  child: Text("Test",
-                                      style: GoogleFonts.publicSans(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 18,
-                                          color: _yaziTipiRengi)),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              ListTile(
+                                leading: Icon(
+                                  Icons.important_devices,
+                                  color: _yaziTipiRengi,
                                 ),
-                              ),
-                            ),
-                            Visibility(
-                              visible: _configsInfo.docs[_configsInfoInteger]
-                                  ['Analytics'],
-                              child: ListTile(
-                                leading: Icon(Icons.analytics),
                                 title: InkWell(
                                   onTap: () async {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                GraphicPage()));
+                                    test();
                                   },
                                   child: Container(
-                                    child: Text("Analytics",
+                                    child: Text("Test",
                                         style: GoogleFonts.publicSans(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 18,
-                                            color: _backgroudRengi)),
+                                            color: _yaziTipiRengi)),
                                   ),
                                 ),
                               ),
-                            ),
-                            Visibility(
-                              visible: _configsInfo.docs[_configsInfoInteger]
-                                  ['AudioTest'],
-                              child: ListTile(
-                                leading: Icon(Icons.voicemail),
-                                title: InkWell(
-                                  onTap: () async {
-                                    FirebaseDocs().playAudio(
-                                        _configsInfo.docs[_configsInfoInteger]
-                                            ['AudioTestInfo']);
-                                  },
-                                  child: Container(
-                                    child: Text("Audio Test",
-                                        style: GoogleFonts.publicSans(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                            color: _backgroudRengi)),
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            _userInfo != null
-                                ? _userInfo['userName'] == "Guest"
-                                    ? ListTile(
-                                        leading: Icon(
-                                          Icons.person,
-                                          color: _yaziTipiRengi,
-                                        ),
-                                        title: InkWell(
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            loginOptionsPopUp();
-                                          },
-                                          child: Container(
-                                            child: Text(_signIn,
-                                                style: GoogleFonts.publicSans(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 18,
-                                                    color: _yaziTipiRengi)),
-                                          ),
-                                        ),
-                                      )
-                                    : ListTile(
-                                        leading: CircleAvatar(
-                                            backgroundColor:
-                                                Colors.black.withOpacity(0),
-                                            backgroundImage: NetworkImage(
-                                                _userInfo['photoUrl'])),
-                                        title: InkWell(
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {},
-                                          child: Container(
-                                            child: Text(_userInfo['userName'],
-                                                style: GoogleFonts.publicSans(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 18,
-                                                    color: _backgroudRengi)),
-                                          ),
-                                        ),
-                                      )
-                                : SizedBox(),
-
-                            // ListTile(
-                            //   leading:
-                            //       Icon(Icons.notification_important_rounded),
-                            //   title: InkWell(
-                            //     splashColor: Colors.transparent,
-                            //     highlightColor: Colors.transparent,
-                            //     onTap: () async {
-                            //       //print(DateFormat('dd/MM/yyyy - HH:mm:ss')
-                            //           .format(DateTime.now())
-                            //           .toString());
-
-                            //       // //print(_configsInfo.docs[_configsInfoInteger]
-                            //       //     ['Social']);
-                            //       // // //print(_todayText);
-                            //       // // notificationsServices
-                            //       // //     .specificTimeNotification(
-                            //       // //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
-
-                            //       // //////////BURASI ÖNEMLİ////////////
-                            //       // notificationsServices.sendNotifications(
-                            //       //     "KiWi🥝", "Yoga zamanı 💁");
-
-                            //       // notificationsServices
-                            //       //     .sendPayloadNotifications(
-                            //       //         0,
-                            //       //         "KiWi🥝",
-                            //       //         "Premium ol 💁",
-                            //       //         "payload navigationnnnn");
-                            //       // DateTime dt = DateTime.now().add(Duration(
-                            //       //     seconds:
-                            //       //         5)); //Or whatever DateTime you want
-                            //       // var tzdatetime = tz.TZDateTime.from(dt,
-                            //       //     tz.local); //could be var instead of final
-                            //       // // notificationsServices
-                            //       // //     .sendScheduledNotifications2(
-                            //       // //         0, "Swim", "20:05", tzdatetime);
-                            //       // notificationsServices.stopNotifications();
-
-                            //       //////////BURASI ÖNEMLİ////////////
-                            //     },
-                            //     child: Container(
-                            //       child: Text("Notifications Test",
-                            //           style: GoogleFonts.publicSans(
-                            //               fontWeight: FontWeight.w600,
-                            //               fontSize: 18,
-                            //               color: _backgroudRengi)),
-                            //     ),
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                        Stack(
-                          alignment: Alignment.bottomRight,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(8),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Version: " + version.toString(),
-                                      style: GoogleFonts.publicSans(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                          color: _yaziTipiRengi)),
-                                  Text(_userInfo != null ? _userInfo['id'] : "",
-                                      style: GoogleFonts.publicSans(
-                                          fontWeight: FontWeight.w200,
-                                          fontSize: 8,
-                                          color: _yaziTipiRengi))
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
-                              child: Column(
-                                children: [
-                                  _userInfo != null
-                                      ? _userInfo['userName'] == "Guest"
-                                          ? SizedBox()
-                                          : ListTile(
-                                              leading: Icon(Icons.delete),
-                                              title: InkWell(
-                                                splashColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  deleteAccount();
-                                                },
-                                                child: Container(
-                                                  child: Text(_deleteAccount,
-                                                      style: GoogleFonts.publicSans(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 18,
-                                                          color:
-                                                              _backgroudRengi)),
-                                                ),
-                                              ),
-                                            )
-                                      : SizedBox(),
-                                  ListTile(
-                                    leading: Icon(
-                                      Icons.exit_to_app,
-                                      color: _yaziTipiRengi,
+                              Visibility(
+                                visible: _configsInfo.docs[_configsInfoInteger]
+                                    ['Analytics'],
+                                child: ListTile(
+                                  leading: Icon(Icons.analytics),
+                                  title: InkWell(
+                                    onTap: () async {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  GraphicPage()));
+                                    },
+                                    child: Container(
+                                      child: Text("Analytics",
+                                          style: GoogleFonts.publicSans(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
+                                              color: _backgroudRengi)),
                                     ),
-                                    title: InkWell(
-                                      splashColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        if (_userInfo['userName'] == "Guest") {
-                                          askToLoginBeforeExit();
-                                        } else {
-                                          var a = await _authService
-                                              .signOutAndDeleteUser(
-                                                  _userInfo['id'],
-                                                  _userInfo['registerType']);
-                                          // await _auth.signOut();
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: _configsInfo.docs[_configsInfoInteger]
+                                    ['AudioTest'],
+                                child: ListTile(
+                                  leading: Icon(Icons.voicemail),
+                                  title: InkWell(
+                                    onTap: () async {
+                                      FirebaseDocs().playAudio(
+                                          _configsInfo.docs[_configsInfoInteger]
+                                              ['AudioTestInfo']);
+                                    },
+                                    child: Container(
+                                      child: Text("Audio Test",
+                                          style: GoogleFonts.publicSans(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
+                                              color: _backgroudRengi)),
+                                    ),
+                                  ),
+                                ),
+                              ),
 
-                                          box.put("chooseYourHabitsHive", []);
-                                          box.put("habitDetailsHive", []);
-                                          box.put("habitDays", []);
-                                          box.put("completedHabits", {});
-                                          box.put("finalCompleted", {});
-                                          box.put("loginLogsHive", []);
-                                          box.put("reminderMapHive", {});
-                                          box.put("reminderDateMapHive", {});
+                              _userInfo != null
+                                  ? _userInfo['userName'] == "Guest"
+                                      ? ListTile(
+                                          leading: Icon(
+                                            Icons.person,
+                                            color: _yaziTipiRengi,
+                                          ),
+                                          title: InkWell(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              loginOptionsPopUp();
+                                            },
+                                            child: Container(
+                                              child: Text(_signIn,
+                                                  style: GoogleFonts.publicSans(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 18,
+                                                      color: _yaziTipiRengi)),
+                                            ),
+                                          ),
+                                        )
+                                      : ListTile(
+                                          leading: CircleAvatar(
+                                              backgroundColor:
+                                                  Colors.black.withOpacity(0),
+                                              backgroundImage: NetworkImage(
+                                                  _userInfo['photoUrl'])),
+                                          title: InkWell(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {},
+                                            child: Container(
+                                              child: Text(_userInfo['userName'],
+                                                  style: GoogleFonts.publicSans(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 18,
+                                                      color: _backgroudRengi)),
+                                            ),
+                                          ),
+                                        )
+                                  : SizedBox(),
 
-                                          Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder:
-                                                      (BuildContext context) =>
-                                                          CheckAuth()),
-                                              (Route<dynamic> route) => false);
+                              // ListTile(
+                              //   leading:
+                              //       Icon(Icons.notification_important_rounded),
+                              //   title: InkWell(
+                              //     splashColor: Colors.transparent,
+                              //     highlightColor: Colors.transparent,
+                              //     onTap: () async {
+                              //       //print(DateFormat('dd/MM/yyyy - HH:mm:ss')
+                              //           .format(DateTime.now())
+                              //           .toString());
 
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      CheckAuth()));
-                                        }
-                                      },
-                                      child: Container(
-                                        child: Text(_exitButton,
-                                            style: GoogleFonts.publicSans(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18,
-                                                color: _yaziTipiRengi)),
+                              //       // //print(_configsInfo.docs[_configsInfoInteger]
+                              //       //     ['Social']);
+                              //       // // //print(_todayText);
+                              //       // // notificationsServices
+                              //       // //     .specificTimeNotification(
+                              //       // //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
+
+                              //       // //////////BURASI ÖNEMLİ////////////
+                              //       // notificationsServices.sendNotifications(
+                              //       //     "KiWi🥝", "Yoga zamanı 💁");
+
+                              //       // notificationsServices
+                              //       //     .sendPayloadNotifications(
+                              //       //         0,
+                              //       //         "KiWi🥝",
+                              //       //         "Premium ol 💁",
+                              //       //         "payload navigationnnnn");
+                              //       // DateTime dt = DateTime.now().add(Duration(
+                              //       //     seconds:
+                              //       //         5)); //Or whatever DateTime you want
+                              //       // var tzdatetime = tz.TZDateTime.from(dt,
+                              //       //     tz.local); //could be var instead of final
+                              //       // // notificationsServices
+                              //       // //     .sendScheduledNotifications2(
+                              //       // //         0, "Swim", "20:05", tzdatetime);
+                              //       // notificationsServices.stopNotifications();
+
+                              //       //////////BURASI ÖNEMLİ////////////
+                              //     },
+                              //     child: Container(
+                              //       child: Text("Notifications Test",
+                              //           style: GoogleFonts.publicSans(
+                              //               fontWeight: FontWeight.w600,
+                              //               fontSize: 18,
+                              //               color: _backgroudRengi)),
+                              //     ),
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                          Stack(
+                            alignment: Alignment.bottomRight,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Version: " + version.toString(),
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                            color: _yaziTipiRengi)),
+                                    Text(_userInfo != null ? _userInfo['id'] : "",
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w200,
+                                            fontSize: 8,
+                                            color: _yaziTipiRengi))
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
+                                child: Column(
+                                  children: [
+                                    _userInfo != null
+                                        ? _userInfo['userName'] == "Guest"
+                                            ? SizedBox()
+                                            : ListTile(
+                                                leading: Icon(Icons.delete),
+                                                title: InkWell(
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    deleteAccount();
+                                                  },
+                                                  child: Container(
+                                                    child: Text(_deleteAccount,
+                                                        style: GoogleFonts.publicSans(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize: 18,
+                                                            color:
+                                                                _backgroudRengi)),
+                                                  ),
+                                                ),
+                                              )
+                                        : SizedBox(),
+                                    ListTile(
+                                      leading: Icon(
+                                        Icons.exit_to_app,
+                                        color: _yaziTipiRengi,
+                                      ),
+                                      title: InkWell(
+                                        splashColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          if (_userInfo['userName'] == "Guest") {
+                                            askToLoginBeforeExit();
+                                          } else {
+                                            var a = await _authService
+                                                .signOutAndDeleteUser(
+                                                    _userInfo['id'],
+                                                    _userInfo['registerType']);
+                                            // await _auth.signOut();
+
+                                            box.put("chooseYourHabitsHive", []);
+                                            box.put("habitDetailsHive", []);
+                                            box.put("habitDays", []);
+                                            box.put("completedHabits", {});
+                                            box.put("finalCompleted", {});
+                                            box.put("loginLogsHive", []);
+                                            box.put("reminderMapHive", {});
+                                            box.put("reminderDateMapHive", {});
+
+                                            Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder:
+                                                        (BuildContext context) =>
+                                                            CheckAuth()),
+                                                (Route<dynamic> route) => false);
+
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CheckAuth()));
+                                          }
+                                        },
+                                        child: Container(
+                                          child: Text(_exitButton,
+                                              style: GoogleFonts.publicSans(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 18,
+                                                  color: _yaziTipiRengi)),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            )),
+                  ],
+                ),
+              )),
+        ),
         appBar: AppBar(
           title: Text(
             (DateFormat('yyyy-MM-dd')
