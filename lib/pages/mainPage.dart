@@ -1024,7 +1024,7 @@ class _MainPageState extends State<MainPage> {
     return MaterialApp(
       home: Scaffold(
         drawer: Drawer(
-            backgroundColor: _yaziTipiRengi,
+            backgroundColor: _backgroudRengi,
             child: Container(
               child: Column(
                 children: [
@@ -1099,7 +1099,10 @@ class _MainPageState extends State<MainPage> {
                         Column(
                           children: [
                             ListTile(
-                              leading: Icon(Icons.important_devices),
+                              leading: Icon(
+                                Icons.important_devices,
+                                color: _yaziTipiRengi,
+                              ),
                               title: InkWell(
                                 onTap: () async {
                                   test();
@@ -1109,7 +1112,7 @@ class _MainPageState extends State<MainPage> {
                                       style: GoogleFonts.publicSans(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 18,
-                                          color: _backgroudRengi)),
+                                          color: _yaziTipiRengi)),
                                 ),
                               ),
                             ),
@@ -1161,7 +1164,10 @@ class _MainPageState extends State<MainPage> {
                             _userInfo != null
                                 ? _userInfo['userName'] == "Guest"
                                     ? ListTile(
-                                        leading: Icon(Icons.person),
+                                        leading: Icon(
+                                          Icons.person,
+                                          color: _yaziTipiRengi,
+                                        ),
                                         title: InkWell(
                                           splashColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
@@ -1173,7 +1179,7 @@ class _MainPageState extends State<MainPage> {
                                                 style: GoogleFonts.publicSans(
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 18,
-                                                    color: _backgroudRengi)),
+                                                    color: _yaziTipiRengi)),
                                           ),
                                         ),
                                       )
