@@ -1025,19 +1025,22 @@ class _MainPageState extends State<MainPage> {
     return MaterialApp(
       home: Scaffold(
         drawer: Container(
-          width: MediaQuery.of(context).size.width*3/4,
+          width: MediaQuery.of(context).size.width * 3 / 4,
           child: Drawer(
               backgroundColor: Color.fromRGBO(51, 21, 85, 1),
               child: Container(
                 child: Column(
                   children: [
                     UserAccountsDrawerHeader(
-                      currentAccountPictureSize: Size.square(MediaQuery.of(context).size.width*3/4-35),
+                      currentAccountPictureSize: Size.square(
+                          MediaQuery.of(context).size.width * 3 / 4 - 35),
                       currentAccountPicture: Text(
-                        "Kiwi",
+                        "KiWi",
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Color.fromARGB(255, 17, 173, 20),
-                        fontSize: 50),
+                        style: GoogleFonts.kalam(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 50,
+                            color: _backgroudRengi),
                       ),
                       accountName: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1184,7 +1187,8 @@ class _MainPageState extends State<MainPage> {
                                             child: Container(
                                               child: Text(_signIn,
                                                   style: GoogleFonts.publicSans(
-                                                      fontWeight: FontWeight.w600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       fontSize: 18,
                                                       color: _yaziTipiRengi)),
                                             ),
@@ -1203,7 +1207,8 @@ class _MainPageState extends State<MainPage> {
                                             child: Container(
                                               child: Text(_userInfo['userName'],
                                                   style: GoogleFonts.publicSans(
-                                                      fontWeight: FontWeight.w600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       fontSize: 18,
                                                       color: _backgroudRengi)),
                                             ),
@@ -1275,7 +1280,10 @@ class _MainPageState extends State<MainPage> {
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16,
                                             color: _yaziTipiRengi)),
-                                    Text(_userInfo != null ? _userInfo['id'] : "",
+                                    Text(
+                                        _userInfo != null
+                                            ? _userInfo['id']
+                                            : "",
                                         style: GoogleFonts.publicSans(
                                             fontWeight: FontWeight.w200,
                                             fontSize: 8,
@@ -1284,7 +1292,8 @@ class _MainPageState extends State<MainPage> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
                                 child: Column(
                                   children: [
                                     _userInfo != null
@@ -1293,7 +1302,8 @@ class _MainPageState extends State<MainPage> {
                                             : ListTile(
                                                 leading: Icon(Icons.delete),
                                                 title: InkWell(
-                                                  splashColor: Colors.transparent,
+                                                  splashColor:
+                                                      Colors.transparent,
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
@@ -1301,12 +1311,14 @@ class _MainPageState extends State<MainPage> {
                                                   },
                                                   child: Container(
                                                     child: Text(_deleteAccount,
-                                                        style: GoogleFonts.publicSans(
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize: 18,
-                                                            color:
-                                                                _backgroudRengi)),
+                                                        style: GoogleFonts
+                                                            .publicSans(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 18,
+                                                                color:
+                                                                    _backgroudRengi)),
                                                   ),
                                                 ),
                                               )
@@ -1320,7 +1332,8 @@ class _MainPageState extends State<MainPage> {
                                         splashColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          if (_userInfo['userName'] == "Guest") {
+                                          if (_userInfo['userName'] ==
+                                              "Guest") {
                                             askToLoginBeforeExit();
                                           } else {
                                             var a = await _authService
@@ -1341,10 +1354,11 @@ class _MainPageState extends State<MainPage> {
                                             Navigator.pushAndRemoveUntil(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder:
-                                                        (BuildContext context) =>
-                                                            CheckAuth()),
-                                                (Route<dynamic> route) => false);
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        CheckAuth()),
+                                                (Route<dynamic> route) =>
+                                                    false);
 
                                             Navigator.push(
                                                 context,
