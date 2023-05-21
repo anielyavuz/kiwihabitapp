@@ -138,6 +138,18 @@ class _QuickReminderState extends State<QuickReminder>
     super.initState();
 
     box = Hive.box("kiwiHive");
+
+    ////////
+    ///
+    ///
+    setState(() {
+      _remindDay = DateTime.now()
+          .add(Duration(days: widget.newInitialPage - _defaultinitialPage));
+    });
+
+    ///
+    ///
+    ////////
     getCurrentChooseYourHabits();
 
     _checkController = AnimationController(
@@ -195,7 +207,7 @@ class _QuickReminderState extends State<QuickReminder>
         },
         context: context,
         initialDate: DateTime.now()
-            .add(Duration(days: _initialPage - _defaultinitialPage)),
+            .add(Duration(days: widget.newInitialPage - _defaultinitialPage)),
         firstDate: DateTime.now().subtract(Duration(days: _defaultinitialPage)),
         lastDate: DateTime.now().add(Duration(days: _defaultinitialPage)));
     print(_selectedDate);
