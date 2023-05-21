@@ -1025,7 +1025,7 @@ class _MainPageState extends State<MainPage> {
     return MaterialApp(
       home: Scaffold(
         drawer: Drawer(
-            backgroundColor: _backgroudRengi,
+            backgroundColor: Color.fromRGBO(51, 21, 85, 1),
             child: Container(
               child: Column(
                 children: [
@@ -1068,23 +1068,23 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ],
                     ),
-                    currentAccountPicture: GestureDetector(
-                        onTap: () {
-                          // uploadImage();
-                          // //profil fotosunun yenileneceği alan burası
-                        },
-                        child: Stack(
-                          children: [
-                            // CircleAvatar(
-                            //   backgroundColor: Colors.transparent,
-                            //   backgroundImage: _photo,
-                            //   // child: ClipOval(
-                            //   //   child: _photo,
-                            //   // )
-                            // ),
-                            // Center(child: Icon(Icons.add_a_photo_rounded))
-                          ],
-                        )),
+                    // currentAccountPicture: GestureDetector(
+                    //     onTap: () {
+                    //       // uploadImage();
+                    //       // //profil fotosunun yenileneceği alan burası
+                    //     },
+                    //     child: Stack(
+                    //       children: [
+                    //         // CircleAvatar(
+                    //         //   backgroundColor: Colors.transparent,
+                    //         //   backgroundImage: _photo,
+                    //         //   // child: ClipOval(
+                    //         //   //   child: _photo,
+                    //         //   // )
+                    //         // ),
+                    //         // Center(child: Icon(Icons.add_a_photo_rounded))
+                    //       ],
+                    //     )),
                     decoration: BoxDecoration(
                       color: _backgroudRengi,
                       image: DecorationImage(
@@ -1268,12 +1268,12 @@ class _MainPageState extends State<MainPage> {
                                       style: GoogleFonts.publicSans(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 16,
-                                          color: _backgroudRengi)),
+                                          color: _yaziTipiRengi)),
                                   Text(_userInfo != null ? _userInfo['id'] : "",
                                       style: GoogleFonts.publicSans(
                                           fontWeight: FontWeight.w200,
                                           fontSize: 8,
-                                          color: _backgroudRengi))
+                                          color: _yaziTipiRengi))
                                 ],
                               ),
                             ),
@@ -1306,7 +1306,7 @@ class _MainPageState extends State<MainPage> {
                                             )
                                       : SizedBox(),
                                   ListTile(
-                                    leading: Icon(Icons.exit_to_app),
+                                    leading: Icon(Icons.exit_to_app, color: _yaziTipiRengi,),
                                     title: InkWell(
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
@@ -1349,7 +1349,7 @@ class _MainPageState extends State<MainPage> {
                                             style: GoogleFonts.publicSans(
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 18,
-                                                color: _backgroudRengi)),
+                                                color: _yaziTipiRengi)),
                                       ),
                                     ),
                                   ),
