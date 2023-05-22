@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:kiwihabitapp/pages/addNewHabit.dart';
 import 'package:kiwihabitapp/pages/bePremiumUser.dart';
@@ -47,6 +48,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late RewardedAd _rewardedAd;
+  bool _rewardedDone = false;
   Map _reminderMap = {};
   Map _reminderDatesMap = {};
   bool _isButtonPressed = false;
@@ -169,6 +172,80 @@ class _MainPageState extends State<MainPage> {
     }
 
     return days;
+  }
+
+  void loadRewardedAd() {
+    print(Platform.isIOS
+        ? _configsInfo.docs[_configsInfoInteger]['iosRewarded']
+        : _configsInfo.docs[_configsInfoInteger]['androidRewarded']);
+    print("**********");
+    RewardedAd.load(
+        adUnitId: Platform.isIOS
+            ? _configsInfo.docs[_configsInfoInteger]['iosRewarded']
+            : _configsInfo.docs[_configsInfoInteger]['androidRewarded'],
+        request: const AdRequest(),
+        rewardedAdLoadCallback:
+            RewardedAdLoadCallback(onAdLoaded: (RewardedAd ad) {
+          setState(() {
+            _rewardedAd = ad;
+            _rewardedDone = true;
+          });
+        }, onAdFailedToLoad: (LoadAdError error) {
+          print(error);
+          _rewardedDone = false;
+        }));
+  }
+
+  void showRewardedAd() async {
+    // print(_rewardedAd);
+
+    var result = true;
+
+    print("///////// reklam çıkacak internet var mı $result");
+    print(result);
+
+    if (result) {
+      if (_rewardedAd != null) {
+        _rewardedAd.fullScreenContentCallback = FullScreenContentCallback(
+            onAdShowedFullScreenContent: (RewardedAd ad) {},
+            onAdDismissedFullScreenContent: (RewardedAd ad) {
+              ad.dispose();
+              loadRewardedAd();
+            },
+            onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
+              ad.dispose();
+              loadRewardedAd();
+            });
+
+        _rewardedAd.setImmersiveMode(true);
+        _rewardedAd.show(
+            onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+          setState(() {});
+          print("${reward.amount} ${reward.type}");
+        });
+        _rewardedAd.dispose().then((value) {
+          setState(() {});
+          print("HOOOOOOOO0000000000000000OPPPPPPPPP");
+          loadRewardedAd();
+        });
+      } else {
+        setState(() {});
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          duration: Duration(milliseconds: 8000),
+          content: Text(
+              'Please check your internet connection and restart the FarmWord🤓'),
+          // action: SnackBarAction(
+          //   label: "Go to Mywords",
+          //   onPressed: () {
+          //     print("Ok");
+          //   },
+          // )
+        ),
+      );
+    }
   }
 
   dailyLogs(String _log) {
@@ -330,11 +407,12 @@ class _MainPageState extends State<MainPage> {
   }
 
   test() {
+    showRewardedAd();
     // oneTimeReminderForCurrentDay();
 
-    print(_reminderDatesMap);
-    print("------------");
-    print(_reminderMap);
+    // print(_reminderDatesMap);
+    // print("------------");
+    // print(_reminderMap);
 
     // _reminderMap.forEach((k, v) {
     //   print("??");
@@ -977,6 +1055,10 @@ class _MainPageState extends State<MainPage> {
     getCurrentChooseYourHabits();
     versionInform();
     dailyLogs("Login");
+
+    Future.delayed(const Duration(milliseconds: 3500), () {
+      loadRewardedAd();
+    });
   }
 
   copyDeepMap(map) {
@@ -1110,7 +1192,7 @@ class _MainPageState extends State<MainPage> {
                             children: [
                               ListTile(
                                 leading: Icon(
-                                  Icons.important_devices,
+                                  Icons.sell,
                                   color: _yaziTipiRengi,
                                 ),
                                 title: InkWell(
