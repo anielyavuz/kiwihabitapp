@@ -853,109 +853,112 @@ class _AddNewHabitState extends State<AddNewHabit> {
                                                           fontSize: 15)),
                                                   Row(
                                                     children: [
-                                                      InkWell(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            _slidingYourHabitAlltimes[
-                                                                        index2]
-                                                                    ['alarm'] =
-                                                                !_slidingYourHabitAlltimes[
-                                                                        index2]
-                                                                    ['alarm'];
-                                                          });
+                                                      // InkWell(
+                                                      //   onTap: () {
+                                                      //     setState(() {
+                                                      //       _slidingYourHabitAlltimes[
+                                                      //                   index2]
+                                                      //               ['alarm'] =
+                                                      //           !_slidingYourHabitAlltimes[
+                                                      //                   index2]
+                                                      //               ['alarm'];
+                                                      //     });
 
-                                                          if (_slidingYourHabitAlltimes[
-                                                                  index2]
-                                                              ['alarm']) {
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .hideCurrentSnackBar();
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                              SnackBar(
-                                                                duration: Duration(
-                                                                    milliseconds:
-                                                                        2000),
-                                                                content: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Text('Alarm enabled for ' +
-                                                                        "Goal " +
-                                                                        (index2 +
-                                                                                1)
-                                                                            .toString()),
-                                                                  ],
-                                                                ),
-                                                                // action: SnackBarAction(
-                                                                //   label: "Be a Premium User",
-                                                                //   onPressed: () {
-                                                                //     Navigator.push(
-                                                                //         context,
-                                                                //         MaterialPageRoute(
-                                                                //             builder: (context) =>
-                                                                //                 BePremiumUser()));
-                                                                //   },
-                                                                // )
-                                                              ),
-                                                            );
-                                                          } else {
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .hideCurrentSnackBar();
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                              SnackBar(
-                                                                duration: Duration(
-                                                                    milliseconds:
-                                                                        2000),
-                                                                content: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Text('Alarm disabled for ' +
-                                                                        "Goal " +
-                                                                        (index2 +
-                                                                                1)
-                                                                            .toString()),
-                                                                  ],
-                                                                ),
-                                                                // action: SnackBarAction(
-                                                                //   label: "Be a Premium User",
-                                                                //   onPressed: () {
-                                                                //     Navigator.push(
-                                                                //         context,
-                                                                //         MaterialPageRoute(
-                                                                //             builder: (context) =>
-                                                                //                 BePremiumUser()));
-                                                                //   },
-                                                                // )
-                                                              ),
-                                                            );
-                                                          }
-                                                        },
-                                                        child: Icon(
-                                                          _slidingYourHabitAlltimes[
-                                                                      index2]
-                                                                  ['alarm']
-                                                              ? Icons.alarm_on
-                                                              : Icons.alarm_off,
-                                                          size: 25,
-                                                          color: _slidingYourHabitAlltimes[
-                                                                      index2]
-                                                                  ['alarm']
-                                                              ? Color(
-                                                                  0xff77A830)
-                                                              : _yaziTipiRengi,
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 15,
-                                                      ),
+                                                      //     if (_slidingYourHabitAlltimes[
+                                                      //             index2]
+                                                      //         ['alarm']) {
+                                                      //       ScaffoldMessenger
+                                                      //               .of(context)
+                                                      //           .hideCurrentSnackBar();
+                                                      //       ScaffoldMessenger
+                                                      //               .of(context)
+                                                      //           .showSnackBar(
+                                                      //         SnackBar(
+                                                      //           duration: Duration(
+                                                      //               milliseconds:
+                                                      //                   2000),
+                                                      //           content: Row(
+                                                      //             mainAxisAlignment:
+                                                      //                 MainAxisAlignment
+                                                      //                     .center,
+                                                      //             children: [
+                                                      //               Text('Alarm enabled for ' +
+                                                      //                   "Goal " +
+                                                      //                   (index2 +
+                                                      //                           1)
+                                                      //                       .toString()),
+                                                      //             ],
+                                                      //           ),
+                                                      //           // action: SnackBarAction(
+                                                      //           //   label: "Be a Premium User",
+                                                      //           //   onPressed: () {
+                                                      //           //     Navigator.push(
+                                                      //           //         context,
+                                                      //           //         MaterialPageRoute(
+                                                      //           //             builder: (context) =>
+                                                      //           //                 BePremiumUser()));
+                                                      //           //   },
+                                                      //           // )
+                                                      //         ),
+                                                      //       );
+                                                      //     } else {
+                                                      //       ScaffoldMessenger
+                                                      //               .of(context)
+                                                      //           .hideCurrentSnackBar();
+                                                      //       ScaffoldMessenger
+                                                      //               .of(context)
+                                                      //           .showSnackBar(
+                                                      //         SnackBar(
+                                                      //           duration: Duration(
+                                                      //               milliseconds:
+                                                      //                   2000),
+                                                      //           content: Row(
+                                                      //             mainAxisAlignment:
+                                                      //                 MainAxisAlignment
+                                                      //                     .center,
+                                                      //             children: [
+                                                      //               Text('Alarm disabled for ' +
+                                                      //                   "Goal " +
+                                                      //                   (index2 +
+                                                      //                           1)
+                                                      //                       .toString()),
+                                                      //             ],
+                                                      //           ),
+                                                      //           // action: SnackBarAction(
+                                                      //           //   label: "Be a Premium User",
+                                                      //           //   onPressed: () {
+                                                      //           //     Navigator.push(
+                                                      //           //         context,
+                                                      //           //         MaterialPageRoute(
+                                                      //           //             builder: (context) =>
+                                                      //           //                 BePremiumUser()));
+                                                      //           //   },
+                                                      //           // )
+                                                      //         ),
+                                                      //       );
+                                                      //     }
+                                                      //   },
+                                                      //   child:
+
+                                                      //   Icon(
+                                                      //     _slidingYourHabitAlltimes[
+                                                      //                 index2]
+                                                      //             ['alarm']
+                                                      //         ? Icons.alarm_on
+                                                      //         : Icons.alarm_off,
+                                                      //     size: 25,
+                                                      //     color: _slidingYourHabitAlltimes[
+                                                      //                 index2]
+                                                      //             ['alarm']
+                                                      //         ? Color(
+                                                      //             0xff77A830)
+                                                      //         : _yaziTipiRengi,
+                                                      //   ),
+                                                      // ),
+                                                      // SizedBox(
+                                                      //   width: 15,
+                                                      // ),
+
                                                       InkWell(
                                                         onTap: () {
                                                           setState(() {
