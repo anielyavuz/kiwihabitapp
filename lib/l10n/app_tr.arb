@@ -60,6 +60,55 @@
 ,"scheduleNotification":"Hatırlatmayı Oluştur"
 
 ,"reminderNotificationLabel":" zamanı😎"
+,"healthLabel":"Sağlık"
+
+,"sportLabel":"Spor"
+
+,"studyLabel":"Çalışma"
+,"artLabel":"Sanat"
+,"financeLabel":"Finans"
+,"socialLabel":"Sosyal"
+,"quitABadHabitLabel":"Kötü Alışkanlığı Bırak"
+,"youShouldOneHabit":"En az bir alışkanlığınız olmalı "
+
+
+
+,"yoga":"Yoga"
+,"meditation":"Meditasyon"
+,"drinkWater":"Su İç"
+,"sleepWell":"Uyku Zamanı"
+,"walk":"Yürü"
+,"pushUp":"Şınav Çek"
+,"run":"Koş"
+,"swim":"Yüz"
+,"readABook":"Kitap Oku"
+,"learnEnglish":"İngilizce Öğren"
+,"mathExercise":"Matematik Çalış"
+,"repeatToday":"Tekrar Yap"
+,"playGuitar":"Gitar Çal"
+,"painting":"Resim Yap"
+,"playPiano":"Piyano Çal"
+,"dance":"Dans"
+,"savingMoney":"Para Biriktir"
+,"checkStocks":"Borsa Takip"
+,"donate":"Bağış Yap"
+,"checkCurrencies":"Döviz Takip"
+,"cinema":"Sinema"
+,"meetWithFriends":"Arkadaşlarınla Buluş"
+,"theater":"Tiyatro"
+,"playGames":"Oyun Oyna"
+,"quitSmoking":"Sigarayı Bırak"
+,"quitEatingSnacks":"Abur cuburu Bırak"
+,"quitAlcohol":"Alkolü Bırak"
+,"stopSwearing":"Küfürü Bırak"
+
+
+,"warning":"Dikkat"
+,"willLoseYourData":"Eğer oturum açmadan çıkış yaparsan tüm alışkanlıklarını kaybediceksin."
+
+
+
+
 
 
 }

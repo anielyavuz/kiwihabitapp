@@ -57,4 +57,49 @@
 
 
 ,"reminderNotificationLabel":" 😎"
+
+,"healthLabel":"Gesundheit"
+,"sportLabel":"Sport"
+,"studyLabel":"Lernen"
+,"artLabel":"Kunst"
+,"financeLabel":"Finanzen"
+,"socialLabel":"Sozial"
+,"quitABadHabitLabel":"Schluss mit der schlechten Angewohnheit"
+
+,"youShouldOneHabit":"Sie sollten mindestens eine Angewohnheit haben "
+
+
+
+,"yoga":"Yoga"
+,"meditation":"Meditation"
+,"drinkWater":"Wasser trinken"
+,"sleepWell":"Schlafenszeit"
+,"walk":"Gehen"
+,"pushUp":"PushUps machen"
+,"run":"laufen"
+,"swim":"Schwimmen"
+,"readABook":"Ein Buch lesen"
+,"learnEnglish":"Lerne Englisch"
+,"mathExercise":"Mathematik studieren"
+,"repeatToday":"Mach es nochmal"
+,"playGuitar":"Gitarre spielen"
+,"painting":"Mach ein Bild"
+,"playPiano":"Spiel das Klavier"
+,"dance":"Tanzen"
+,"savingMoney":"Geld sparen"
+,"checkStocks":"Börsenverfolgung"
+,"donate":"Spenden"
+,"checkCurrencies":"Währungsverfolgung"
+,"cinema":"Kino"
+,"meetWithFriends":"Treffe deine Freunde"
+,"theater":"Theater"
+,"playGames":"Spiel spielen"
+,"quitSmoking":"Hören Sie mit dem Rauchen auf"
+,"quitEatingSnacks":"Schluss mit Junk Food"
+,"quitAlcohol":"Kein Alkohol"
+,"stopSwearing":"Kein fluchen"
+
+,"warning":"Warnung"
+,"willLoseYourData":"Wenn Sie sich abmelden, ohne sich anzumelden, verlieren Sie alle Ihre Gewohnheiten."
+
 }

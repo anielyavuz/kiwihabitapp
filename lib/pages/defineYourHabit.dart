@@ -25,41 +25,101 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
   late var _continueButton =
       AppLocalizations.of(context)!.continueButton.toString();
 
+  ///
+  late var _healthLabel = AppLocalizations.of(context)!.healthLabel.toString();
+  late var _sportLabel = AppLocalizations.of(context)!.sportLabel.toString();
+  late var _studyLabel = AppLocalizations.of(context)!.studyLabel.toString();
+  late var _artLabel = AppLocalizations.of(context)!.artLabel.toString();
+
+  late var _financeLabel =
+      AppLocalizations.of(context)!.financeLabel.toString();
+  late var _socialLabel = AppLocalizations.of(context)!.socialLabel.toString();
+  late var _quitABadHabitLabel =
+      AppLocalizations.of(context)!.quitABadHabitLabel.toString();
+
+  ///
+  ///
+//////
+
+  late var _youShouldOneHabit =
+      AppLocalizations.of(context)!.youShouldOneHabit.toString();
+
   var _habitName;
   late Box box;
   List _yourFinalHabits = [];
-  var _category = "Health";
+  late var _category = _healthLabel;
   List _YourHabits = [];
-  List _allDefaultHabits = [
-    "Yoga",
-    "Meditation",
-    "Drink Water",
-    "Sleep Well",
-    "Walk",
-    "Push Up",
-    "Run",
-    "Swim",
-    "Read a book",
-    "Learn English",
-    "Math Exercise",
-    "Law",
-    "Play Guitar",
-    "Painting",
-    "Play Piano",
-    "Dance",
-    "Saving Money",
-    "Investing",
-    "Donation",
-    "Market Search",
-    "Cinema",
-    "Meet with friends",
-    "Theater",
-    "Listen Podcast",
-    "Quit smoking",
-    "Quit eating snacks",
-    "Quit alcohol",
-    "Stop swearing"
+
+  ///
+  late var _yoga = AppLocalizations.of(context)!.yoga.toString();
+
+  late var _meditation = AppLocalizations.of(context)!.meditation.toString();
+  late var _drinkWater = AppLocalizations.of(context)!.drinkWater.toString();
+  late var _sleepWell = AppLocalizations.of(context)!.sleepWell.toString();
+  late var _walk = AppLocalizations.of(context)!.walk.toString();
+  late var _pushUp = AppLocalizations.of(context)!.pushUp.toString();
+  late var _run = AppLocalizations.of(context)!.run.toString();
+  late var _swim = AppLocalizations.of(context)!.swim.toString();
+  late var _readABook = AppLocalizations.of(context)!.readABook.toString();
+  late var _learnEnglish =
+      AppLocalizations.of(context)!.learnEnglish.toString();
+  late var _mathExercise =
+      AppLocalizations.of(context)!.mathExercise.toString();
+  late var _repeatToday = AppLocalizations.of(context)!.repeatToday.toString();
+  late var _playGuitar = AppLocalizations.of(context)!.playGuitar.toString();
+  late var _painting = AppLocalizations.of(context)!.painting.toString();
+  late var _playPiano = AppLocalizations.of(context)!.playPiano.toString();
+  late var _dance = AppLocalizations.of(context)!.dance.toString();
+  late var _savingMoney = AppLocalizations.of(context)!.savingMoney.toString();
+  late var _checkStocks = AppLocalizations.of(context)!.checkStocks.toString();
+  late var _donate = AppLocalizations.of(context)!.donate.toString();
+  late var _checkCurrencies =
+      AppLocalizations.of(context)!.checkCurrencies.toString();
+  late var _cinema = AppLocalizations.of(context)!.cinema.toString();
+  late var _meetWithFriends =
+      AppLocalizations.of(context)!.meetWithFriends.toString();
+  late var _theater = AppLocalizations.of(context)!.theater.toString();
+  late var _playGames = AppLocalizations.of(context)!.playGames.toString();
+  late var _quitSmoking = AppLocalizations.of(context)!.quitSmoking.toString();
+  late var _quitEatingSnacks =
+      AppLocalizations.of(context)!.quitEatingSnacks.toString();
+  late var _quitAlcohol = AppLocalizations.of(context)!.quitAlcohol.toString();
+  late var _stopSwearing =
+      AppLocalizations.of(context)!.stopSwearing.toString();
+
+  ///
+
+  late List _allDefaultHabits = [
+    _yoga,
+    _meditation,
+    _drinkWater,
+    _sleepWell,
+    _walk,
+    _pushUp,
+    _run,
+    _swim,
+    _readABook,
+    _learnEnglish,
+    _mathExercise,
+    _repeatToday,
+    _playGuitar,
+    _painting,
+    _playPiano,
+    _dance,
+    _savingMoney,
+    _checkStocks,
+    _donate,
+    _checkCurrencies,
+    _cinema,
+    _meetWithFriends,
+    _theater,
+    _playGames,
+    _quitSmoking,
+    _quitEatingSnacks,
+    _quitAlcohol,
+    _stopSwearing
   ];
+
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   TextEditingController _turkceTextFieldController = TextEditingController();
   var habitName;
@@ -165,13 +225,13 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                       Color.fromARGB(255, 46, 10, 87),
                                   value: _category,
                                   items: <String>[
-                                    'Health',
-                                    'Sport',
-                                    'Study',
-                                    'Art',
-                                    'Finance',
-                                    'Social',
-                                    'Quit a Bad Habit',
+                                    _healthLabel,
+                                    _sportLabel,
+                                    _studyLabel,
+                                    _artLabel,
+                                    _financeLabel,
+                                    _socialLabel,
+                                    _quitABadHabitLabel,
                                   ].map((String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
@@ -187,21 +247,21 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                           SizedBox(
                                             width: 10,
                                           ),
-                                          value == 'Health'
+                                          value == _healthLabel
                                               ? Icon(
                                                   Icons.volunteer_activism,
                                                   size: 25,
                                                   color: Color.fromARGB(
                                                       223, 218, 21, 7),
                                                 )
-                                              : value == 'Sport'
+                                              : value == _sportLabel
                                                   ? Icon(
                                                       Icons.directions_run,
                                                       size: 25,
                                                       color: Color.fromARGB(
                                                           223, 18, 218, 7),
                                                     )
-                                                  : value == 'Study'
+                                                  : value == _studyLabel
                                                       ? Icon(
                                                           Icons.school,
                                                           size: 25,
@@ -211,7 +271,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                                               38,
                                                               223),
                                                         )
-                                                      : value == 'Art'
+                                                      : value == _artLabel
                                                           ? Icon(
                                                               Icons.palette,
                                                               size: 25,
@@ -222,7 +282,8 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                                                       5,
                                                                       240),
                                                             )
-                                                          : value == 'Finance'
+                                                          : value ==
+                                                                  _financeLabel
                                                               ? Icon(
                                                                   Icons
                                                                       .attach_money,
@@ -235,7 +296,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                                                           7),
                                                                 )
                                                               : value ==
-                                                                      'Social'
+                                                                      _socialLabel
                                                                   ? Icon(
                                                                       Icons
                                                                           .nightlife,
@@ -372,14 +433,15 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                     child: ListTile(
                                       isThreeLine: false,
                                       leading: habit['habitCategory'] ==
-                                              'Health'
+                                              _healthLabel
                                           ? Icon(
                                               Icons.volunteer_activism,
                                               size: 32,
                                               color: Color.fromARGB(
                                                   223, 232, 77, 77),
                                             )
-                                          : habit['habitCategory'] == 'Sport'
+                                          : habit['habitCategory'] ==
+                                                  _sportLabel
                                               ? Icon(
                                                   Icons.directions_run,
                                                   size: 32,
@@ -387,7 +449,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                                       223, 18, 218, 7),
                                                 )
                                               : habit['habitCategory'] ==
-                                                      'Study'
+                                                      _studyLabel
                                                   ? Icon(
                                                       Icons.school,
                                                       size: 32,
@@ -395,7 +457,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                                           223, 124, 38, 223),
                                                     )
                                                   : habit['habitCategory'] ==
-                                                          'Art'
+                                                          _artLabel
                                                       ? Icon(
                                                           Icons.palette,
                                                           size: 32,
@@ -403,7 +465,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                                               223, 225, 5, 240),
                                                         )
                                                       : habit['habitCategory'] ==
-                                                              'Finance'
+                                                              _financeLabel
                                                           ? Icon(
                                                               Icons
                                                                   .attach_money,
@@ -416,7 +478,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                                                       7),
                                                             )
                                                           : habit['habitCategory'] ==
-                                                                  'Social'
+                                                                  _socialLabel
                                                               ? Icon(
                                                                   Icons
                                                                       .nightlife,
@@ -514,8 +576,7 @@ class _DefineYourHabitState extends State<DefineYourHabit> {
                                   content: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                          'You should have at least one habit '),
+                                      Text(_youShouldOneHabit),
                                       Icon(
                                         Icons.error,
                                         color: Colors.yellow,

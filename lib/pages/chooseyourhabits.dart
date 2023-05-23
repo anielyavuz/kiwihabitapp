@@ -32,6 +32,69 @@ class _ChooseHabitsState extends State<ChooseHabits> {
   late var _defineYourHabit =
       AppLocalizations.of(context)!.defineYourHabit.toString();
 
+/////
+  ///
+  late var _healthLabel = AppLocalizations.of(context)!.healthLabel.toString();
+  late var _sportLabel = AppLocalizations.of(context)!.sportLabel.toString();
+  late var _studyLabel = AppLocalizations.of(context)!.studyLabel.toString();
+  late var _artLabel = AppLocalizations.of(context)!.artLabel.toString();
+
+  late var _financeLabel =
+      AppLocalizations.of(context)!.financeLabel.toString();
+  late var _socialLabel = AppLocalizations.of(context)!.socialLabel.toString();
+  late var _quitABadHabitLabel =
+      AppLocalizations.of(context)!.quitABadHabitLabel.toString();
+
+  late var _youShouldOneHabit =
+      AppLocalizations.of(context)!.youShouldOneHabit.toString();
+
+  ///
+  ///
+//////
+  ///
+  ///
+  ///
+  ///
+  ///
+  ///
+  late var _yoga = AppLocalizations.of(context)!.yoga.toString();
+
+  late var _meditation = AppLocalizations.of(context)!.meditation.toString();
+  late var _drinkWater = AppLocalizations.of(context)!.drinkWater.toString();
+  late var _sleepWell = AppLocalizations.of(context)!.sleepWell.toString();
+  late var _walk = AppLocalizations.of(context)!.walk.toString();
+  late var _pushUp = AppLocalizations.of(context)!.pushUp.toString();
+  late var _run = AppLocalizations.of(context)!.run.toString();
+  late var _swim = AppLocalizations.of(context)!.swim.toString();
+  late var _readABook = AppLocalizations.of(context)!.readABook.toString();
+  late var _learnEnglish =
+      AppLocalizations.of(context)!.learnEnglish.toString();
+  late var _mathExercise =
+      AppLocalizations.of(context)!.mathExercise.toString();
+  late var _repeatToday = AppLocalizations.of(context)!.repeatToday.toString();
+  late var _playGuitar = AppLocalizations.of(context)!.playGuitar.toString();
+  late var _painting = AppLocalizations.of(context)!.painting.toString();
+  late var _playPiano = AppLocalizations.of(context)!.playPiano.toString();
+  late var _dance = AppLocalizations.of(context)!.dance.toString();
+  late var _savingMoney = AppLocalizations.of(context)!.savingMoney.toString();
+  late var _checkStocks = AppLocalizations.of(context)!.checkStocks.toString();
+  late var _donate = AppLocalizations.of(context)!.donate.toString();
+  late var _checkCurrencies =
+      AppLocalizations.of(context)!.checkCurrencies.toString();
+  late var _cinema = AppLocalizations.of(context)!.cinema.toString();
+  late var _meetWithFriends =
+      AppLocalizations.of(context)!.meetWithFriends.toString();
+  late var _theater = AppLocalizations.of(context)!.theater.toString();
+  late var _playGames = AppLocalizations.of(context)!.playGames.toString();
+  late var _quitSmoking = AppLocalizations.of(context)!.quitSmoking.toString();
+  late var _quitEatingSnacks =
+      AppLocalizations.of(context)!.quitEatingSnacks.toString();
+  late var _quitAlcohol = AppLocalizations.of(context)!.quitAlcohol.toString();
+  late var _stopSwearing =
+      AppLocalizations.of(context)!.stopSwearing.toString();
+
+  ///
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   AuthService _authService = AuthService();
@@ -87,7 +150,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                               10, 5, 0, 0),
                                           child: Row(
                                             children: [
-                                              Text("Health",
+                                              Text(_healthLabel,
                                                   textAlign: TextAlign.start,
                                                   style: GoogleFonts.publicSans(
                                                       fontSize: 25,
@@ -114,13 +177,13 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                         ),
                                         expanded: HabitGroup2(
                                             habitList: [
-                                              "Yoga",
-                                              "Meditation",
-                                              "Drink Water",
-                                              "Sleep Well"
+                                              _yoga,
+                                              _meditation,
+                                              _drinkWater,
+                                              _sleepWell
                                             ],
                                             yaziTipiRengi: _yaziTipiRengi,
-                                            butonCategory: "Health"),
+                                            butonCategory: _healthLabel),
                                         collapsed: Container(),
                                       )))),
                               Container(
@@ -133,7 +196,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                             10, 5, 0, 0),
                                         child: Row(
                                           children: [
-                                            Text("Sport",
+                                            Text(_sportLabel,
                                                 textAlign: TextAlign.start,
                                                 style: GoogleFonts.publicSans(
                                                     fontSize: 25,
@@ -160,13 +223,13 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                       ),
                                       expanded: HabitGroup2(
                                           habitList: [
-                                            "Walk",
-                                            "Push Up",
-                                            "Run",
-                                            "Swim"
+                                            _walk,
+                                            _pushUp,
+                                            _run,
+                                            _swim
                                           ],
                                           yaziTipiRengi: _yaziTipiRengi,
-                                          butonCategory: "Sport"),
+                                          butonCategory: _sportLabel),
                                       collapsed: Container(),
                                     ))),
                                 // color: Colors.red.shade200,
@@ -180,7 +243,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                         const EdgeInsets.fromLTRB(10, 5, 0, 0),
                                     child: Row(
                                       children: [
-                                        Text("Study",
+                                        Text(_studyLabel,
                                             textAlign: TextAlign.start,
                                             style: GoogleFonts.publicSans(
                                                 fontSize: 25,
@@ -205,13 +268,13 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                   ),
                                   expanded: HabitGroup2(
                                       habitList: [
-                                        "Read a book",
-                                        "Learn English",
-                                        "Math Exercise",
-                                        "Law"
+                                        _readABook,
+                                        _learnEnglish,
+                                        _mathExercise,
+                                        _repeatToday
                                       ],
                                       yaziTipiRengi: _yaziTipiRengi,
-                                      butonCategory: "Study"),
+                                      butonCategory: _studyLabel),
                                   collapsed: Container(),
                                 ))),
                                 // color: Colors.red.shade300,
@@ -225,7 +288,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                         const EdgeInsets.fromLTRB(10, 5, 0, 0),
                                     child: Row(
                                       children: [
-                                        Text("Art",
+                                        Text(_artLabel,
                                             textAlign: TextAlign.start,
                                             style: GoogleFonts.publicSans(
                                                 fontSize: 25,
@@ -250,13 +313,13 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                   ),
                                   expanded: HabitGroup2(
                                       habitList: [
-                                        "Play Guitar",
-                                        "Painting",
-                                        "Play Piano",
-                                        "Dance"
+                                        _playGuitar,
+                                        _painting,
+                                        _playPiano,
+                                        _dance
                                       ],
                                       yaziTipiRengi: _yaziTipiRengi,
-                                      butonCategory: "Art"),
+                                      butonCategory: _artLabel),
                                   collapsed: Container(),
                                 ))),
                                 // color: Colors.red.shade400,
@@ -270,7 +333,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                         const EdgeInsets.fromLTRB(10, 5, 0, 0),
                                     child: Row(
                                       children: [
-                                        Text("Finance",
+                                        Text(_financeLabel,
                                             textAlign: TextAlign.start,
                                             style: GoogleFonts.publicSans(
                                                 fontSize: 25,
@@ -295,13 +358,13 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                   ),
                                   expanded: HabitGroup2(
                                       habitList: [
-                                        "Saving Money",
-                                        "Investing",
-                                        "Donation",
-                                        "Market Search"
+                                        _savingMoney,
+                                        _checkStocks,
+                                        _donate,
+                                        _checkCurrencies
                                       ],
                                       yaziTipiRengi: _yaziTipiRengi,
-                                      butonCategory: "Finance"),
+                                      butonCategory: _financeLabel),
                                   collapsed: Container(),
                                 ))),
                                 // color: Colors.red.shade500,
@@ -315,7 +378,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                         const EdgeInsets.fromLTRB(10, 5, 0, 0),
                                     child: Row(
                                       children: [
-                                        Text("Social",
+                                        Text(_socialLabel,
                                             textAlign: TextAlign.start,
                                             style: GoogleFonts.publicSans(
                                                 fontSize: 25,
@@ -340,13 +403,13 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                   ),
                                   expanded: HabitGroup2(
                                       habitList: [
-                                        "Cinema",
-                                        "Meet with friends",
-                                        "Theater",
-                                        "Listen Podcast"
+                                        _cinema,
+                                        _meetWithFriends,
+                                        _theater,
+                                        _playGames
                                       ],
                                       yaziTipiRengi: _yaziTipiRengi,
-                                      butonCategory: "Social"),
+                                      butonCategory: _socialLabel),
                                   collapsed: Container(),
                                 ))),
                                 // color: Colors.red.shade600,
@@ -360,7 +423,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                         const EdgeInsets.fromLTRB(10, 5, 0, 0),
                                     child: Row(
                                       children: [
-                                        Text("Quit a Bad Habit",
+                                        Text(_quitABadHabitLabel,
                                             textAlign: TextAlign.start,
                                             style: GoogleFonts.publicSans(
                                                 fontSize: 25,
@@ -385,13 +448,13 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                   ),
                                   expanded: HabitGroup2(
                                       habitList: [
-                                        "Quit smoking",
-                                        "Quit eating snacks",
-                                        "Quit alcohol",
-                                        "Stop swearing"
+                                        _quitSmoking,
+                                        _quitEatingSnacks,
+                                        _quitAlcohol,
+                                        _stopSwearing
                                       ],
                                       yaziTipiRengi: _yaziTipiRengi,
-                                      butonCategory: "Quit a Bad Habit"),
+                                      butonCategory: _quitABadHabitLabel),
                                   collapsed: Container(),
                                 ))),
                                 // color: Colors.red.shade700,
@@ -426,8 +489,7 @@ class _ChooseHabitsState extends State<ChooseHabits> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text(
-                                            'You should have at least one habit '),
+                                        Text(_youShouldOneHabit),
                                         Icon(
                                           Icons.error,
                                           color: Colors.yellow,

@@ -268,8 +268,253 @@
 
     }
 
+     ,
+     "healthLabel":"Health",
+    "@healthLabel":{
+        "description":"healthLabel"
+
+    }
+
+ ,
+     "sportLabel":"Sport",
+    "@sportLabel":{
+        "description":"sportLabel"
+
+    }
 
 
+ ,
+     "studyLabel":"Study",
+    "@studyLabel":{
+        "description":"studyLabel"
+
+    }
+
+    ,
+     "artLabel":"Art",
+    "@artLabel":{
+        "description":"artLabel"
+
+    }
+
+    ,
+     "financeLabel":"Finance",
+    "@financeLabel":{
+        "description":"financeLabel"
+
+    }
+
+
+     ,
+     "socialLabel":"Social",
+    "@socialLabel":{
+        "description":"socialLabel"
+
+    }
+
+
+     ,
+     "quitABadHabitLabel":"Quit a Bad Habit",
+    "@quitABadHabitLabel":{
+        "description":"quitABadHabitLabel"
+
+    }
+
+ ,
+     "youShouldOneHabit":"You should have at least one habit ",
+    "@youShouldOneHabit":{
+        "description":"You should have at least one habit"
+
+    }
+
+,
+     "yoga":"Yoga",
+    "@yoga":{
+        "description":"Yoga"
+
+    }
+
+    ,
+     "meditation":"Meditasyon",
+    "@meditation":{
+        "description":"meditation"
+
+    }
+    ,
+     "drinkWater":"Drink Water",
+    "@drinkWater":{
+        "description":"drinkWater"
+
+    }
+    ,
+     "sleepWell":"Sleep Well",
+    "@sleepWell":{
+        "description":"sleepWell"
+
+    }
+
+,
+     "walk":"Walk",
+    "@walk":{
+        "description":"walk"
+
+    }
+
+    ,
+     "pushUp":"Push Up",
+    "@pushUp":{
+        "description":"pushUp"
+
+    }
+
+    ,
+     "run":"Run",
+    "@run":{
+        "description":"run"
+
+    }
+
+    ,
+     "swim":"Swim",
+    "@swim":{
+        "description":"swim"
+
+    }
+
+    ,
+     "readABook":"Read a Book",
+    "@readABook":{
+        "description":"readABook"
+
+    }
+    ,
+     "learnEnglish":"Learn English",
+    "@learnEnglish":{
+        "description":"learnEnglish"
+
+    }
+    ,
+     "mathExercise":"Math Exercise",
+    "@mathExercise":{
+        "description":"mathExercise"
+
+    }
+    ,
+     "repeatToday":"Repeat Today",
+    "@repeatToday":{
+        "description":"repeatToday"
+
+    }
+    ,
+     "playGuitar":"Play Guitar",
+    "@playGuitar":{
+        "description":"playGuitar"
+
+    }
+    ,
+     "painting":"Painting",
+    "@painting":{
+        "description":"painting"
+
+    }
+    ,
+     "playPiano":"Play Piano",
+    "@playPiano":{
+        "description":"playPiano"
+
+    }
+    ,
+     "dance":"Dance",
+    "@dance":{
+        "description":"dance"
+
+    }
+    ,
+     "savingMoney":"Saving Money",
+    "@savingMoney":{
+        "description":"savingMoney"
+
+    }
+    ,
+     "checkStocks":"Check Stocks",
+    "@checkStocks":{
+        "description":"checkStocks"
+
+    }
+    ,
+     "donate":"Donate",
+    "@donate":{
+        "description":"donate"
+
+    }
+    ,
+     "checkCurrencies":"Check Currencies",
+    "@checkCurrencies":{
+        "description":"checkCurrencies"
+
+    }
+    ,
+     "cinema":"Cinema",
+    "@cinema":{
+        "description":"cinema"
+
+    }
+    ,
+     "meetWithFriends":"Meet With Friends",
+    "@meetWithFriends":{
+        "description":"meetWithFriends"
+
+    }
+    ,
+     "theater":"Theater",
+    "@theater":{
+        "description":"theater"
+
+    }
+    ,
+     "playGames":"Play Games",
+    "@playGames":{
+        "description":"playGames"
+
+    }
+    ,
+     "quitSmoking":"Quit Smoking",
+    "@quitSmoking":{
+        "description":"quitSmoking"
+
+    }
+    ,
+     "quitEatingSnacks":"Quit Eating Snacks",
+    "@quitEatingSnacks":{
+        "description":"quitEatingSnacks"
+
+    }
+    ,
+     "quitAlcohol":"Quit Alcohol",
+    "@quitAlcohol":{
+        "description":"quitAlcohol"
+
+    }
+    ,
+     "stopSwearing":"Stop Swearing",
+    "@stopSwearing":{
+        "description":"stopSwearing"
+
+    }
+
+    ,
+     "warning":"Warning",
+    "@warning":{
+        "description":"warning"
+
+    }
+
+    ,
+     "willLoseYourData":"You will lose your habits data, please sign up before leave.",
+    "@willLoseYourData":{
+        "description":"willLoseYourData"
+
+    }
 
 
 

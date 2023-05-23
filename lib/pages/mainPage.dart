@@ -76,6 +76,10 @@ class _MainPageState extends State<MainPage> {
 
   late var _reallyAsk = AppLocalizations.of(context)!.reallyAsk.toString();
 
+  late var _warning = AppLocalizations.of(context)!.warning.toString();
+  late var _willLoseYourData =
+      AppLocalizations.of(context)!.willLoseYourData.toString();
+
   var _userInfo;
   var _configsInfo;
 
@@ -114,38 +118,67 @@ class _MainPageState extends State<MainPage> {
   Map _currentDayCompletedHabits = {};
   bool _bottomNavigatorShow = true;
   Map _completedHabits = {};
-  Map _icons = {
-    "Health": Icon(
+
+  ///
+  ///
+  ///
+  late var _healthLabel = AppLocalizations.of(context)!.healthLabel.toString();
+  late var _sportLabel = AppLocalizations.of(context)!.sportLabel.toString();
+  late var _studyLabel = AppLocalizations.of(context)!.studyLabel.toString();
+  late var _artLabel = AppLocalizations.of(context)!.artLabel.toString();
+
+  late var _financeLabel =
+      AppLocalizations.of(context)!.financeLabel.toString();
+  late var _socialLabel = AppLocalizations.of(context)!.socialLabel.toString();
+  late var _quitABadHabitLabel =
+      AppLocalizations.of(context)!.quitABadHabitLabel.toString();
+
+  late List _groupNames = [
+    _healthLabel,
+    _sportLabel,
+    _studyLabel,
+    _artLabel,
+    _financeLabel,
+    _socialLabel,
+    _quitABadHabitLabel
+  ];
+
+  ///
+  ///
+//////
+
+  late Map _icons = {
+    _healthLabel: Icon(
       Icons.volunteer_activism,
       size: 25,
       color: Color.fromARGB(223, 218, 21, 7),
     ),
-    "Sport": Icon(
+    _sportLabel: Icon(
       Icons.directions_run,
       size: 25,
       color: Color.fromARGB(223, 18, 218, 7),
     ),
-    "Study": Icon(
+    _studyLabel: Icon(
       Icons.school,
       size: 25,
       color: Color.fromARGB(223, 124, 38, 223),
     ),
-    "Art": Icon(
+    _artLabel: Icon(
       Icons.palette,
       size: 25,
       color: Color.fromARGB(223, 225, 5, 240),
     ),
-    "Finance": Icon(
+    _financeLabel: Icon(
       Icons.attach_money,
       size: 25,
       color: Color.fromARGB(223, 12, 162, 7),
     ),
-    "Social": Icon(
+    _socialLabel: Icon(
       Icons.nightlife,
       size: 25,
       color: Color.fromARGB(223, 232, 118, 18),
     ),
-    "Quit a Bad Habit": Icon(
+    _quitABadHabitLabel: Icon(
       Icons.smoke_free,
       size: 25,
       color: Color.fromARGB(223, 19, 153, 243),
@@ -276,8 +309,8 @@ class _MainPageState extends State<MainPage> {
 
   askToLoginBeforeExit() {
     var baseDialog = BaseAlertDialog(
-        title: "Warning",
-        content: "You will lose your habits data, please sign up before leave.",
+        title: _warning,
+        content: _willLoseYourData,
         yesOnPressed: () async {
           //
 
@@ -837,8 +870,8 @@ class _MainPageState extends State<MainPage> {
       _sligingYourHabitAlltimes = _yourHabits[_habitCount]['_allTimes'];
       _slidingItemWeekDaysList = _yourHabits[_habitCount]['_weekDays'];
       _slidingCountADay = _yourHabits[_habitCount]['_allTimes'].length;
-      _slidingIcon = IconClass()
-          .getIconFromName(_yourHabits[_habitCount]['habitCategory']);
+      _slidingIcon = IconClass().getIconFromName(
+          _groupNames, _yourHabits[_habitCount]['habitCategory']);
       _slidingIconName = _yourHabits[_habitCount]['habitCategory'];
       _slidingHeaderText = slidingHeaderText;
     });
