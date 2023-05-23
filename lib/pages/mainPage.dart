@@ -118,11 +118,11 @@ class _MainPageState extends State<MainPage> {
   Map _currentDayCompletedHabits = {};
   bool _bottomNavigatorShow = true;
   Map _completedHabits = {};
-
+late var _healthLabel = AppLocalizations.of(context)!.healthLabel.toString();
   ///
   ///
   ///
-  late var _healthLabel = AppLocalizations.of(context)!.healthLabel.toString();
+  late var _swipeLabel = AppLocalizations.of(context)!.swipeLabel.toString();
   late var _sportLabel = AppLocalizations.of(context)!.sportLabel.toString();
   late var _studyLabel = AppLocalizations.of(context)!.studyLabel.toString();
   late var _artLabel = AppLocalizations.of(context)!.artLabel.toString();
@@ -2060,7 +2060,7 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Text("Swipe",
+                                    child: Text(_swipeLabel,
                                         style: GoogleFonts.publicSans(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 20,
