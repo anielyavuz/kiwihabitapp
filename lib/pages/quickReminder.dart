@@ -141,7 +141,7 @@ class _QuickReminderState extends State<QuickReminder>
 
     ////////
     ///
-    ///
+    ///print
     setState(() {
       _remindDay = DateTime.now()
           .add(Duration(days: widget.newInitialPage - _defaultinitialPage));
