@@ -317,6 +317,8 @@ class _QuickReminderState extends State<QuickReminder>
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(15, 5, 15, 10),
                       child: InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Color.fromRGBO(51, 21, 85, 0.6),
                         onTap: _reminderName == null || _reminderName == ""
                             ? null
                             : () async {
@@ -438,6 +440,8 @@ class _QuickReminderState extends State<QuickReminder>
                             borderRadius: BorderRadius.all(Radius.circular(50)),
                             border: Border.all(width: 2)),
                         child: InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Color.fromRGBO(51, 21, 85, 0.6),
                           onTap: _reminderName == null || _reminderName == ""
                               ? null
                               : () async {
