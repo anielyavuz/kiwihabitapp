@@ -118,7 +118,8 @@ class _MainPageState extends State<MainPage> {
   Map _currentDayCompletedHabits = {};
   bool _bottomNavigatorShow = true;
   Map _completedHabits = {};
-late var _healthLabel = AppLocalizations.of(context)!.healthLabel.toString();
+  late var _healthLabel = AppLocalizations.of(context)!.healthLabel.toString();
+
   ///
   ///
   ///
@@ -1901,10 +1902,32 @@ late var _healthLabel = AppLocalizations.of(context)!.healthLabel.toString();
                                     ),
                                   ))),
                     ),
-                    Container(
-                      color: Colors.amber,
-                      height: _oneTimeNotificationTodayList.length * 48 + 5,
-                      child: Text("Veri"),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        TweenAnimationBuilder<double>(
+                          tween: Tween<double>(begin: 0.0, end: 0.8),
+                          duration: const Duration(milliseconds: 1000),
+                          builder: (context, value, _) =>
+                              LinearProgressIndicator(
+                            minHeight: 40,
+                            backgroundColor: Color.fromARGB(255, 120, 108, 125)
+                                .withOpacity(1),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xff542e71),
+                            ),
+                            value: value,
+                          ),
+                        ),
+                        Text("Round ",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontFamily: 'Times New Roman',
+                            )),
+                      ],
                     ),
                     Container(
                       height: _oneTimeNotificationTodayList.length * 48 + 5,
