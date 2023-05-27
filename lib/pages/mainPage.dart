@@ -1902,6 +1902,11 @@ late var _healthLabel = AppLocalizations.of(context)!.healthLabel.toString();
                                   ))),
                     ),
                     Container(
+                      color: Colors.amber,
+                      height: _oneTimeNotificationTodayList.length * 48 + 5,
+                      child: Text("Veri"),
+                    ),
+                    Container(
                       height: _oneTimeNotificationTodayList.length * 48 + 5,
                       padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                       child: ListView.builder(
