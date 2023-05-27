@@ -1903,30 +1903,58 @@ class _MainPageState extends State<MainPage> {
                                   ))),
                     ),
                     Stack(
-                      alignment: Alignment.center,
+                      alignment: Alignment(1, 0),
                       children: [
-                        TweenAnimationBuilder<double>(
-                          tween: Tween<double>(begin: 0.0, end: 0.8),
-                          duration: const Duration(milliseconds: 1000),
-                          builder: (context, value, _) =>
-                              LinearProgressIndicator(
-                            minHeight: 40,
-                            backgroundColor: Color.fromARGB(255, 120, 108, 125)
-                                .withOpacity(1),
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              Color(0xff542e71),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 5, 8, 0),
+                              child: TweenAnimationBuilder<double>(
+                                tween: Tween<double>(begin: 0.0, end: 0.8),
+                                duration: const Duration(milliseconds: 1000),
+                                builder: (context, value, _) => ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  child: LinearProgressIndicator(
+                                    minHeight: 15,
+                                    backgroundColor:
+                                        Color.fromARGB(255, 120, 108, 125)
+                                            .withOpacity(1),
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Color(0xff542e71),
+                                    ),
+                                    value: value,
+                                  ),
+                                ),
+                              ),
                             ),
-                            value: value,
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                              child: Text("Round ",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 11,
+                                    fontFamily: 'Times New Roman',
+                                  )),
+                            ),
+                          ],
                         ),
-                        Text("Round ",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontFamily: 'Times New Roman',
-                            )),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0,5,0,0),
+                          child: Container(
+                            width: 25,
+                              height: 25,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage("assets/images/kiwiLogo.png"),
+                                  // fit: BoxFit.cover,
+                                ),
+                              )),
+                        ),
+                        // Text("data", style: TextStyle(color: _yaziTipiRengi),),
                       ],
                     ),
                     Container(
