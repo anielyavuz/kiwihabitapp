@@ -187,6 +187,8 @@ class _MainPageState extends State<MainPage> {
   };
   Map _completedHelp = {};
   Map _finalCompleted = {};
+  Map _rank = {};
+  int _rankKiwiLimit = 100;
   double _opacityAnimation = 0;
   int _opacityAnimationDuration = 500;
   var _datetime;
@@ -206,6 +208,17 @@ class _MainPageState extends State<MainPage> {
     }
 
     return days;
+  }
+
+  rankCalculate(int _earnedKiwi) {
+    setState(() {
+      print("Kiwi Kazanıldı");
+      if (_rank['kiwiCollected'] != _rankKiwiLimit) {
+        _rank['kiwiCollected'] += _earnedKiwi;
+      } else {
+        _rank['kiwiCollected'] = 1;
+      }
+    });
   }
 
   void loadRewardedAd() {
@@ -756,6 +769,8 @@ class _MainPageState extends State<MainPage> {
 
     _finalCompleted = await box.get("finalCompleted") ?? {};
 
+    _rank = await box.get("badges") ?? {"kiwiCollected": 0, "rank": "Stone"};
+
     recalculateListWithAnimation();
     Future.delayed(const Duration(milliseconds: 2500), () {
       transportDataFromOnPremToCloud();
@@ -781,7 +796,7 @@ class _MainPageState extends State<MainPage> {
 
     box.put("completedHabits", _completedHabits);
     box.put("finalCompleted", _finalCompleted);
-
+    rankCalculate(-1);
     // _finalCompleted = copyDeepMap(_completedHabits);
 
     //print("Final Map'e klonlanıyorr");
@@ -973,6 +988,7 @@ class _MainPageState extends State<MainPage> {
       }
     }
     if (_willRemoveHabitNames.length != 0) {
+      rankCalculate(1);
       for (var _willRemoveHabitName in _willRemoveHabitNames) {
         setState(() {
           _currentDayHabit.removeWhere((item) => item == _willRemoveHabitName);
@@ -1911,7 +1927,9 @@ class _MainPageState extends State<MainPage> {
                             Padding(
                               padding: const EdgeInsets.fromLTRB(8, 5, 8, 0),
                               child: TweenAnimationBuilder<double>(
-                                tween: Tween<double>(begin: 0.0, end: 0.8),
+                                tween: Tween<double>(
+                                    begin: 0.0,
+                                    end: _rank['kiwiCollected'] / 100),
                                 duration: const Duration(milliseconds: 1000),
                                 builder: (context, value, _) => ClipRRect(
                                   borderRadius:
@@ -1943,13 +1961,14 @@ class _MainPageState extends State<MainPage> {
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(0,5,0,0),
+                          padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                           child: Container(
-                            width: 25,
+                              width: 25,
                               height: 25,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: AssetImage("assets/images/kiwiLogo.png"),
+                                  image:
+                                      AssetImage("assets/images/kiwiLogo.png"),
                                   // fit: BoxFit.cover,
                                 ),
                               )),
