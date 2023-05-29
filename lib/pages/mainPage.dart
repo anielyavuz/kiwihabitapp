@@ -216,6 +216,7 @@ class _MainPageState extends State<MainPage> {
   rankCalculate(int _earnedKiwi) {
     setState(() {
       print("Kiwi Kazanıldı");
+      print(_rank['kiwiCollected']);
       if (_rank['kiwiCollected'] != _rankKiwiLimit) {
         _rank['kiwiCollected'] += _earnedKiwi;
       } else {
