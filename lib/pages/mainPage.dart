@@ -1342,7 +1342,7 @@ class _MainPageState extends State<MainPage> {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 18,
-                                                      color: _backgroudRengi)),
+                                                      color: _yaziTipiRengi)),
                                             ),
                                           ),
                                         )
@@ -1432,7 +1432,10 @@ class _MainPageState extends State<MainPage> {
                                         ? _userInfo['userName'] == "Guest"
                                             ? SizedBox()
                                             : ListTile(
-                                                leading: Icon(Icons.delete),
+                                                leading: Icon(
+                                                  Icons.delete,
+                                                  color: _yaziTipiRengi,
+                                                ),
                                                 title: InkWell(
                                                   splashColor:
                                                       Colors.transparent,
@@ -1450,7 +1453,7 @@ class _MainPageState extends State<MainPage> {
                                                                         .w600,
                                                                 fontSize: 18,
                                                                 color:
-                                                                    _backgroudRengi)),
+                                                                    _yaziTipiRengi)),
                                                   ),
                                                 ),
                                               )
