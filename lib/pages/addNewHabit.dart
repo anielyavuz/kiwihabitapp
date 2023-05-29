@@ -1166,7 +1166,7 @@ class _AddNewHabitState extends State<AddNewHabit> {
                           ),
 
                           Container(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 30),
                             child: RawMaterialButton(
                                 fillColor:
                                     _textBoxInput == null || _textBoxInput == ""

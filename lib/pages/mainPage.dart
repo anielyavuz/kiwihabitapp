@@ -1015,7 +1015,6 @@ class _MainPageState extends State<MainPage> {
       }
     }
     if (_willRemoveHabitNames.length != 0) {
-      rankCalculate(1);
       for (var _willRemoveHabitName in _willRemoveHabitNames) {
         setState(() {
           _currentDayHabit.removeWhere((item) => item == _willRemoveHabitName);
@@ -1157,6 +1156,9 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: Color.fromRGBO(26, 0, 55, 1),
+    ));
     final FirebaseAuth _auth = FirebaseAuth.instance;
     if (Provider.of<QuerySnapshot> != null &&
         Provider.of<DocumentSnapshot> != null) {
@@ -2415,8 +2417,7 @@ class _MainPageState extends State<MainPage> {
                                                                     _currentIndexCalendar])
                                                                 .toString())
                                                             .isAfter(DateTime.parse(
-                                                                DateFormat(
-                                                                        'yyyy-MM-dd')
+                                                                DateFormat('yyyy-MM-dd')
                                                                     .format(
                                                                         DateTime.now())
                                                                     .toString()))
@@ -2442,6 +2443,8 @@ class _MainPageState extends State<MainPage> {
                                                                 PlayAudio()
                                                                     .play(
                                                                         "tik");
+                                                                rankCalculate(
+                                                                    1);
                                                                 // //print(_habitDetails[_currentDayHabit[
                                                                 //         indexOfCurrentDayHabit]]
                                                                 //     ['_allTimes'][_completedHabits[
