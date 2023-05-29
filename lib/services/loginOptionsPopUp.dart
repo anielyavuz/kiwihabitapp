@@ -41,6 +41,7 @@ class LoginOptionsBaseAlertDialog extends StatelessWidget {
         child: new Text(
           _title!,
           style: GoogleFonts.publicSans(fontSize: 22, color: _yaziTipiRengi),
+          textAlign: TextAlign.center,
         ),
       ),
       // content: Text(
@@ -95,12 +96,15 @@ class LoginOptionsBaseAlertDialog extends StatelessWidget {
               ),
               splashColor: Colors.transparent,
               textStyle: TextStyle(color: _yaziTipiRengi),
-              child: Container(
-                  // width: MediaQuery.of(context).size.width * 3 / 5,
-                  height: 40,
-                  child: Image(
-                      // fit: BoxFit.fill,
-                      image: AssetImage("assets/images/Google.png"))),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 3, 3, 0),
+                child: Container(
+                    // width: MediaQuery.of(context).size.width * 3 / 5,
+                    height: 40,
+                    child: Image(
+                        // fit: BoxFit.fill,
+                        image: AssetImage("assets/images/Google.png"))),
+              ),
               onPressed: () {
                 this._yesOnPressed!();
               },
