@@ -191,7 +191,7 @@ class _MainPageState extends State<MainPage> {
   Map _completedHelp = {};
   Map _finalCompleted = {};
   Map _rank = {};
-  int _rankKiwiLimit = 500;
+  int _rankKiwiLimit = 200;
   double _opacityAnimation = 0;
   int _opacityAnimationDuration = 500;
   var _datetime;
