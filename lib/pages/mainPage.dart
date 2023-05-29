@@ -191,7 +191,7 @@ class _MainPageState extends State<MainPage> {
   Map _completedHelp = {};
   Map _finalCompleted = {};
   Map _rank = {};
-  int _rankKiwiLimit = 100;
+  int _rankKiwiLimit = 500;
   double _opacityAnimation = 0;
   int _opacityAnimationDuration = 500;
   var _datetime;
@@ -1951,7 +1951,11 @@ class _MainPageState extends State<MainPage> {
                                   ))),
                     ),
                     Stack(
-                      alignment: Alignment(1, 0),
+                      alignment: Alignment(_rank['kiwiCollected'] == 0 ? -1
+                      : 0 < _rank['kiwiCollected'] && _rank['kiwiCollected'] < _rankKiwiLimit/2 ? -1+_rank['kiwiCollected']*2/_rankKiwiLimit
+                      :  _rank['kiwiCollected'] == _rankKiwiLimit/2 ? 0
+                      : _rankKiwiLimit/2 < _rank['kiwiCollected'] && _rank['kiwiCollected'] <= _rankKiwiLimit ? (_rank['kiwiCollected']-_rankKiwiLimit/2)*2/_rankKiwiLimit
+                      : 1, 0),
                       children: [
                         Stack(
                           alignment: Alignment.center,
@@ -1961,7 +1965,7 @@ class _MainPageState extends State<MainPage> {
                               child: TweenAnimationBuilder<double>(
                                 tween: Tween<double>(
                                     begin: 0.0,
-                                    end: _rank['kiwiCollected'] / 100),
+                                    end: _rank['kiwiCollected'] / _rankKiwiLimit),
                                 duration: const Duration(milliseconds: 1000),
                                 builder: (context, value, _) => ClipRRect(
                                   borderRadius:
@@ -2364,7 +2368,7 @@ class _MainPageState extends State<MainPage> {
                                                             width: 5,
                                                           ),
                                                           Container(
-                                                            width: 20,
+                                                            width: 24,
                                                             height: 20,
                                                             decoration: BoxDecoration(
                                                                 color: Colors
