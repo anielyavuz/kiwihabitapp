@@ -2013,8 +2013,8 @@ class _MainPageState extends State<MainPage> {
                       ],
                     ),
                     Container(
-                      height: _oneTimeNotificationTodayList.length * 48 + 5,
-                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      height: _oneTimeNotificationTodayList.length * 48 + 3,
+                      padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
                       child: ListView.builder(
                           itemCount: _oneTimeNotificationTodayList.length,
                           itemBuilder: (context, indexOfNotification) {
@@ -2182,7 +2182,7 @@ class _MainPageState extends State<MainPage> {
                               ),
                             ),
                             Container(
-                              padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                               child: ListView.builder(
                                   itemCount: _currentDayHabit.length,
                                   itemBuilder:
