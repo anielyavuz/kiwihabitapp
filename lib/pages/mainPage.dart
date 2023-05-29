@@ -130,6 +130,9 @@ class _MainPageState extends State<MainPage> {
 
   late var _financeLabel =
       AppLocalizations.of(context)!.financeLabel.toString();
+
+  late var _plsPickALoginMethod =
+      AppLocalizations.of(context)!.plsPickALoginMethod.toString();
   late var _socialLabel = AppLocalizations.of(context)!.socialLabel.toString();
   late var _quitABadHabitLabel =
       AppLocalizations.of(context)!.quitABadHabitLabel.toString();
@@ -216,9 +219,32 @@ class _MainPageState extends State<MainPage> {
       if (_rank['kiwiCollected'] != _rankKiwiLimit) {
         _rank['kiwiCollected'] += _earnedKiwi;
       } else {
+        if (_rank["rank"] == "Stone") {
+          _rank["rank"] = "Steel";
+        } else if (_rank["rank"] == "Steel") {
+          _rank["rank"] = "Iron";
+        } else if (_rank["rank"] == "Iron") {
+          _rank["rank"] = "Bronze";
+        } else if (_rank["rank"] == "Bronze") {
+          _rank["rank"] = "Silver";
+        } else if (_rank["rank"] == "Silver") {
+          _rank["rank"] = "Gold";
+        } else if (_rank["rank"] == "Gold") {
+          _rank["rank"] = "Platinum";
+        } else if (_rank["rank"] == "Platinum") {
+          _rank["rank"] = "Diamond";
+        } else if (_rank["rank"] == "Diamond") {
+          _rank["rank"] = "Master";
+        } else if (_rank["rank"] == "Master") {
+          _rank["rank"] = "Grandmaster";
+        } else {
+          _rank["rank"] = "Challenger";
+        }
+
         _rank['kiwiCollected'] = 1;
       }
     });
+    box.put("badges", _rank);
   }
 
   void loadRewardedAd() {
@@ -306,7 +332,7 @@ class _MainPageState extends State<MainPage> {
   loginOptionsPopUp() {
     dailyLogs("Login Options Button Clicked");
     var baseDialog = LoginOptionsBaseAlertDialog(
-        title: "Please Pick a Login Method",
+        title: _plsPickALoginMethod,
         content: "",
         yesOnPressed: () async {
           Navigator.of(context, rootNavigator: true).pop(false);
@@ -1952,7 +1978,7 @@ class _MainPageState extends State<MainPage> {
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                              child: Text("Round ",
+                              child: Text(_rank["rank"],
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
