@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/services.dart';
@@ -54,8 +55,12 @@ class _MainPageState extends State<MainPage> {
   Map _reminderDatesMap = {};
   bool _isButtonPressed = false;
   int _isButtonPressedID = 0;
+  int _quickNotificationBeforeAd = 5;
+  String _createTime = "";
 
   late var _todayText = AppLocalizations.of(context)!.todayText.toString();
+  late var _supportUs = AppLocalizations.of(context)!.supportUs.toString();
+
   late var _signIn = AppLocalizations.of(context)!.signIn.toString();
   late var _exitButton = AppLocalizations.of(context)!.exitButton.toString();
   late var _deleteAccount =
@@ -674,15 +679,35 @@ class _MainPageState extends State<MainPage> {
   }
 
   quickReminderFunction() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => QuickReminder(
-                  userInfo: _userInfo,
-                  newInitialPage: _initialPage >= 100 ? _initialPage : 100,
-                )));
-
     dailyLogs("Quick Reminder Design Button Clicked");
+    if (_quickNotificationBeforeAd > 0) {
+      setState(() {
+        _quickNotificationBeforeAd -= 1;
+      });
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => QuickReminder(
+                    userInfo: _userInfo,
+                    newInitialPage: _initialPage >= 100 ? _initialPage : 100,
+                  )));
+    } else {
+      dailyLogs("Quick Reminder Ad Watched");
+      showRewardedAd();
+      setState(() {
+        _quickNotificationBeforeAd = 5;
+      });
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => QuickReminder(
+                    userInfo: _userInfo,
+                    newInitialPage: _initialPage >= 100 ? _initialPage : 100,
+                  )));
+    }
+    box.put("quickNotificationBeforeAd", _quickNotificationBeforeAd);
   }
 
   addNewHabitFunction() {
@@ -786,6 +811,11 @@ class _MainPageState extends State<MainPage> {
 
   getCurrentChooseYourHabits() async {
     _yourHabits = await box.get("chooseYourHabitsHive") ?? []; //eski
+    _createTime = await box.get("createTime") ??
+        DateFormat('yyyy-MM-dd HH:mm:ss')
+            .format(DateTime.now().add(Duration(days: -10)));
+    _quickNotificationBeforeAd =
+        await box.get("quickNotificationBeforeAd") ?? 5;
     _reminderMap =
         await box.get("reminderMapHive") ?? {999999: "startReminder"}; //eski
     _reminderDatesMap =
@@ -1030,10 +1060,12 @@ class _MainPageState extends State<MainPage> {
     //habşt details {Swim: {habitCategory: Sport, _allTimes: [{time: TimeOfDay(12:30), notification: true, alarm: false}]}, Learn English: {habitCategory: Study, _allTimes: [{time: TimeOfDay(12:30), notification: true, alarm: false}]}, Painting: {habitCategory: Art, _allTimes: [{time: TimeOfDay(12:30), notification: true, alarm: false}]}}
     setState(() {
       _currentDayHabit = [];
+      print(
+          "!!!!!!!!!!!!!!!! + $_currentDayHabit +  $_createTime + !!!!!!!!!!!!!!!!!!!");
       _habitDays.forEach((k, v) {
         if (DateTime.parse(DateFormat(
                     'yyyy-MM-dd', Localizations.localeOf(context).toString())
-                .format(DateTime.parse(_userInfo['createTime'])))
+                .format(DateTime.parse(_createTime)))
             .add(Duration(seconds: -1))
             .isBefore(DateTime.parse(DateFormat(
                     'yyyy-MM-dd', Localizations.localeOf(context).toString())
@@ -1051,6 +1083,7 @@ class _MainPageState extends State<MainPage> {
           }
         }
       });
+      print("!!!!!!!!!!!!!!!! + $_currentDayHabit + !!!!!!!!!!!!!!!!!!!");
     });
     compareCurrentAndCompleted();
     // //print("_currentDayHabit");
@@ -1279,7 +1312,7 @@ class _MainPageState extends State<MainPage> {
                                     test();
                                   },
                                   child: Container(
-                                    child: Text("Test",
+                                    child: Text("Support Us",
                                         style: GoogleFonts.publicSans(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 18,
@@ -1951,11 +1984,28 @@ class _MainPageState extends State<MainPage> {
                                   ))),
                     ),
                     Stack(
-                      alignment: Alignment(_rank['kiwiCollected'] == 0 ? -1
-                      : 0 < _rank['kiwiCollected'] && _rank['kiwiCollected'] < _rankKiwiLimit/2 ? -1+_rank['kiwiCollected']*2/_rankKiwiLimit
-                      :  _rank['kiwiCollected'] == _rankKiwiLimit/2 ? 0
-                      : _rankKiwiLimit/2 < _rank['kiwiCollected'] && _rank['kiwiCollected'] <= _rankKiwiLimit ? (_rank['kiwiCollected']-_rankKiwiLimit/2)*2/_rankKiwiLimit
-                      : 1, 0),
+                      alignment: Alignment(
+                          _rank['kiwiCollected'] == 0
+                              ? -1
+                              : 0 < _rank['kiwiCollected'] &&
+                                      _rank['kiwiCollected'] <
+                                          _rankKiwiLimit / 2
+                                  ? -1 +
+                                      _rank['kiwiCollected'] *
+                                          2 /
+                                          _rankKiwiLimit
+                                  : _rank['kiwiCollected'] == _rankKiwiLimit / 2
+                                      ? 0
+                                      : _rankKiwiLimit / 2 <
+                                                  _rank['kiwiCollected'] &&
+                                              _rank['kiwiCollected'] <=
+                                                  _rankKiwiLimit
+                                          ? (_rank['kiwiCollected'] -
+                                                  _rankKiwiLimit / 2) *
+                                              2 /
+                                              _rankKiwiLimit
+                                          : 1,
+                          0),
                       children: [
                         Stack(
                           alignment: Alignment.center,
@@ -1965,7 +2015,8 @@ class _MainPageState extends State<MainPage> {
                               child: TweenAnimationBuilder<double>(
                                 tween: Tween<double>(
                                     begin: 0.0,
-                                    end: _rank['kiwiCollected'] / _rankKiwiLimit),
+                                    end: _rank['kiwiCollected'] /
+                                        _rankKiwiLimit),
                                 duration: const Duration(milliseconds: 1000),
                                 builder: (context, value, _) => ClipRRect(
                                   borderRadius:
@@ -2717,12 +2768,29 @@ class _MainPageState extends State<MainPage> {
                           //     ),
                           //   ),
                           // ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Icon(
-                              Icons.flash_on,
-                              size: 30,
-                              color: Color.fromARGB(255, 35, 4, 71),
+                          Badge(
+                            showBadge: true,
+                            position:
+                                BadgePosition.topEnd(end: -15, top: -20.5),
+                            badgeContent: _quickNotificationBeforeAd > 0
+                                ? Text(_quickNotificationBeforeAd.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.publicSans(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                        color: _yaziTipiRengi))
+                                : Icon(
+                                    Icons.subscriptions,
+                                    size: 15,
+                                    color: Color.fromARGB(255, 35, 4, 71),
+                                  ),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.flash_on,
+                                size: 30,
+                                color: Color.fromARGB(255, 35, 4, 71),
+                              ),
                             ),
                           ),
                         ],

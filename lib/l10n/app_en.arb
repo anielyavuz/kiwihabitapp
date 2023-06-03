@@ -531,5 +531,13 @@
     }
 
 
+     ,
+     "supportUs":"Support By Watching Ads",
+    "@supportUs":{
+        "description":"Support By Watching Ads"
+
+    }
+
+
 
 }

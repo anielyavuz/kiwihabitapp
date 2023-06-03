@@ -1281,6 +1281,11 @@ class _HabitDetailsState extends State<HabitDetails> {
                                 });
 
                                 box.put("chooseYourHabitsHive", _tempHabits);
+                                box.put(
+                                    "createTime",
+                                    DateFormat('yyyy-MM-dd HH:mm:ss')
+                                        .format(DateTime.now())
+                                        .toString());
 
                                 Navigator.pushAndRemoveUntil(
                                     context,
