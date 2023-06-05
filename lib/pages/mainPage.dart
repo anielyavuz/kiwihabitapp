@@ -622,32 +622,44 @@ class _MainPageState extends State<MainPage> {
   }
 
   removeHabit() {
-    setState(() {
-      _editleme = false;
-    });
-    print("AAA");
-    print(_yourHabits);
-    setState(() {
-      _yourHabits
-          .removeWhere((item) => item['habitName'] == _slidingHeaderText);
+    if (_yourHabits.length > 1) {
+      setState(() {
+        _editleme = false;
+      });
+      print("AAA");
+      print(_yourHabits);
+      setState(() {
+        _yourHabits
+            .removeWhere((item) => item['habitName'] == _slidingHeaderText);
 
-      _habitDetails.removeWhere((key, value) => key == _slidingHeaderText);
-      _habitDays.removeWhere((key, value) => key == _slidingHeaderText);
-    });
-    print("BBB");
-    print(_yourHabits);
-    print("001");
-    box.put("chooseYourHabitsHive", _yourHabits);
-    print("002");
-    box.put("habitDetailsHive", _habitDetails);
-    print("003");
-    box.put("habitDays", _habitDays);
+        _habitDetails.removeWhere((key, value) => key == _slidingHeaderText);
+        _habitDays.removeWhere((key, value) => key == _slidingHeaderText);
+      });
+      print("BBB");
+      print(_yourHabits);
+      print("001");
+      box.put("chooseYourHabitsHive", _yourHabits);
+      print("002");
+      box.put("habitDetailsHive", _habitDetails);
+      print("003");
+      box.put("habitDays", _habitDays);
+      CloudDB().deleteHabitFromCloud(
+          _userInfo['id'], _yourHabits, _habitDetails, _habitDays);
 
-    recalculateListWithAnimation();
+      recalculateListWithAnimation();
 
-    Future.delayed(const Duration(milliseconds: 2500), () {
-      notificaitonMap();
-    });
+      Future.delayed(const Duration(milliseconds: 2500), () {
+        notificaitonMap();
+      });
+    } else {
+      showDialog(
+        context: context,
+        builder: (_) => ButtonlessPopUp(
+          input: _cantDeleteAllHabits + " 😇",
+          fontSize: 22.0,
+        ),
+      );
+    }
   }
 
   removeHabitFromSlide(String _habitNameForSlide) {
