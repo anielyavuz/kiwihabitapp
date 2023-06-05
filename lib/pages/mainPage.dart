@@ -225,7 +225,7 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       print("Kiwi Kazanıldı");
       print(_rank['kiwiCollected']);
-      if (_rank['kiwiCollected'] != _rankKiwiLimit) {
+      if (_rank['kiwiCollected'] % _rankKiwiLimit != 0) {
         _rank['kiwiCollected'] += _earnedKiwi;
       } else {
         if (_rank["rank"] == "Stone") {
@@ -853,7 +853,7 @@ class _MainPageState extends State<MainPage> {
 
     _finalCompleted = await box.get("finalCompleted") ?? {};
 
-    _rank = await box.get("badges") ?? {"kiwiCollected": 0, "rank": "Stone"};
+    _rank = await box.get("badges") ?? {"kiwiCollected": 1, "rank": "Stone"};
 
     recalculateListWithAnimation();
     Future.delayed(const Duration(milliseconds: 2500), () {
