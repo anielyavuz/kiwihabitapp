@@ -227,6 +227,8 @@ class _MainPageState extends State<MainPage> {
       print(_rank['kiwiCollected']);
       if (_rank['kiwiCollected'] % _rankKiwiLimit != 0) {
         _rank['kiwiCollected'] += _earnedKiwi;
+        // _rank['kiwiCollected'] = 1;
+        // _rank["rank"] = "Stone";
       } else {
         if (_rank["rank"] == "Stone") {
           _rank["rank"] = "Steel";
@@ -2054,7 +2056,39 @@ class _MainPageState extends State<MainPage> {
                                         Color.fromARGB(255, 120, 108, 125)
                                             .withOpacity(1),
                                     valueColor: AlwaysStoppedAnimation<Color>(
-                                      Color(0xff542e71),
+                                      _rank["rank"] == "Stone"
+                                          ? Color.fromARGB(255, 84, 87, 87)
+                                          : _rank["rank"] == "Steel"
+                                              ? Color(0xff71797E)
+                                              : _rank["rank"] == "Iron"
+                                                  ? Color(0xffa19d94)
+                                                  : _rank["rank"] == "Bronze"
+                                                      ? Color(0xffCD7F32)
+                                                      : _rank["rank"] ==
+                                                              "Silver"
+                                                          ? Color(0xffC0C0C0)
+                                                          : _rank["rank"] ==
+                                                                  "Gold"
+                                                              ? Color(
+                                                                  0xffFFD700)
+                                                              : _rank["rank"] ==
+                                                                      "Platinum"
+                                                                  ? Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          56,
+                                                                          220,
+                                                                          226)
+                                                                  : _rank["rank"] ==
+                                                                          "Diamond"
+                                                                      ? Color(
+                                                                          0xffb9f2ff)
+                                                                      : _rank["rank"] ==
+                                                                              "Master"
+                                                                          ? Color.fromARGB(255, 210, 118, 58)
+                                                                          : _rank["rank"] == "Grandmaster"
+                                                                              ? Color.fromARGB(255, 144, 41, 18)
+                                                                              : Color.fromARGB(255, 46, 74, 113),
                                     ),
                                     value: value,
                                   ),
