@@ -17,6 +17,7 @@ import 'package:kiwihabitapp/pages/intro.dart';
 import 'package:kiwihabitapp/pages/quickReminder.dart';
 import 'package:kiwihabitapp/services/audioClass.dart';
 import 'package:kiwihabitapp/services/batteryOptimization.dart';
+import 'package:kiwihabitapp/services/buttonlessPopUp.dart';
 import 'package:kiwihabitapp/services/dailyLogs.dart';
 import 'package:kiwihabitapp/services/firebaseDocs.dart';
 import 'package:kiwihabitapp/services/firestoreClass.dart';
@@ -124,6 +125,8 @@ class _MainPageState extends State<MainPage> {
   bool _bottomNavigatorShow = true;
   Map _completedHabits = {};
   late var _healthLabel = AppLocalizations.of(context)!.healthLabel.toString();
+  late var _cantDeleteAllHabits =
+      AppLocalizations.of(context)!.cantDeleteAllHabits.toString();
 
   ///
   ///
@@ -653,29 +656,41 @@ class _MainPageState extends State<MainPage> {
     });
     print("AAA");
     print(_yourHabits);
-    setState(() {
-      _yourHabits
-          .removeWhere((item) => item['habitName'] == _habitNameForSlide);
+    if (_yourHabits.length > 1) {
+      setState(() {
+        _yourHabits
+            .removeWhere((item) => item['habitName'] == _habitNameForSlide);
 
-      _habitDetails.removeWhere((key, value) => key == _habitNameForSlide);
-      _habitDays.removeWhere((key, value) => key == _habitNameForSlide);
-    });
-    print("BBB");
-    print(_yourHabits);
-    print("001");
-    box.put("chooseYourHabitsHive", _yourHabits);
-    print("002");
-    box.put("habitDetailsHive", _habitDetails);
-    print("003");
-    box.put("habitDays", _habitDays);
+        _habitDetails.removeWhere((key, value) => key == _habitNameForSlide);
+        _habitDays.removeWhere((key, value) => key == _habitNameForSlide);
+      });
+      print("BBB");
+      print(_yourHabits);
+      print("001");
+      box.put("chooseYourHabitsHive", _yourHabits);
+      print("002");
+      box.put("habitDetailsHive", _habitDetails);
+      print("003");
+      box.put("habitDays", _habitDays);
+      CloudDB().deleteHabitFromCloud(
+          _userInfo['id'], _yourHabits, _habitDetails, _habitDays);
 
-    recalculateListWithAnimation();
+      recalculateListWithAnimation();
 
-    Future.delayed(const Duration(milliseconds: 2500), () {
-      notificaitonMap();
-    });
+      Future.delayed(const Duration(milliseconds: 2500), () {
+        notificaitonMap();
+      });
 
-    dailyLogs("Habit Delete");
+      dailyLogs("Habit Delete");
+    } else {
+      showDialog(
+        context: context,
+        builder: (_) => ButtonlessPopUp(
+          input: _cantDeleteAllHabits + " 😇",
+          fontSize: 22.0,
+        ),
+      );
+    }
   }
 
   quickReminderFunction() {
@@ -2770,8 +2785,7 @@ class _MainPageState extends State<MainPage> {
                           // ),
                           Badge(
                             showBadge: true,
-                            position:
-                                BadgePosition.topEnd(end: -6, top: -10),
+                            position: BadgePosition.topEnd(end: -6, top: -10),
                             badgeContent: _quickNotificationBeforeAd > 0
                                 ? Text(_quickNotificationBeforeAd.toString(),
                                     textAlign: TextAlign.center,
@@ -3664,7 +3678,7 @@ class _MainPageState extends State<MainPage> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(5,6,5,14),
+                                padding: const EdgeInsets.fromLTRB(5, 6, 5, 14),
                                 child: Container(
                                   width:
                                       MediaQuery.of(context).size.width * 3 / 5,

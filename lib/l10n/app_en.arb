@@ -538,6 +538,13 @@
 
     }
 
+     ,
+     "cantDeleteAllHabits":"You can't delete all your habits.",
+    "@cantDeleteAllHabits":{
+        "description":"cantDeleteAllHabits"
+
+    }
+
 
 
 }
