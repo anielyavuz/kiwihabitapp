@@ -2771,7 +2771,7 @@ class _MainPageState extends State<MainPage> {
                           Badge(
                             showBadge: true,
                             position:
-                                BadgePosition.topEnd(end: -15, top: -20.5),
+                                BadgePosition.topEnd(end: -6, top: -10),
                             badgeContent: _quickNotificationBeforeAd > 0
                                 ? Text(_quickNotificationBeforeAd.toString(),
                                     textAlign: TextAlign.center,
@@ -3664,7 +3664,7 @@ class _MainPageState extends State<MainPage> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(5),
+                                padding: const EdgeInsets.fromLTRB(5,6,5,14),
                                 child: Container(
                                   width:
                                       MediaQuery.of(context).size.width * 3 / 5,
