@@ -62,6 +62,7 @@ class _MainPageState extends State<MainPage> {
   late var _todayText = AppLocalizations.of(context)!.todayText.toString();
   late var _supportUs = AppLocalizations.of(context)!.supportUs.toString();
 
+
   late var _signIn = AppLocalizations.of(context)!.signIn.toString();
   late var _exitButton = AppLocalizations.of(context)!.exitButton.toString();
   late var _deleteAccount =
@@ -1341,7 +1342,7 @@ class _MainPageState extends State<MainPage> {
                                     test();
                                   },
                                   child: Container(
-                                    child: Text("Support Us",
+                                    child: Text(_supportUs,
                                         style: GoogleFonts.publicSans(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 18,
