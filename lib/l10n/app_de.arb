@@ -1,111 +1,218 @@
 {
-    "language":"Deutch",
-    
-    "helloWorld":"Hello World! Almanca",
-      "appHeader":"KiWi - Gewohnheitsverfolgung",
-      "addYourFirstHabitButton":"Fügen Sie Ihre erste Gewohnheit hinzu",
-"allreadyHaveKiwiButton":"Sie haben bereits ein KiWi-Konto?",
-    "todayText":"Heute",
-    "introFirstScreen":"Geben Sie Ihrem Leben Energie",
-     "introFirstScreenDetail":"Erstellen Sie Ihre Trainingsziele, die Ihre Lebensenergie mit 🥝 steigern.",
-  "introSecondScreen":"Entfernen Sie Stress aus Ihrem Leben",
-     "introSecondScreenDetail":"Machen Sie Ihre Pläne und nehmen Sie sich mit 🥝 eine Auszeit vom Stress des Lebens",
-  
-"introThirdScreen":"Konzentrieren Sie sich auf Ihre persönliche Entwicklung",
-     "introThirdScreenDetail":"Optimiere dein Leben und erreiche deine Ziele mit 🥝."
-    ,
-    "introFourthScreen":"Lerne regelmäßige Gewohnheiten",
-     "introFourthScreenDetail":"Baue mit 🥝 positive Gewohnheiten in dein Leben ein."
- 
-     ,"chooseYourHabits":"Wähle deine Gewohnheiten"
-     ,"continueButton":"Weitermachen"
-,"orButton":"Oder"
-,"defineYourHabit":"Wählen Sie Ihre Gewohnheiten"
-
-
-,"habitName":"Gewohnheitsname"
-,"addToHabits":"Zu den Gewohnheiten hinzufügen"
-,"habitList":"Gewohnheitsliste"
-
-
-,"habitDetails":"Gewohnheitsdetails"
-,"goalText":"Ziel"
-,"inADay":"in einem Tag"
-,"everyDay":"jeden Tag"
-
-,"nextButton":"nächste"
-,"previousButton":"früher"
-,"finishButton":"Fertig"
-
-
-,"signIn":"Anmelden"
-,"exitButton":"Ausgang"
-,"cancelButton":"Absagen"
-,"deleteHabit":"Gewohnheit löschen"
-,"deleteAccount":"Konto löschen"
-,"addNewHabit":"neue Gewohnheit hinzufügen"
-
-,"dontHaveKiwiAccount":"Entschuldigung, Sie haben kein KiWi-Konto."
-,"deleteAccountConfirm":"Wenn Sie fortfahren, werden Sie Ihre Gewohnheiten verlieren. Bist du dir sicher?"
-,"reallyAsk":"Wirklich?👀"
-
-,"continueWith":"weitermachen mit"
-
-,"quickNotificationAdd":"Schneller Rückruf hinzufügen"
-,"quickNotificationTextLabel":"Name schnell merken"
-,"scheduleNotification":"Erinnerung erstellen"
-
-
-,"reminderNotificationLabel":" 😎"
-
-,"healthLabel":"Gesundheit"
-,"sportLabel":"Sport"
-,"studyLabel":"Lernen"
-,"artLabel":"Kunst"
-,"financeLabel":"Finanzen"
-,"socialLabel":"Sozial"
-,"quitABadHabitLabel":"Schluss mit der schlechten Angewohnheit"
-
-,"youShouldOneHabit":"Sie sollten mindestens eine Angewohnheit haben "
-
-
-
-,"yoga":"Yoga"
-,"meditation":"Meditation"
-,"drinkWater":"Wasser trinken"
-,"sleepWell":"Schlafenszeit"
-,"walk":"Gehen"
-,"pushUp":"PushUps machen"
-,"run":"laufen"
-,"swim":"Schwimmen"
-,"readABook":"Ein Buch lesen"
-,"learnEnglish":"Lerne Englisch"
-,"mathExercise":"Mathematik studieren"
-,"repeatToday":"Mach es nochmal"
-,"playGuitar":"Gitarre spielen"
-,"painting":"Mach ein Bild"
-,"playPiano":"Spiel das Klavier"
-,"dance":"Tanzen"
-,"savingMoney":"Geld sparen"
-,"checkStocks":"Börsenverfolgung"
-,"donate":"Spenden"
-,"checkCurrencies":"Währungsverfolgung"
-,"cinema":"Kino"
-,"meetWithFriends":"Treffe deine Freunde"
-,"theater":"Theater"
-,"playGames":"Spiel spielen"
-,"quitSmoking":"Hören Sie mit dem Rauchen auf"
-,"quitEatingSnacks":"Schluss mit Junk Food"
-,"quitAlcohol":"Kein Alkohol"
-,"stopSwearing":"Kein fluchen"
-
-,"warning":"Warnung"
-,"willLoseYourData":"Wenn Sie sich abmelden, ohne sich anzumelden, verlieren Sie alle Ihre Gewohnheiten."
-
-,"swipeLabel":"Wischen"
-,"plsPickALoginMethod":"Bitte wählen Sie eine Anmeldemethode"
-,"supportUs":"Unterstütze uns"
-,"cantDeleteAllHabits":"Sie müssen mindestens eine Angewohnheit haben."
-
-
+    "language": "Deutch",
+    "helloWorld": "Hello World! Almanca",
+    "appHeader": "KiWi - Gewohnheitsverfolgung",
+    "addYourFirstHabitButton": "Fügen Sie Ihre erste Gewohnheit hinzu",
+    "allreadyHaveKiwiButton": "Sie haben bereits ein KiWi-Konto?",
+    "todayText": "Heute",
+    "introFirstScreen": "Geben Sie Ihrem Leben Energie",
+    "introFirstScreenDetail": "Erstellen Sie Ihre Trainingsziele, die Ihre Lebensenergie mit 🥝 steigern.",
+    "introSecondScreen": "Entfernen Sie Stress aus Ihrem Leben",
+    "introSecondScreenDetail": "Machen Sie Ihre Pläne und nehmen Sie sich mit 🥝 eine Auszeit vom Stress des Lebens",
+    "introThirdScreen": "Konzentrieren Sie sich auf Ihre persönliche Entwicklung",
+    "introThirdScreenDetail": "Optimiere dein Leben und erreiche deine Ziele mit 🥝.",
+    "introFourthScreen": "Lerne regelmäßige Gewohnheiten",
+    "introFourthScreenDetail": "Baue mit 🥝 positive Gewohnheiten in dein Leben ein.",
+    "chooseYourHabits": "Wähle deine Gewohnheiten",
+    "continueButton": "Weitermachen",
+    "orButton": "Oder",
+    "defineYourHabit": "Wählen Sie Ihre Gewohnheiten",
+    "habitName": "Gewohnheitsname",
+    "addToHabits": "Zu den Gewohnheiten hinzufügen",
+    "habitList": "Gewohnheitsliste",
+    "habitDetails": "Gewohnheitsdetails",
+    "goalText": "Ziel",
+    "inADay": "in einem Tag",
+    "everyDay": "jeden Tag",
+    "nextButton": "nächste",
+    "previousButton": "früher",
+    "finishButton": "Fertig",
+    "signIn": "Anmelden",
+    "exitButton": "Ausgang",
+    "cancelButton": "Absagen",
+    "deleteHabit": "Gewohnheit löschen",
+    "deleteAccount": "Konto löschen",
+    "addNewHabit": "neue Gewohnheit hinzufügen",
+    "dontHaveKiwiAccount": "Entschuldigung, Sie haben kein KiWi-Konto.",
+    "deleteAccountConfirm": "Wenn Sie fortfahren, werden Sie Ihre Gewohnheiten verlieren. Bist du dir sicher?",
+    "reallyAsk": "Wirklich?👀",
+    "continueWith": "weitermachen mit",
+    "quickNotificationAdd": "Schneller Rückruf hinzufügen",
+    "quickNotificationTextLabel": "Name schnell merken",
+    "scheduleNotification": "Erinnerung erstellen",
+    "reminderNotificationLabel": " 😎",
+    "healthLabel": "Gesundheit",
+    "sportLabel": "Sport",
+    "studyLabel": "Lernen",
+    "artLabel": "Kunst",
+    "financeLabel": "Finanzen",
+    "socialLabel": "Sozial",
+    "quitABadHabitLabel": "Schluss mit der schlechten Angewohnheit",
+    "youShouldOneHabit": "Sie sollten mindestens eine Angewohnheit haben ",
+    "yoga": "Yoga",
+    "meditation": "Meditation",
+    "drinkWater": "Wasser trinken",
+    "sleepWell": "Schlafenszeit",
+    "walk": "Gehen",
+    "pushUp": "PushUps machen",
+    "run": "laufen",
+    "swim": "Schwimmen",
+    "readABook": "Ein Buch lesen",
+    "learnEnglish": "Lerne Englisch",
+    "mathExercise": "Mathematik studieren",
+    "repeatToday": "Mach es nochmal",
+    "playGuitar": "Gitarre spielen",
+    "painting": "Mach ein Bild",
+    "playPiano": "Spiel das Klavier",
+    "dance": "Tanzen",
+    "savingMoney": "Geld sparen",
+    "checkStocks": "Börsenverfolgung",
+    "donate": "Spenden",
+    "checkCurrencies": "Währungsverfolgung",
+    "cinema": "Kino",
+    "meetWithFriends": "Treffe deine Freunde",
+    "theater": "Theater",
+    "playGames": "Spiel spielen",
+    "quitSmoking": "Hören Sie mit dem Rauchen auf",
+    "quitEatingSnacks": "Schluss mit Junk Food",
+    "quitAlcohol": "Kein Alkohol",
+    "stopSwearing": "Kein fluchen",
+    "warning": "Warnung",
+    "willLoseYourData": "Wenn Sie sich abmelden, ohne sich anzumelden, verlieren Sie alle Ihre Gewohnheiten.",
+    "swipeLabel": "Wischen",
+    "plsPickALoginMethod": "Bitte wählen Sie eine Anmeldemethode",
+    "supportUs": "Unterstütze uns",
+    "cantDeleteAllHabits": "Sie müssen mindestens eine Angewohnheit haben.",
+    "myChallenguesTab": "Meine Challenges",
+    "@myChallenguesTab": {
+        "description": "My Challenges tab label"
+    },
+    "discoverTab": "Entdecken",
+    "@discoverTab": {
+        "description": "Discover tab label"
+    },
+    "profileTab": "Profil",
+    "@profileTab": {
+        "description": "Profile tab label"
+    },
+    "joinChallenge": "Beitreten",
+    "@joinChallenge": {
+        "description": "Join challenge button"
+    },
+    "leaveChallenge": "Verlassen",
+    "@leaveChallenge": {
+        "description": "Leave challenge button"
+    },
+    "checkInToday": "Heute einchecken",
+    "@checkInToday": {
+        "description": "Check in today button"
+    },
+    "alreadyCheckedIn": "Heute eingecheckt!",
+    "@alreadyCheckedIn": {
+        "description": "Already checked in today message"
+    },
+    "daysLeft": "{count} Tage übrig",
+    "@daysLeft": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "participants": "{count} Teilnehmer",
+    "@participants": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "leaderboard": "Rangliste",
+    "@leaderboard": {
+        "description": "Leaderboard label"
+    },
+    "createChallenge": "Challenge erstellen",
+    "@createChallenge": {
+        "description": "Create challenge button"
+    },
+    "challengeTitle": "Challenge-Titel",
+    "@challengeTitle": {
+        "description": "Challenge title field label"
+    },
+    "challengeDescription": "Beschreibung",
+    "@challengeDescription": {
+        "description": "Challenge description field label"
+    },
+    "duration": "Dauer",
+    "@duration": {
+        "description": "Duration field label"
+    },
+    "category": "Kategorie",
+    "@category": {
+        "description": "Category field label"
+    },
+    "dailyGoal": "Tagesziel",
+    "@dailyGoal": {
+        "description": "Daily goal field label"
+    },
+    "checkInSuccess": "Einchecken abgeschlossen!",
+    "@checkInSuccess": {
+        "description": "Check-in success message"
+    },
+    "streakLabel": "{count} Tage in Folge",
+    "@streakLabel": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "signOut": "Abmelden",
+    "@signOut": {
+        "description": "Sign out button"
+    },
+    "totalPoints": "KiWi-Punkte",
+    "@totalPoints": {
+        "description": "Total points label"
+    },
+    "profile": "Profil",
+    "@profile": {
+        "description": "Profile page title"
+    },
+    "noBadgesYet": "Noch keine Abzeichen",
+    "@noBadgesYet": {
+        "description": "No badges yet message"
+    },
+    "loginTitle": "Willkommen zurück",
+    "@loginTitle": {
+        "description": "Login page title"
+    },
+    "signUpTitle": "Konto erstellen",
+    "@signUpTitle": {
+        "description": "Sign up page title"
+    },
+    "loginWithGoogle": "Mit Google fortfahren",
+    "@loginWithGoogle": {
+        "description": "Google login button"
+    },
+    "loginWithApple": "Mit Apple fortfahren",
+    "@loginWithApple": {
+        "description": "Apple login button"
+    },
+    "loginWithEmail": "Anmelden",
+    "@loginWithEmail": {
+        "description": "Email login button"
+    },
+    "noAccount": "Kein Konto?",
+    "@noAccount": {
+        "description": "No account prompt"
+    },
+    "alreadyAccount": "Schon ein Konto?",
+    "@alreadyAccount": {
+        "description": "Already have account prompt"
+    },
+    "signUpButton": "Konto erstellen",
+    "@signUpButton": {
+        "description": "Sign up button"
+    }
 }

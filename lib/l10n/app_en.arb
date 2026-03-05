@@ -1,550 +1,470 @@
 {
-    "language":"English",
-    "@language":{
-        "description":"The current language"
+    "language": "English",
+    "@language": {
+        "description": "The current language"
     },
-    "helloWorld":"Hello World!",
-    "@helloWorld":{
-        "description":"A programmer greetingg"
+    "helloWorld": "Hello World!",
+    "@helloWorld": {
+        "description": "A programmer greetingg"
     },
-     "appHeader":"KiWi - Habit App",
-    "@appHeader":{
-        "description":"Header of app in intro area"
-    }
-    ,
-     "addYourFirstHabitButton":"Add Your First Habit",
-    "@addYourFirstHabitButton":{
-        "description":"Add Your First Habit area"
-    }
-    ,
-     "allreadyHaveKiwiButton":"Already have a KiWi account?",
-    "@allreadyHaveKiwiButton":{
-        "description":"Already have a KiWi account? area"
-    }
-    ,
-     "todayText":"Today",
-    "@todayText":{
-        "description":"todayText area"
-    }
-
-
-    ,
-     "introFirstScreen":"Energize your life",
-    "@introFirstScreen":{
-        "description":"Energize your life"
-    }
-
-     ,
-     "introFirstScreenDetail":"Create your workout goals that will boost your life energy with 🥝.",
-    "@introFirstScreen":{
-        "description":"Create your workout goals that will boost your life energy with 🥝."
-    }
-
-     ,
-     "introSecondScreen":"Remove Stress from Your Life",
-    "@introSecondScreen":{
-        "description":"Remove Stress from Your Life"
-    }
-
-     ,
-     "introSecondScreenDetail":"Make your plans and take a break from the stress of life with 🥝",
-    "@introSecondScreenDetail":{
-        "description":"Make your plans and take a break from the stress of life with 🥝"
-    }
-    ,
-     "introThirdScreen":"Focus on Your Personal Development",
-    "@introThirdScreen":{
-        "description":"Focus on Your Personal Development"
-    }
-
-     ,
-     "introThirdScreenDetail":"Streamline your life and achieve your goals with 🥝.",
-    "@introThirdScreenDetail":{
-        "description":"Streamline your life and achieve your goals with 🥝."
-    }
-
-
-
-,
-     "introFourthScreen":"Learn Regular Habits",
-    "@introFourthScreen":{
-        "description":"Learn Regular Habits"
-    }
-
-
-
-      ,
-     "introFourthScreenDetail":"Build positive habits into your life with 🥝.",
-    "@introFourthScreenDetail":{
-        "description":"Build positive habits into your life with 🥝."
-    }
-
-    ,
-     "chooseYourHabits":"Choose Your Habits",
-    "@chooseYourHabits":{
-        "description":"Choose Your Habits"
-    }
-
-    ,
-     "continueButton":"Continue",
-    "@continueButton":{
-        "description":"Continue"
-}
-         ,
-
-     "orButton":"Or",
-    "@orButton":{
-        "description":"Or"
-         
+    "appHeader": "KiWi - Habit App",
+    "@appHeader": {
+        "description": "Header of app in intro area"
     },
-     "defineYourHabit":"Define Your Habit",
-    "@defineYourHabit":{
-        "description":"Define Your Habit"
-
+    "addYourFirstHabitButton": "Add Your First Habit",
+    "@addYourFirstHabitButton": {
+        "description": "Add Your First Habit area"
+    },
+    "allreadyHaveKiwiButton": "Already have a KiWi account?",
+    "@allreadyHaveKiwiButton": {
+        "description": "Already have a KiWi account? area"
+    },
+    "todayText": "Today",
+    "@todayText": {
+        "description": "todayText area"
+    },
+    "introFirstScreen": "Energize your life",
+    "@introFirstScreen": {
+        "description": "Energize your life"
+    },
+    "introFirstScreenDetail": "Create your workout goals that will boost your life energy with 🥝.",
+    "@introFirstScreenDetail": {
+        "description": "Create your workout goals that will boost your life energy with 🥝."
+    },
+    "introSecondScreen": "Remove Stress from Your Life",
+    "@introSecondScreen": {
+        "description": "Remove Stress from Your Life"
+    },
+    "introSecondScreenDetail": "Make your plans and take a break from the stress of life with 🥝",
+    "@introSecondScreenDetail": {
+        "description": "Make your plans and take a break from the stress of life with 🥝"
+    },
+    "introThirdScreen": "Focus on Your Personal Development",
+    "@introThirdScreen": {
+        "description": "Focus on Your Personal Development"
+    },
+    "introThirdScreenDetail": "Streamline your life and achieve your goals with 🥝.",
+    "@introThirdScreenDetail": {
+        "description": "Streamline your life and achieve your goals with 🥝."
+    },
+    "introFourthScreen": "Learn Regular Habits",
+    "@introFourthScreen": {
+        "description": "Learn Regular Habits"
+    },
+    "introFourthScreenDetail": "Build positive habits into your life with 🥝.",
+    "@introFourthScreenDetail": {
+        "description": "Build positive habits into your life with 🥝."
+    },
+    "chooseYourHabits": "Choose Your Habits",
+    "@chooseYourHabits": {
+        "description": "Choose Your Habits"
+    },
+    "continueButton": "Continue",
+    "@continueButton": {
+        "description": "Continue"
+    },
+    "orButton": "Or",
+    "@orButton": {
+        "description": "Or"
+    },
+    "defineYourHabit": "Define Your Habit",
+    "@defineYourHabit": {
+        "description": "Define Your Habit"
+    },
+    "habitName": "Habit Name",
+    "@habitName": {
+        "description": "Habit Name"
+    },
+    "addToHabits": "Add to habits",
+    "@addToHabits": {
+        "description": "Add to habits"
+    },
+    "habitList": "Habit List",
+    "@habitList": {
+        "description": "Habit List"
+    },
+    "habitDetails": "Habit Details",
+    "@habitDetails": {
+        "description": "Habit Details"
+    },
+    "goalText": "Goal",
+    "@goalText": {
+        "description": "goalText"
+    },
+    "inADay": "in a day",
+    "@inADay": {
+        "description": "inADay"
+    },
+    "everyDay": "Every day",
+    "@everyDay": {
+        "description": "everyDay"
+    },
+    "nextButton": "Next",
+    "@nextButton": {
+        "description": "nextButton"
+    },
+    "previousButton": "Previous",
+    "@previousButton": {
+        "description": "previousButton"
+    },
+    "finishButton": "Finish",
+    "@finishButton": {
+        "description": "finishButton"
+    },
+    "signIn": "Sign In",
+    "@signIn": {
+        "description": "signIn"
+    },
+    "exitButton": "Exit",
+    "@exitButton": {
+        "description": "Exit"
+    },
+    "cancelButton": "Cancel",
+    "@cancelButton": {
+        "description": "cancelButton"
+    },
+    "deleteHabit": "Delete Habit",
+    "@deleteHabit": {
+        "description": "deleteHabit"
+    },
+    "deleteAccount": "Delete Account",
+    "@deleteAccount": {
+        "description": "deleteAccount"
+    },
+    "addNewHabit": "Add New Habit",
+    "@addNewHabit": {
+        "description": "addNewHabit"
+    },
+    "dontHaveKiwiAccount": "Sorry, you don't have a KiWi account",
+    "@dontHaveKiwiAccount": {
+        "description": "Sorry, you don't have a KiWi account"
+    },
+    "deleteAccountConfirm": "If you continue, you will lose your habits. Are you sure?",
+    "@deleteAccountConfirm": {
+        "description": "deleteAccountConfirm"
+    },
+    "reallyAsk": "Really?👀",
+    "@reallyAsk": {
+        "description": "reallyAsk"
+    },
+    "continueWith": "Continue with",
+    "@continueWith": {
+        "description": "continueWith"
+    },
+    "quickNotificationAdd": "Add A Quick Notification",
+    "@quickNotificationAdd": {
+        "description": "quickNotificationAdd"
+    },
+    "quickNotificationTextLabel": "Quick Notification Name",
+    "@quickNotificationTextLabel": {
+        "description": "quickNotificationTextLabel"
+    },
+    "scheduleNotification": "Schedule Notification",
+    "@scheduleNotification": {
+        "description": "scheduleNotification"
+    },
+    "reminderNotificationLabel": " time😎",
+    "@reminderNotificationLabel": {
+        "description": "reminderNotificationLabel"
+    },
+    "healthLabel": "Health",
+    "@healthLabel": {
+        "description": "healthLabel"
+    },
+    "sportLabel": "Sport",
+    "@sportLabel": {
+        "description": "sportLabel"
+    },
+    "studyLabel": "Study",
+    "@studyLabel": {
+        "description": "studyLabel"
+    },
+    "artLabel": "Art",
+    "@artLabel": {
+        "description": "artLabel"
+    },
+    "financeLabel": "Finance",
+    "@financeLabel": {
+        "description": "financeLabel"
+    },
+    "socialLabel": "Social",
+    "@socialLabel": {
+        "description": "socialLabel"
+    },
+    "quitABadHabitLabel": "Quit a Bad Habit",
+    "@quitABadHabitLabel": {
+        "description": "quitABadHabitLabel"
+    },
+    "youShouldOneHabit": "You should have at least one habit ",
+    "@youShouldOneHabit": {
+        "description": "You should have at least one habit"
+    },
+    "yoga": "Yoga",
+    "@yoga": {
+        "description": "Yoga"
+    },
+    "meditation": "Meditation",
+    "@meditation": {
+        "description": "meditation"
+    },
+    "drinkWater": "Drink Water",
+    "@drinkWater": {
+        "description": "drinkWater"
+    },
+    "sleepWell": "Sleep Well",
+    "@sleepWell": {
+        "description": "sleepWell"
+    },
+    "walk": "Walk",
+    "@walk": {
+        "description": "walk"
+    },
+    "pushUp": "Push Up",
+    "@pushUp": {
+        "description": "pushUp"
+    },
+    "run": "Run",
+    "@run": {
+        "description": "run"
+    },
+    "swim": "Swim",
+    "@swim": {
+        "description": "swim"
+    },
+    "readABook": "Read a Book",
+    "@readABook": {
+        "description": "readABook"
+    },
+    "learnEnglish": "Learn English",
+    "@learnEnglish": {
+        "description": "learnEnglish"
+    },
+    "mathExercise": "Math Exercise",
+    "@mathExercise": {
+        "description": "mathExercise"
+    },
+    "repeatToday": "Repeat Today",
+    "@repeatToday": {
+        "description": "repeatToday"
+    },
+    "playGuitar": "Play Guitar",
+    "@playGuitar": {
+        "description": "playGuitar"
+    },
+    "painting": "Painting",
+    "@painting": {
+        "description": "painting"
+    },
+    "playPiano": "Play Piano",
+    "@playPiano": {
+        "description": "playPiano"
+    },
+    "dance": "Dance",
+    "@dance": {
+        "description": "dance"
+    },
+    "savingMoney": "Saving Money",
+    "@savingMoney": {
+        "description": "savingMoney"
+    },
+    "checkStocks": "Check Stocks",
+    "@checkStocks": {
+        "description": "checkStocks"
+    },
+    "donate": "Donate",
+    "@donate": {
+        "description": "donate"
+    },
+    "checkCurrencies": "Check Currencies",
+    "@checkCurrencies": {
+        "description": "checkCurrencies"
+    },
+    "cinema": "Cinema",
+    "@cinema": {
+        "description": "cinema"
+    },
+    "meetWithFriends": "Meet With Friends",
+    "@meetWithFriends": {
+        "description": "meetWithFriends"
+    },
+    "theater": "Theater",
+    "@theater": {
+        "description": "theater"
+    },
+    "playGames": "Play Games",
+    "@playGames": {
+        "description": "playGames"
+    },
+    "quitSmoking": "Quit Smoking",
+    "@quitSmoking": {
+        "description": "quitSmoking"
+    },
+    "quitEatingSnacks": "Quit Eating Snacks",
+    "@quitEatingSnacks": {
+        "description": "quitEatingSnacks"
+    },
+    "quitAlcohol": "Quit Alcohol",
+    "@quitAlcohol": {
+        "description": "quitAlcohol"
+    },
+    "stopSwearing": "Stop Swearing",
+    "@stopSwearing": {
+        "description": "stopSwearing"
+    },
+    "warning": "Warning",
+    "@warning": {
+        "description": "warning"
+    },
+    "willLoseYourData": "You will lose your habits data, please sign up before leave.",
+    "@willLoseYourData": {
+        "description": "willLoseYourData"
+    },
+    "swipeLabel": "Swipe",
+    "@swipeLabel": {
+        "description": "swipeLabel"
+    },
+    "plsPickALoginMethod": "Please pick a login method",
+    "@plsPickALoginMethod": {
+        "description": "plsPickALoginMethod"
+    },
+    "supportUs": "Support By Watching Ads",
+    "@supportUs": {
+        "description": "Support By Watching Ads"
+    },
+    "cantDeleteAllHabits": "You can't delete all your habits.",
+    "@cantDeleteAllHabits": {
+        "description": "cantDeleteAllHabits"
+    },
+    "myChallenguesTab": "My Challenges",
+    "@myChallenguesTab": {
+        "description": "My Challenges tab label"
+    },
+    "discoverTab": "Discover",
+    "@discoverTab": {
+        "description": "Discover tab label"
+    },
+    "profileTab": "Profile",
+    "@profileTab": {
+        "description": "Profile tab label"
+    },
+    "joinChallenge": "Join Challenge",
+    "@joinChallenge": {
+        "description": "Join challenge button"
+    },
+    "leaveChallenge": "Leave Challenge",
+    "@leaveChallenge": {
+        "description": "Leave challenge button"
+    },
+    "checkInToday": "Check In Today",
+    "@checkInToday": {
+        "description": "Check in today button"
+    },
+    "alreadyCheckedIn": "Checked in today!",
+    "@alreadyCheckedIn": {
+        "description": "Already checked in today message"
+    },
+    "daysLeft": "{count} days left",
+    "@daysLeft": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "participants": "{count} participants",
+    "@participants": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "leaderboard": "Leaderboard",
+    "@leaderboard": {
+        "description": "Leaderboard label"
+    },
+    "createChallenge": "Create Challenge",
+    "@createChallenge": {
+        "description": "Create challenge button"
+    },
+    "challengeTitle": "Challenge Title",
+    "@challengeTitle": {
+        "description": "Challenge title field label"
+    },
+    "challengeDescription": "Description",
+    "@challengeDescription": {
+        "description": "Challenge description field label"
+    },
+    "duration": "Duration",
+    "@duration": {
+        "description": "Duration field label"
+    },
+    "category": "Category",
+    "@category": {
+        "description": "Category field label"
+    },
+    "dailyGoal": "Daily Goal",
+    "@dailyGoal": {
+        "description": "Daily goal field label"
+    },
+    "checkInSuccess": "Check-in complete!",
+    "@checkInSuccess": {
+        "description": "Check-in success message"
+    },
+    "streakLabel": "{count} day streak",
+    "@streakLabel": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "signOut": "Sign Out",
+    "@signOut": {
+        "description": "Sign out button"
+    },
+    "totalPoints": "KiWi Points",
+    "@totalPoints": {
+        "description": "Total points label"
+    },
+    "profile": "Profile",
+    "@profile": {
+        "description": "Profile page title"
+    },
+    "noBadgesYet": "No badges yet",
+    "@noBadgesYet": {
+        "description": "No badges yet message"
+    },
+    "loginTitle": "Welcome back",
+    "@loginTitle": {
+        "description": "Login page title"
+    },
+    "signUpTitle": "Create Account",
+    "@signUpTitle": {
+        "description": "Sign up page title"
+    },
+    "loginWithGoogle": "Continue with Google",
+    "@loginWithGoogle": {
+        "description": "Google login button"
+    },
+    "loginWithApple": "Continue with Apple",
+    "@loginWithApple": {
+        "description": "Apple login button"
+    },
+    "loginWithEmail": "Sign In",
+    "@loginWithEmail": {
+        "description": "Email login button"
+    },
+    "noAccount": "Don't have an account?",
+    "@noAccount": {
+        "description": "No account prompt"
+    },
+    "alreadyAccount": "Already have an account?",
+    "@alreadyAccount": {
+        "description": "Already have account prompt"
+    },
+    "signUpButton": "Create Account",
+    "@signUpButton": {
+        "description": "Sign up button"
     }
-    ,
-     "habitName":"Habit Name",
-    "@habitName":{
-        "description":"Habit Name"
-
-    }
-     ,
-     "addToHabits":"Add to habits",
-    "@addToHabits":{
-        "description":"Add to habits"
-
-    }
-
-     ,
-     "habitList":"Habit List",
-    "@habitList":{
-        "description":"Habit List"
-
-    }
-
-     ,
-     "habitDetails":"Habit Details",
-    "@habitDetails":{
-        "description":"Habit Details"
-
-    }
-     ,
-     "goalText":"Goal",
-    "@goalText":{
-        "description":"goalText"
-
-    }
-
-    ,
-     "inADay":"in a day",
-    "@inADay":{
-        "description":"inADay"
-
-    }
-
-    ,
-     "everyDay":"Every day",
-    "@everyDay":{
-        "description":"everyDay"
-
-    }
-
-      ,
-     "nextButton":"Next",
-    "@nextButton":{
-        "description":"nextButton"
-
-    }
-
-     ,
-     "previousButton":"Previous",
-    "@previousButton":{
-        "description":"previousButton"
-
-    }
-    ,
-     "finishButton":"Finish",
-    "@finishButton":{
-        "description":"finishButton"
-
-    }
-
-    ,
-     "signIn":"Sign In",
-    "@signIn":{
-        "description":"signIn"
-
-    }
-
-     ,
-     "exitButton":"Exit",
-    "@exitButton":{
-        "description":"Exit"
-
-    }
-    ,
-     "cancelButton":"Cancel",
-    "@cancelButton":{
-        "description":"cancelButton"
-
-    }
-    ,
-     "deleteHabit":"Delete Habit",
-    "@deleteHabit":{
-        "description":"deleteHabit"
-
-    }
-
-
-    ,
-     "deleteAccount":"Delete Account",
-    "@deleteAccount":{
-        "description":"deleteAccount"
-
-    }
-
-     ,
-     "addNewHabit":"Add New Habit",
-    "@addNewHabit":{
-        "description":"addNewHabit"
-
-    }
-
-    ,
-     "dontHaveKiwiAccount":"Sorry, you don't have a KiWi account",
-    "@dontHaveKiwiAccount":{
-        "description":"Sorry, you don't have a KiWi account"
-
-    }
-
-    ,
-     "deleteAccountConfirm":"If you continue, you will lose your habits. Are you sure?",
-    "@deleteAccountConfirm":{
-        "description":"Sorry, you don't have a KiWi account"
-
-    }
-
-    ,
-     "reallyAsk":"Really?👀",
-    "@reallyAsk":{
-        "description":"reallyAsk"
-
-    }
-
-
-      ,
-     "continueWith":"Continue with",
-    "@continueWith":{
-        "description":"continueWith"
-
-    }
-
-    ,
-     "quickNotificationAdd":"Add A Quick Notification",
-    "@quickNotificationAdd":{
-        "description":"quickNotificationAdd"
-
-    }
-
-    ,
-     "quickNotificationTextLabel":"Quick Notification Name",
-    "@quickNotificationTextLabel":{
-        "description":"quickNotificationTextLabel"
-
-    }
-
-     ,
-     "scheduleNotification":"Schedule Notification",
-    "@scheduleNotification":{
-        "description":"scheduleNotification"
-
-    }
-
-
- ,
-     "reminderNotificationLabel":" time😎",
-    "@reminderNotificationLabel":{
-        "description":"scheduleNotification"
-
-    }
-
-     ,
-     "healthLabel":"Health",
-    "@healthLabel":{
-        "description":"healthLabel"
-
-    }
-
- ,
-     "sportLabel":"Sport",
-    "@sportLabel":{
-        "description":"sportLabel"
-
-    }
-
-
- ,
-     "studyLabel":"Study",
-    "@studyLabel":{
-        "description":"studyLabel"
-
-    }
-
-    ,
-     "artLabel":"Art",
-    "@artLabel":{
-        "description":"artLabel"
-
-    }
-
-    ,
-     "financeLabel":"Finance",
-    "@financeLabel":{
-        "description":"financeLabel"
-
-    }
-
-
-     ,
-     "socialLabel":"Social",
-    "@socialLabel":{
-        "description":"socialLabel"
-
-    }
-
-
-     ,
-     "quitABadHabitLabel":"Quit a Bad Habit",
-    "@quitABadHabitLabel":{
-        "description":"quitABadHabitLabel"
-
-    }
-
- ,
-     "youShouldOneHabit":"You should have at least one habit ",
-    "@youShouldOneHabit":{
-        "description":"You should have at least one habit"
-
-    }
-
-,
-     "yoga":"Yoga",
-    "@yoga":{
-        "description":"Yoga"
-
-    }
-
-    ,
-     "meditation":"Meditasyon",
-    "@meditation":{
-        "description":"meditation"
-
-    }
-    ,
-     "drinkWater":"Drink Water",
-    "@drinkWater":{
-        "description":"drinkWater"
-
-    }
-    ,
-     "sleepWell":"Sleep Well",
-    "@sleepWell":{
-        "description":"sleepWell"
-
-    }
-
-,
-     "walk":"Walk",
-    "@walk":{
-        "description":"walk"
-
-    }
-
-    ,
-     "pushUp":"Push Up",
-    "@pushUp":{
-        "description":"pushUp"
-
-    }
-
-    ,
-     "run":"Run",
-    "@run":{
-        "description":"run"
-
-    }
-
-    ,
-     "swim":"Swim",
-    "@swim":{
-        "description":"swim"
-
-    }
-
-    ,
-     "readABook":"Read a Book",
-    "@readABook":{
-        "description":"readABook"
-
-    }
-    ,
-     "learnEnglish":"Learn English",
-    "@learnEnglish":{
-        "description":"learnEnglish"
-
-    }
-    ,
-     "mathExercise":"Math Exercise",
-    "@mathExercise":{
-        "description":"mathExercise"
-
-    }
-    ,
-     "repeatToday":"Repeat Today",
-    "@repeatToday":{
-        "description":"repeatToday"
-
-    }
-    ,
-     "playGuitar":"Play Guitar",
-    "@playGuitar":{
-        "description":"playGuitar"
-
-    }
-    ,
-     "painting":"Painting",
-    "@painting":{
-        "description":"painting"
-
-    }
-    ,
-     "playPiano":"Play Piano",
-    "@playPiano":{
-        "description":"playPiano"
-
-    }
-    ,
-     "dance":"Dance",
-    "@dance":{
-        "description":"dance"
-
-    }
-    ,
-     "savingMoney":"Saving Money",
-    "@savingMoney":{
-        "description":"savingMoney"
-
-    }
-    ,
-     "checkStocks":"Check Stocks",
-    "@checkStocks":{
-        "description":"checkStocks"
-
-    }
-    ,
-     "donate":"Donate",
-    "@donate":{
-        "description":"donate"
-
-    }
-    ,
-     "checkCurrencies":"Check Currencies",
-    "@checkCurrencies":{
-        "description":"checkCurrencies"
-
-    }
-    ,
-     "cinema":"Cinema",
-    "@cinema":{
-        "description":"cinema"
-
-    }
-    ,
-     "meetWithFriends":"Meet With Friends",
-    "@meetWithFriends":{
-        "description":"meetWithFriends"
-
-    }
-    ,
-     "theater":"Theater",
-    "@theater":{
-        "description":"theater"
-
-    }
-    ,
-     "playGames":"Play Games",
-    "@playGames":{
-        "description":"playGames"
-
-    }
-    ,
-     "quitSmoking":"Quit Smoking",
-    "@quitSmoking":{
-        "description":"quitSmoking"
-
-    }
-    ,
-     "quitEatingSnacks":"Quit Eating Snacks",
-    "@quitEatingSnacks":{
-        "description":"quitEatingSnacks"
-
-    }
-    ,
-     "quitAlcohol":"Quit Alcohol",
-    "@quitAlcohol":{
-        "description":"quitAlcohol"
-
-    }
-    ,
-     "stopSwearing":"Stop Swearing",
-    "@stopSwearing":{
-        "description":"stopSwearing"
-
-    }
-
-    ,
-     "warning":"Warning",
-    "@warning":{
-        "description":"warning"
-
-    }
-
-    ,
-     "willLoseYourData":"You will lose your habits data, please sign up before leave.",
-    "@willLoseYourData":{
-        "description":"willLoseYourData"
-
-    }
-
-    ,
-     "swipeLabel":"Swipe",
-    "@swipeLabel":{
-        "description":"swipeLabel"
-
-    }
-
-    ,
-     "plsPickALoginMethod":"Please pick a login method",
-    "@plsPickALoginMethod":{
-        "description":"plsPickALoginMethod"
-
-    }
-
-
-     ,
-     "supportUs":"Support By Watching Ads",
-    "@supportUs":{
-        "description":"Support By Watching Ads"
-
-    }
-
-     ,
-     "cantDeleteAllHabits":"You can't delete all your habits.",
-    "@cantDeleteAllHabits":{
-        "description":"cantDeleteAllHabits"
-
-    }
-
-
-
 }

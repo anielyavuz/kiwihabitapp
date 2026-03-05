@@ -1,71 +1,57 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:kiwihabitapp/auth/authenticationStreamer.dart';
-import 'package:kiwihabitapp/pages/chooseyourhabits.dart';
-import 'package:kiwihabitapp/pages/intro.dart';
-import 'package:kiwihabitapp/pages/mainPage.dart';
 import 'package:provider/provider.dart';
+import 'package:kiwihabitapp/auth/authenticationStreamer.dart';
+import 'package:kiwihabitapp/pages/auth/loginPage.dart';
+import 'package:kiwihabitapp/pages/home/homePage.dart';
+import 'package:kiwihabitapp/providers/challenge_provider.dart';
 
 class CheckAuth extends StatefulWidget {
+  const CheckAuth({Key? key}) : super(key: key);
+
   @override
   _CheckAuthState createState() => _CheckAuthState();
 }
 
 class _CheckAuthState extends State<CheckAuth> {
-  bool _login = false;
-  late User _user;
-  rootControl() {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        print('User is currently signed out!');
-      } else {
-        // print('User is signed in!');
-        setState(() {
-          _login = true;
-        });
-      }
-      setState(() {
-        _user = user!;
-      });
-    });
-  }
-
-  @override
-  void initState() {
-    rootControl();
-
-    //LOGOYU BELLİ SURE GOSTEREN KOD BURASIYDI YORUMA ALINDI
-//     Future.delayed(const Duration(milliseconds: 1500), () {
-// // Here you can write your code
-//     });
-    // rootControl();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return (_login)
-        ? StreamProvider.value(
-            value: DatabaseService(uid: _user.uid).people,
-            initialData: null,
-            child: DatabaseService(uid: _user.uid).people != null
-                ? StreamProvider.value(
-                    initialData: null,
-                    value: DatabaseService2(uid: _user.uid).people,
-                    child: DatabaseService2(uid: _user.uid).people != null
-                        ? MainPage()
-                        : Scaffold(
-                            body: Container(
-                                color: Colors.white,
-                                child: Center(child: Text("Loading...")))),
-                  )
-                : Scaffold(
-                    body: Container(
-                        color: Colors.white,
-                        child: Center(child: Text("Loading...")))),
-          )
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            backgroundColor: Color.fromRGBO(21, 9, 35, 1),
+            body: Center(
+              child: CircularProgressIndicator(color: Color(0xffE4EBDE)),
+            ),
+          );
+        }
 
-        // MainPage()
-        : IntroPage();
+        final user = snapshot.data;
+
+        if (user == null) {
+          return const LoginPage();
+        }
+
+        return MultiProvider(
+          providers: [
+            StreamProvider<DocumentSnapshot?>.value(
+              value: UserStream(uid: user.uid).stream,
+              initialData: null,
+            ),
+            StreamProvider<QuerySnapshot?>.value(
+              value: ConfigStream().stream,
+              initialData: null,
+            ),
+            ChangeNotifierProvider(
+              create: (_) => ChallengeProvider(uid: user.uid),
+            ),
+          ],
+          child: const HomePage(),
+        );
+      },
+    );
   }
 }

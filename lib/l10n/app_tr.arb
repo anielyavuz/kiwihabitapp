@@ -1,120 +1,218 @@
 {
-    "language":"Turkce",
-    "helloWorld":"Merhaba Dünya!",
-    "appHeader":"KiWi - Alışkanlık Takip",
-
-    "addYourFirstHabitButton":"İlk alışkanlığını ekle",
-    "allreadyHaveKiwiButton":"Zaten bir KiWi hesabın mı var?",
-    "todayText":"Bugün",
-     "introFirstScreen":"Hayatınıza Haraket Katın",
-     "introFirstScreenDetail":"🥝 ile hayat enerjinizi yükseltecek egzersiz hedeflerinizi oluşturun.",
-    "introSecondScreen":"Stresi Hayatınızdan Çıkarın",
-     "introSecondScreenDetail":"🥝 ile planlarınızı yapın ve hayatın stresine ara verin"
-
-     ,
-    "introThirdScreen":"Kişisel Gelişiminize Odaklanın",
-     "introThirdScreenDetail":"🥝 ile hayatınızı düzene sokun ve hedeflerinize ulaşın."
-    
-     ,
-    "introFourthScreen":"Düzenli Alışkanlıklar Edinin",
-     "introFourthScreenDetail":"🥝 ile hayatınıza pozitif alışkanlıklar kazandırın."
-
-
-,"chooseYourHabits":"Alışkanlıklarınızı Seçin"
-,"continueButton":"Devam et"
-,"orButton":"veya"
-,"defineYourHabit":"Alışkanlık Tanımla"
-
-
-,"habitName":"Alışkanlık Adı"
-,"addToHabits":"Alışkanlıklarıma Ekle"
-,"habitList":"Alışkanlık Listesi"
-
-
-,"habitDetails":"Alışkanlık Detayları"
-,"goalText":"Hedef"
-,"inADay":"kere (Günde)"
-,"everyDay":"Her gün"
-
-,"nextButton":"İleri"
-,"previousButton":"Geri"
-,"finishButton":"Bitir"
-
-
-
-,"signIn":"Giriş Yap"
-,"exitButton":"Çıkış"
-,"cancelButton":"İptal"
-,"deleteHabit":"Alışkanlığı Sil"
-,"deleteAccount":"Hesabımı Sil"
-,"addNewHabit":"Yeni Alışkanlık Ekle"
-
-,"dontHaveKiwiAccount":"Mevcutta bir KiWi hesabın yok."
-,"deleteAccountConfirm":"Eğer devam edersen alışkanlık verilerini kaybedeceksin. Emin misin?"
-,"reallyAsk":"Emin misin?👀"
-
-,"continueWith":"Şununla devam et:"
-
-,"quickNotificationAdd":"Hızlı Hatırlatma Ekle"
-,"quickNotificationTextLabel":"Hızlı Hatırlama Adı"
-,"scheduleNotification":"Hatırlatmayı Oluştur"
-
-,"reminderNotificationLabel":" zamanı😎"
-,"healthLabel":"Sağlık"
-
-,"sportLabel":"Spor"
-
-,"studyLabel":"Çalışma"
-,"artLabel":"Sanat"
-,"financeLabel":"Finans"
-,"socialLabel":"Sosyal"
-,"quitABadHabitLabel":"Kötü Alışkanlığı Bırak"
-,"youShouldOneHabit":"En az bir alışkanlığınız olmalı "
-
-
-
-,"yoga":"Yoga"
-,"meditation":"Meditasyon"
-,"drinkWater":"Su İç"
-,"sleepWell":"Uyku Zamanı"
-,"walk":"Yürü"
-,"pushUp":"Şınav Çek"
-,"run":"Koş"
-,"swim":"Yüz"
-,"readABook":"Kitap Oku"
-,"learnEnglish":"İngilizce Öğren"
-,"mathExercise":"Matematik Çalış"
-,"repeatToday":"Tekrar Yap"
-,"playGuitar":"Gitar Çal"
-,"painting":"Resim Yap"
-,"playPiano":"Piyano Çal"
-,"dance":"Dans"
-,"savingMoney":"Para Biriktir"
-,"checkStocks":"Borsa Takip"
-,"donate":"Bağış Yap"
-,"checkCurrencies":"Döviz Takip"
-,"cinema":"Sinema"
-,"meetWithFriends":"Arkadaşlarınla Buluş"
-,"theater":"Tiyatro"
-,"playGames":"Oyun Oyna"
-,"quitSmoking":"Sigarayı Bırak"
-,"quitEatingSnacks":"Abur cuburu Bırak"
-,"quitAlcohol":"Alkolü Bırak"
-,"stopSwearing":"Küfürü Bırak"
-
-
-,"warning":"Dikkat"
-,"willLoseYourData":"Eğer oturum açmadan çıkış yaparsan tüm alışkanlıklarını kaybediceksin."
-
-,"swipeLabel":"Kaydır"
-,"plsPickALoginMethod":"Lütfen oturum açma methodu seçin"
-,"supportUs":"Reklam İzle & Destek Ol"
-
-,"cantDeleteAllHabits":"En az bir alışkanlığınız bulunmalıdır."
-
-
-
-
-
-
+    "language": "Turkce",
+    "helloWorld": "Merhaba Dünya!",
+    "appHeader": "KiWi - Alışkanlık Takip",
+    "addYourFirstHabitButton": "İlk alışkanlığını ekle",
+    "allreadyHaveKiwiButton": "Zaten bir KiWi hesabın mı var?",
+    "todayText": "Bugün",
+    "introFirstScreen": "Hayatınıza Haraket Katın",
+    "introFirstScreenDetail": "🥝 ile hayat enerjinizi yükseltecek egzersiz hedeflerinizi oluşturun.",
+    "introSecondScreen": "Stresi Hayatınızdan Çıkarın",
+    "introSecondScreenDetail": "🥝 ile planlarınızı yapın ve hayatın stresine ara verin",
+    "introThirdScreen": "Kişisel Gelişiminize Odaklanın",
+    "introThirdScreenDetail": "🥝 ile hayatınızı düzene sokun ve hedeflerinize ulaşın.",
+    "introFourthScreen": "Düzenli Alışkanlıklar Edinin",
+    "introFourthScreenDetail": "🥝 ile hayatınıza pozitif alışkanlıklar kazandırın.",
+    "chooseYourHabits": "Alışkanlıklarınızı Seçin",
+    "continueButton": "Devam et",
+    "orButton": "veya",
+    "defineYourHabit": "Alışkanlık Tanımla",
+    "habitName": "Alışkanlık Adı",
+    "addToHabits": "Alışkanlıklarıma Ekle",
+    "habitList": "Alışkanlık Listesi",
+    "habitDetails": "Alışkanlık Detayları",
+    "goalText": "Hedef",
+    "inADay": "kere (Günde)",
+    "everyDay": "Her gün",
+    "nextButton": "İleri",
+    "previousButton": "Geri",
+    "finishButton": "Bitir",
+    "signIn": "Giriş Yap",
+    "exitButton": "Çıkış",
+    "cancelButton": "İptal",
+    "deleteHabit": "Alışkanlığı Sil",
+    "deleteAccount": "Hesabımı Sil",
+    "addNewHabit": "Yeni Alışkanlık Ekle",
+    "dontHaveKiwiAccount": "Mevcutta bir KiWi hesabın yok.",
+    "deleteAccountConfirm": "Eğer devam edersen alışkanlık verilerini kaybedeceksin. Emin misin?",
+    "reallyAsk": "Emin misin?👀",
+    "continueWith": "Şununla devam et:",
+    "quickNotificationAdd": "Hızlı Hatırlatma Ekle",
+    "quickNotificationTextLabel": "Hızlı Hatırlama Adı",
+    "scheduleNotification": "Hatırlatmayı Oluştur",
+    "reminderNotificationLabel": " zamanı😎",
+    "healthLabel": "Sağlık",
+    "sportLabel": "Spor",
+    "studyLabel": "Çalışma",
+    "artLabel": "Sanat",
+    "financeLabel": "Finans",
+    "socialLabel": "Sosyal",
+    "quitABadHabitLabel": "Kötü Alışkanlığı Bırak",
+    "youShouldOneHabit": "En az bir alışkanlığınız olmalı ",
+    "yoga": "Yoga",
+    "meditation": "Meditasyon",
+    "drinkWater": "Su İç",
+    "sleepWell": "Uyku Zamanı",
+    "walk": "Yürü",
+    "pushUp": "Şınav Çek",
+    "run": "Koş",
+    "swim": "Yüz",
+    "readABook": "Kitap Oku",
+    "learnEnglish": "İngilizce Öğren",
+    "mathExercise": "Matematik Çalış",
+    "repeatToday": "Tekrar Yap",
+    "playGuitar": "Gitar Çal",
+    "painting": "Resim Yap",
+    "playPiano": "Piyano Çal",
+    "dance": "Dans",
+    "savingMoney": "Para Biriktir",
+    "checkStocks": "Borsa Takip",
+    "donate": "Bağış Yap",
+    "checkCurrencies": "Döviz Takip",
+    "cinema": "Sinema",
+    "meetWithFriends": "Arkadaşlarınla Buluş",
+    "theater": "Tiyatro",
+    "playGames": "Oyun Oyna",
+    "quitSmoking": "Sigarayı Bırak",
+    "quitEatingSnacks": "Abur cuburu Bırak",
+    "quitAlcohol": "Alkolü Bırak",
+    "stopSwearing": "Küfürü Bırak",
+    "warning": "Dikkat",
+    "willLoseYourData": "Eğer oturum açmadan çıkış yaparsan tüm alışkanlıklarını kaybediceksin.",
+    "swipeLabel": "Kaydır",
+    "plsPickALoginMethod": "Lütfen oturum açma methodu seçin",
+    "supportUs": "Reklam İzle & Destek Ol",
+    "cantDeleteAllHabits": "En az bir alışkanlığınız bulunmalıdır.",
+    "myChallenguesTab": "Mücadelelerim",
+    "@myChallenguesTab": {
+        "description": "My Challenges tab label"
+    },
+    "discoverTab": "Keşfet",
+    "@discoverTab": {
+        "description": "Discover tab label"
+    },
+    "profileTab": "Profil",
+    "@profileTab": {
+        "description": "Profile tab label"
+    },
+    "joinChallenge": "Katıl",
+    "@joinChallenge": {
+        "description": "Join challenge button"
+    },
+    "leaveChallenge": "Ayrıl",
+    "@leaveChallenge": {
+        "description": "Leave challenge button"
+    },
+    "checkInToday": "Bugün Giriş Yap",
+    "@checkInToday": {
+        "description": "Check in today button"
+    },
+    "alreadyCheckedIn": "Bugün giriş yapıldı!",
+    "@alreadyCheckedIn": {
+        "description": "Already checked in today message"
+    },
+    "daysLeft": "{count} gün kaldı",
+    "@daysLeft": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "participants": "{count} katılımcı",
+    "@participants": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "leaderboard": "Sıralama",
+    "@leaderboard": {
+        "description": "Leaderboard label"
+    },
+    "createChallenge": "Mücadele Oluştur",
+    "@createChallenge": {
+        "description": "Create challenge button"
+    },
+    "challengeTitle": "Mücadele Başlığı",
+    "@challengeTitle": {
+        "description": "Challenge title field label"
+    },
+    "challengeDescription": "Açıklama",
+    "@challengeDescription": {
+        "description": "Challenge description field label"
+    },
+    "duration": "Süre",
+    "@duration": {
+        "description": "Duration field label"
+    },
+    "category": "Kategori",
+    "@category": {
+        "description": "Category field label"
+    },
+    "dailyGoal": "Günlük Hedef",
+    "@dailyGoal": {
+        "description": "Daily goal field label"
+    },
+    "checkInSuccess": "Giriş tamamlandı!",
+    "@checkInSuccess": {
+        "description": "Check-in success message"
+    },
+    "streakLabel": "{count} günlük seri",
+    "@streakLabel": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "signOut": "Çıkış Yap",
+    "@signOut": {
+        "description": "Sign out button"
+    },
+    "totalPoints": "KiWi Puanı",
+    "@totalPoints": {
+        "description": "Total points label"
+    },
+    "profile": "Profil",
+    "@profile": {
+        "description": "Profile page title"
+    },
+    "noBadgesYet": "Henüz rozet yok",
+    "@noBadgesYet": {
+        "description": "No badges yet message"
+    },
+    "loginTitle": "Tekrar hoş geldin",
+    "@loginTitle": {
+        "description": "Login page title"
+    },
+    "signUpTitle": "Hesap Oluştur",
+    "@signUpTitle": {
+        "description": "Sign up page title"
+    },
+    "loginWithGoogle": "Google ile devam et",
+    "@loginWithGoogle": {
+        "description": "Google login button"
+    },
+    "loginWithApple": "Apple ile devam et",
+    "@loginWithApple": {
+        "description": "Apple login button"
+    },
+    "loginWithEmail": "Giriş Yap",
+    "@loginWithEmail": {
+        "description": "Email login button"
+    },
+    "noAccount": "Hesabın yok mu?",
+    "@noAccount": {
+        "description": "No account prompt"
+    },
+    "alreadyAccount": "Zaten hesabın var mı?",
+    "@alreadyAccount": {
+        "description": "Already have account prompt"
+    },
+    "signUpButton": "Hesap Oluştur",
+    "@signUpButton": {
+        "description": "Sign up button"
+    }
 }

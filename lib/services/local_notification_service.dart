@@ -1,30 +1,18 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/subjects.dart';
 
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
-import 'package:timezone/data/latest_all.dart' as tz;
-import 'package:path_provider/path_provider.dart';
-import 'package:timezone/timezone.dart' as tz;
-
-class ReceivedNotification {
-  ReceivedNotification({
-    required this.id,
-    required this.title,
-    required this.body,
-    required this.payload,
-  });
-
-  final int id;
-  final String? title;
-  final String? body;
-  final String? payload;
-}
+import 'package:timezone/data/latest_all.dart' as tzdata;
 
 class NotificationsServices {
-  // static const String darwinNotificationCategoryText = 'textCategory';
+  // Singleton
+  static final NotificationsServices _instance = NotificationsServices._internal();
+  factory NotificationsServices() => _instance;
+  NotificationsServices._internal();
 
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -32,56 +20,73 @@ class NotificationsServices {
 
   final AndroidInitializationSettings _androidInitializationSettings =
       AndroidInitializationSettings('@drawable/ic_kiwilogo');
-  final IOSInitializationSettings iosInitializationSettings =
-      IOSInitializationSettings(
+  final DarwinInitializationSettings iosInitializationSettings =
+      DarwinInitializationSettings(
           requestAlertPermission: true,
           requestBadgePermission: true,
-          requestSoundPermission: true,
-          onDidReceiveLocalNotification: _onDidReceiveLocalNotification);
-
-  final StreamController didReceiveLocalNotificationStream =
-      StreamController.broadcast();
-
-  // final DarwinInitializationSettings initializationSettingsDarwin =
-  //     DarwinInitializationSettings(
-  //   requestAlertPermission: false,
-  //   requestBadgePermission: false,
-  //   requestSoundPermission: false,
-  //   onDidReceiveLocalNotification:
-  //       (int id, String? title, String? body, String? payload) async {
-  //     // didReceiveLocalNotificationStream.add(
-  //     //   ReceivedNotification(
-  //     //     id: id,
-  //     //     title: title,
-  //     //     body: body,
-  //     //     payload: payload,
-  //     //   ),
-  //     // );
-  //   },
-  //   // notificationCategories: darwinNotificationCategories,
-  // );
-
-  static void _onDidReceiveLocalNotification(
-      int id, String? title, String? body, String? payload) {
-    print("id $id");
-  }
+          requestSoundPermission: true);
 
   Future<void> initialiseNotifications() async {
-    tz.initializeTimeZones();
+    tzdata.initializeTimeZones();
+    final currentTimezone = await FlutterTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(currentTimezone));
 
     InitializationSettings initializationSettings = InitializationSettings(
       android: _androidInitializationSettings,
       iOS: iosInitializationSettings,
     );
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: onSelectNotification);
+        onDidReceiveNotificationResponse: (NotificationResponse response) {
+      if (response.payload != null && response.payload!.isNotEmpty) {
+        onNotificationClick.add(response.payload);
+      }
+    });
   }
 
-  void onSelectNotification(String? payload) {
-    print('payload $payload');
-    if (payload != null && payload.isNotEmpty) {
-      onNotificationClick.add(payload);
+  /// Schedules a daily repeating notification at the given [time].
+  /// Uses [id] to allow cancellation later (cancelNotification(id)).
+  Future<void> scheduleDailyNotification({
+    required int id,
+    required String title,
+    required String body,
+    required TimeOfDay time,
+  }) async {
+    const notificationDetails = NotificationDetails(
+      android: AndroidNotificationDetails(
+        'kiwi_daily',
+        'Daily Reminders',
+        importance: Importance.max,
+        priority: Priority.high,
+      ),
+      iOS: DarwinNotificationDetails(),
+    );
+
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      _nextInstanceOfTime(time),
+      notificationDetails,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
+    );
+  }
+
+  /// Cancels a previously scheduled notification by [id].
+  Future<void> cancelNotification(int id) async {
+    await _flutterLocalNotificationsPlugin.cancel(id);
+  }
+
+  tz.TZDateTime _nextInstanceOfTime(TimeOfDay time) {
+    final now = tz.TZDateTime.now(tz.local);
+    var scheduled = tz.TZDateTime(
+        tz.local, now.year, now.month, now.day, time.hour, time.minute);
+    if (scheduled.isBefore(now)) {
+      scheduled = scheduled.add(const Duration(days: 1));
     }
+    return scheduled;
   }
 
   void sendNotifications(String title, String body) async {
@@ -94,7 +99,8 @@ class NotificationsServices {
         AndroidNotificationDetails('channelId', 'channelName',
             importance: Importance.max, priority: Priority.high);
 
-    IOSNotificationDetails iosNotificationDetails = IOSNotificationDetails();
+    DarwinNotificationDetails iosNotificationDetails =
+        DarwinNotificationDetails();
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: iosNotificationDetails);
 
@@ -113,7 +119,8 @@ class NotificationsServices {
         AndroidNotificationDetails('channelId', 'channelName',
             importance: Importance.max, priority: Priority.high);
 
-    IOSNotificationDetails iosNotificationDetails = IOSNotificationDetails();
+    DarwinNotificationDetails iosNotificationDetails =
+        DarwinNotificationDetails();
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: iosNotificationDetails);
 
@@ -125,7 +132,7 @@ class NotificationsServices {
           Duration(seconds: seconds),
         ),
         notificationDetails,
-        androidAllowWhileIdle: true,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
   }
@@ -141,13 +148,14 @@ class NotificationsServices {
         AndroidNotificationDetails('channelId', 'channelName',
             importance: Importance.max, priority: Priority.high);
 
-    IOSNotificationDetails iosNotificationDetails = IOSNotificationDetails();
+    DarwinNotificationDetails iosNotificationDetails =
+        DarwinNotificationDetails();
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: iosNotificationDetails);
 
     await _flutterLocalNotificationsPlugin.zonedSchedule(
         id, title, body, tzz, notificationDetails,
-        androidAllowWhileIdle: true,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
   }
@@ -163,7 +171,8 @@ class NotificationsServices {
         AndroidNotificationDetails('channelId', 'channelName',
             importance: Importance.max, priority: Priority.high);
 
-    IOSNotificationDetails iosNotificationDetails = IOSNotificationDetails();
+    DarwinNotificationDetails iosNotificationDetails =
+        DarwinNotificationDetails();
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: iosNotificationDetails);
 
@@ -195,7 +204,7 @@ class NotificationsServices {
   //               importance: Importance.max,
   //               priority: Priority.high,
   //               channelDescription: 'channel description')),
-  //       androidAllowWhileIdle: true,
+  //       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
   //       uiLocalNotificationDateInterpretation:
   //           UILocalNotificationDateInterpretation.absoluteTime);
   // }

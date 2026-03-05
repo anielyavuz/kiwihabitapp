@@ -1,229 +1,202 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: prefer_const_constructors
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:intl/intl.dart';
-import 'package:the_apple_sign_in/the_apple_sign_in.dart';
+import 'package:kiwihabitapp/services/firestoreClass.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final googleSignIn = GoogleSignIn();
-  GoogleSignInAccount? _user;
-  GoogleSignInAccount get user => _user!;
 
-  Future appleLoginFromMainPage(var anonymData) async {
-    // 1. perform the sign-in request
-    final result = await TheAppleSignIn.performRequests([
-      AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-    ]);
-    // 2. check the result
-    switch (result.status) {
-      case AuthorizationStatus.authorized:
-        final appleIdCredential = result.credential!;
-        final oAuthProvider = OAuthProvider('apple.com');
-        final credential = oAuthProvider.credential(
-          idToken: String.fromCharCodes(appleIdCredential.identityToken!),
-          accessToken:
-              String.fromCharCodes(appleIdCredential.authorizationCode!),
-        );
-
-        final newUser = await _auth.signInWithCredential(credential);
-        final firebaseUser = newUser.user!;
-        print("AAAAAAAAAAAAA11");
-        // print(newUser.user!.uid);
-        print(newUser.user);
-
-        await _firestore.collection("Users").doc(newUser.user!.uid).set({
-          "userName": newUser.user!.displayName != null
-              ? newUser.user!.displayName
-              : "KiWi User",
-          "email": newUser.user!.email != null ? newUser.user!.email : "",
-          "photoUrl": newUser.user!.photoURL != null
-              ? newUser.user!.photoURL
-              : "https://firebasestorage.googleapis.com/v0/b/kiwihabitapp-5f514.appspot.com/o/kiwiLogo.png?alt=media&token=90320926-0ff1-4fc8-a3eb-62c9d85e0ef0",
-          "registerType": "Apple",
-          "id": newUser.user!.uid,
-          "userAuth": anonymData['userAuth'],
-          "userSubscription": "Free",
-          "createTime": anonymData['createTime'],
-          "yourHabits": anonymData['yourHabits'],
-          "habitDetails": anonymData['habitDetails'],
-          "habitDays": anonymData['habitDays'],
-          "completedHabits": anonymData['completedHabits'],
-          "finalCompleted": anonymData['finalCompleted'],
-        }).then((value) async {
-          //silemedik çünkü user log out oldu ve yetkisi gitti...
-          // var k = await FirebaseFirestore.instance
-          //     .collection("Users")
-          //     .doc(anonymData['id'])
-          //     .delete();
+  // Create or update user document (called after any sign-in method)
+  Future<void> _createOrUpdateUserDoc(
+    User firebaseUser,
+    String registerType, {
+    String? displayName,
+  }) async {
+    try {
+      final docRef = _firestore.collection("Users").doc(firebaseUser.uid);
+      final snap = await docRef.get();
+      if (!snap.exists) {
+        await docRef.set({
+          "userName": displayName ?? firebaseUser.displayName ?? "KiWi User",
+          "email": firebaseUser.email ?? "",
+          "photoUrl": firebaseUser.photoURL ?? "",
+          "registerType": registerType,
+          "id": firebaseUser.uid,
+          "createTime": DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
+          "totalPoints": 0,
+          "completedChallengesCount": 0,
+          "activeChallengeIds": [],
+          "badges": [],
         });
-      // if (!doesGoogleUserExist(newUser.user!.uid)) {
-      //   await _firestore.collection("Users").doc(newUser.user!.uid).set(anonymData);
-      // }
-
+      }
+    } catch (_) {
+      // Firestore write failed — user is still authenticated, doc will be
+      // created on next sign-in. Non-fatal, so we silently continue.
     }
   }
 
-  Future<Map> anonymSignIn() async {
-    Map returnCode = {};
+  // Google Sign In
+  Future<String?> signInWithGoogle() async {
     try {
-      var user = await _auth.signInAnonymously();
-
-      await _firestore.collection("Users").doc(user.user!.uid).set({
-        "userName": "Guest",
-        "email": "",
-        "photoUrl": "",
-        "registerType": "Anonym",
-        "id": user.user!.uid,
-        "userAuth": "Prod",
-        "userSubscription": "Free",
-        "createTime":
-            DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()).toString(),
-        "yourHabits": [],
-        "habitDetails": [],
-        "habitDays": [],
-        "completedHabits": {},
-        "finalCompleted": {},
-      });
-    } on FirebaseAuthException catch (e) {
-      returnCode['status'] = false;
-      returnCode['value'] = e.code;
-      print('Failed with error code: ${e.code}');
-      print(e.message);
-    }
-    return returnCode;
-  }
-
-  googleLoginFromMainPage(var anonymData) async {
-    await _auth.signOut();
-    final googleUser = await _googleSignIn.signIn();
-
-    if (googleUser == null) return;
-    _user = googleUser;
-    final googleAuth = await googleUser.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    var newUser = await FirebaseAuth.instance.signInWithCredential(credential);
-
-    await _firestore.collection("Users").doc(newUser.user!.uid).set({
-      "userName": googleUser.displayName,
-      "email": googleUser.email,
-      "photoUrl": googleUser.photoUrl,
-      "registerType": "Google",
-      "id": newUser.user!.uid,
-      "userAuth": anonymData['userAuth'],
-      "userSubscription": "Free",
-      "createTime": anonymData['createTime'],
-      "yourHabits": anonymData['yourHabits'],
-      "habitDetails": anonymData['habitDetails'],
-      "habitDays": anonymData['habitDays'],
-      "completedHabits": anonymData['completedHabits'],
-      "finalCompleted": anonymData['finalCompleted'],
-    }).then((value) async {
-      //silemedik çünkü user log out oldu ve yetkisi gitti...
-      // var k = await FirebaseFirestore.instance
-      //     .collection("Users")
-      //     .doc(anonymData['id'])
-      //     .delete();
-    });
-    // if (!doesGoogleUserExist(newUser.user!.uid)) {
-    //   await _firestore.collection("Users").doc(newUser.user!.uid).set(anonymData);
-    // }
-  }
-
-  Future<bool> doesGoogleUserExist(String uid) async {
-// if the size of value is greater then 0 then that doc exist.
-
-    print("PPPPPPPPPP  ");
-    try {
-      // Get reference to Firestore collection
-      var collectionRef = FirebaseFirestore.instance.collection('Users');
-
-      var doc = await collectionRef.doc(uid).get();
-
-      print("_accountAlreadyExistttttttt = " + doc.exists.toString());
-      return doc.exists;
+      final googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) return "cancelled";
+      final googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      final result = await _auth.signInWithCredential(credential);
+      await _createOrUpdateUserDoc(result.user!, "Google");
+      return null; // null = success
     } catch (e) {
-      throw e;
+      return e.toString();
     }
   }
 
-  appleLoginFromIntroPage() async {
-    bool _userVarMi = true;
-    // 1. perform the sign-in request
-    final result = await TheAppleSignIn.performRequests([
-      AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-    ]);
-    // 2. check the result
-    switch (result.status) {
-      case AuthorizationStatus.authorized:
-        final appleIdCredential = result.credential!;
-        final oAuthProvider = OAuthProvider('apple.com');
-        final credential = oAuthProvider.credential(
-          idToken: String.fromCharCodes(appleIdCredential.identityToken!),
-          accessToken:
-              String.fromCharCodes(appleIdCredential.authorizationCode!),
+  // Apple Sign In (iOS only)
+  Future<String?> signInWithApple() async {
+    try {
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+      final oauthCredential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.identityToken,
+        accessToken: appleCredential.authorizationCode,
+      );
+      final result = await _auth.signInWithCredential(oauthCredential);
+      final displayName = [
+        appleCredential.givenName,
+        appleCredential.familyName,
+      ].where((s) => s != null && s.isNotEmpty).join(' ');
+      await _createOrUpdateUserDoc(
+        result.user!,
+        "Apple",
+        displayName: displayName.isNotEmpty ? displayName : null,
+      );
+      return null;
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
+  // Email Sign In
+  Future<String?> signInWithEmail(String email, String password) async {
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      return null;
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'user-not-found':
+          return 'No account found for this email.';
+        case 'wrong-password':
+          return 'Incorrect password.';
+        case 'invalid-email':
+          return 'Invalid email address.';
+        case 'user-disabled':
+          return 'This account has been disabled.';
+        default:
+          return 'Login failed. Please try again.';
+      }
+    }
+  }
+
+  // Email Sign Up
+  Future<String?> createUserWithEmail(
+    String email,
+    String password,
+    String userName,
+  ) async {
+    try {
+      final result = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      await _createOrUpdateUserDoc(result.user!, "Email", displayName: userName);
+      return null;
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'email-already-in-use':
+          return 'An account already exists for this email.';
+        case 'invalid-email':
+          return 'Invalid email address.';
+        case 'weak-password':
+          return 'Password is too weak. Use at least 6 characters.';
+        default:
+          return 'Sign up failed. Please try again.';
+      }
+    }
+  }
+
+  // Sign Out
+  Future<void> signOut() async {
+    await _googleSignIn.signOut().catchError((_) => null);
+    await _auth.signOut();
+  }
+
+  // Delete Account
+  // Returns null on success, error string on failure.
+  // For Email users, pass the current password; for Google/Apple, pass null.
+  Future<String?> deleteAccount({String? password}) async {
+    try {
+      final user = _auth.currentUser;
+      if (user == null) return 'Not authenticated';
+
+      final providerId = user.providerData.isNotEmpty
+          ? user.providerData.first.providerId
+          : 'password';
+
+      if (providerId == 'password') {
+        if (password == null || password.isEmpty) return 'requires-password';
+        final cred = EmailAuthProvider.credential(email: user.email!, password: password);
+        await user.reauthenticateWithCredential(cred);
+      } else if (providerId == 'google.com') {
+        final googleUser = await _googleSignIn.signIn();
+        if (googleUser == null) return 'cancelled';
+        final googleAuth = await googleUser.authentication;
+        final cred = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
         );
+        await user.reauthenticateWithCredential(cred);
+      } else if (providerId == 'apple.com') {
+        final appleCredential = await SignInWithApple.getAppleIDCredential(
+          scopes: [
+            AppleIDAuthorizationScopes.email,
+            AppleIDAuthorizationScopes.fullName,
+          ],
+        );
+        final oauthCred = OAuthProvider("apple.com").credential(
+          idToken: appleCredential.identityToken,
+          accessToken: appleCredential.authorizationCode,
+        );
+        await user.reauthenticateWithCredential(oauthCred);
+      }
 
-        final newUser = await _auth.signInWithCredential(credential);
-        final firebaseUser = newUser.user!;
-        print("AAAAAAAAAAAAA11");
-        print(newUser.user!.uid);
+      // Delete all Firestore data before deleting the Auth user
+      await ChallengeService().deleteUserAllData(user.uid);
 
-        var _userVarYok = await doesGoogleUserExist(newUser.user!.uid);
-        _userVarMi = _userVarYok;
+      // Delete Firebase Auth user — authStateChanges() will navigate to LoginPage
+      await user.delete();
 
-        print(_userVarYok);
-      // print(newUser.user);
-
-    }
-    print("BBBBBBBB");
-    print(_userVarMi);
-    return _userVarMi;
-
-    //
-  }
-
-  googleLoginFromIntroPage() async {
-    final googleUser = await _googleSignIn.signIn();
-    if (googleUser == null) return;
-    _user = googleUser;
-    final googleAuth = await googleUser.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    var newUser = await FirebaseAuth.instance.signInWithCredential(credential);
-    print("OOOOOOOOOOO  ");
-    print(newUser.user!.uid);
-
-    //
-  }
-
-  signOut() async {
-    return await _auth.signOut();
-  }
-
-  signOutAndDeleteUser(String uid, String registerType) async {
-    if (registerType == "Anonym") {
-      print("AAAAAAAAAAA $uid");
-
-      await _auth.signOut();
-      var k = await FirebaseFirestore.instance
-          .collection("Users")
-          .doc(uid)
-          .delete()
-          .then((value) async {})
-          .onError((error, stackTrace) async {});
-    } else {
-      return await _auth.signOut();
+      return null;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-password' || e.code == 'invalid-credential') {
+        return 'Incorrect password.';
+      }
+      if (e.code == 'requires-recent-login') {
+        return 'Please sign in again and retry.';
+      }
+      return 'Delete failed: ${e.message}';
+    } catch (e) {
+      return e.toString();
     }
   }
 }

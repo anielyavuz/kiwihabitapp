@@ -44,3 +44,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase service account and sensitive docs
+docs/
+
+# Android signing — never commit these
+android/key.properties
+android/*.keystore
+android/*.jks
